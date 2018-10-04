@@ -1,4 +1,4 @@
 website([
-  website: 'docs.ipfs.io',
+  website: 'docs.libp2p.io',
   record: '_dnslink'
 ])
