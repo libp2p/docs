@@ -1,0 +1,12 @@
+.vscode
+
+bin/*
+!bin/.gitkeep
+node_modules/
+public/
+tmp/
+
+# Generated source files
+content/reference/pkg/*/
+src/styles/constants.less
+build
