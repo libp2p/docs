@@ -2,6 +2,7 @@ baseURL = "https://docs.ipfs.io"
 relativeURLs = true
 languageCode = "en"
 DefaultContentLanguage = "en"
+enableRobotsTXT=true
 
 title = "IPFS Documentation"
 
