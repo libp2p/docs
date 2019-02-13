@@ -6,6 +6,8 @@ menu:
         weight: 1
 ---
 
+<!-- TODO: refactor this page to be about libp2p -->
+
 So you want to contribute to IPFS and the ecosystem? Here is a quick listing
 of things we need help with and how you can get started. Even if what you want
 to do is not listed here, we probably accept contributions for it! If you're
@@ -148,4 +150,3 @@ technologies that have a real impact on the world. If you're interested in
 contributing to our research, please reach out to research@ipfs.io or
 research@protocol.ai for more information. Include what your interests are so
 we can make sure you get to work on something fun and valuable.
-

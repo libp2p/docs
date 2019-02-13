@@ -7,4 +7,4 @@ menu:
         weight: 2
 ---
 
-These are a few examples that cover various ways to use IPFS.
+These are a few examples that cover various ways to use libp2p.
