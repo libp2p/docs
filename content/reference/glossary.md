@@ -12,7 +12,13 @@ libp2p uses the DHT as the foundation for one of its [peer routing](#peer-routin
 
 ### NAT
 
-TODO: Network address translation - describe, link to NAT traversal
+[Network address translation](https://en.wikipedia.org/wiki/Network_address_translation) in general is the mapping of addresses from one address space to another, as often happens at the boundary of private networks with the global internet. It is especially essential in IPv4 networks (which are still the majority), as the address space of IPv4 is quite limited. Using NAT, a local, private network can have a vast range of addresses within the internal network, while only consuming one public IP address from the global pool.
+
+An unfortunate effect of NAT in practice is that it's much easier to make outgoing connections from the private network to the public one than it is to call from outside in.  This is because machines listening for connections on the internal network need to explicitly tell the router in charge of NAT that it should forward traffic for a given port (the [multiplexing](#multiplexing) abstraction for the OS networking layer) to the listening machine.
+
+This is less of an issue in a client / server model, because outgoing connections to the server give the router enough information to route the response back to the client where it needs to go.
+
+In the peer-to-peer model, accepting connections from other peers is often just as important as initiating them, which means that we often need our peers to be publicly reachable from the global internet. There are
 
 ### NAT Traversal
 
@@ -32,7 +38,7 @@ Multiplexing (or "muxing"), refers to the process of combining multiple streams 
 
 Multiplexing allows peers to offer many [protocols](#protocol) over a single connection, which reduces network overhead and makes [NAT traversal](#nat-traversal) more efficient and effective.
 
-Applications built with libp2p get multiplexing "for free" via the [mplex]( )
+Applications built with libp2p get multiplexing "for free" via the [mplex specification](https://github.com/libp2p/specs/tree/master/mplex).
 
 ### Peer
 
@@ -69,3 +75,7 @@ TODO: Distinguish between the various types of "stream".  Could refer to
 ### Swarm
 
 TODO: define swarm in libp2p context
+
+### Transport
+
+In libp2p, `transport` refers to the technology that lets us move bits from one machine to another. This may be a TCP network provided by the operating system, a websocket connection in a browser, or anything else capable of implementing the [transport interface](https://github.com/libp2p/interface-transport).  A given peer can use several transports simultaneously to allow them to communicate with a wide variety of other peers.  Note that in some environments such as javascript running in the browser, not all transports will be available.
