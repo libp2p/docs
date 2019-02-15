@@ -42,19 +42,15 @@ weight = 4
 
 
 [[menu.reference]]
-identifier = "implementations"
-name = "Implementations"
+identifier = "go_implementation"
+name = "Go Implementation"
 weight = 5
+
+
 [[menu.reference]]
-parent = "implementations"
-name = "go-libp2p"
-url = "https://github.com/libp2p/go-libp2p"
-weight = 10
-[[menu.reference]]
-parent = "implementations"
-name = "js-libp2p"
-url = "https://github.com/libp2p/js-libp2p"
-weight = 10
+identifier = "js_implementation"
+name = "JS Implementation"
+weight = 5
 
 [[menu.reference]]
 identifier = "specs"
@@ -138,6 +134,12 @@ weight = 20
 # parent="community"
 # name = "FAQ"
 # url = "https://discuss.ipfs.io/c/help/Old-FAQ"
+
+[[menu.community]]
+identifier = "applications"
+name = "Applications"
+weight = 8
+
 
 [[menu.community]]
 identifier = "contribute"

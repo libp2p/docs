@@ -61,8 +61,5 @@ Here I'll try to briefly outline the main problem areas that are addressed by li
 [definition_peer]: {{< ref "/reference/glossary.md#peer" >}}
 [definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
 
-<!-- FIXME: stub out /applications to fix dead link -->
-
-[built_with_libp2p]: {{< ref "/applications" >}}
-
+[built_with_libp2p]: {{< ref "/community/applications/built_with_libp2p.md" >}}
 [help_improve_docs]: {{< ref "/community/contribute/how_to_help.md" >}}
