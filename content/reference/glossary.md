@@ -1,3 +1,10 @@
+---
+title: "Glossary"
+menu:
+    reference:
+        weight: 1
+---
+
 ### Client / Server
 
 A network architecture defined by the presence of central "server" programs which provide services and resources to a (usually much larger) set of "client" programs.  Typically clients do not communicate directly with one another, instead routing all communications through the server, which is inherently the most privileged member of the network.
