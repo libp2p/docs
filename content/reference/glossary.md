@@ -5,6 +5,16 @@ menu:
         weight: 1
 ---
 
+### Circuit Relay
+
+A means of establishing communication between peers who are unable to communicate directly, with the assistance of a third peer willing and able to act as an intermediary.
+
+In many real-world peer-to-peer networks, direct communication between all peers may be impossible for a variety of reasons. For example, one or more peers may be behind a firewall or have [NAT traversal](#nat-traversal) issues. Or maybe the peers don't share any common [transports](#transport).
+
+In such cases, it's possible to "bridge the gap" between peers, so long as each of them are capable of establishing a connection to a willing relay peer. If I only speak TCP and you only speak websockets, we can still hang out with the help of a bilingual pal.
+
+Circuit relay is implemented in libp2p according to the [relay spec](https://github.com/libp2p/specs/tree/master/relay), which defines a wire protocol and addressing scheme for relayed connections.
+
 ### Client / Server
 
 A network architecture defined by the presence of central "server" programs which provide services and resources to a (usually much larger) set of "client" programs.  Typically clients do not communicate directly with one another, instead routing all communications through the server, which is inherently the most privileged member of the network.
@@ -17,15 +27,31 @@ Since DHTs are a foundational primitive of many peer-to-peer systems, libp2p pro
 
 libp2p uses the DHT as the foundation for one of its [peer routing](#peer-routing) implementations, and systems built with libp2p often use the DHT to provide metadata about content, advertise service availability, and more.
 
+### Connection
+
+TODO: define libp2p connection & link to interface-connection. Link to multiplexing.
+
+### Dial
+
+The process of opening a libp2p connection to another peer is known as "dialing", and accepting connections is known as ["listening"](#listen). Together, an implementation of dialing and listening forms a [transport](#transport).
+
+### Listen
+
+The process of accepting incoming libp2p connections is known as "listening", and it allows other peers to ["dial"](#dial) up and open network connections to your peer.  
+
 ### Multiaddress
 
-A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single path structure.
+A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure.
 
 For example: `/ip4/127.0.0.1/udp/1234` encodes two protocols along with their essential addressing information. The `/ip4/127.0.0.1` informs us that we want the `127.0.0.1` loopback address of the IPv4 protocol, and `/udp/1234` tells us we want to send UDP packets to port `1234`.
 
 Things get more interesting as we compose further. For example, the multiaddr `/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` uniquely identifies my local IPFS node, using libp2p's [registered protocol id](https://github.com/multiformats/multiaddr/blob/master/protocols.csv) `/p2p/` and the [multihash](#multihash) of my IPFS node's public key. For more on peer identity and its relation to public key cryptography, see [PeerId](#peerid).
 
-Let's say that I have the peer id `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` as above, and my public ip is `7.7.7.7` (not my real IP, sadly). I start my libp2p application and listen for connections on port `4242`. Now I can start handing out multiaddrs to all my friends, of the form `/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N`. Now not only do they know where to find me, anyone they give that address to can verify that the machine on the other side is really me, or at least, that they control the private key for the peer id `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N`.  They also know (by virtue of the `/p2p/` protocol id) that I'm likely to support common libp2p interactions like opening connections and negotiating what application protocols we can use to communicate. That's not bad!
+Let's say that I have the peer id `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` as above, and my public ip is `7.7.7.7` (not my real IP, sadly). I start my libp2p application and listen for connections on TCP port `4242`.
+
+Now I can start handing out multiaddrs to all my friends, of the form `/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N`. Combining my "location multiaddr" (my IP and port) with my "identity multiaddr" (my libp2p `PeerId`), produces a new multiaddr containing both key pieces of information.
+
+Now not only do my friends know where to find me, anyone they give that address to can verify that the machine on the other side is really me, or at least, that they control the private key for my `PeerId`.  They also know (by virtue of the `/p2p/` protocol id) that I'm likely to support common libp2p interactions like opening connections and negotiating what application protocols we can use to communicate. That's not bad!
 
 This can be extended to account for multiple layers of addressing and abstraction. For example, the [Circuit Relay](#circuit-relay) implementation encapsulates the path of the relay into a new multiaddr that combines the public location of the relay with the [PeerId](#peer-id) of the peer on the other end of the circuit.
 
@@ -35,7 +61,7 @@ For more detail, see the [multiaddr spec](https://github.com/multiformats/multia
 
 [Multihash](https://github.com/multiformats/multihash) is a convention for representing the output of many different [cryptographic hash functions](https://en.wikipedia.org/wiki/Cryptographic_hash_function) in a compact, deterministic encoding that is accommodating of future changes.
 
-Hashes are central to many systems (git, for example), yet many systems store only the hash output itself, since the choice of hash function is an implicit design parameter of the system. This has the unfortunate effect of making it much more difficult to ever change your mind about what kind of hash function your system uses!
+Hashes are central to many systems (git, for example), yet many systems store only the hash output itself, since the choice of hash function is an implicit design parameter of the system. This has the unfortunate effect of making it quite difficult to ever change your mind about what kind of hash function your system uses!
 
 A multihash encodes the type of hash function used to produce the output, as well as the length of the output in bytes. This is added as a two-byte header to the original hash output, and in return for those two bytes, the header allows current and future systems to easily identify and validate many hash functions by leveraging common libraries. As new functions are added, you can much more easily extend your application or protocol to support them, since the old and new hash outputs will be easily distinguishable from one another.
 
@@ -60,9 +86,9 @@ NAT traversal refers to the process of establishing connections with other machi
 
 For example, my home network has an internal range of IP addresses (10.0.1.x), which is part of a range of addresses that are reserved for private networks. If I start a program on my computer that listens for connections on its internal address, a user from the public internet has no way of reaching me, even if they know my public IP address. This is because I haven't made my router aware of my program yet. When a connection comes in from the internet to my public IP address, the router needs to figure out which internal IP to route the request to, and to which port.
 
-There are many ways to inform one's router about services you want to expose. For consumer routers, there's likely an admin interface that can setup mappings for any range of TCP or UDP ports. In many cases, routers will allow automatic registration of ports using a protocol called [upnp][external_upnp], which libp2p supports. If enabled, libp2p will try to register your service with the router for automatic NAT traversal. <!-- TODO: link to libp2p upnp repos. "if enabled" - how? link to config example -->
+There are many ways to inform one's router about services you want to expose. For consumer routers, there's likely an admin interface that can setup mappings for any range of TCP or UDP ports. In many cases, routers will allow automatic registration of ports using a protocol called [upnp](https://en.wikipedia.org/wiki/Universal_Plug_and_Play), which libp2p supports. If enabled, libp2p will try to register your service with the router for automatic NAT traversal. <!-- TODO: link to libp2p upnp repos. "if enabled" - how? link to config example -->
 
-In some cases, automatic NAT traversal is impossible, often because multiple layers of NAT are involved. In such cases, we still want to be able to communicate, and we especially want to be reachable and allow other peers to [dial in](#dial) and use our services. This is the motivation for [Circuit Relay](#circuit-relay), which is a protocol involving a "relay" peer that is publicly reachable and can route traffic on behalf of others. Once a relay circuit is established, a peer behind an especially intractable NAT can advertise the relay circuit's [multiaddress](#multiaddress), and the relay will accept incoming connections on our behalf and send us traffic via the relay.
+In some cases, automatic NAT traversal is impossible, often because multiple layers of NAT are involved. In such cases, we still want to be able to communicate, and we especially want to be reachable and allow other peers to [dial in](#dial) and use our services. This is the one of the motivations for [Circuit Relay](#circuit-relay), which is a protocol involving a "relay" peer that is publicly reachable and can route traffic on behalf of others. Once a relay circuit is established, a peer behind an especially intractable NAT can advertise the relay circuit's [multiaddress](#multiaddress), and the relay will accept incoming connections on our behalf and send us traffic via the relay.
 
 <!-- TODO: link to AutoRelay once it's defined -->
 
@@ -78,9 +104,9 @@ Many members of our community are excited about graphs in many contexts, so the 
 
 - When discussing the [topology](#topology) or structure of a peer-to-peer network, "node" is often used in the context of a graph of connected peers. Efficient construction and traversal of this graph is key to effective [peer routing](#peer-routing).
 
-- When discussing data structures, "node" is often useful for referring to key elements of the structure.  For example, a linked list consists of many "nodes" containing both a value and a link (or, in graph terms, an "edge") connecting it to the next node. Since many useful and interesting data structures can be described as graphs, much of the terminology of graph theory applies when discussing their properties. In particular, IPFS is naturally well-suited to storing and manipulating data structures which form a [Directed Acyclic Graph, or DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph). As there is a lot of overlap in interests between libp2p and IPFS developers, you're likely to encounter discussions of various graph data structures from time to time.
+- When discussing data structures, "node" is often useful for referring to key elements of the structure.  For example, a linked list consists of many "nodes" containing both a value and a link (or, in graph terms, an "edge") connecting it to the next node. Since many useful and interesting data structures can be described as graphs, much of the terminology of graph theory applies when discussing their properties. In particular, IPFS is naturally well-suited to storing and manipulating data structures which form a [Directed Acyclic Graph, or DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph).
 
-- An especially interesting data structure for many in our community is [IPLD](#ipld), or Interplanetary Linked Data.  Similar to libp2p, IPLD grew out of the real-world needs of IPFS, but is broadly useful and interesting in many contexts outside of IPFS. IPLD discussions often involve "nodes" of all the types discussed here.
+- An especially interesting data structure for many in our community is [IPLD](https://ipld.io), or Interplanetary Linked Data.  Similar to libp2p, IPLD grew out of the real-world needs of IPFS, but is broadly useful and interesting in many contexts outside of IPFS. IPLD discussions often involve "nodes" of all the types discussed here.
 
 
 ### mDNS
@@ -94,6 +120,14 @@ Multiplexing (or "muxing"), refers to the process of combining multiple streams 
 Multiplexing allows peers to offer many [protocols](#protocol) over a single connection, which reduces network overhead and makes [NAT traversal](#nat-traversal) more efficient and effective.
 
 Applications built with libp2p get multiplexing "for free" via the [mplex specification](https://github.com/libp2p/specs/tree/master/mplex).
+
+### Overlay
+
+An "overlay network" or just "overlay" refers to the logical structure of a peer-to-peer network, which is "overlaid" on top of the underlying [transport mechanisms](#transport) used for lower-level network communication.
+
+Peer-to-peer systems are generally composed of one or more overlay networks, which determine how peers are identified and located, how messages are propagated throughout the system, and other key properties.
+
+Examples of overlay networks used in libp2p are the [DHT](#dht) implementation, which is based on [Kademlia](https://en.wikipedia.org/wiki/Kademlia), and the networks formed by participants in the various [pubsub](#pubsub) implementations.
 
 ### Peer
 
@@ -115,6 +149,12 @@ TODO: Describe general concept, link to mDNS and kad routing implementations
 
 TODO: define p2p network
 
+### Pubsub
+
+In general, refers to "publish / subscribe", a communication pattern in which participants "subscribe" for updates "published" by other participants, often on a named "topic".
+
+libp2p defines a [pubsub spec](https://github.com/libp2p/specs/blob/master/pubsub/README.md), with links to several implementations in supported languages. Pubsub is an area of ongoing research and development, with multiple implementations optimized for different use cases and environments.
+
 ### Protocol
 
 TODO: define what we mean by "libp2p protocol", protocol handlers, etc. link to [multiplexing](#multiplexing).
@@ -131,6 +171,10 @@ TODO: Distinguish between the various types of "stream".  Could refer to
 
 TODO: define swarm in libp2p context
 
+### Topology
+
+In a peer-to-peer context, usually refers to the shape or structure of the [overlay network](#overlay) formed by peers as they communicate with each other.
+
 ### Transport
 
 In libp2p, `transport` refers to the technology that lets us move bits from one machine to another. This may be a TCP network provided by the operating system, a websocket connection in a browser, or anything else capable of implementing the [transport interface](https://github.com/libp2p/interface-transport).  
@@ -138,4 +182,4 @@ In libp2p, `transport` refers to the technology that lets us move bits from one 
 Note that in some environments such as javascript running in the browser, not all transports will be available. In such cases, it may be possible to establish a [Circuit Relay](#circuit-relay) with the help of a peer that can support many common transports.  Such a relay can act as a "transport adapter" of sorts, allowing peers that can't communicate with each other directly to interact.  For example, a peer in the browser that can only make websocket connections could relay through a peer able to make TCP connections, which would enable communication with a wider variety of peers.
 
 
-[js-docs-home]: {{< ref "FIXME: link to js implementation doc entry point" >}}
+[js-docs-home]: {{< ref "/reference/js" >}}
