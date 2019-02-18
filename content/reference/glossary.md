@@ -17,7 +17,7 @@ Circuit relay is implemented in libp2p according to the [relay spec](https://git
 
 ### Client / Server
 
-A network architecture defined by the presence of central "server" programs which provide services and resources to a (usually much larger) set of "client" programs.  Typically clients do not communicate directly with one another, instead routing all communications through the server, which is inherently the most privileged member of the network.
+A network architecture defined by the presence of central "server" programs which provide services and resources to a (usually much larger) set of "client" programs. Typically clients do not communicate directly with one another, instead routing all communications through the server, which is inherently the most privileged member of the network.
 
 ### DHT
 
@@ -37,7 +37,7 @@ The process of opening a libp2p connection to another peer is known as "dialing"
 
 ### Listen
 
-The process of accepting incoming libp2p connections is known as "listening", and it allows other peers to ["dial"](#dial) up and open network connections to your peer.  
+The process of accepting incoming libp2p connections is known as "listening", and it allows other peers to ["dial"](#dial) up and open network connections to your peer.
 
 ### Multiaddress
 
@@ -51,7 +51,7 @@ Let's say that I have the peer id `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5
 
 Now I can start handing out multiaddrs to all my friends, of the form `/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N`. Combining my "location multiaddr" (my IP and port) with my "identity multiaddr" (my libp2p `PeerId`), produces a new multiaddr containing both key pieces of information.
 
-Now not only do my friends know where to find me, anyone they give that address to can verify that the machine on the other side is really me, or at least, that they control the private key for my `PeerId`.  They also know (by virtue of the `/p2p/` protocol id) that I'm likely to support common libp2p interactions like opening connections and negotiating what application protocols we can use to communicate. That's not bad!
+Now not only do my friends know where to find me, anyone they give that address to can verify that the machine on the other side is really me, or at least, that they control the private key for my `PeerId`. They also know (by virtue of the `/p2p/` protocol id) that I'm likely to support common libp2p interactions like opening connections and negotiating what application protocols we can use to communicate. That's not bad!
 
 This can be extended to account for multiple layers of addressing and abstraction. For example, the [Circuit Relay](#circuit-relay) implementation encapsulates the path of the relay into a new multiaddr that combines the public location of the relay with the [PeerId](#peer-id) of the peer on the other end of the circuit.
 
@@ -67,14 +67,14 @@ A multihash encodes the type of hash function used to produce the output, as wel
 
 The most prominent use of multihashes in libp2p is in the [PeerId](#peerid), which contains a hash of a peer's public key. However, systems built with libp2p, most notably [IPFS](https://ipfs.io), use multihashes for other purposes. In the IPFS case, multihashes are used both to identify content and other peers, since IPFS uses libp2p and shares the same `PeerId` conventions.
 
-In IPFS, multihashes are a key component of the [CID, or content identifier](#cid), and the "v0" version of CID is a "raw" multihash of a piece of content. A "modern" CID combines a multihash of some content with some compact contextualizing metadata, allowing for content-addressed systems like IPFS create intricate links between hash-addressed data. For more on the subject of hash-linked data structure in p2p systems, see [IPLD](#ipld).
+In IPFS, multihashes are a key component of the [CID, or content identifier](https://docs.ipfs.io/guides/concepts/cid/), and the "v0" version of CID is a "raw" multihash of a piece of content. A "modern" CID combines a multihash of some content with some compact contextualizing metadata, allowing content-addressed systems like IPFS to create more meaningful links between hash-addressed data. For more on the subject of hash-linked data structures in p2p systems, see [IPLD](https://ipld.io).
 
 
 ### NAT
 
 [Network address translation](https://en.wikipedia.org/wiki/Network_address_translation) in general is the mapping of addresses from one address space to another, as often happens at the boundary of private networks with the global internet. It is especially essential in IPv4 networks (which are still the vast majority), as the address space of IPv4 is quite limited. Using NAT, a local, private network can have a vast range of addresses within the internal network, while only consuming one public IP address from the global pool.
 
-An unfortunate effect of NAT in practice is that it's much easier to make outgoing connections from the private network to the public one than it is to call from outside in.  This is because machines listening for connections on the internal network need to explicitly tell the router in charge of NAT that it should forward traffic for a given port (the [multiplexing](#multiplexing) abstraction for the OS networking layer) to the listening machine.
+An unfortunate effect of NAT in practice is that it's much easier to make outgoing connections from the private network to the public one than it is to call from outside in. This is because machines listening for connections on the internal network need to explicitly tell the router in charge of NAT that it should forward traffic for a given port (the [multiplexing](#multiplexing) abstraction for the OS networking layer) to the listening machine.
 
 This is less of an issue in a client / server model, because outgoing connections to the server give the router enough information to route the response back to the client where it needs to go.
 
@@ -94,28 +94,28 @@ In some cases, automatic NAT traversal is impossible, often because multiple lay
 
 ### Node
 
-The word "node" is quite overloaded in general programming contexts, and this is especially the case in peer-to-peer networking circles.  
+The word "node" is quite overloaded in general programming contexts, and this is especially the case in peer-to-peer networking circles.
 
-One common usage is when "node" refers to a single instance of a peer-to-peer software system, running at some time and place in the universe.  For example, `I'm running an orbit-db node in AWS. I think it's on version 3.2.0`. In this usage, "node" refers to the whole software program (the `daemon` in unix-speak) which participates in the network. In this documentation, we'll often use ["peer"](#peer) for this purpose instead, and the two terms are often used interchangeably in various p2p software discussions.
+One common usage is when "node" refers to a single instance of a peer-to-peer software system, running at some time and place in the universe. For example, `I'm running an orbit-db node in AWS. I think it's on version 3.2.0`. In this usage, "node" refers to the whole software program (the `daemon` in unix-speak) which participates in the network. In this documentation, we'll often use ["peer"](#peer) for this purpose instead, and the two terms are often used interchangeably in various p2p software discussions.
 
 Another quite different meaning is the [node.js](https://nodejs.org) javascript runtime environment, which is one of the supported runtimes for the [javscript libp2p implementation][js-docs-home]. In general it should be pretty clear from context when "node" is referring to node.js.
 
-Many members of our community are excited about graphs in many contexts, so the graph terminology of "nodes and edges" is often used when discussing various subjects.  Some common contexts for graph-related discussions:
+Many members of our community are excited about graphs in many contexts, so the graph terminology of "nodes and edges" is often used when discussing various subjects. Some common contexts for graph-related discussions:
 
 - When discussing the [topology](#topology) or structure of a peer-to-peer network, "node" is often used in the context of a graph of connected peers. Efficient construction and traversal of this graph is key to effective [peer routing](#peer-routing).
 
-- When discussing data structures, "node" is often useful for referring to key elements of the structure.  For example, a linked list consists of many "nodes" containing both a value and a link (or, in graph terms, an "edge") connecting it to the next node. Since many useful and interesting data structures can be described as graphs, much of the terminology of graph theory applies when discussing their properties. In particular, IPFS is naturally well-suited to storing and manipulating data structures which form a [Directed Acyclic Graph, or DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph).
+- When discussing data structures, "node" is often useful for referring to key elements of the structure. For example, a linked list consists of many "nodes" containing both a value and a link (or, in graph terms, an "edge") connecting it to the next node. Since many useful and interesting data structures can be described as graphs, much of the terminology of graph theory applies when discussing their properties. In particular, IPFS is naturally well-suited to storing and manipulating data structures which form a [Directed Acyclic Graph, or DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph).
 
-- An especially interesting data structure for many in our community is [IPLD](https://ipld.io), or Interplanetary Linked Data.  Similar to libp2p, IPLD grew out of the real-world needs of IPFS, but is broadly useful and interesting in many contexts outside of IPFS. IPLD discussions often involve "nodes" of all the types discussed here.
+- An especially interesting data structure for many in our community is [IPLD](https://ipld.io), or Interplanetary Linked Data. Similar to libp2p, IPLD grew out of the real-world needs of IPFS, but is broadly useful and interesting in many contexts outside of IPFS. IPLD discussions often involve "nodes" of all the types discussed here.
 
 
 ### mDNS
 
-[Multicast DNS](https://en.wikipedia.org/wiki/Multicast_DNS) is a protocol for service discovery on a local network.  One of libp2p's [peer routing](#peer-routing) implementations leverages mDNS to discover local nodes quickly and efficiently.
+[Multicast DNS](https://en.wikipedia.org/wiki/Multicast_DNS) is a protocol for service discovery on a local network. One of libp2p's [peer routing](#peer-routing) implementations leverages mDNS to discover local peers quickly and efficiently.
 
 ### Multiplexing
 
-Multiplexing (or "muxing"), refers to the process of combining multiple streams of communication over a single logical "medium".  For example, we can maintain multiple independent data streams over a single TCP network connection, which is itself of course being multiplexed over a single physical connection (ethernet, wifi, etc).
+Multiplexing (or "muxing"), refers to the process of combining multiple streams of communication over a single logical "medium". For example, we can maintain multiple independent data streams over a single TCP network connection, which is itself of course being multiplexed over a single physical connection (ethernet, wifi, etc).
 
 Multiplexing allows peers to offer many [protocols](#protocol) over a single connection, which reduces network overhead and makes [NAT traversal](#nat-traversal) more efficient and effective.
 
@@ -135,7 +135,8 @@ A single participant in a peer-to-peer network. While a given peer may support m
 
 ### PeerId
 
-TODO: link to spec, implementations in JS & Go
+A unique,
+
 
 ### Peer store
 
@@ -161,7 +162,7 @@ TODO: define what we mean by "libp2p protocol", protocol handlers, etc. link to 
 
 ### Stream
 
-TODO: Distinguish between the various types of "stream".  Could refer to
+TODO: Distinguish between the various types of "stream". Could refer to
 
 - raw tcp connection
 - one component of a multistream connection
@@ -177,9 +178,9 @@ In a peer-to-peer context, usually refers to the shape or structure of the [over
 
 ### Transport
 
-In libp2p, `transport` refers to the technology that lets us move bits from one machine to another. This may be a TCP network provided by the operating system, a websocket connection in a browser, or anything else capable of implementing the [transport interface](https://github.com/libp2p/interface-transport).  
+In libp2p, `transport` refers to the technology that lets us move bits from one machine to another. This may be a TCP network provided by the operating system, a websocket connection in a browser, or anything else capable of implementing the [transport interface](https://github.com/libp2p/interface-transport).
 
-Note that in some environments such as javascript running in the browser, not all transports will be available. In such cases, it may be possible to establish a [Circuit Relay](#circuit-relay) with the help of a peer that can support many common transports.  Such a relay can act as a "transport adapter" of sorts, allowing peers that can't communicate with each other directly to interact.  For example, a peer in the browser that can only make websocket connections could relay through a peer able to make TCP connections, which would enable communication with a wider variety of peers.
+Note that in some environments such as javascript running in the browser, not all transports will be available. In such cases, it may be possible to establish a [Circuit Relay](#circuit-relay) with the help of a peer that can support many common transports. Such a relay can act as a "transport adapter" of sorts, allowing peers that can't communicate with each other directly to interact. For example, a peer in the browser that can only make websocket connections could relay through a peer able to make TCP connections, which would enable communication with a wider variety of peers.
 
 
 [js-docs-home]: {{< ref "/reference/js" >}}

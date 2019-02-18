@@ -22,7 +22,7 @@ In particular, check the [concepts](/guides/concepts) section to learn more abou
 
 ### Implementations
 
-At the core of libp2p is a set of [specifications](https://github.com/libp2p/specs), which together form the definition for what libp2p is in the abstract and what makes a "correct" libp2p implementation.  Today, implementations of libp2p exist in several languages, with varying degrees of completeness.  The two most complete implementations are in [Go](/reference/go/overview) and [JavaScript](/reference/js/overview).
+At the core of libp2p is a set of [specifications](https://github.com/libp2p/specs), which together form the definition for what libp2p is in the abstract and what makes a "correct" libp2p implementation. Today, implementations of libp2p exist in several languages, with varying degrees of completeness. The two most complete implementations are in [Go](/reference/go/overview) and [JavaScript](/reference/js/overview).
 
 In addition to the Go and JavaScript reference implementations, the libp2p community is actively working on implementations in [rust](https://github.com/libp2p/rust-libp2p), [python](https://github.com/libp2p/py-libp2p) and [the JVM via Kotlin](https://github.com/web3j/libp2p). Please check the project pages for each implementation to see its status and current state of completeness.
 
