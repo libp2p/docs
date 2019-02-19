@@ -2,12 +2,11 @@
 title: "IRC"
 ---
 
-There are several IRC channels on Freenode dedicated to IPFS, and it’s a great place for live chat:
+The [libp2p channel on Freenode](irc://irc.freenode.org/%23libp2p) is a great place for live chat:
 
-- Use [#ipfs on irc.freenode.org](irc://irc.freenode.org/%23ipfs) for general IPFS usage and community chat.
-- Use [#ipfs-dev on irc.freenode.org](irc://irc.freenode.org/%23ipfs-dev) for discussing implementation details, especially if you are contributing code to IPFS.
+- Use [#libp2p on irc.freenode.org](irc://irc.freenode.org/%23libp2p) to chat with the libp2p community.
 
-For longer-lived discussions and for support, please use the discussion forums at https://discuss.ipfs.io instead of IRC! It’s easy for complex discussions to get lost in a sea of new messages on IRC.
+For longer-lived discussions and for support, please use the discussion forums at https://discuss.ipfs.io instead of IRC! It’s easy for complex discussions to get lost in a sea of new messages on IRC. Since the discussion board is shared with IPFS and related projects, be sure to tag your threads with the [libp2p tag](https://discuss.ipfs.io/tags/libp2p) to increase its visibility and help people find it.
 
 ---
 

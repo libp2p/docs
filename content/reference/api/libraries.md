@@ -1,3 +1,0 @@
----
-title: "JS & Go Libraries"
----
