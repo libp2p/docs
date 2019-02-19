@@ -58,7 +58,7 @@ name = "Specifications & Planning"
 weight = 6
 [[menu.reference]]
 parent = "specs"
-name = "Libp2p Specifications"
+name = "libp2p Specifications"
 url = "https://github.com/libp2p/specs"
 weight = 20
 

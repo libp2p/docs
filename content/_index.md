@@ -51,6 +51,6 @@ If you are diving in to contribute new code, make sure you check both the [contr
 
 libp2p began as part of the [IPFS](https://ipfs.io) project, and is still an essential component of IPFS. As such, libp2p composes well with the abstractions and tools provided by other projects in the IPFS "family". Check their individual sites for specific information and references:
 
-- [IPFS](https://libp2p.io) is the Interplanetary Filesystem, which uses libp2p as its networking layer.
+- [IPFS](https://libp2p.io) is the InterPlanetary File System, which uses libp2p as its networking layer.
 - [Multiformats](https://multiformats.io) is a variety of *self-describing* data formats.
 - [IPLD](https://ipld.io) is a set of tools for describing links between content-addressed data, like IPFS files, Git commits, or Ethereum blocks.
