@@ -69,6 +69,8 @@ The most prominent use of multihashes in libp2p is in the [PeerId](#peerid), whi
 
 In IPFS, multihashes are a key component of the [CID, or content identifier](https://docs.ipfs.io/guides/concepts/cid/), and the "v0" version of CID is a "raw" multihash of a piece of content. A "modern" CID combines a multihash of some content with some compact contextualizing metadata, allowing content-addressed systems like IPFS to create more meaningful links between hash-addressed data. For more on the subject of hash-linked data structures in p2p systems, see [IPLD](https://ipld.io).
 
+Multihashes are often represented as [base58-encoded](https://en.wikipedia.org/wiki/Base58) strings, for example, `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N`. The first two characters `Qm` are the multihash header for the SHA-256 hash algorithm with a length of 256 bits, and are common to all base58-encoded multihashes using SHA-256.
+
 
 ### NAT
 
