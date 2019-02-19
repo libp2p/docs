@@ -54,3 +54,4 @@ libp2p began as part of the [IPFS](https://ipfs.io) project, and is still an ess
 - [IPFS](https://libp2p.io) is the InterPlanetary File System, which uses libp2p as its networking layer.
 - [Multiformats](https://multiformats.io) is a variety of *self-describing* data formats.
 - [IPLD](https://ipld.io) is a set of tools for describing links between content-addressed data, like IPFS files, Git commits, or Ethereum blocks.
+- [The Permissive License Stack](https://protocol.ai/blog/announcing-the-permissive-license-stack) is a licensing strategy for software development that embraces open-source values.
