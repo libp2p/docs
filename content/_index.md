@@ -22,13 +22,13 @@ In particular, check the [concepts](/guides/concepts) section to learn more abou
 
 ### Implementations
 
-At the core of libp2p is a set of [specifications](https://github.com/libp2p/specs), which together form the definition for what libp2p is in the abstract and what makes a "correct" libp2p implementation. Today, implementations of libp2p exist in several languages, with varying degrees of completeness. The two most complete implementations are in [Go](/reference/go/overview) and [JavaScript](/reference/js/overview).
+At the core of libp2p is a set of [specifications](https://github.com/libp2p/specs), which together form the definition for what libp2p is in the abstract and what makes a "correct" libp2p implementation. Today, implementations of libp2p exist in several languages, with varying degrees of completeness. The most complete implementations are in [Go](/reference/go/overview) and [JavaScript](/reference/js/overview), with [rust](https://github.com/libp2p/rust-libp2p) maturing rapidly.
 
-In addition to the Go and JavaScript reference implementations, the libp2p community is actively working on implementations in [rust](https://github.com/libp2p/rust-libp2p), [python](https://github.com/libp2p/py-libp2p) and [the JVM via Kotlin](https://github.com/web3j/libp2p). Please check the project pages for each implementation to see its status and current state of completeness.
+In addition to the implementations above, the libp2p community is actively working on implementations in [python](https://github.com/libp2p/py-libp2p) and [the JVM via Kotlin](https://github.com/web3j/libp2p). Please check the project pages for each implementation to see its status and current state of completeness.
 
 ### Specifications & Planning
 
-While libp2p has two reference implementations (in Go and JavaScript), it is fundamentally a set of protocols for peer identity, discover, routing, transport and more. You can find specifications for those protocols, whitepapers, and information about our RFC (Request for Change) process in the “specifications & planning” section.
+While libp2p has several implementations, it is fundamentally a set of protocols for peer identity, discover, routing, transport and more. You can find specifications for those protocols, whitepapers, and information about our RFC (Request for Change) process in the “specifications & planning” section.
 
 
 ## Community
