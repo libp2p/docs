@@ -137,7 +137,11 @@ A single participant in a peer-to-peer network. While a given peer may support m
 
 ### PeerId
 
-A unique,
+A unique, verifiable identifier for a [peer](#peer) that is impossible for another peer to forge or impersonate without trivial detection. In libp2p, peers are identified by their `PeerId`, which is both globally unique and allows other peers to obtain the peer's [cryptographic public key](https://en.wikipedia.org/wiki/Public-key_cryptography).
+
+The most common form of `PeerId` is a [multihash](#multihash) of a peer's public key, which can be used to fetch the entire public key from the [DHT](#dht) for encryption or signature verification. There is also experimental support for embedding or "inlining" small public keys directly into the `PeerId`, however, this is an area of [ongoing discussion](https://github.com/libp2p/specs/issues/138) and should be treated with caution in production systems until finalized.
+
+An important property of cryptographic peer identities is that they are decoupled from [transport](#transport), allowing peers to verify the identity of other peers regardless of what underlying network they might use to communicate. This also gives them a much longer "shelf life" than location-based identifiers (for example, IP addresses), since identities remain stable across address changes.
 
 
 ### Peer store
