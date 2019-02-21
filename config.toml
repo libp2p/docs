@@ -153,13 +153,8 @@ weight = 5
 [[menu.community]]
 parent = "contribute"
 name = "Contribution Guidelines"
-url = "https://github.com/ipfs/community/blob/master/contributing.md"
+url = "https://github.com/libp2p/community/blob/master/CONTRIBUTE.md"
 weight = 10
-[[menu.community]]
-parent = "contribute"
-name = "Contribution Guidelines 2"
-url = "https://github.com/ipfs/community/blob/master/CONTRIBUTING-2.md"
-weight = 20
 [[menu.community]]
 parent = "contribute"
 name = "Code of Conduct"
@@ -168,12 +163,12 @@ weight = 30
 [[menu.community]]
 parent = "contribute"
 name = "Go Style Guide"
-url = "https://github.com/ipfs/community/blob/master/go-code-guidelines.md"
+url = "https://github.com/ipfs/community/blob/master/CONTRIBUTING_GO.md"
 weight = 40
 [[menu.community]]
 parent = "contribute"
 name = "JS Style Guide"
-url = "https://github.com/ipfs/community/blob/master/js-code-guidelines.md"
+url = "https://github.com/ipfs/community/blob/master/CONTRIBUTING_JS.md"
 weight = 50
 
 [[menu.community]]

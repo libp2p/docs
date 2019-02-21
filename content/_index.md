@@ -7,7 +7,7 @@ Welcome to the libp2p documentation portal! Whether you’re just learning how t
 
 ## Introduction
 
-Head over to the [introduction](/introduction) section for an introduction to the basics of libp2p, an overview of the problems it addresses, and a guide to getting up and running.
+Head over to the [introduction](/introduction/) section for an introduction to the basics of libp2p, an overview of the problems it addresses, and a guide to getting up and running.
 
 
 
@@ -15,14 +15,14 @@ Head over to the [introduction](/introduction) section for an introduction to th
 
 The guides section has an overview of major concepts in libp2p, guides, and example projects demonstrating various ways to use libp2p to build applications.
 
-In particular, check the [concepts](/guides/concepts) section to learn more about the major architectural pieces of libp2p and about terms and ideas associated with peer-to-peer systems in general, as well as those specific to libp2p.
+In particular, check the [concepts](/guides/concepts/) section to learn more about the major architectural pieces of libp2p and about terms and ideas associated with peer-to-peer systems in general, as well as those specific to libp2p.
 
 
 ## Reference
 
 ### Implementations
 
-At the core of libp2p is a set of [specifications](https://github.com/libp2p/specs), which together form the definition for what libp2p is in the abstract and what makes a "correct" libp2p implementation. Today, implementations of libp2p exist in several languages, with varying degrees of completeness. The most complete implementations are in [Go](/reference/go/overview) and [JavaScript](/reference/js/overview), with [rust](https://github.com/libp2p/rust-libp2p) maturing rapidly.
+At the core of libp2p is a set of [specifications](https://github.com/libp2p/specs), which together form the definition for what libp2p is in the abstract and what makes a "correct" libp2p implementation. Today, implementations of libp2p exist in several languages, with varying degrees of completeness. The most complete implementations are in [Go](/reference/go/) and [JavaScript](/reference/js/), with [rust](https://github.com/libp2p/rust-libp2p) maturing rapidly.
 
 In addition to the implementations above, the libp2p community is actively working on implementations in [python](https://github.com/libp2p/py-libp2p) and [the JVM via Kotlin](https://github.com/web3j/libp2p). Please check the project pages for each implementation to see its status and current state of completeness.
 
@@ -33,7 +33,7 @@ While libp2p has several implementations, it is fundamentally a set of protocols
 
 ## Community
 
-Get in touch with other members of the libp2p community who are building tools and applications with libp2p! You can ask questions, discuss new ideas, or get support for problems at https://discuss.ipfs.io, but you can also [hop on IRC](/community/irc) for a quick chat.
+Get in touch with other members of the libp2p community who are building tools and applications with libp2p! You can ask questions, discuss new ideas, or get support for problems at https://discuss.ipfs.io, but you can also [hop on IRC](/community/irc/) for a quick chat.
 
 See the other links in the community section for more information about meetings, events, apps people are building, and more.
 
@@ -42,9 +42,9 @@ Information about contributing to libp2p and about other software projects in th
 
 ### Get Involved
 
-libp2p is an open-source community project. While [Protocol Labs](https://protocol.ai) is able to sponsor some of the work around it, much of the design, code, and effort is contributed by volunteers and community members like you. If you’re interested in helping improve libp2p, check the [how to help](/community/contribute/how_to_help) guide to get started.
+libp2p is an open-source community project. While [Protocol Labs](https://protocol.ai) is able to sponsor some of the work around it, much of the design, code, and effort is contributed by volunteers and community members like you. If you’re interested in helping improve libp2p, check the [how to help](/community/contribute/how_to_help/) guide to get started.
 
-If you are diving in to contribute new code, make sure you check both the [contribution guidelines] and the style guide for your language ([Go](https://github.com/ipfs/community/blob/master/go-code-guidelines.md), [JavaScript](https://github.com/ipfs/community/blob/master/js-code-guidelines.md)).
+If you are diving in to contribute new code, make sure you check both the [contribution guidelines](https://github.com/libp2p/community/blob/master/CONTRIBUTE.md) and the style guide for your language ([Go](https://github.com/ipfs/community/blob/master/CONTRIBUTING_GO.md), [JavaScript](https://github.com/ipfs/community/blob/master/CONTRIBUTING_JS.md)).
 
 
 ### Related Projects
