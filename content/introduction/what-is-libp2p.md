@@ -37,29 +37,41 @@ In a world with billions of networked devices, knowing who you're talking to is 
 
 ### Security
 
-TODO:
+It's essential that we be able to send and receive data between peers *securely*, meaning that we can trust the [identity](#identity) of the peer we're communicating with and that no third-party can read our conversation or alter it in-flight.
 
-- explain how libp2p addresses secure IO
-- add "work in progress" disclaimer & disclosure info
+libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. The current default is [secio][definition_secio], with support for [TLS 1.3](https://www.ietf.org/blog/tls13/) under development.
 
-### Routing
+### Peer Routing
 
-TODO:
+When you want to send a message to another peer, you need two key pieces of information: their [PeerId][definition_peerid], and a way to locate them on the network to open a connection.
 
-- explain peer-routing basics, link to interface definition
-- describe motivation for relay, link to circuit relay spec
+There are many cases where we only have the `PeerId` for the peer we want to contact, and we need a way to discover their network address. Peer routing is the process of discovering peer addresses by leveraging the knowledge of other peers.
 
-### Discovery
+In a peer routing system, a peer can either give us the address we need if they have it, or else send our inquiry to another peer who's more likely to have the answer. As we contact more and more peers, we not only increase our chances of finding the peer we're looking for, we build a more complete view of the network in our own routing tables, which enables us to answer routing queries from others.
 
-TODO:
+The current stable implementation of peer routing in libp2p uses a [distributed hash table][definition_dht] to iteratively route requests closer to the desired `PeerId` using the [Kademlia][wiki_kademlia] routing algorithm.
 
-- explain how libp2p implements peer / content discovery via the DHT
+
+### Content Discovery
+
+In some systems, we care less about who we're speaking with than we do about what they can offer us. For example, we may want some specific piece of data, but we don't care who we get it from since we're able to verify its integrity.
+
+libp2p provides a [content routing interface][interface_content_routing] for this purpose, with the primary stable implementation using the same [Kademlia][wiki_kademlia]-based DHT as used in peer routing.
+
+
 
 [glossary]: {{< ref "/reference/glossary.md" >}}
-[definition_p2p]: {{< ref "/reference/glossary.md#peer-to-peer-p2p" >}}
+[definition_dht]: {{< ref "/reference/glossary.md#dht" >}}
+[definition_p2p]: {{< ref "/reference/glossary.md#p2p" >}}
 [definition_peer]: {{< ref "/reference/glossary.md#peer" >}}
 [definition_peerid]: {{< ref "/reference/glossary.md#peerid" >}}
+[definition_secio]: {{< ref "/reference/glossary.md#secio" >}}
+[definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddress" >}}
 [definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
+
+[interface_content_routing]: https://github.com/libp2p/interface-content-routing
 
 [built_with_libp2p]: {{< ref "/community/applications/built_with_libp2p.md" >}}
 [help_improve_docs]: {{< ref "/community/contribute/how_to_help.md" >}}
+
+[wiki_kademlia]: https://en.wikipedia.org/wiki/Kademlia
