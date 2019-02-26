@@ -39,6 +39,15 @@ The process of opening a libp2p connection to another peer is known as "dialing"
 
 The process of accepting incoming libp2p connections is known as "listening", and it allows other peers to ["dial"](#dial) up and open network connections to your peer.
 
+### mDNS
+
+[Multicast DNS](https://en.wikipedia.org/wiki/Multicast_DNS) is a protocol for service discovery on a local network. One of libp2p's [peer routing](#peer-routing) implementations leverages mDNS to discover local peers quickly and efficiently.
+
+
+### multiaddr
+
+See [Multiaddress](#multiaddress)
+
 ### Multiaddress
 
 A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure.
@@ -70,6 +79,14 @@ The most prominent use of multihashes in libp2p is in the [PeerId](#peerid), whi
 In IPFS, multihashes are a key component of the [CID, or content identifier](https://docs.ipfs.io/guides/concepts/cid/), and the "v0" version of CID is a "raw" multihash of a piece of content. A "modern" CID combines a multihash of some content with some compact contextualizing metadata, allowing content-addressed systems like IPFS to create more meaningful links between hash-addressed data. For more on the subject of hash-linked data structures in p2p systems, see [IPLD](https://ipld.io).
 
 Multihashes are often represented as [base58-encoded](https://en.wikipedia.org/wiki/Base58) strings, for example, `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N`. The first two characters `Qm` are the multihash header for the SHA-256 hash algorithm with a length of 256 bits, and are common to all base58-encoded multihashes using SHA-256.
+
+### Multiplexing
+
+Multiplexing (or "muxing"), refers to the process of combining multiple streams of communication over a single logical "medium". For example, we can maintain multiple independent data streams over a single TCP network connection, which is itself of course being multiplexed over a single physical connection (ethernet, wifi, etc).
+
+Multiplexing allows peers to offer many [protocols](#protocol) over a single connection, which reduces network overhead and makes [NAT traversal](#nat-traversal) more efficient and effective.
+
+Applications built with libp2p get multiplexing "for free" via the [mplex specification](https://github.com/libp2p/specs/tree/master/mplex).
 
 
 ### NAT
@@ -109,19 +126,6 @@ Many members of our community are excited about graphs in many contexts, so the 
 - When discussing data structures, "node" is often useful for referring to key elements of the structure. For example, a linked list consists of many "nodes" containing both a value and a link (or, in graph terms, an "edge") connecting it to the next node. Since many useful and interesting data structures can be described as graphs, much of the terminology of graph theory applies when discussing their properties. In particular, IPFS is naturally well-suited to storing and manipulating data structures which form a [Directed Acyclic Graph, or DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph).
 
 - An especially interesting data structure for many in our community is [IPLD](https://ipld.io), or Interplanetary Linked Data. Similar to libp2p, IPLD grew out of the real-world needs of IPFS, but is broadly useful and interesting in many contexts outside of IPFS. IPLD discussions often involve "nodes" of all the types discussed here.
-
-
-### mDNS
-
-[Multicast DNS](https://en.wikipedia.org/wiki/Multicast_DNS) is a protocol for service discovery on a local network. One of libp2p's [peer routing](#peer-routing) implementations leverages mDNS to discover local peers quickly and efficiently.
-
-### Multiplexing
-
-Multiplexing (or "muxing"), refers to the process of combining multiple streams of communication over a single logical "medium". For example, we can maintain multiple independent data streams over a single TCP network connection, which is itself of course being multiplexed over a single physical connection (ethernet, wifi, etc).
-
-Multiplexing allows peers to offer many [protocols](#protocol) over a single connection, which reduces network overhead and makes [NAT traversal](#nat-traversal) more efficient and effective.
-
-Applications built with libp2p get multiplexing "for free" via the [mplex specification](https://github.com/libp2p/specs/tree/master/mplex).
 
 ### Overlay
 
