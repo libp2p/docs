@@ -1,8 +1,6 @@
 ---
 title: "What is libp2p?"
-menu:
-    introduction:
-      weight: 1
+weight: 2
 ---
 
 Good question! The one-liner pitch is that libp2p is a modular system of *protocols*, *specifications* and *libraries* that enable the development of peer-to-peer network applications.
@@ -58,7 +56,11 @@ In some systems, we care less about who we're speaking with than we do about wha
 
 libp2p provides a [content routing interface][interface_content_routing] for this purpose, with the primary stable implementation using the same [Kademlia][wiki_kademlia]-based DHT as used in peer routing.
 
+### Messaging / PubSub
 
+Sending messages to other peers is at the heart of most peer-to-peer systems, and pubsub (short for publish / subscribe) is a very useful pattern for sending a message to groups of interested receivers.
+
+libp2p defines a [pubsub interface][interface_pubsub] for sending messages to all peers subscribed to a given "topic". The interface currently has two stable implementations; `floodsub` uses a very simple but inefficient  "network flooding" strategy, and [gossipsub](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub) defines an extensible gossip protocol.  There is also active development in progress on [episub](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/episub.md), an extended `gossipsub` that is optimized for single source multicast and scenarios with a few fixed sources broadcasting to a large number of clients in a topic.
 
 [glossary]: {{< ref "/reference/glossary.md" >}}
 [definition_dht]: {{< ref "/reference/glossary.md#dht" >}}
@@ -70,8 +72,10 @@ libp2p provides a [content routing interface][interface_content_routing] for thi
 [definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
 
 [interface_content_routing]: https://github.com/libp2p/interface-content-routing
+[interface_pubsub]: https://github.com/libp2p/specs/tree/master/pubsub
 
-[built_with_libp2p]: {{< ref "/community/applications/built_with_libp2p.md" >}}
-[help_improve_docs]: {{< ref "/community/contribute/how_to_help.md" >}}
+
+[built_with_libp2p]: /TODO
+[help_improve_docs]: /TODO
 
 [wiki_kademlia]: https://en.wikipedia.org/wiki/Kademlia

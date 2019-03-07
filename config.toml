@@ -1,191 +1,22 @@
-baseURL = "https://docs.libp2p.io"
-relativeURLs = true
-languageCode = "en"
-DefaultContentLanguage = "en"
-enableRobotsTXT=true
-
+baseURL = ""
+languageCode = "en-us"
 title = "libp2p Documentation"
 
-staticDir = ["static", "build"]
-
-[blackfriday]
-hrefTargetBlank = true
+theme = "hugo-theme-learn"
 
 [params]
-editURL = "https://github.com/libp2p/docs/tree/master/content/"
-ordersectionsby = "weight" # ordersectionsby = "title"
+themeVariant = "libp2p"
+disableInlineCopyToClipBoard = true
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
 
-[menu]
-
-[[menu.main]]
-identifier = "introduction"
-name = "Introduction"
+[[menu.shortcuts]]
+name = "<i class='fas fa-home'></i> libp2p.io"
+url = "https://libp2p.io"
 weight = 1
 
-[[menu.main]]
-identifier = "guides"
-name = "Guides"
-weight = 2
-
-[[menu.main]]
-identifier = "reference"
-name = "Reference"
-weight = 3
-
-[[menu.main]]
-identifier = "community"
-name = "Community"
-weight = 4
-
-
-[[menu.reference]]
-identifier = "go_implementation"
-name = "Go Implementation"
-weight = 5
-
-
-[[menu.reference]]
-identifier = "js_implementation"
-name = "JS Implementation"
-weight = 5
-
-[[menu.reference]]
-identifier = "specs"
-name = "Specifications & Planning"
-weight = 6
-[[menu.reference]]
-parent = "specs"
-name = "libp2p Specifications"
-url = "https://github.com/libp2p/specs"
-weight = 20
-
-[[menu.guides]]
-identifier = "guides"
-name = "Guides"
-weight = 3
-[[menu.guides]]
-identifier = "examples"
-name = "Examples"
-weight = 4
-
-
-[[menu.community]]
-identifier = "community"
-name = "Community"
-weight = 9
-[[menu.community]]
-parent = "community"
-name = "Discussion/Support Forum"
-url = "https://discuss.ipfs.io/tags/libp2p"
-weight = 10
-[[menu.community]]
-parent = "community"
-name = "IRC"
-url = "/community/irc/"
-weight = 20
-# [[menu.community]]
-# parent = "community"
-# name = "Research Discussion"
-# url = "https://github.com/ipfs/notes"
-# weight = 30
-# [[menu.community]]
-# parent = "community"
-# name = "Events Calendar"
-# url = "https://calendar.google.com/calendar/embed?src=ipfs.io_eal36ugu5e75s207gfjcu0ae84@group.calendar.google.com"
-# weight = 40
-# [[menu.community]]
-# parent = "community"
-# name = "Community Tools"
-# url = "https://github.com/ipfs/community/"
-# weight = 50
-# [[menu.community]]
-# parent = "community"
-# name = "Project Management"
-# url = "https://github.com/ipfs/pm/"
-# weight = 60
-# [[menu.community]]
-# parent = "community"
-# name = "Blog"
-# url = "https://ipfs.io/blog/"
-# weight = 70
-# [[menu.community]]
-# parent = "community"
-# name = "Youtube"
-# url = "https://www.youtube.com/channel/UCdjsUXJ3QawK4O5L1kqqsew"
-# weight = 80
-# [[menu.community]]
-# parent = "community"
-# name = "Twitter (@IPFSbot)"
-# url = "https://twitter.com/IPFSbot"
-# weight = 90
-# [[menu.community]]
-# parent = "community"
-# name = "Awesome IPFS"
-# url = "https://awesome.ipfs.io/"
-# [[menu.community]]
-# parent = "community"
-# name = "Public Archives on IPFS"
-# title = "A community project to host archives of valuable public data."
-# url = "https://archives.ipfs.io"
-# [[menu.community]]
-# parent="community"
-# name = "FAQ"
-# url = "https://discuss.ipfs.io/c/help/Old-FAQ"
-
-[[menu.community]]
-identifier = "applications"
-name = "Applications"
-weight = 8
-
-
-[[menu.community]]
-identifier = "contribute"
-name = "Get Involved"
-weight = 10
-[[menu.community]]
-parent = "contribute"
-name = "GitHub"
+[[menu.shortcuts]]
+name = "<i class='fab fa-github'></i> libp2p Github"
 url = "https://github.com/libp2p/libp2p"
-weight = 5
-[[menu.community]]
-parent = "contribute"
-name = "Contribution Guidelines"
-url = "https://github.com/libp2p/community/blob/master/CONTRIBUTE.md"
-weight = 10
-[[menu.community]]
-parent = "contribute"
-name = "Code of Conduct"
-url = "https://github.com/ipfs/community/blob/master/code-of-conduct.md"
-weight = 30
-[[menu.community]]
-parent = "contribute"
-name = "Go Style Guide"
-url = "https://github.com/ipfs/community/blob/master/CONTRIBUTING_GO.md"
-weight = 40
-[[menu.community]]
-parent = "contribute"
-name = "JS Style Guide"
-url = "https://github.com/ipfs/community/blob/master/CONTRIBUTING_JS.md"
-weight = 50
-
-[[menu.community]]
-identifier = "related"
-name = "Related Projects"
-[[menu.community]]
-parent = "related"
-name = "IPFS"
-url = "https://ipfs.io"
-weight = 1
-[[menu.community]]
-parent = "related"
-name = "Multiformats"
-url = "https://multiformats.io"
 weight = 2
-[[menu.community]]
-parent = "related"
-name = "IPLD"
-url = "https://ipld.io"
-weight = 3
