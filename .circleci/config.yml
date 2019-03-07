@@ -6,8 +6,6 @@ jobs:
     steps:
       - checkout
       - run:
-          command: npm ci
-      - run:
           command: make build
       - persist_to_workspace:
           root: .
