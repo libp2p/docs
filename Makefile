@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-DOMAIN="docs.filecoin.io"
+DOMAIN="docs.libp2p.io"
 
 IPFSLOCAL="http://localhost:8080/ipfs/"
 IPFSGATEWAY="https://ipfs.io/ipfs/"
