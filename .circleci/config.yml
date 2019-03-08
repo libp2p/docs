@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Add to IPFS
           command: |
-            pin_name="$DOMAIN build $CIRCLE_BUILD_NUMBER"
+            pin_name="${DOMAIN}-build-${CIRCLE_BUILD_NUMBER}"
 
             hash=$(pin-to-cluster.sh "$pin_name" /tmp/workspace/$BUILD_DIR)
 
