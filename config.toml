@@ -1,4 +1,5 @@
-baseURL = ""
+baseURL = "https://docs.libp2p.io"
+relativeURLs = true
 languageCode = "en-us"
 title = "libp2p Documentation"
 
