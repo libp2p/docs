@@ -14,7 +14,7 @@ jobs:
 
   deploy:
     docker:
-      - image: olizilla/ipfs-dns-deploy:1.2
+      - image: olizilla/ipfs-dns-deploy:1.1
         environment:
           DOMAIN: docs.libp2p.io
           BUILD_DIR: public
