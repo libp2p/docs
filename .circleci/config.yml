@@ -14,7 +14,7 @@ jobs:
 
   deploy:
     docker:
-      - image: olizilla/ipfs-dns-deploy
+      - image: olizilla/ipfs-dns-deploy:1.2
         environment:
           DOMAIN: docs.libp2p.io
           BUILD_DIR: public
@@ -25,8 +25,6 @@ jobs:
           name: Add to IPFS
           command: |
             pin_name="${DOMAIN}-build-${CIRCLE_BUILD_NUMBER}"
-
-            ls /tmp/workspace/${BUILD_DIR}
 
             hash=$(pin-to-cluster.sh "$pin_name" /tmp/workspace/$BUILD_DIR)
 
