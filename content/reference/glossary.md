@@ -161,11 +161,22 @@ A data structure that stores [PeerIds](#peerid) for known peers, along with know
 
 ### Peer routing
 
-TODO: Describe general concept, link to mDNS and kad routing implementations
+Peer routing is the process of discovering the network "route" or address for a
+peer in the network, given the peer's [id](#peerid).
+
+It may also include "ambient" discovery of local peers, for example via
+[multicast DNS](#mdns).
+
+The primary peer routing mechanism in libp2p uses a
+[distributed hash table](#dht) to locate peers, taking advantage of the
+Kademlia routing algorithm to efficiently locate peers.
+
+
 
 ### Peer-to-peer (p2p)
 
-TODO: define p2p network
+A peer-to-peer (p2p) network is one in which the participants (referred to as [peers][#peer] or [nodes](#node)) communicate with one another directly, on more or less "equal footing". This does not necessarily mean that all peers are identical; some may have different roles in the overall network. However, one of the defining characteristics of a peer-to-peer network is that they do not require a privileged set of "servers" which behave completely differently from their "clients", as is the case in the the predominant [client / server model](#client-server).
+
 
 ### Pubsub
 
@@ -185,7 +196,20 @@ protocols are identified using [multistream](#multistream) headers.
 
 ### Protocol Negotiation
 
+The process of reaching agreement on what protocol to use for a given stream
+of communication.
 
+In libp2p, protocols are identified using a convention called
+[multistream](#multistream), which adds a small header to the beginning of
+a stream containing a unique name, including a version identifier.
+
+When two peers first connect, they exchange a [handshake](#handshake) to
+agree upon what protocols to use.
+
+The implementation of the libp2p handshake is called
+[multistream-select](https://github.com/multiformats/multistream-select).
+
+For details, see the [protocol negotiation article](/concepts/protocol-negotiation/).
 
 ### Stream
 
@@ -212,7 +236,11 @@ into a single interface, allowing application code to [dial](#dial) peers
 without having to specify what transport to use.
 
 In addition to managing transports, the switch also coordinates the
-"connection upgrade" process, which is used to provide
+"connection upgrade" process, which promotes a "raw" connection from
+the transport layer into one that supports
+[protocol negotiation](/concepts/protocol-negotiation/),
+[stream multiplexing](#multiplexing), and
+[secure communications](/concepts/secure-comms).
 
 Sometimes called ["swarm"](#swarm) for historical reasons.
 
