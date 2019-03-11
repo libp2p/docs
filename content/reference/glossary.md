@@ -86,8 +86,9 @@ Multiplexing (or "muxing"), refers to the process of combining multiple streams 
 
 Multiplexing allows peers to offer many [protocols](#protocol) over a single connection, which reduces network overhead and makes [NAT traversal](#nat-traversal) more efficient and effective.
 
-Applications built with libp2p get multiplexing "for free" via the [mplex specification](https://github.com/libp2p/specs/tree/master/mplex).
+libp2p supports several implementations of stream multiplexing. The [mplex specification](https://github.com/libp2p/specs/tree/master/mplex) defines a simple protocol with implementations in several languages. Other supported multiplexing protocols include [yamux](https://github.com/hashicorp/yamux) and [spdy](https://www.chromium.org/spdy/spdy-whitepaper).
 
+See [Stream Muxer Implementations](https://libp2p.io/implementations/#stream-muxers) for status of multiplexing across libp2p language implementations.
 
 ### multistream
 
