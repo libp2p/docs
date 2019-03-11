@@ -1,8 +1,6 @@
 ---
 title: "Glossary"
-menu:
-    reference:
-        weight: 1
+weight: 1
 ---
 
 ### Circuit Relay
@@ -29,7 +27,9 @@ libp2p uses the DHT as the foundation for one of its [peer routing](#peer-routin
 
 ### Connection
 
-TODO: define libp2p connection & link to interface-connection. Link to multiplexing.
+A libp2p connection is a communication channel that allows peers to read and write data.
+
+Connections between peers are established via [transports](#transport), which can be thought of as "connection factories". For example, the TCP transport allows you to create connections that use TCP/IP as their underlying substrate.
 
 ### Dial
 
@@ -89,6 +89,12 @@ Multiplexing allows peers to offer many [protocols](#protocol) over a single con
 Applications built with libp2p get multiplexing "for free" via the [mplex specification](https://github.com/libp2p/specs/tree/master/mplex).
 
 
+### multistream
+
+[multistream](https://github.com/multiformats/multistream) is a lightweight convention for "tagging" streams of binary data with a short header that identifies the content of the stream.
+
+libp2p uses multistream to identify the [protocols](#protocol) used for communication between peers, and a related project [multistream-select](https://github.com/multiformats/multistream-select) is used for [protocol negotiation](#protocol-negotiation).
+
 ### NAT
 
 [Network address translation](https://en.wikipedia.org/wiki/Network_address_translation) in general is the mapping of addresses from one address space to another, as often happens at the boundary of private networks with the global internet. It is especially essential in IPv4 networks (which are still the vast majority), as the address space of IPv4 is quite limited. Using NAT, a local, private network can have a vast range of addresses within the internal network, while only consuming one public IP address from the global pool.
@@ -100,16 +106,17 @@ This is less of an issue in a client / server model, because outgoing connection
 In the peer-to-peer model, accepting connections from other peers is often just as important as initiating them, which means that we often need our peers to be publicly reachable from the global internet. There are many viable approaches to [NAT Traversal](#nat-traversal), several of which are implemented in libp2p.
 
 ### NAT Traversal
+<!-- TODO(yusef): much of this can be moved to the NAT concept doc and this definition can be trimmed -->
+
 
 NAT traversal refers to the process of establishing connections with other machines across a [NAT](#nat) boundary. When crossing the boundary between IP networks (e.g. from a local network to the global internet), a [Network Address Translation](#nat) process occurs which maps addresses from one space to another.
 
 For example, my home network has an internal range of IP addresses (10.0.1.x), which is part of a range of addresses that are reserved for private networks. If I start a program on my computer that listens for connections on its internal address, a user from the public internet has no way of reaching me, even if they know my public IP address. This is because I haven't made my router aware of my program yet. When a connection comes in from the internet to my public IP address, the router needs to figure out which internal IP to route the request to, and to which port.
 
-There are many ways to inform one's router about services you want to expose. For consumer routers, there's likely an admin interface that can setup mappings for any range of TCP or UDP ports. In many cases, routers will allow automatic registration of ports using a protocol called [upnp](https://en.wikipedia.org/wiki/Universal_Plug_and_Play), which libp2p supports. If enabled, libp2p will try to register your service with the router for automatic NAT traversal. <!-- TODO: link to libp2p upnp repos. "if enabled" - how? link to config example -->
+There are many ways to inform one's router about services you want to expose. For consumer routers, there's likely an admin interface that can setup mappings for any range of TCP or UDP ports. In many cases, routers will allow automatic registration of ports using a protocol called [upnp](https://en.wikipedia.org/wiki/Universal_Plug_and_Play), which libp2p supports. If enabled, libp2p will try to register your service with the router for automatic NAT traversal.
 
 In some cases, automatic NAT traversal is impossible, often because multiple layers of NAT are involved. In such cases, we still want to be able to communicate, and we especially want to be reachable and allow other peers to [dial in](#dial) and use our services. This is the one of the motivations for [Circuit Relay](#circuit-relay), which is a protocol involving a "relay" peer that is publicly reachable and can route traffic on behalf of others. Once a relay circuit is established, a peer behind an especially intractable NAT can advertise the relay circuit's [multiaddress](#multiaddress), and the relay will accept incoming connections on our behalf and send us traffic via the relay.
 
-<!-- TODO: link to AutoRelay once it's defined -->
 
 ### Node
 
@@ -150,15 +157,26 @@ An important property of cryptographic peer identities is that they are decouple
 
 ### Peer store
 
-TODO: link to spec, implementations in JS & Go
+A data structure that stores [PeerIds](#peerid) for known peers, along with known [multiaddresses](#multiaddress) that can be used to communicate with them.
 
 ### Peer routing
 
-TODO: Describe general concept, link to mDNS and kad routing implementations
+Peer routing is the process of discovering the network "route" or address for a
+peer in the network, given the peer's [id](#peerid).
+
+It may also include "ambient" discovery of local peers, for example via
+[multicast DNS](#mdns).
+
+The primary peer routing mechanism in libp2p uses a
+[distributed hash table](#dht) to locate peers, taking advantage of the
+Kademlia routing algorithm to efficiently locate peers.
+
+
 
 ### Peer-to-peer (p2p)
 
-TODO: define p2p network
+A peer-to-peer (p2p) network is one in which the participants (referred to as [peers][#peer] or [nodes](#node)) communicate with one another directly, on more or less "equal footing". This does not necessarily mean that all peers are identical; some may have different roles in the overall network. However, one of the defining characteristics of a peer-to-peer network is that they do not require a privileged set of "servers" which behave completely differently from their "clients", as is the case in the the predominant [client / server model](#client-server).
+
 
 ### Pubsub
 
@@ -168,7 +186,30 @@ libp2p defines a [pubsub spec](https://github.com/libp2p/specs/blob/master/pubsu
 
 ### Protocol
 
-TODO: define what we mean by "libp2p protocol", protocol handlers, etc. link to [multiplexing](#multiplexing).
+In general, a set of rules and data structures used for network communication.
+
+libp2p is comprised of many protocols and makes use of many others provided by
+the operating system or runtime environment.
+
+Most core libp2p functionality is defined in terms of protocols, and libp2p
+protocols are identified using [multistream](#multistream) headers.
+
+### Protocol Negotiation
+
+The process of reaching agreement on what protocol to use for a given stream
+of communication.
+
+In libp2p, protocols are identified using a convention called
+[multistream](#multistream), which adds a small header to the beginning of
+a stream containing a unique name, including a version identifier.
+
+When two peers first connect, they exchange a [handshake](#handshake) to
+agree upon what protocols to use.
+
+The implementation of the libp2p handshake is called
+[multistream-select](https://github.com/multiformats/multistream-select).
+
+For details, see the [protocol negotiation article](/concepts/protocol-negotiation/).
 
 ### Stream
 
@@ -180,7 +221,28 @@ TODO: Distinguish between the various types of "stream". Could refer to
 
 ### Swarm
 
-TODO: define swarm in libp2p context
+Can refer to a collection of interconnected peers.
+
+In the libp2p codebase, "swarm" may refer to a module that allows a peer to
+interact with its peers, although this component was later renamed ["switch"](#switch).
+
+See [the discussion about the name change](https://github.com/libp2p/js-libp2p-switch/issues/40)
+for context.
+
+### Switch
+
+A libp2p component responsible for composing multiple [tranports](#tranport)
+into a single interface, allowing application code to [dial](#dial) peers
+without having to specify what transport to use.
+
+In addition to managing transports, the switch also coordinates the
+"connection upgrade" process, which promotes a "raw" connection from
+the transport layer into one that supports
+[protocol negotiation](/concepts/protocol-negotiation/),
+[stream multiplexing](#multiplexing), and
+[secure communications](/concepts/secure-comms).
+
+Sometimes called ["swarm"](#swarm) for historical reasons.
 
 ### Topology
 
@@ -193,4 +255,4 @@ In libp2p, `transport` refers to the technology that lets us move bits from one 
 Note that in some environments such as javascript running in the browser, not all transports will be available. In such cases, it may be possible to establish a [Circuit Relay](#circuit-relay) with the help of a peer that can support many common transports. Such a relay can act as a "transport adapter" of sorts, allowing peers that can't communicate with each other directly to interact. For example, a peer in the browser that can only make websocket connections could relay through a peer able to make TCP connections, which would enable communication with a wider variety of peers.
 
 
-[js-docs-home]: {{< ref "/reference/js" >}}
+[js-docs-home]: /reference/

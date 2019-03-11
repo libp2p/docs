@@ -1,4 +1,0 @@
-website([
-  website: 'docs.libp2p.io',
-  record: '_dnslink'
-])
