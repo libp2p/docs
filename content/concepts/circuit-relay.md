@@ -36,7 +36,7 @@ Now let's say that I've established a connection to a specific relay with the pe
 
 Everything prior to the `/p2p-circuit/` above is the address of the relay peer, which includes the transport address and their peer id `QmRelay`. After `/p2p-circuit/` is the peer id for my peer at the other end of the line, `QmAlice`.
 
-By giving the full relay path to my friend `QmBob`, they're able to quickly establish a relayed connection without "ask around" for a relay that has a route to `QmAlice`.
+By giving the full relay path to my friend `QmBob`, they're able to quickly establish a relayed connection without having to "ask around" for a relay that has a route to `QmAlice`.
 
 #### AutoRelay
 
@@ -48,7 +48,7 @@ While it's possible to simply "hard-code" a list of well-known relays into your 
 
 AutoRelay is a feature (currently implemented in go-libp2p) that a peer can enable to attempt to discover relay peers using libp2p's [content routing](/concepts/content-routing/) interface.
 
-When AutoRelay is enabled, a peer will try to discover one or more public relays and open relayed connections. If successful, the peer will advertise the relay addresses using the libp2p's [peer routing](/concepts/peer-routing/) system.
+When AutoRelay is enabled, a peer will try to discover one or more public relays and open relayed connections. If successful, the peer will advertise the relay addresses using libp2p's [peer routing](/concepts/peer-routing/) system.
 
 {{% notice "note" %}}
 Because relayed connections add overhead and consume the resources of the relay peer, go-libp2p will only try to establish relay connections if it determines that it is unreachable publicly using the [AutoNAT service](/concepts/nat/#autonat)
