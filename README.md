@@ -63,6 +63,14 @@ Finally, let’s work together to keep this a respectful and friendly space. Ple
 
 To create a production build, run `make build` instead. You’ll find the final static site in the `public` directory.
 
+### CI and publication
+
+On every commit, a [CI configuration](./.circleci/config.yml) builds the site and publishes the result to IPFS.
+
+For PR commits, you can see the latest build by checking out the preview link:
+![IPFS preview link screenshot](./ipfs-site-preview.png).
+
+For commits to master, the DNS entry for docs.libp2p.io will also be updated to refer to the latest IPFS hash, which causes the latest version to be served on the web.
 
 ## FAQ
 
