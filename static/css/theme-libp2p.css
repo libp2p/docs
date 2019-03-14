@@ -1,8 +1,8 @@
 
 :root{
 
-    --MAIN-TEXT-color:#323232; /* Color of text by default */
-    --MAIN-TITLES-TEXT-color: #5e5e5e; /* Color of titles h2-h3-h4-h5 */
+    --MAIN-TEXT-color:rgba(20, 21, 45, 0.85); /* Color of text by default */
+    --MAIN-TITLES-TEXT-color: #14152D; /* Color of titles h2-h3-h4-h5 */
     --MAIN-LINK-color:#1C90F3; /* Color of links */
     --MAIN-LINK-HOVER-color:#167ad0; /* Color of hovered links */
     --MAIN-ANCHOR-color: #1C90F3; /* color of anchors on titles */
@@ -14,8 +14,8 @@
     --MENU-SEARCH-BOX-color: #000; /* Override search field border color */
     --MENU-SEARCH-BOX-ICONS-color: #888; /* Override search field icons color */
 
-    --MENU-SECTIONS-ACTIVE-BG-color:#20272b; /* Background color of the active section and its childs */
-    --MENU-SECTIONS-BG-color:#252c31; /* Background color of other sections */
+    --MENU-SECTIONS-ACTIVE-BG-color:hsla(238, 38%, 23%, 1); /* Background color of the active section and its childs */
+    --MENU-SECTIONS-BG-color:#14152D; /* Background color of other sections */
     --MENU-SECTIONS-LINK-color: #ccc; /* Color of links in menu */
     --MENU-SECTIONS-LINK-HOVER-color: #e6e6e6;  /* Color of links in menu, when hovered */
     --MENU-SECTION-ACTIVE-CATEGORY-color: #777; /* Color of active category text */
@@ -28,7 +28,20 @@
 
 body {
     color: var(--MAIN-TEXT-color) !important;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-family: 'IBM Plex Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+#body-inner {
+  max-width: 800px;
+}
+
+p {
+  font-weight: 400;
+  line-height: 1.75rem;
+}
+
+code {
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus, input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, select[multiple=multiple]:focus {
