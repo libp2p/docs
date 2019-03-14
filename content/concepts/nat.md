@@ -9,7 +9,7 @@ As traffic moves between network boundaries, it's very common for a process call
 
 NAT allows many machines to share a single public address, and it is essential for the continued functioning of the IPv4 protocol, which would otherwise be unable to serve the needs of the modern networked population with its 32-bit address space.
 
-For example, when I connect to my home wifi, my computer gets an IPv4 address of `10.0.1.15`. This is part of a range of IP addresses reserved for internal use by private networks. When I make an outgoing connection to a public IP address, my router sends my *public* IP address, which is shared across all the machines on my home network. When the other side sends data back to that address, the router remembers to send the data to my internal address.
+For example, when I connect to my home wifi, my computer gets an IPv4 address of `10.0.1.15`. This is part of a range of IP addresses reserved for internal use by private networks. When I make an outgoing connection to a public IP address, the router replaces my internal IP with its own public IP address. When data comes back from the other side, the router will translate back to the internal address.
 
 While NAT is usually transparent for outgoing connections, listening for incoming connections requires some configuration. The router listens on a single public IP address, but any number of machines on the internal network could handle the request. To serve requests, your router must be configured to send certain traffic to a specific machine, usually by mapping one or more TCP or UDP ports from the public IP to an internal one.
 
