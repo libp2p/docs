@@ -5,7 +5,7 @@ weight: 6
 
 Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks, we need a way to work with a lot of different addressing schemes in a consistent way.
 
-A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure.
+A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure. It [defines][spec_multiaddr] human-readable and machine-optimized encodings of common transport and overlay protocols and allows many layers of addressing to be combined and used together.
 
 For example: `/ip4/127.0.0.1/udp/1234` encodes two protocols along with their essential addressing information. The `/ip4/127.0.0.1` informs us that we want the `127.0.0.1` loopback address of the IPv4 protocol, and `/udp/1234` tells us we want to send UDP packets to port `1234`.
 
@@ -21,6 +21,15 @@ Now I can start [handing out multiaddrs to all my friends](/concepts/peer-routin
 
 Now not only do my friends know where to find me, anyone they give that address to can verify that the machine on the other side is really me, or at least, that they control the private key for my `PeerId`. They also know (by virtue of the `/p2p/` protocol id) that I'm likely to support common libp2p interactions like opening connections and negotiating what application protocols we can use to communicate. That's not bad!
 
-This can be extended to account for multiple layers of addressing and abstraction. For an example of composing multiaddrs, see the [Relay addresses section](/concepts/circuit-relay/#relay-addresses) of [Concepts > Circuit Relay](/concepts/circuit-relay/)
+This can be extended to account for multiple layers of addressing and abstraction. For example, the [addresses used for circuit relay](/concepts/circuit-relay/#relay-addresses) combine transport addresses with multiple peer identities to form an address that describes a "relay circuit":
 
-For more detail, see the [multiaddr spec](https://github.com/multiformats/multiaddr), which has links to many implementations.
+```
+/ip4/7.7.7.7/tcp/4242/p2p/QmRelay/p2p-circuit/p2p/QmRelayedPeer
+```
+
+### More information
+
+For more detail, see the [multiaddr spec][spec_multiaddr], which has links to many implementations.
+
+
+[spec_multiaddr]: https://github.com/multiformats/multiaddr
