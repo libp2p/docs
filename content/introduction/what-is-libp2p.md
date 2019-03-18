@@ -68,7 +68,7 @@ libp2p defines a [pubsub interface][interface_pubsub] for sending messages to al
 [definition_peer]: {{< ref "/reference/glossary.md#peer" >}}
 [definition_peerid]: {{< ref "/reference/glossary.md#peerid" >}}
 [definition_secio]: {{< ref "/reference/glossary.md#secio" >}}
-[definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddress" >}}
+[definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddr" >}}
 [definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
 
 [interface_content_routing]: https://github.com/libp2p/interface-content-routing

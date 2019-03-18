@@ -317,6 +317,6 @@ Success! Our two peers are now communicating over a multiplexed, secure channel.
 
 
 
-[definition_muiltiaddress]: /reference/glossary/#multiaddress
+[definition_muiltiaddress]: /reference/glossary/#multiaddr
 [definition_multiplexer]: /reference/glossary/#multiplexer
 [definition_peerid]: /reference/glossary/#peerid
