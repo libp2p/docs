@@ -1,5 +1,5 @@
 ---
-title: libp2p Documentation 
+title: libp2p
 weight: 1
 ---
 
