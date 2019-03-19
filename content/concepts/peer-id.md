@@ -18,7 +18,7 @@ other peers.
 Together, the public and private key (or "key pair") allow peers to establish
 [secure communication](/concepts/secure-comms/) channels with each other.
 
-Conceptually, a PeerId is [cryptographic hash][wiki_hash_function] of a peer's
+Conceptually, a PeerId is a [cryptographic hash][wiki_hash_function] of a peer's
 public key. When peers establish a secure channel, the hash can be used to
 verify that the public key used to secure the channel is the same one used
 to identify the peer.
@@ -61,8 +61,8 @@ libp2p multiaddress for me would be:
 
 As with other multiaddrs, a `/p2p` address can be encapsulated into
 another multiaddr to compose into a new multiaddr. For example, I can combine
-above with a [transport](/concepts/transport/) address `/ip4/7.7.7.7/tcp/4242`
-to produce this very useful address:
+the above with a [transport](/concepts/transport/) address
+`/ip4/7.7.7.7/tcp/4242` to produce this very useful address:
 
 ```
 /ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
