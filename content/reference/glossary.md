@@ -46,25 +46,18 @@ The process of accepting incoming libp2p connections is known as "listening", an
 
 ### multiaddr
 
-See [Multiaddress](#multiaddress)
-
-### Multiaddress
-
 A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure.
 
 For example: `/ip4/127.0.0.1/udp/1234` encodes two protocols along with their essential addressing information. The `/ip4/127.0.0.1` informs us that we want the `127.0.0.1` loopback address of the IPv4 protocol, and `/udp/1234` tells us we want to send UDP packets to port `1234`.
 
-Things get more interesting as we compose further. For example, the multiaddr `/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` uniquely identifies my local IPFS node, using libp2p's [registered protocol id](https://github.com/multiformats/multiaddr/blob/master/protocols.csv) `/p2p/` and the [multihash](#multihash) of my IPFS node's public key. For more on peer identity and its relation to public key cryptography, see [PeerId](#peerid).
+Multiaddresses can be composed to describe multiple "layers" of addresses.
 
-Let's say that I have the peer id `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` as above, and my public ip is `7.7.7.7` (not my real IP, sadly). I start my libp2p application and listen for connections on TCP port `4242`.
+For more detail, see [Concepts > Addressing](/concepts/addressing/), or the [multiaddr spec](https://github.com/multiformats/multiaddr), which has links to many implementations.
 
-Now I can start handing out multiaddrs to all my friends, of the form `/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N`. Combining my "location multiaddr" (my IP and port) with my "identity multiaddr" (my libp2p `PeerId`), produces a new multiaddr containing both key pieces of information.
+### Multiaddress
 
-Now not only do my friends know where to find me, anyone they give that address to can verify that the machine on the other side is really me, or at least, that they control the private key for my `PeerId`. They also know (by virtue of the `/p2p/` protocol id) that I'm likely to support common libp2p interactions like opening connections and negotiating what application protocols we can use to communicate. That's not bad!
+See [multiaddr](#multiaddr)
 
-This can be extended to account for multiple layers of addressing and abstraction. For example, the [Circuit Relay](#circuit-relay) implementation encapsulates the path of the relay into a new multiaddr that combines the public location of the relay with the [PeerId](#peer-id) of the peer on the other end of the circuit.
-
-For more detail, see the [multiaddr spec](https://github.com/multiformats/multiaddr), which has links to many implementations.
 
 ### Multihash
 
@@ -116,7 +109,7 @@ For example, my home network has an internal range of IP addresses (10.0.1.x), w
 
 There are many ways to inform one's router about services you want to expose. For consumer routers, there's likely an admin interface that can setup mappings for any range of TCP or UDP ports. In many cases, routers will allow automatic registration of ports using a protocol called [upnp](https://en.wikipedia.org/wiki/Universal_Plug_and_Play), which libp2p supports. If enabled, libp2p will try to register your service with the router for automatic NAT traversal.
 
-In some cases, automatic NAT traversal is impossible, often because multiple layers of NAT are involved. In such cases, we still want to be able to communicate, and we especially want to be reachable and allow other peers to [dial in](#dial) and use our services. This is the one of the motivations for [Circuit Relay](#circuit-relay), which is a protocol involving a "relay" peer that is publicly reachable and can route traffic on behalf of others. Once a relay circuit is established, a peer behind an especially intractable NAT can advertise the relay circuit's [multiaddress](#multiaddress), and the relay will accept incoming connections on our behalf and send us traffic via the relay.
+In some cases, automatic NAT traversal is impossible, often because multiple layers of NAT are involved. In such cases, we still want to be able to communicate, and we especially want to be reachable and allow other peers to [dial in](#dial) and use our services. This is the one of the motivations for [Circuit Relay](#circuit-relay), which is a protocol involving a "relay" peer that is publicly reachable and can route traffic on behalf of others. Once a relay circuit is established, a peer behind an especially intractable NAT can advertise the relay circuit's [multiaddr](#multiaddr), and the relay will accept incoming connections on our behalf and send us traffic via the relay.
 
 
 ### Node
@@ -158,7 +151,7 @@ An important property of cryptographic peer identities is that they are decouple
 
 ### Peer store
 
-A data structure that stores [PeerIds](#peerid) for known peers, along with known [multiaddresses](#multiaddress) that can be used to communicate with them.
+A data structure that stores [PeerIds](#peerid) for known peers, along with known [multiaddresses](#multiaddr) that can be used to communicate with them.
 
 ### Peer routing
 
