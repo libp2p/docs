@@ -20,7 +20,7 @@ libp2p maintains some state about known peers and existing connections in a comp
 
 When configuring libp2p, applications enable stream muxing modules, which the switch will use when dialing peers and listening for connections. If the remote peers support any of the same stream muxing implementations, the switch will select and use it when establishing the connection. If you dial a peer that the switch already has an open connection to, the new stream will automatically be multiplexed over the existing connection.
 
-Reaching agreement on which stream multiplexer to use happens early in the connection establishment process. Peers use [protocol negotiation](/concepts/protocol-negotiation/) to agree on a commonly supported multiplexer, which [upgrades](/concepts/connections/#connection-upgrading) a "raw" transport connection into a muxed connection capable of opening new streams.
+Reaching agreement on which stream multiplexer to use happens early in the connection establishment process. Peers use [protocol negotiation](/concepts/protocol-negotiation/) to agree on a commonly supported multiplexer, which upgrades a "raw" transport connection into a muxed connection capable of opening new streams.
 
 ## Interface and Implementations
 
@@ -70,7 +70,7 @@ quic is currently supported in go via [go-libp2p-quic-transport](https://github.
 <!-- links -->
 [interface-stream-muxing]: https://github.com/libp2p/interface-stream-muxer
 
-[repo-multistream-select]: FIXME
+[repo-multistream-select]: https://github.com/multiformats/multistream-select 
 
 [wiki-quic]: https://en.wikipedia.org/wiki/QUIC
 [wiki-spdy]: https://en.wikipedia.org/wiki/SPDY
