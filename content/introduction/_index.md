@@ -45,7 +45,7 @@ Information about contributing to libp2p and about other software projects in th
 
 ### Get Involved
 
-libp2p is an open-source community project. While [Protocol Labs](https://protocol.ai) is able to sponsor some of the work around it, much of the design, code, and effort is contributed by volunteers and community members like you. If you’re interested in helping improve libp2p, check the [how to help](/community/contribute/how_to_help/) guide to get started.
+libp2p is an open-source community project. While [Protocol Labs](https://protocol.ai) is able to sponsor some of the work around it, much of the design, code, and effort is contributed by volunteers and community members like you. If you’re interested in helping improve libp2p, check the [contributing](/contributing/) guide to get started.
 
 If you are diving in to contribute new code, make sure you check both the [contribution guidelines](https://github.com/libp2p/community/blob/master/CONTRIBUTE.md) and the style guide for your language ([Go](https://github.com/ipfs/community/blob/master/CONTRIBUTING_GO.md), [JavaScript](https://github.com/ipfs/community/blob/master/CONTRIBUTING_JS.md)).
 
