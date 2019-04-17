@@ -203,7 +203,7 @@ agree upon what protocols to use.
 The implementation of the libp2p handshake is called
 [multistream-select](https://github.com/multiformats/multistream-select).
 
-For details, see the [protocol negotiation article](/concepts/protocol-negotiation/).
+For details, see the [protocol negotiation article](/concepts/protocols/#protocol-negotiation).
 
 ### Stream
 
@@ -232,7 +232,7 @@ without having to specify what transport to use.
 In addition to managing transports, the switch also coordinates the
 "connection upgrade" process, which promotes a "raw" connection from
 the transport layer into one that supports
-[protocol negotiation](/concepts/protocol-negotiation/),
+[protocol negotiation](/concepts/protocols/#protocol-negotiation),
 [stream multiplexing](#multiplexing), and
 [secure communications](/concepts/secure-comms).
 
