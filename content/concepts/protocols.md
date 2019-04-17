@@ -141,9 +141,9 @@ message payloads with an integer that represents the length of the payload in by
 
 ### Ping
 
-| **Protocol id**    | spec | implementations |               |                   |
-|--------------------|------|-----------------|---------------|-------------------|
-| `/ipfs/ping/1.0.0` | N/A  | [go][ping_go]   | [js][ping_js] | [rust][ping_rust] |
+| **Protocol id**    | spec |               |               | implementations   |
+|--------------------|------|---------------|---------------|-------------------|
+| `/ipfs/ping/1.0.0` | N/A  | [go][ping_go] | [js][ping_js] | [rust][ping_rust] |
 
 
 [ping_go]: https://github.com/libp2p/go-libp2p/tree/master/p2p/protocol/ping
@@ -159,7 +159,7 @@ the latency between request and response.
 
 ### Identify
 
-| **Protocol id**  | spec                           | implementations   |                   |                       |
+| **Protocol id**  | spec                           |                   |                   | implementations       |
 |------------------|--------------------------------|-------------------|-------------------|-----------------------|
 | `/ipfs/id/1.0.0` | [identify spec][spec_identify] | [go][identify_go] | [js][identify_js] | [rust][identify_rust] |
 
@@ -200,9 +200,9 @@ makes it more likely that other peers will discover the new address.
 
 ### secio 
 
-| **Protocol id** | spec                     | implementations |                |                    |
-|-----------------|--------------------------|-----------------|----------------|--------------------|
-| `/secio/1.0.0`  | [secio spec][spec_secio] | [go][secio_go]  | [js][secio_js] | [rust][secio_rust] |
+| **Protocol id** | spec                     |                |                | implementations    |
+|-----------------|--------------------------|----------------|----------------|--------------------|
+| `/secio/1.0.0`  | [secio spec][spec_secio] | [go][secio_go] | [js][secio_js] | [rust][secio_rust] |
 
 <!-- TODO(yusef): update spec link when PR lands -->
 [spec_secio]: https://github.com/libp2p/specs/pull/106
@@ -227,9 +227,9 @@ for an overview of the design.
 
 ### kad-dht
 
-| **Protocol id**   | spec                     | implementations |              |   |
-|-------------------|--------------------------|-----------------|--------------|---|
-| `/ipfs/kad/1.0.0` | [kad-dht spec][spec_kad] | [go][kad_go]    | [js][kad_js] | [rust][kad_rust]  |
+| **Protocol id**   | spec                     |              |              | implementations  |
+|-------------------|--------------------------|--------------|--------------|------------------|
+| `/ipfs/kad/1.0.0` | [kad-dht spec][spec_kad] | [go][kad_go] | [js][kad_js] | [rust][kad_rust] |
 
 `kad-dht` is a [Distributed Hash Table][wiki_dht] based on the [Kademlia][wiki_kad] routing algorithm, with some modifications.
 
@@ -246,9 +246,9 @@ libp2p uses the DHT as the foundation of its [peer routing](/concepts/peer-routi
 
 ### Circuit Relay
 
-| **Protocol id**               | spec                             | implementations |                |
-|-------------------------------|----------------------------------|-----------------|----------------|
-| `/libp2p/circuit/relay/0.1.0` | [circuit relay spec][spec_relay] | [go][relay_go]  | [js][relay_js] |
+| **Protocol id**               | spec                             |                | implementations |
+|-------------------------------|----------------------------------|----------------|-----------------|
+| `/libp2p/circuit/relay/0.1.0` | [circuit relay spec][spec_relay] | [go][relay_go] | [js][relay_js]  |
 
 [spec_relay]: https://github.com/libp2p/specs/tree/master/relay
 [relay_js]: https://github.com/libp2p/js-libp2p-circuit
