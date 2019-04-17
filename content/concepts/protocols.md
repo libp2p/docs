@@ -63,8 +63,8 @@ properties:
 - Bidirectional, reliable delivery of binary data
   - Each side can read and write from the stream at any time
   - Data is read in the same order as it was written
-  - Can be "half-closed**, that is, closed for writing and open for reading, or closed for reading and open for writing 
-- Backpressure
+  - Can be "half-closed", that is, closed for writing and open for reading, or closed for reading and open for writing 
+- Supports backpressure
   - Readers can't be flooded by eager writers <!-- TODO(yusef) elaborate: how is backpressure implemented? is it transport-depdendent? -->
   
 Behind the scenes, libp2p will also ensure that the stream is [secure](/concepts/secure-comms/) and efficiently
@@ -120,6 +120,14 @@ js-libp2p provides a [similar match function](https://github.com/multiformats/js
 as part of [js-multistream-select](https://github.com/multiformats/js-multistream-select/)
 
 ### Dialing a specific protocol
+
+When dialing a remote peer to open a new stream, the initiating peer sends the protocol id that they'd like to use. The remote peer will use
+the matching logic described above to accept or reject the protocol. If the protocol is rejected, the dialing peer can try again.
+
+When dialing, you can optionally provide a list of protocol ids instead of a single id. When you provide multiple protocol ids, they will
+each be tried in succession, and the first successful match will be used if at least one of the protocols is supported by the remote peer.
+This can be useful if you support a range of protocol versions, since you can propose the most recent version and fallback to older versions
+if the remote hasn't adopted the latest version yet.
 
 ## Core libp2p protocols
 
