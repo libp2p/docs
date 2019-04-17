@@ -3,21 +3,19 @@ title: Protocols
 weight: 3
 ---
 
+There are protocols everywhere you look when you're writing network applications, and libp2p is
+especially thick with them. 
 
-"Protocol" is a word with plenty of meanings. When working with libp2p, we're mostly concerned
-with a few kinds of protocols. 
+The kind of protocols this article is concerned with are the ones built with libp2p itself,
+using the core libp2p abstractions like [transport](/concepts/transport), [peer identity](/concepts/peer-id/), [addressing](/concepts/addressing/), and so on.
 
-[Transport protocols](/concepts/transport/) are provided by operating systems, language runtimes, library code, etc and are well-defined outside of libp2p. libp2p wraps transport protocols like TCP/IP in a common interface, to provide flexibility and future upgradability.
+Throughout this article, we'll call this kind of protocol that is built with libp2p
+a **libp2p protocol**, but you may also see them referred to as "wire protocols" or "application protocols". 
 
-The kind of protocols this article is concerned with sit above the transport layer, and are sometimes
-called "wire protocols" or "application protocols". Throughout this article, we'll call them **libp2p protocols**
+These are the protocols that define your application and provide its core functionality.
 
-These protocols are specific to some capability or functionality for a peer-to-peer system. This includes 
-core "plumbing" protocols, like the ones [built into libp2p](#core-libp2p-protocols).
+This article will walk through some of the key [defining features of a libp2p protocol](#what-is-a-libp2p-protocol), give an overview of the [protocol negotiation process](#protocol-negotiation), and outline some of the [core libp2p protocols](#core-libp2p-protocols) that are included with libp2p and provide key functionality.
 
-Most importantly, it includes the protocols that applications built with libp2p define for their
-own use. When you build an application with libp2p, your application protocols will determine 
-how your peers interact with each other.
 
 ## What is a libp2p protocol?
 
@@ -39,9 +37,9 @@ how version selection works during the dialing and listening process.
 
 {{% notice "info" %}}
 
-While it's best to use the path-like structure described for protocol ids,
-there is no technical requirement to do so. libp2p will treat any arbitrary
-string as a valid protocol id.
+While libp2p will technically accept any string as a valid protocol id,
+using the recommended path structure with a version component is both
+developer-friendly and enables [easier matching by version](#match-using-semver).
 
 {{% /notice %}}
 
@@ -71,9 +69,7 @@ Behind the scenes, libp2p will also ensure that the stream is [secure](/concepts
 [multiplexed](/concepts/stream-multiplexing/). This is transparent to the protocol handler, which reads and writes
 unencrypted binary data over the stream.
 
-The format of the binary data and the mechanics of what to send when and by whom are all up to the protocol to
-determine. For insipiration, some [common patterns](#common-pattern) that are used in libp2p's internal protocols
-are outlined below.
+The format of the binary data and the mechanics of what to send when and by whom are all up to the protocol to determine. For insipiration, some [common patterns](#common-patterns) that are used in libp2p's internal protocols are outlined below.
 
 
 ## Protocol Negotiation
