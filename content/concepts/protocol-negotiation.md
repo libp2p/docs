@@ -137,7 +137,15 @@ message payloads with an integer that represents the length of the payload in by
 
 ### Ping
 
-**Protocol id**: `/ipfs/ping/1.0.0`
+| **Protocol id**    | spec | implementations |               |                   |
+|--------------------|------|-----------------|---------------|-------------------|
+| `/ipfs/ping/1.0.0` | N/A  | [go][ping_go]   | [js][ping_js] | [rust][ping_rust] |
+
+
+[ping_go]: https://github.com/libp2p/go-libp2p/tree/master/p2p/protocol/ping
+[ping_js]: https://github.com/libp2p/js-libp2p-ping
+[ping_rust]: https://github.com/libp2p/rust-libp2p/blob/master/protocols/ping/src/lib.rs
+
 
 The ping protocol is a simple liveness check that peers can use to quickly see if another peer is online.
 
@@ -147,26 +155,110 @@ the latency between request and response.
 
 ### Identify
 
-**Protocol id**: `/ipfs/id/1.0.0.0`
+| **Protocol id**  | spec                           | implementations   |                   |                       |
+|------------------|--------------------------------|-------------------|-------------------|-----------------------|
+| `/ipfs/id/1.0.0` | [identify spec][spec_identify] | [go][identify_go] | [js][identify_js] | [rust][identify_rust] |
 
+<!-- TODO(yusef): update spec link on PR merge -->
+[spec_identify]: https://github.com/libp2p/specs/pull/97/files
+[identify_go]: https://github.com/libp2p/go-libp2p/tree/master/p2p/protocol/identify
+[identify_js]: https://github.com/libp2p/js-libp2p-identify
+[identify_rust]: https://github.com/libp2p/rust-libp2p/tree/master/protocols/identify/src
 
+The `identify` protocol allows peers to exchange information about each other, and serves a crucial role
+in [NAT traversal](/concepts/nat/).
 
-#### identify-push
+The basic identify protocol works by establishing a new stream to a peer using the identify protocol id
+shown in the table above.
+
+When the remote peer opens the new stream, they will fill out an [`Identify` protobuf message][identify_proto] containing
+information about themselves, such as their public key, which is used to derive their [`PeerId`](/concepts/peer-id/).
+
+Importantly, the `Identify` message includes an `observedAddr` field that contains the [multiaddr][definition_multiaddr] that
+the peer observed the request coming in on. This is what helps peers determine their NAT status, since it allows them to
+see what other peers observe as their public address and compare it to their own view of the network.
+
+[identify_proto]: https://github.com/libp2p/go-libp2p/blob/master/p2p/protocol/identify/pb/identify.proto
+
+#### identify/push
+
+| **Protocol id**       | spec & implementations              |
+|-----------------------|-------------------------------------|
+| `/ipfs/id/push/1.0.0` | same as [identify above](#identify) |
+
+A slight variation on `identify`, the `identify/push` protocol sends the same `Identify` message, but it does so proactively
+instead of in response to a request.
+
+This is useful if a peer starts listening on a new address, establishes a new [relay circuit](/concepts/circuit-relay/), or
+learns of its public address from other peers using the standard `identify` protocol. Upon creating or learning of a new address,
+the peer can push the new address to all peers it's currently aware of. This keeps everyones routing tables up to date and
+makes it more likely that other peers will discover the new address.
 
 ### secio 
 
-TODO: link to secure comms doc, secio spec
+| **Protocol id** | spec                     | implementations |                |                    |
+|-----------------|--------------------------|-----------------|----------------|--------------------|
+| `/secio/1.0.0`  | [secio spec][spec_secio] | [go][secio_go]  | [js][secio_js] | [rust][secio_rust] |
+
+<!-- TODO(yusef): update spec link when PR lands -->
+[spec_secio]: https://github.com/libp2p/specs/pull/106
+[secio_go]: https://github.com/libp2p/go-libp2p-secio
+[secio_js]: https://github.com/libp2p/js-libp2p-secio
+[secio_rust]: https://github.com/libp2p/rust-libp2p/tree/master/protocols/secio
+
+`secio` (short for secure input/output) is a protocol for encrypted communication that is similar to TLS 1.2, but without the
+Certificate Authority requirements. Because each libp2p peer has a [PeerId](/concepts/peer-id) that's derived from their
+public key, the identity of a peer can be validated without needing a Certificate Authority by using their public
+key to validate signed messages.
+
+See the [Secure Communication article](/concepts/secure-comms/) for more information.
+
+{{% notice "note" %}}
+
+While secio is the default encryption protocol used by libp2p today, work is progressing on integrating TLS 1.3 into libp2p,
+which is expected to become the default once completed. See [the libp2p TLS 1.3 spec](https://github.com/libp2p/specs/tree/master/tls)
+for an overview of the design.
+
+{{% /notice %}}
 
 ### kad-dht
 
+| **Protocol id**   | spec                     | implementations |              |   |
+|-------------------|--------------------------|-----------------|--------------|---|
+| `/ipfs/kad/1.0.0` | [kad-dht spec][spec_kad] | [go][kad_go]    | [js][kad_js] | [rust][kad_rust]  |
+
+`kad-dht` is a [Distributed Hash Table][wiki_dht] based on the [Kademlia][wiki_kad] routing algorithm, with some modifications.
+
+libp2p uses the DHT as the foundation of its [peer routing](/concepts/peer-routing/) and [content routing](/concepts/content-routing/) functionality.
+
+<!-- TODO(yusef): update spec link when PR lands -->
+[spec_kad]: https://github.com/libp2p/specs/pull/108
+[kad_go]: https://github.com/libp2p/go-libp2p-kad-dht
+[kad_js]: https://github.com/libp2p/js-libp2p-kad-dht
+[kad_rust]: https://github.com/libp2p/rust-libp2p/tree/master/protocols/kad
+
+[wiki_dht]: https://en.wikipedia.org/wiki/Distributed_hash_table
+[wiki_kad]: https://en.wikipedia.org/wiki/Kademlia
 
 ### Circuit Relay
 
+| **Protocol id**               | spec                             | implementations |                |
+|-------------------------------|----------------------------------|-----------------|----------------|
+| `/libp2p/circuit/relay/0.1.0` | [circuit relay spec][spec_relay] | [go][relay_go]  | [js][relay_js] |
+
+[spec_relay]: https://github.com/libp2p/specs/tree/master/relay
+[relay_js]: https://github.com/libp2p/js-libp2p-circuit
+[relay_go]: https://github.com/libp2p/go-libp2p-circuit
+
+As described in the [Circuit Relay article](/concepts/circuit-relay/), libp2p provides a protocol
+for tunneling traffic through relay peers when two peers are unable to connect to each other
+directly. See the article for more information on working with relays, including notes on relay
+addresses and how to enable automatic relay connection when behind an intractible NAT.
 
 <!-- links -->
 
 [definition_switch]: /reference/glossary/#switch
+[definition_multiaddr]: /reference/glossary/#multiaddr
+
 [repo_multistream-select]: https://github.com/multiformats/multistream-select
 
-<!-- FIXME: the link below does not resolve. stub before merging -->
-[concepts_connection_handshake]: /concepts/connections/#connection-handshake 
