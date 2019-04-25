@@ -133,11 +133,11 @@ In addition to the protocols that you write when developing a libp2p application
 
 The protocols described below all use [protocol buffers](https://developers.google.com/protocol-buffers/) (aka protobuf) to define message schemas.
 
-Messages are exchanged over the wire using a very simple convention called [msgio](https://github.com/jbenet/go-msgio), which prefixes binary
-message payloads with an integer that represents the length of the payload in bytes. The length is encoded as a [protobuf varint](https://developers.google.com/protocol-buffers/docs/encoding#varints)  (variable-length integer).
+Messages are exchanged over the wire using a very simple convention which prefixes binary
+message payloads with an integer that represents the length of the payload in bytes. The 
+length is encoded as a [protobuf varint](https://developers.google.com/protocol-buffers/docs/encoding#varints)  (variable-length integer).
 
 
-<!-- TODO(yusef): do we expose any kind of msgio + protobuf convenience functions for protocol construction? If so, link here. also, is there a spec for msgio in the abstract? -->
 
 ### Ping
 
@@ -169,8 +169,9 @@ the latency between request and response.
 [identify_js]: https://github.com/libp2p/js-libp2p-identify
 [identify_rust]: https://github.com/libp2p/rust-libp2p/tree/master/protocols/identify/src
 
-The `identify` protocol allows peers to exchange information about each other, and serves a crucial role
-in [NAT traversal](/concepts/nat/).
+The `identify` protocol allows peers to exchange information about each other, most notably their public keys
+and known network addresses.
+
 
 The basic identify protocol works by establishing a new stream to a peer using the identify protocol id
 shown in the table above.
@@ -179,7 +180,7 @@ When the remote peer opens the new stream, they will fill out an [`Identify` pro
 information about themselves, such as their public key, which is used to derive their [`PeerId`](/concepts/peer-id/).
 
 Importantly, the `Identify` message includes an `observedAddr` field that contains the [multiaddr][definition_multiaddr] that
-the peer observed the request coming in on. This is what helps peers determine their NAT status, since it allows them to
+the peer observed the request coming in on. This helps peers determine their NAT status, since it allows them to
 see what other peers observe as their public address and compare it to their own view of the network.
 
 [identify_proto]: https://github.com/libp2p/go-libp2p/blob/master/p2p/protocol/identify/pb/identify.proto
