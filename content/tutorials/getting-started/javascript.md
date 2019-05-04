@@ -235,6 +235,8 @@ Let's add a `ping` method to our `P2PNode` class so we can send pings to other p
 Change the definition of `P2PNode` in `src/p2p/index.js` to this:
 
 ```javascript
+const Ping = require('libp2p-ping')
+
 class P2PNode extends Libp2p {
   constructor (opts) {
     super(defaultsDeep(opts, DEFAULT_OPTS))
@@ -270,9 +272,9 @@ function pingRemotePeer(localPeer) {
   const remoteAddr = multiaddr(process.argv[2])
 
   // Convert the multiaddress into a PeerInfo object
-  const peerId = PeerId.createFromB58String(addr.getPeerId())
+  const peerId = PeerId.createFromB58String(remoteAddr.getPeerId())
   const remotePeerInfo = new PeerInfo(peerId)
-  remotePeerInfo.multiaddrs.add(addr)
+  remotePeerInfo.multiaddrs.add(remoteAddr)
 
   console.log('pinging remote peer at ', remoteAddr.toString())
   localPeer.ping(remotePeerInfo, (err, time) => {
