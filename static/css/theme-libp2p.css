@@ -36,6 +36,10 @@ body {
   margin: 0 auto;
 }
 
+#body-inner pre {
+  white-space: pre;
+}
+
 p {
   font-weight: 400;
   line-height: 1.75rem;
