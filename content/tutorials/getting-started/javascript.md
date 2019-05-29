@@ -265,6 +265,8 @@ const process = require('process')
 Then we'll add a function to parse a multiaddress from the command line and try to ping the remote peer:
 
 ```javascript
+const PeerId = require('peer-id')
+
 function pingRemotePeer(localPeer) {
   if (process.argv.length < 3) {
     return console.log('no remote peer address given, skipping ping')
