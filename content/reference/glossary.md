@@ -225,7 +225,7 @@ for context.
 
 ### Switch
 
-A libp2p component responsible for composing multiple [tranports](#tranport)
+A libp2p component responsible for composing multiple [translports](#transport)
 into a single interface, allowing application code to [dial](#dial) peers
 without having to specify what transport to use.
 
