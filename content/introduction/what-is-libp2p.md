@@ -35,7 +35,7 @@ In a world with billions of networked devices, knowing who you're talking to is 
 
 ### Security
 
-It's essential that we be able to send and receive data between peers *securely*, meaning that we can trust the [identity](#identity) of the peer we're communicating with and that no third-party can read our conversation or alter it in-flight.
+It's essential that we are able to send and receive data between peers *securely*, meaning that we can trust the [identity](#identity) of the peer we're communicating with and that no third-party can read our conversation or alter it in-flight.
 
 libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. The current default is [secio][definition_secio], with support for [TLS 1.3](https://www.ietf.org/blog/tls13/) under development.
 
