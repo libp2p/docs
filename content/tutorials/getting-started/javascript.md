@@ -83,6 +83,7 @@ class P2PNode extends Libp2p {
   }
 }
 
+module.exports = {P2PNode}
 ```
 
 The `libp2p` module exports a [libp2p.Node class](https://github.com/libp2p/js-libp2p#create-a-node---new-libp2pnodeoptions) which we extend into our own `P2PNode` class.
