@@ -236,7 +236,7 @@ Let's add a `ping` method to our `P2PNode` class so we can send pings to other p
 Change the definition of `P2PNode` in `src/p2p/index.js` to this:
 
 ```javascript
-const Ping = require('libp2p-ping')
+const Ping = require('libp2p/src/ping')
 
 class P2PNode extends Libp2p {
   constructor (opts) {
