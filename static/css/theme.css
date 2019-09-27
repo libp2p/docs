@@ -623,13 +623,17 @@ code, kbd, pre, samp {
     font-family: "Consolas", menlo, monospace;
     font-size: 92%;
 }
-code {
+code, .configurable {
     border-radius: 2px;
     white-space: nowrap;
     color: #5e5e5e;
     background: #FFF7DD;
     border: 1px solid #fbf0cb;
     padding: 0px 2px;
+}
+.configurable {
+    background: #eed9ee;
+    border-color: #e1c5e2;
 }
 code + .copy-to-clipboard {
     margin-left: -1px;
