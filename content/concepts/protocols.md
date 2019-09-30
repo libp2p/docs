@@ -258,7 +258,7 @@ libp2p uses the DHT as the foundation of its [peer routing](/concepts/peer-routi
 As described in the [Circuit Relay article](/concepts/circuit-relay/), libp2p provides a protocol
 for tunneling traffic through relay peers when two peers are unable to connect to each other
 directly. See the article for more information on working with relays, including notes on relay
-addresses and how to enable automatic relay connection when behind an intractible NAT.
+addresses and how to enable automatic relay connection when behind an intractable NAT.
 
 <!-- links -->
 
