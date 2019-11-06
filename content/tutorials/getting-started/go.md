@@ -245,7 +245,7 @@ send it ping messages.
 
 We'll first expand the log message that we've been printing after starting the node to include
 its `PeerId` value, as we'll need that to instruct other nodes to connect to it. Let's import the
-`github.com/libp2p/go-libp2p-peerstore` package and use it to replace the "Listen addresses" log
+`github.com/libp2p/go-libp2p-core/peer` package and use it to replace the "Listen addresses" log
 message with something that prints both the listen address and the `PeerId` as a multiaddr string:
 
 ```go
@@ -253,7 +253,7 @@ import (
 	...
 
 	"github.com/libp2p/go-libp2p"
-	peerstore "github.com/libp2p/go-libp2p-peerstore"
+    peerstore "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
 )
 
@@ -261,14 +261,11 @@ func main() {
 	...
 
 	// print the node's PeerInfo in multiaddr format
-	peerInfo := &peerstore.PeerInfo{
+	peerInfo := peerstore.AddrInfo{
 		ID:    node.ID(),
 		Addrs: node.Addrs(),
 	}
-	addrs, err := peerstore.InfoToP2pAddrs(peerInfo)
-	if err != nil {
-		panic(err)
-	}
+	addrs, err := peerstore.AddrInfoToP2pAddrs(&peerInfo)
 	fmt.Println("libp2p node address:", addrs[0])
 
 	...
@@ -292,7 +289,7 @@ import (
 	...
 
 	"github.com/libp2p/go-libp2p"
-	peerstore "github.com/libp2p/go-libp2p-peerstore"
+	peerstore "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
 	multiaddr "github.com/multiformats/go-multiaddr"
 )
@@ -308,7 +305,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		peer, err := peerstore.InfoFromP2pAddr(addr)
+		peer, err := peerstore.AddrInfoFromP2pAddr(addr)
 		if err != nil {
 			panic(err)
 		}
@@ -354,7 +351,7 @@ import (
 	"syscall"
 
 	"github.com/libp2p/go-libp2p"
-	peerstore "github.com/libp2p/go-libp2p-peerstore"
+	peerstore "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
 	multiaddr "github.com/multiformats/go-multiaddr"
 )
@@ -378,11 +375,11 @@ func main() {
 	node.SetStreamHandler(ping.ID, pingService.PingHandler)
 
 	// print the node's PeerInfo in multiaddr format
-	peerInfo := &peerstore.PeerInfo{
+	peerInfo := peerstore.AddrInfo{
 		ID:    node.ID(),
 		Addrs: node.Addrs(),
 	}
-	addrs, err := peerstore.InfoToP2pAddrs(peerInfo)
+	addrs, err := peerstore.AddrInfoToP2pAddrs(&peerInfo)
 	if err != nil {
 		panic(err)
 	}
@@ -395,7 +392,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		peer, err := peerstore.InfoFromP2pAddr(addr)
+		peer, err := peerstore.AddrInfoFromP2pAddr(addr)
 		if err != nil {
 			panic(err)
 		}
