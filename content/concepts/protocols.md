@@ -109,7 +109,7 @@ make sense for your application.
 
 If you'd like to concurrently support a range of numbered versions, you may want to use semantic versioning (aka [semver](https://semver.org)).
 
-In go-libp2p, a helper function called [`MultistreamSemverMatcher`](https://github.com/libp2p/go-libp2p-host/blob/master/match.go) can be used
+In go-libp2p, a helper function called [`MultistreamSemverMatcher`](https://github.com/libp2p/go-libp2p-core/blob/master/helpers/match.go) can be used
 as a protocol match function to see if an incoming request can be satisfied by the registered protocol version.
 
 js-libp2p provides a [similar match function](https://github.com/multiformats/js-multistream-select/blob/master/src/listener/match-semver.js)
