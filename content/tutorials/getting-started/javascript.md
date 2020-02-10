@@ -8,6 +8,8 @@ This is the first in a series of tutorials on working with libp2p's javascript i
 
 We'll cover setting up an empty project, creating a libp2p "bundle" with some basic functionality, and finally we'll send ping messages back and forth between two peers.
 
+**ATTENTION:** This tutorial is using `js-libp2p@0.26` version. Please take into account [libp2p/js-libp2p//GETTING_STARTED.md](https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md) document while we work on updating this tutorial.
+
 <!--more-->
 
 <!--
