@@ -63,7 +63,7 @@ data stored on the Kad-DHT is replicated across the set of peers that are
 "closest" to the data's associated key, whether those peers have any particular
 interest in the data or not.
 
-Cooperative systems are inherently succeptible to abuse by bad actors, and
+Cooperative systems are inherently susceptible to abuse by bad actors, and
 although we are researching ways to limit the impact of such attacks, they are
 possible in libp2p today.
 
@@ -92,7 +92,7 @@ incorrect data or by not returning data at all.
 Applications can guard against modification of data by signing values that are
 stored in the DHT, or by using a hash of the data as the DHT key (as in
 [IPFS](https://ipfs.io)). These strategies allow you to detect if the data has
-been tampered with, however, they cannot prevent tampering from occuring in the
+been tampered with, however, they cannot prevent tampering from occurring in the
 first place, nor can they prevent malicious nodes from simply pretending the
 data doesn't exist and omitting it entirely.
 
@@ -105,7 +105,7 @@ quite resource-intensive to perform, requiring a large number of malicious nodes
 to be fully effective.
 
 Eclipse and Sybil attacks are difficult to defend against because it is possible
-to generate an unlimited number of valid peer ids. Many practial mitigations for
+to generate an unlimited number of valid peer ids. Many practical mitigations for
 Sybil attacks rely on making ID generation "expensive" somehow, for example, by
 requiring a proof-of-work with real-world associated costs, or by "minting" IDs
 from a central trusted authority. These mitigations are outside the scope of
