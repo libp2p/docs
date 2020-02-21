@@ -14,6 +14,12 @@ provide the tools for application developers to address these problems, rather
 than taking arbitrary approaches to security that may not be acceptable to all
 systems built with libp2p.
 
+Another aspect to consider is that the fact that a particular type of attack is
+theoretically feasible, does not automatically imply that it is practical,
+sensible, worthwhile, or efficient to carry out. To evaluate the actual
+exploitability of a theoretical attack vector, consider the volume, class, and
+cost of resources that the attacker would have to expend for their attack to
+reasonably succeed.
 
 ## Identity and Trust
 
@@ -49,10 +55,15 @@ require the token before allowing access.
 Systems that are designed to be fully decentralized are often "open by default,"
 allowing any peer to participate in core functions. However, such systems may
 benefit from maintaining some kind "reputation" system to identify faulty or
-malicious participants and block or ignore them. Implementing decentralized
-reputation management is outside the scope of libp2p, but many of libp2p's core
-developers and community members are excited by research and development in this
-area, and would welcome your thoughts [on the libp2p
+malicious participants and block or ignore them. For example, each peer could
+assign scores to other peers based on how useful and "correct" their behavior is
+according to the design of the protocol, taking the score into account when
+deciding whether to handle a given request.
+
+A fully decentralized reputation management system, in which peers collaborate
+to evaluate each other, is outside the scope of libp2p. However, many of
+libp2p's core developers and community members are excited by research and
+development in this area, and would welcome your thoughts [on the libp2p
 forums](https://discuss.libp2p.io).
 
 ## Cooperative Systems with Abuse Potential
@@ -79,22 +90,27 @@ services on the network.
 
 #### Sybil Attacks
 
-DHTs in general are vulnerable to a class of attacks called [Sybil
-attacks][wikipedia-sybil], in which one operator spins up a large number of DHT
-peers (generally called "Sybils") to gain undue influence over the routing
-algorithm used to maintain the network.
+DHTs, and p2p systems in general are vulnerable to a class of attacks called
+[Sybil attacks][wikipedia-sybil], in which one operator spins up a large number
+of DHT peers with distinct identities (generally called "Sybils") to flood the
+network and gain an advantageous position.
 
-If many Sybils are generated with IDs that are "close" to a particular key in
-the DHT, they are likely to be in the path for most queries for that key. This
-gives them an opportunity to modify query responses, either by returning
-incorrect data or by not returning data at all.
+A DHT query may need to be routed through several peers before completion, each
+of which has the opportunity to modify query responses, either by returning
+incorrect data or by not returning data at all. By controlling a large number of
+Sybil nodes (in proportion to the size of the network), a bad actor increases
+the probability of being in the lookup path for queries. To target a specific
+key, they could improve their chances of being in the lookup path further by
+generating IDs that are "close" to the target key according the DHT's distance
+metric.
 
 Applications can guard against modification of data by signing values that are
-stored in the DHT, or by using a hash of the data as the DHT key (as in
-[IPFS](https://ipfs.io)). These strategies allow you to detect if the data has
-been tampered with, however, they cannot prevent tampering from occurring in the
-first place, nor can they prevent malicious nodes from simply pretending the
-data doesn't exist and omitting it entirely.
+stored in the DHT, or by using content addressing, where a cryptographic hash of
+the stored value is used as the key, as in [IPFS](https://ipfs.io). These
+strategies allow you to detect if the data has been tampered with, however, they
+cannot prevent tampering from occurring in the first place, nor can they prevent
+malicious nodes from simply pretending the data doesn't exist and omitting it
+entirely.
 
 Very similar to Sybil attacks, an Eclipse attack also uses a large number of
 controlled nodes, but with a slightly different goal. Instead of modifying data
@@ -111,6 +127,12 @@ requiring a proof-of-work with real-world associated costs, or by "minting" IDs
 from a central trusted authority. These mitigations are outside the scope of
 libp2p, but could be adopted at the application layer to make Sybil attacks more
 difficult and/or prohibitively expensive.
+
+We are currently planning to implement a strategy of querying multiple disjoint
+lookup paths (paths that do not share any common intermediary peers) in
+parallel, inspired by the [S/Kademlia paper][paper-s-kademlia]. This will
+greatly increase the chances of finding "honest" nodes, even if some nodes are
+returning dishonest routing information.
 
 ### Publish / Subscribe
 
