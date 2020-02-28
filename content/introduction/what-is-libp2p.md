@@ -75,7 +75,7 @@ libp2p defines a [pubsub interface][interface_pubsub] for sending messages to al
 [interface_pubsub]: https://github.com/libp2p/specs/tree/master/pubsub
 
 
-[built_with_libp2p]: /TODO
-[help_improve_docs]: /TODO
+[built_with_libp2p]: https://discuss.libp2p.io/c/ecosystem-community
+[help_improve_docs]: https://github.com/libp2p/docs/issues
 
 [wiki_kademlia]: https://en.wikipedia.org/wiki/Kademlia
