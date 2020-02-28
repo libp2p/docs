@@ -98,7 +98,7 @@ aware of.
 
 The peer store acts as a sort of "phone book" when dialing out to
 other peers; if a peer is in the peer store, we probably don't need to discover
-their addresses using [peer routing](/conecpts/peer-routing/).
+their addresses using [peer routing](/concepts/peer-routing/).
 
 
 {{% notice "tip" %}}
