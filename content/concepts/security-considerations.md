@@ -121,12 +121,12 @@ quite resource-intensive to perform, requiring a large number of malicious nodes
 to be fully effective.
 
 Eclipse and Sybil attacks are difficult to defend against because it is possible
-to generate an unlimited number of valid peer ids. Many practical mitigations for
-Sybil attacks rely on making ID generation "expensive" somehow, for example, by
-requiring a proof-of-work with real-world associated costs, or by "minting" IDs
-from a central trusted authority. These mitigations are outside the scope of
-libp2p, but could be adopted at the application layer to make Sybil attacks more
-difficult and/or prohibitively expensive.
+to generate an unlimited number of valid peer ids. Many practical mitigations
+for Sybil attacks rely on making ID generation "expensive" somehow, for example,
+by requiring a proof-of-work with real-world associated costs, or by "minting"
+and signingIDs from a central trusted authority. These mitigations are outside
+the scope of libp2p, but could be adopted at the application layer to make Sybil
+attacks more difficult and/or prohibitively expensive.
 
 We are currently planning to implement a strategy of querying multiple disjoint
 lookup paths (paths that do not share any common intermediary peers) in
