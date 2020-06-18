@@ -151,6 +151,10 @@ const multiaddr = require('multiaddr')
 
 const main = async () => {
   const node = await Libp2p.create({
+    addresses: {
+      // add a listen address (localhost) to accept TCP connections on a random port
+      listen: ['/ip4/127.0.0.1/tcp/0']
+    },
     modules: {
       transport: [TCP],
       connEncryption: [SECIO],
@@ -158,19 +162,14 @@ const main = async () => {
     }
   })
 
-  // add a listen address (localhost) to accept TCP connections on a random port
-  const listenAddress = multiaddr(`/ip4/127.0.0.1/tcp/0`)
-  node.peerInfo.multiaddrs.add(listenAddress)
-
   // start libp2p
   await node.start()
   console.log('libp2p has started')
 
   // print out listening addresses
-  const addresses = node.peerInfo.multiaddrs.toArray()
   console.log('listening on addresses:')
-  addresses.forEach(addr => {
-    console.log(`${addr.toString()}/p2p/${node.peerInfo.id.toB58String()}`)
+  node.multiaddrs.forEach(addr => {
+    console.log(`${addr.toString()}/p2p/${node.peerId.toB58String()}`)
   })
 
   // stop libp2p
@@ -206,6 +205,10 @@ Then we'll need to parse the multiaddress from the command line and try to ping 
 
 ```javascript
 const node = await Libp2p.create({
+  addresses: {
+    // add a listen address (localhost) to accept TCP connections on a random port
+    listen: ['/ip4/127.0.0.1/tcp/0']
+  },
   modules: {
     transport: [TCP],
     connEncryption: [SECIO],
@@ -213,19 +216,14 @@ const node = await Libp2p.create({
   }
 })
 
-// add a listen address (localhost) to accept TCP connections on a random port
-const listenAddress = multiaddr(`/ip4/127.0.0.1/tcp/0`)
-node.peerInfo.multiaddrs.add(listenAddress)
-
 // start libp2p
 await node.start()
 console.log('libp2p has started')
 
 // print out listening addresses
-const addresses = node.peerInfo.multiaddrs.toArray()
 console.log('listening on addresses:')
-addresses.forEach(addr => {
-  console.log(`${addr.toString()}/p2p/${node.peerInfo.id.toB58String()}`)
+node.multiaddrs.forEach(addr => {
+  console.log(`${addr.toString()}/p2p/${node.peerId.toB58String()}`)
 })
 
 // ping peer if received multiaddr
