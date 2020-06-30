@@ -51,7 +51,7 @@ information to maintain a message delivery network.
 
 ## Discovery
 
-Before a peer can subscribe to a topic is must find other peers and establish
+Before a peer can subscribe to a topic it must find other peers and establish
 network connections with them. The pub/sub system doesn’t have any way to
 discover peers by itself. Instead, it relies upon the application to find new
 peers on its behalf, a process called **ambient peer discovery**.
