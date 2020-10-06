@@ -139,7 +139,7 @@ const node = await Libp2p.create({
 
 Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexer** module, you can start your libp2p node. We can start and stop libp2p using the [`libp2p.start()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#start) and [`libp2p.stop()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#stop) methods.
 
-A libp2p node needs to have a listen address for the given transport, so that it can be reached by other nodes in the network. Accordingly, we will install the `multiaddr` module to create a tcp [multiaddress](https://docs.libp2p.io/reference/glossary/#multiaddr) and add it to the node.
+A libp2p node needs to have a listen address for the given transport, so that it can be reached by other nodes in the network. Accordingly, we will install the `multiaddr` module to create a tcp [multiaddress][definition_multiaddress] and add it to the node.
 
 ```js
 const Libp2p = require('libp2p')
@@ -277,6 +277,6 @@ After finishing this tutorial, you should have a look into the [js-libp2p gettin
 
 You also have a panoply of examples on [js-libp2p repo](https://github.com/libp2p/js-libp2p/tree/master/examples) that you can leverage to learn how to use `js-libp2p` for several different use cases and runtimes.
 
-[definition_muiltiaddress]: /reference/glossary/#multiaddr
+[definition_multiaddress]: /reference/glossary/#multiaddr
 [definition_multiplexer]: /reference/glossary/#multiplexer
 [definition_peerid]: /reference/glossary/#peerid
