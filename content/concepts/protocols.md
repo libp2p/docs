@@ -154,7 +154,7 @@ length is encoded as a [protobuf varint](https://developers.google.com/protocol-
 The ping protocol is a simple liveness check that peers can use to quickly see if another peer is online.
 
 After the initial protocol negotiation, the dialing peer sends 32 bytes of random binary data. The listening
-peer echoes the data back and closes the stream, and the dialing peer will verify the response and measure 
+peer echoes the data back, and the dialing peer will verify the response and measure 
 the latency between request and response.
 
 ### Identify
