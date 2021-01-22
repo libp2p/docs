@@ -3,7 +3,7 @@ title: Address Discovery and Advertisement
 weight: 2
 ---
 
-This post explains how a go-libp2p node discovers it’s dialable addresses and advertises them to other peers. While it might seem trivial at first glance, there’s a lot going on behind the scenes. Let’s dive in.
+This post explains how a `go-libp2p` node discovers it’s dialable addresses and advertises them to other peers. While it might seem trivial at first glance, there’s a lot going on behind the scenes. Let’s dive in.
 
 ### Address Discovery
 
@@ -11,7 +11,8 @@ The following address sets make up a libp2p node’s complete **set of dialable 
 
 - The network interface addresses a node explicitly listens on/binds to.
 
-- The node’s publicly visible addresses(“observed addresses”) it learns from other peers using the Identify protocol. This is especially relevant if the node is behind a NAT.
+- The node’s publicly visible addresses(“observed addresses”) it learns from other peers using the [Identify][spec_identify]
+  protocol. This is especially relevant if the node is behind a NAT.
 
 - Relay addresses a node builds up after connecting to public Relay servers if it discovers it’s not publicly dialable.
 
@@ -98,9 +99,6 @@ with the world.
       inbound connections over outbound ones(obviously), using the number of peers who reported that same
       observed address to resolve ties.
 
-
-#### (TODO) Using UPnP to get a publicly dialable port mapping from the Router/NAT device
-
 #### Relay Addresses: Using AutoRelay, AutoNAT and Relay Servers
 
 - We use [circuit relays][spec_relay] to enable other peers to connect to us when we discover we are completely
@@ -110,11 +108,11 @@ with the world.
   Any peer that then wants to talk to us can do so via the relay server.
 
 - There are three parts to this:
-    - Discovering we are completely NATT’d and thus NOT dialable at all using AutoNAT.
+    - Discovering we are completely NATT’d and thus NOT dialable at all using `AutoNAT`.
 
-    - Discovering Relay Servers we can connect to and building relay addresses by using AutoRelay.
+    - Discovering Relay Servers we can connect to and building relay addresses by using `AutoRelay`.
 
-    - Creating long lived connections with the Relay server and advertising relay addresses in AutoRelay.
+    - Creating long lived connections with the Relay server and advertising relay addresses in `AutoRelay`.
 
     #### AutoNAT: Discovering we are NOT dialable/NATT’d
     - To discover that we are NOT dialable, we use a component called [AutoNAT][autonat_repo].
@@ -149,27 +147,27 @@ with the world.
     - A peer can be a Relay server if the `libp2p.EnableRelay` option is set on it with the `circuit.OptHop`
   option and the `libp2p.EnableAutoRelay` is also set on it.
 
-    - When a Relay server is created, it starts advertising itself as the provider of the Relay “"/libp2p/relay"
+    - When a Relay server is created, it starts advertising itself as the provider of the Relay `/libp2p/relay`
   namespace on the DHT.
 
     - Any peer that wants to connect to a Relay server can then look for them by searching for providers of the
-  “"/libp2p/relay" namespace on the DHT and then randomly picking one Relay server that’s dialable.
+  `/libp2p/relay` namespace on the DHT and then randomly picking one Relay server that’s dialable.
 
     #### Creating long lived connections with the Relay server and advertising relay addresses
 
     - Once a peer knows it has private reachability by using AutoNAT, the only way it can be dialled from
     outside is through Relay servers.
 
-    - So, when a peer receivers an “EvtLocalReachabilityChanged” event with Private reachability, it searches the
+    - So, when a peer receivers an `EvtLocalReachabilityChanged` event with Private reachability, it searches the
     DHT for Relay servers as described above and connects to one of them.
 
     - It then creates a Relay address for itself by combining the address of the Relay server with it’s peerID and
     adds it to the dialable address set of the peer. In this case, the peer also removes all public addresses from
     it’s set of dialable addresses as it overwrites them with the Relay addresses since it does NOT have public
     reachability. This means it will remove public interface addresses, UPnP addresses and even public observed
-    addresses it is confident about from it’s set of dialable addresses.
-    However, it will retain all private IP addresses it discovers using all these mechanisms so peers on the
-    same network can dial it without using Relays.
+    addresses it is confident about from it’s set of dialable addresses. However it will retain all
+    private IP addresses it discovers using all these mechanisms so peers on the same network can dial it
+    without using Relays.
 
     - Note that the connection with the Relay server should be a long lived one as peers can ONLY connect to it
     using the relay address if it is connected to the Relay server.
