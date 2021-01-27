@@ -76,8 +76,7 @@ with the world.
 
 - Every observed address we get using the Identify protocol is recorded in the Observed Address Manager.
 
-- When the Host wants to build it’s address set, one of the steps it takes is to ask the Observed Address Manager
-  for the addresses it thinks should be shared.
+When the Host wants to build its address set, one of the steps it takes is to ask the Observed Address Manager for the addresses it thinks should be shared.
 
 - Here are the rules used by the Manager to determine which addresses will be shared:
     - The observed address should NOT be a loopback address.
