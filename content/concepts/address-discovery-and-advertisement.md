@@ -3,7 +3,7 @@ title: Address Discovery and Advertisement
 weight: 2
 ---
 
-This post explains how a `go-libp2p` node discovers it’s dialable addresses and advertises them to other peers. While it might seem trivial at first glance, there’s a lot going on behind the scenes. Let’s dive in.
+This post explains how a `go-libp2p` node discovers its dialable addresses and advertises them to other peers. While it might seem trivial at first glance, there’s a lot going on behind the scenes. Let’s dive in.
 
 ### Address Discovery
 
