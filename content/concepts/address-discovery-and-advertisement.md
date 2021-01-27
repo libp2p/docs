@@ -99,7 +99,7 @@ with the world.
       inbound connections over outbound ones(obviously), using the number of peers who reported that same
       observed address to resolve ties.
 
-#### Relay Addresses: Using AutoRelay, AutoNAT and Relay Servers
+#### Relay Addresses
 
 - We use [circuit relays][spec_relay] to enable other peers to connect to us when we discover we are completely
   NATT’d and are not dialable at all. The basic idea is that we connect to a publicly reachable “relay” server and
