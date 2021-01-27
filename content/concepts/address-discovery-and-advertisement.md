@@ -60,14 +60,7 @@ that it’s dialable on those addresses.
   which is populated with the other peer’s address they observe on the connection which enables the other peer to
   learn it’s observed addresses.
 
-- However, we can’t share all such observed addresses with the world as that could lead to us sharing a whole bunch
-  of undialable addresses. For example, we could simply be using ephemeral ports for some outbound connections
-  thus causing them to be assigned different NAT mappings than the mapping for the address we are listening on,
-  some of them could be loopback addresses etc.
-
-- As mentioned above, before we share such observed addresses with
-  the world, we need a fair degree of confidence that they are indeed dialable and reachable from outside.
-  We need to do some analytics here and this is where the `ObservedAddrManager` component comes in.
+In order to ensure we don't invalid addresses our peers have observed, libp2p does its due diligence of ensuring that we have seen the same address multiple times. Only when we are reasonably sure the address is correct do we announce it to other peers on the network. In go-libp2p, this due diligence is performed by the *Observed Address Manager*.
 
 ##### The Observed Address Manager
 
