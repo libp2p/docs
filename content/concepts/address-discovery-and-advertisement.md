@@ -16,7 +16,7 @@ The following address sets make up a libp2p node’s complete **set of dialable 
 
 - Relay addresses a node discovers after connecting to public Relay servers if it determines it’s not publicly dialable.
 
-- Addresses assigned by the router by using a port mapping protocol such as UPnP.
+- Addresses assigned by the nodes local hardware router via a port mapping protocol such as UPnP.
 
 {{% notice "note" %}}
 A node can use one, some or all of the above address sets to build up the complete set of it’s dialable
