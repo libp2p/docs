@@ -31,7 +31,7 @@ Let’s dig deeper into how each of those address sets are built.
 - These are the network interface addresses a libp2p node explicitly binds to by either passing in the
 `libp2p.ListenAddrs(addrs..)` option when constructing a `Host` or by calling the `h.Network().Listen(addrs..)` API.
 
-- However, the user could pass in an unspecified IPv4 or v6 address here to listen on all available network interfaces.
+Instead of strict addresses, users can pass in ephemeral IPv4 (`/ip4/0.0.0.0/tcp/0`) and/or IPv6 (`/ip6/::/tcp/0`) addresses to listen on all available network interfaces.
 Thus, we need to resolve the unspecified addresses.
 Earlier, we used to resolve the unspecified addresses by using all available network interfaces but this quickly
 led to address explosion and a lot of the interfaces were un-usable anyways
