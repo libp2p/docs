@@ -32,16 +32,9 @@ Let’s dig deeper into how each of those address sets are built.
 `libp2p.ListenAddrs(addrs..)` option when constructing a `Host` or by calling the `h.Network().Listen(addrs..)` API.
 
 Instead of strict addresses, users can pass in ephemeral IPv4 (`/ip4/0.0.0.0/tcp/0`) and/or IPv6 (`/ip6/::/tcp/0`) addresses to listen on all available network interfaces.
-Thus, we need to resolve the unspecified addresses.
-Earlier, we used to resolve the unspecified addresses by using all available network interfaces but this quickly
-led to address explosion and a lot of the interfaces were un-usable anyways
-(link local interfaces, docker interfaces etc.).
+In previous versions of libp2p, ephemeral addresses would result in libp2p binding to **all** available network interfaces (link local interfaces, docker interfaces, etc). This was problematic, as it led to "address explosion", resulting in libp2p having redundant and irrelevant addresses. To fix this, libp2p now **only** resolves the primary network interface addresses (which we discover using the [netroute][net_route] library) and the loopback interface addresses for both IPv4 and IPv6.
 
-- So, we now resolve unspecified addresses using ONLY the primary network interface addresses
-(which we discover using the [netroute][net_route] library) and the loopback interface addresses for both IPv4 and v6.
-The primary network interface is basically the interface that would be used to send a packet to the public network
-i.e. to an IP address not on the same network as us.
-It is usually the “default” entry in the kernel’s Routing table.
+The primary network interface is the interface responsible for communicating with external networks.  It is usually the "default" entry in the kernel’s Routing table.
 
 #### Observed Addresses
 
