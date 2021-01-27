@@ -21,7 +21,7 @@ The following address sets make up a libp2p node’s complete **set of dialable 
 {{% notice "note" %}}
 A node can use one, some, or all of the above address sets to build up the complete set of its dialable
 addresses depending on various factors such as the interfaces it’s listening on, if it uses a port mapping protocol
-or not, it’s NAT reachability, if it has been configured to use Relays etc.
+or not, its NAT reachability, if it has been configured to use Relays, etc.
 {{% /notice %}}
 
 Let’s dig deeper into how each of those address sets is built.
