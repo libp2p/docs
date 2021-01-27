@@ -69,7 +69,7 @@ that it’s dialable on those addresses.
   the world, we need a fair degree of confidence that they are indeed dialable and reachable from outside.
   We need to do some analytics here and this is where the `ObservedAddrManager` component comes in.
 
-#### The Observed Address Manager
+##### The Observed Address Manager
 
 - The purpose of the Observed Address Manager is to help us determine which observed address should be shared
 with the world.
