@@ -53,6 +53,27 @@ While the [identify protocol][spec_identify] described above lets peers inform e
 Once again, other peers can help us observe our situation, this time by attempting to dial us at our observed addresses. If this succeeds, we can rely on other peers being able to dial us as well and we can start advertising our listen address.
 
 A libp2p protocol called AutoNAT lets peers request dial-backs from peers providing the AutoNAT service.
+The basic idea as per the implementation in `go-libp2p` is as follows:
+
+- An AutoNAT client send it’s list of [dialable addresses][address_link] to an AutoNAT server and asks the AutoNAT server to
+  see if it can dial the client back on one of those addresses.
+
+- If the AutoNAT server is successful, it replies to the original request with a success message along with
+  the address it was able to successfully dial on.
+
+- If the AutoNAT server fails to dial back the node, it sends back a failure message to the client.
+
+- A peer can become an AutoNAT server by providing services on the “"/libp2p/autonat/1.0.0" protocol.
+
+- Peers that want to discover their reachability are AutoNAT clients.
+  They periodically pick a random AutoNAT server they are connected to, send the server it’s complete list of
+  dialable addresses(by asking the Host) and ask for a dial back.
+
+- Once an AutoNAT client has enough votes on whether it is publicly dialable(Public Reachability) or
+  NOT(private Reachability), it emits an `EvtLocalReachabilityChanged` event with the reachability information.
+
+- Note that the Reachability status can always flip from Private to Public and vice versa as the peer discovers
+  new dialable addresses and gets periodic dial back responses from AutoNAT servers.
 
 {{% notice "info" %}}
 AutoNAT is currently implemented in go-libp2p via [go-libp2p-autonat](https://github.com/libp2p/go-libp2p-autonat).
@@ -75,3 +96,4 @@ This serves a similar function to the [TURN protocol](https://tools.ietf.org/htm
 
 <!-- TODO: update identify spec link after PR merge -->
 [spec_identify]: https://github.com/libp2p/specs/pull/97
+[address_link]: ../address-discovery-and-advertisement/

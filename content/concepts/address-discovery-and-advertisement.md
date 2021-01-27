@@ -9,12 +9,12 @@ This post explains how a `go-libp2p` node discovers its dialable addresses and a
 
 The following address sets make up a libp2p node’s complete **set of dialable addresses**:
 
-- The network interface addresses a node explicitly listens on/binds to.
+- The [Network Interface Addresses](#network-interface-addresses)  a node explicitly listens on/binds to.
 
-- The node’s publicly visible addresses(“observed addresses”) it learns from other peers using the [Identify][spec_identify]
-  protocol. This is especially relevant if the node is behind a NAT.
+- The node’s publicly visible addresses i.e. [Observed Addresses](#observed-addresses) it learns from other peers using the [Identify][spec_identify]
+  protocol. This is especially relevant if the node is behind a [NAT](../nat/).
 
-- Relay addresses a node discovers after connecting to public Relay servers if it determines it’s not publicly dialable.
+- [Relay Addresses](#relay-addresses) a node discovers after connecting to public Relay servers if it determines it’s not publicly dialable.
 
 - Addresses assigned by the nodes local hardware router via a port mapping protocol such as UPnP.
 
@@ -38,9 +38,9 @@ The primary network interface is the interface responsible for communicating wit
 
 #### Observed Addresses
 
-- If the peer is behind a NAT, the NAT device would assign a NATT’d address to any outgoing packets sent by the peer.
-In this case, the peer’s address that would be observed by the outside world would be different from the address
-the peer is listening on.
+Libp2p nodes are often run behind NATs, which results in them not knowing their correct public addresses,
+only their local network addresses. In order to fix this problem so that libp2p can traverse the NAT,
+we exchange observed addresses, via the Identify protocol, any time we connect to another node.
 
 - For NAT traversal and hole punching, it is important for a peer to know it’s observed address in such cases so that
 it can share them with other peers if it’s fairly confident(we’ll get to how this confidence is built in a moment)
@@ -48,12 +48,11 @@ that it’s dialable on those addresses.
 
 To facilitate this, we leverage the [Identify][spec_identify] protocol. When two peers connect, they exchange an `Identify` message with each other, which includes the address they currently observe for one another. So not only am I telling you my addresses, but I am also telling you the address that I observe for you.
 
-In order to ensure we don't invalid addresses our peers have observed, libp2p does its due diligence of ensuring that we have seen the same address multiple times. Only when we are reasonably sure the address is correct do we announce it to other peers on the network. In go-libp2p, this due diligence is performed by the *Observed Address Manager*.
+In order to ensure we do not advertise invalid addresses our peers have observed, libp2p does its due diligence of ensuring that we have seen the same address multiple times. Only when we are reasonably sure the address is correct do we announce it to other peers on the network. In go-libp2p, this due diligence is performed by the *Observed Address Manager*.
 
 ##### The Observed Address Manager
 
-- The purpose of the Observed Address Manager is to help us determine which observed address should be shared
-with the world.
+- The purpose of the Observed Address Manager is to ensure that we are reasonably certain that the addresses our peers have observed for us are valid before we share them.
 
 - Every observed address we get using the Identify protocol is recorded in the Observed Address Manager.
 
@@ -81,48 +80,26 @@ When the Host wants to build its address set, one of the steps it takes is to as
 
 #### Relay Addresses
 
-- We use [circuit relays][spec_relay] to enable other peers to connect to us when we discover we are completely
-  NATT’d and are not dialable at all. The basic idea is that we connect to a publicly reachable “relay” server and
+- We use [circuit relays][doc_relay] to enable other peers to connect to us when we discover we are completely
+  NAT’d and are not dialable at all. The basic idea is that we connect to a publicly reachable “relay” server and
   then create a “relay address” which we can advertise.
   A relay address is usually a combination of the Relay server’s address combined with it’s peer id.
   Any peer that then wants to talk to us can do so via the relay server.
 
 - There are three parts to this:
-    - Discovering we are completely NATT’d and thus NOT dialable at all using `AutoNAT`.
+    - Discovering we are completely NAT’d and thus NOT dialable at all using `AutoNAT`.
 
-    - Discovering Relay Servers we can connect to and building relay addresses by using `AutoRelay`.
+    - Discovering Relay Servers we can connect to and building relay addresses by using [AutoRelay][repo_autorelay].
 
     - Creating long lived connections with the Relay server and advertising relay addresses in `AutoRelay`.
 
-    #### AutoNAT: Discovering we are NOT dialable/NATT’d
-    - To discover that we are NOT dialable, we use a component called [AutoNAT][autonat_repo].
-    - The basic idea is this:
-        - An AutoNAT client send it’s list of dialable addresses to an AutoNAT server and asks the AutoNAT server to
-      see if it can dial the client back on one of those addresses.
+    ##### AutoNAT
 
-        - If the AutoNAT server is successful, it replies to the original request with a success message along with
-      the address it was able to successfully dial on.
+    [AutoNAT](https://docs.libp2p.io/concepts/nat/#autonat) helps us discover if we are NAT'd/not dialable.
+    The basic idea to is to ask peers that are AutoNAT servers to dial us back on a list of addresses we send them and tell us if we are dialable on any of those addresses or not.
+    You can read more about it [here](https://docs.libp2p.io/concepts/nat/#autonat).
 
-        - If the AutoNAT server fails to dial back the node, it sends back a failure message to the client.
-
-        - A peer can become an AutoNAT server by providing services on the “"/libp2p/autonat/1.0.0" protocol.
-
-        - Peers that want to discover their reachability are AutoNAT clients.
-        They periodically pick a random AutoNAT server they are connected to, send the server it’s complete list of
-        dialable addresses(by asking the Host) and ask for a dial back. The interface listen addresses, UPnP addresses
-        AND observed addresses selected by the Observed Address Manager discussed above contribute to this list of
-        dialable addresses.
-
-        - Once an AutoNAT client has enough votes on whether it is publicly dialable(Public Reachability) or
-        NOT(private Reachability), it emits an `EvtLocalReachabilityChanged` event with the reachability information.
-
-        - Note that the Reachability status can always flip from Private to Public and vice versa as the peer discovers
-          new dialable addresses and gets periodic dial back responses from AutoNAT servers.
-
-
-
-
-    #### Discovering Relay Servers
+    ##### Discovering Relay Servers
 
     - A peer can be a Relay server if the `libp2p.EnableRelay` option is set on it with the `circuit.OptHop`
   option and the `libp2p.EnableAutoRelay` is also set on it.
@@ -133,7 +110,7 @@ When the Host wants to build its address set, one of the steps it takes is to as
     - Any peer that wants to connect to a Relay server can then look for them by searching for providers of the
   `/libp2p/relay` namespace on the DHT and then randomly picking one Relay server that’s dialable.
 
-    #### Creating long lived connections with the Relay server and advertising relay addresses
+    ##### Creating long lived connections with the Relay server and advertising relay addresses
 
     - Once a peer knows it has private reachability by using AutoNAT, the only way it can be dialled from
     outside is through Relay servers.
@@ -162,7 +139,7 @@ When the Host wants to build its address set, one of the steps it takes is to as
     of dialable addresses.
 
     - The component that listens to NAT reachability events, connects to Relay servers and builds/advertises
-    Relay addresses is called `AutoRelay`. It can be enabled by using the `libp2p.EnableRelay(nil)` and `libp2p.EnableAutoRelay()` option on the Host.
+    Relay addresses is called [AutoRelay][repo_autorelay]. It can be enabled by using the `libp2p.EnableRelay(nil)` and `libp2p.EnableAutoRelay()` option on the Host.
 
 {{% notice "note" %}}
 We can also configure AutoRelay to use static relay servers rather than discovering them via DHT by
@@ -177,24 +154,23 @@ The way a libp2p peer shares these dialable addresses with other peers is:
 
 - When a peer connects to other peers, it asks it’s `Host` for it’s current set of dialable addresses.
 
-- This will include some or all of the address sets discussed above (Interface, Relay etc. etc.).
+- This will include some or all of the address sets discussed above (Interface, Relay, etc. etc.).
 
 - Put those addresses in the `listenAddrs` field of the `Identify` message and send the `Identify` message to
   the other peer.
 
-- When a peer receives another peer’s dialable addresses from the ` `listenAddrs` field of the Identify message,
-  it stores them in it’s peerstore for some time. The timing does NOT matter to this discussion.
+- When a peer receives another peer’s dialable addresses from the `listenAddrs` field of the `Identify` message,
+  it stores them in it’s [peerstore][peerstore_repo] for some time. The timing does NOT matter for this discussion.
 
-- Any peer can then lookup a peer’s addresses by asking the DHT network to find the peer with that peerID by
-  using the `FindPeer` DHT API. The DHT nodes will use the addresses stored in their peerstore as described above
-  to find and return the addresses of the peer. Looking up peer addresses in this manner by using the DHT is called
-  Peer Routing.
+- Any peer can then lookup a peer’s addresses by asking the DHT network to find the peer with that [peerID][peer_id] by
+  using the [FindPeer][find_peer] DHT API. The DHT nodes will use the addresses stored in their peerstore as described above
+  to find and return the addresses of the peer.
 
     #### Handling changes to the peer’s dialable addresses
 
     All well and good so far. But the set of a peer’s dialable addresses is ofcourse not a static set. A peer can
     start listening on new interfaces, see more of it’s observed addresses, change it’s network, be assigned a new
-    IP address by the Router etc. Hence, we also need a mechanism to detect changes to a peer’s dialable addresses set
+    IP address by the Router, etc. Hence, we also need a mechanism to detect changes to a peer’s dialable addresses set
     and advertise these changes to the world on the fly. The way we do this is by
     **running an event loop** in the `Host`.
 
@@ -232,5 +208,9 @@ You can read more about how this works at https://github.com/libp2p/specs/pull/2
 
 [net_route]: https://github.com/libp2p/go-netroute
 [spec_identify]: https://github.com/libp2p/specs/tree/master/identify
-[spec_relay]: https://github.com/libp2p/specs/blob/master/relay/README.md
+[doc_relay]:  https://docs.libp2p.io/concepts/circuit-relay/
 [autonat_repo]: https://github.com/libp2p/go-libp2p-autonat
+[peerstore_repo]: https://github.com/libp2p/go-libp2p-peerstore
+[find_peer]: https://godoc.org/github.com/libp2p/go-libp2p-kad-dht#IpfsDHT.FindPeer
+[peer_id]: https://docs.libp2p.io/concepts/peer-id/
+[repo_autorelay]: https://github.com/libp2p/go-libp2p/blob/master/p2p/host/relay/autorelay.go
