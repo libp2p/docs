@@ -46,12 +46,7 @@ the peer is listening on.
 it can share them with other peers if it’s fairly confident(we’ll get to how this confidence is built in a moment)
 that it’s dialable on those addresses.
 
-- To facilitate this, we take help from the [Identify][spec_identify] protocol. For the purposes of
-  our discussion, the relevant part is that when two peers connect, they exchange an
-  `Identify` message with each other to inform the other peer of it’s dialable addresses, keys,
-  supported protocols etc. One of the fields they put in there is called `observedAddr`
-  which is populated with the other peer’s address they observe on the connection which enables the other peer to
-  learn it’s observed addresses.
+To facilitate this, we leverage the [Identify][spec_identify] protocol. When two peers connect, they exchange an `Identify` message with each other, which includes the address they currently observe for one another. So not only am I telling you my addresses, but I am also telling you the address that I observe for you.
 
 In order to ensure we don't invalid addresses our peers have observed, libp2p does its due diligence of ensuring that we have seen the same address multiple times. Only when we are reasonably sure the address is correct do we announce it to other peers on the network. In go-libp2p, this due diligence is performed by the *Observed Address Manager*.
 
