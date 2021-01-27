@@ -14,7 +14,7 @@ The following address sets make up a libp2p node’s complete **set of dialable 
 - The node’s publicly visible addresses(“observed addresses”) it learns from other peers using the [Identify][spec_identify]
   protocol. This is especially relevant if the node is behind a NAT.
 
-- Relay addresses a node builds up after connecting to public Relay servers if it discovers it’s not publicly dialable.
+- Relay addresses a node discovers after connecting to public Relay servers if it determines it’s not publicly dialable.
 
 - Addresses assigned by the router by using a port mapping protocol such as UPnP.
 
