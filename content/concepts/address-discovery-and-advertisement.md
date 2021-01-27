@@ -43,7 +43,7 @@ The primary network interface is basically the interface that would be used to s
 i.e. to an IP address not on the same network as us.
 It is usually the “default” entry in the kernel’s Routing table.
 
-#### Publicly visible address(“Observed Addresses”) discovered using Identify
+#### Observed Addresses
 
 - If the peer is behind a NAT, the NAT device would assign a NATT’d address to any outgoing packets sent by the peer.
 In this case, the peer’s address that would be observed by the outside world would be different from the address
