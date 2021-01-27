@@ -24,7 +24,7 @@ addresses depending on various factors such as the interfaces it’s listening o
 or not, its NAT reachability, if it has been configured to use Relays, etc.
 {{% /notice %}}
 
-Let’s dig deeper into how each of those address sets is built.
+Let’s dig deeper into how each of those address sets are built.
 
 #### Network Interface Addresses
 
