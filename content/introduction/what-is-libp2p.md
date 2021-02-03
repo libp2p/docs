@@ -27,7 +27,7 @@ Here I'll try to briefly outline the main problem areas that are addressed by li
 
 ### Transport
 
-At the foundation of libp2p is the transport layer, which is responsible for the actual transmission and receipt of data from one peer to another. There are many ways to send data across networks in use today, with more in development and still more yet to be designed. libp2p provides a simple [interface](https://github.com/libp2p/interface-transport) that can be adapted to support existing and future protocols, allowing libp2p applications to operate in many different runtime and networking environments.
+At the foundation of libp2p is the transport layer, which is responsible for the actual transmission and receipt of data from one peer to another. There are many ways to send data across networks in use today, with more in development and still more yet to be designed. libp2p provides a simple [interface](https://github.com/libp2p/js-libp2p-interfaces) that can be adapted to support existing and future protocols, allowing libp2p applications to operate in many different runtime and networking environments.
 
 ### Identity
 
