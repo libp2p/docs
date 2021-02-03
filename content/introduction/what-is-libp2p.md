@@ -71,7 +71,7 @@ libp2p defines a [pubsub interface][interface_pubsub] for sending messages to al
 [definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddr" >}}
 [definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
 
-[interface_content_routing]: https://github.com/libp2p/interface-content-routing
+[interface_content_routing]: https://github.com/libp2p/js-libp2p-interfaces/tree/master/src/content-routing
 [interface_pubsub]: https://github.com/libp2p/specs/tree/master/pubsub
 
 
