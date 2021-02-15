@@ -27,7 +27,7 @@ Here I'll try to briefly outline the main problem areas that are addressed by li
 
 ### Transport
 
-At the foundation of libp2p is the transport layer, which is responsible for the actual transmission and receipt of data from one peer to another. There are many ways to send data across networks in use today, with more in development and still more yet to be designed. libp2p provides a simple [interface](https://github.com/libp2p/interface-transport) that can be adapted to support existing and future protocols, allowing libp2p applications to operate in many different runtime and networking environments.
+At the foundation of libp2p is the transport layer, which is responsible for the actual transmission and receipt of data from one peer to another. There are many ways to send data across networks in use today, with more in development and still more yet to be designed. libp2p provides a simple [interface](https://github.com/libp2p/js-libp2p-interfaces) that can be adapted to support existing and future protocols, allowing libp2p applications to operate in many different runtime and networking environments.
 
 ### Identity
 
@@ -37,7 +37,7 @@ In a world with billions of networked devices, knowing who you're talking to is 
 
 It's essential that we are able to send and receive data between peers *securely*, meaning that we can trust the [identity](#identity) of the peer we're communicating with and that no third-party can read our conversation or alter it in-flight.
 
-libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. The current default is [secio][definition_secio], with support for [TLS 1.3](https://www.ietf.org/blog/tls13/) under development.
+libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. libp2p currently supports [TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](https://noiseproject.org/), though not every language implementation of libp2p supports both of these. (Older versions of libp2p may support a [deprecated](https://blog.ipfs.io/2020-08-07-deprecating-secio/) protocol called SECIO; all projects should switch to TLS 1.3 or Noise instead.)
 
 ### Peer Routing
 
@@ -71,7 +71,7 @@ libp2p defines a [pubsub interface][interface_pubsub] for sending messages to al
 [definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddr" >}}
 [definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
 
-[interface_content_routing]: https://github.com/libp2p/interface-content-routing
+[interface_content_routing]: https://github.com/libp2p/js-libp2p-interfaces/tree/master/src/content-routing
 [interface_pubsub]: https://github.com/libp2p/specs/tree/master/pubsub
 
 
