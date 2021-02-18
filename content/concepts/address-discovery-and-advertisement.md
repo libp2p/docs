@@ -52,7 +52,8 @@ Every observed address we get using the Identify protocol is recorded in the Obs
 
 When the Host wants to build its address set, one of the steps it takes is to ask the Observed Address Manager for the addresses it thinks should be shared.
 
-- Here are the rules used by the Manager to determine which addresses will be shared:
+Here are the rules used by the Manager to determine which addresses will be shared:
+
     - The observed address should NOT be a loopback address.
 
     - The local address we see on the connection that led to this observation should be one of the network interface
@@ -67,7 +68,7 @@ When the Host wants to build its address set, one of the steps it takes is to as
     - The address has been seen at least once in the last 10 minutes(offers some protection against changes in our
       own network conditions).
 
-    - On top of all the above, the observed address manager selects ONLY the “top” two observed addresses for
+    - On top of all the above, the observed address manager selects ONLY the "top" two observed addresses for
       each group of (IP address + Transport protocol). For ranking, we prefer observations created because of
       inbound connections over outbound ones(obviously), using the number of peers who reported that same
       observed address to resolve ties.
