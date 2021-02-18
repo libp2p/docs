@@ -55,8 +55,7 @@ Once again, other peers can help us observe our situation, this time by attempti
 A libp2p protocol called AutoNAT lets peers request dial-backs from peers providing the AutoNAT service.
 The basic idea as per the implementation in `go-libp2p` is as follows:
 
-- An AutoNAT client send it’s list of [dialable addresses][address_link] to an AutoNAT server and asks the AutoNAT server to
-  see if it can dial the client back on one of those addresses.
+- An AutoNAT client sends its list of [dialable addresses][address_link] to an AutoNAT server and asks the AutoNAT server to see if it can dial the client back on one of those addresses.
 
 - If the AutoNAT server is successful, it replies to the original request with a success message along with the address it was able to successfully dial on.
 
