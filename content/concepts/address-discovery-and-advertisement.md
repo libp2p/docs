@@ -116,9 +116,7 @@ We can also configure AutoRelay to use static relay servers rather than discover
 
 ### Advertising Dialable Addresses
 
-The first section covered how a libp2p nodes “discovers” it’s dialable addresses.
-All the methods and address sets discussed above go into making the final set of a node’s dialable addresses.
-The way a libp2p peer shares these dialable addresses with other peers is:
+The first section covered how a libp2p nodes "discovers" its dialable addresses. All the methods and address sets discussed above go into making the final set of a node’s advertised addresses. The way a libp2p peer shares these dialable addresses with other peers is as follows:
 
 - When a peer connects to other peers, it asks it’s `Host` for it’s current set of dialable addresses.
 
