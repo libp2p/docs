@@ -118,30 +118,19 @@ We can also configure AutoRelay to use static relay servers rather than discover
 
 The first section covered how a libp2p nodes "discovers" its dialable addresses. All the methods and address sets discussed above go into making the final set of a node’s advertised addresses. The way a libp2p peer shares these dialable addresses with other peers is as follows:
 
-- When a peer connects to other peers, it asks it’s `Host` for it’s current set of dialable addresses.
+- When a peer connects to other peers, they exchange their dialable addresses via the `Identify` protocol.
+    - This will include some or all of the address sets discussed above (Interface, Relay, etc. etc.).
 
-- This will include some or all of the address sets discussed above (Interface, Relay, etc. etc.).
+- When a peer receives another peer’s dialable addresses from the `Identify` exchange it stores them in its [peerstore][peerstore_repo].
 
-- Put those addresses in the `listenAddrs` field of the `Identify` message and send the `Identify` message to
-  the other peer.
+- In order to allow other peers to discover our addresses, libp2p will intermittently query the DHT for its closest peers and connect to them. This will result in addresses being exchanged and stored with those peers, so that future DHT [FindPeer][find_peer] queries searching for our [peerID][peer_id] will discover our addresses.
 
-- When a peer receives another peer’s dialable addresses from the `listenAddrs` field of the `Identify` message,
-  it stores them in it’s [peerstore][peerstore_repo] for some time. The timing does NOT matter for this discussion.
+#### Handling changes to the peer’s dialable addresses
 
-- Any peer can then lookup a peer’s addresses by asking the DHT network to find the peer with that [peerID][peer_id] by
-  using the [FindPeer][find_peer] DHT API. The DHT nodes will use the addresses stored in their peerstore as described above
-  to find and return the addresses of the peer.
-
-    #### Handling changes to the peer’s dialable addresses
-
-    All well and good so far. But the set of a peer’s dialable addresses is ofcourse not a static set. A peer can
-    start listening on new interfaces, see more of it’s observed addresses, change it’s network, be assigned a new
-    IP address by the Router, etc. Hence, we also need a mechanism to detect changes to a peer’s dialable addresses set
-    and advertise these changes to the world on the fly. The way we do this is by
-    **running an event loop** in the `Host`.
+All well and good so far, but the set of a peer’s dialable addresses is not a static set. A peer can start listening on new interfaces, see more of its observed addresses, change its network, be assigned a new IP address by the Router or ISP, and more. Hence, we also need a mechanism to detect changes to a peer’s dialable addresses set and advertise these changes to the world as they happen. In go-libp2p we do this is by **running an event loop** in the `Host`.
 
 
-    #### When does the Host event loop fire ?
+##### When does the Host event loop fire ?
 - On interval, every 5 seconds.
 
 - When the user starts listening on a new interface address/es by calling `Host.Network.Listen(addrs...)`.
