@@ -64,15 +64,11 @@ The basic idea as per the implementation in `go-libp2p` is as follows:
 
 - A peer can become an AutoNAT server by providing services on the "/libp2p/autonat/1.0.0" protocol.
 
-- Peers that want to discover their reachability are AutoNAT clients.
-  They periodically pick a random AutoNAT server they are connected to, send the server it’s complete list of
-  dialable addresses(by asking the Host) and ask for a dial back.
+- Peers that want to discover their reachability are AutoNAT clients. They periodically pick a random AutoNAT server they are connected to, send the server it’s complete list of dialable addresses(by asking the Host) and ask for a dial back.
 
-- Once an AutoNAT client has enough votes on whether it is publicly dialable(Public Reachability) or
-  NOT(private Reachability), it emits an `EvtLocalReachabilityChanged` event with the reachability information.
+- Once an AutoNAT client has enough information on whether it is publicly dialable(Public Reachability) or NOT(private Reachability), it emits an `EvtLocalReachabilityChanged` event with the reachability information.
 
-- Note that the Reachability status can always flip from Private to Public and vice versa as the peer discovers
-  new dialable addresses and gets periodic dial back responses from AutoNAT servers.
+- Note that the Reachability status can always flip from Private to Public and vice versa as the peer discovers new dialable addresses and gets periodic dial back responses from AutoNAT servers.
 
 {{% notice "info" %}}
 AutoNAT is currently implemented in go-libp2p via [go-libp2p-autonat](https://github.com/libp2p/go-libp2p-autonat).
