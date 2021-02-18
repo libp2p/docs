@@ -58,8 +58,7 @@ The basic idea as per the implementation in `go-libp2p` is as follows:
 - An AutoNAT client send it’s list of [dialable addresses][address_link] to an AutoNAT server and asks the AutoNAT server to
   see if it can dial the client back on one of those addresses.
 
-- If the AutoNAT server is successful, it replies to the original request with a success message along with
-  the address it was able to successfully dial on.
+- If the AutoNAT server is successful, it replies to the original request with a success message along with the address it was able to successfully dial on.
 
 - If the AutoNAT server fails to dial back the node, it sends back a failure message to the client.
 
