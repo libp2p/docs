@@ -9,7 +9,7 @@ This post explains how a `go-libp2p` node discovers its dialable addresses and a
 
 The following address sets make up a libp2p node’s complete **set of dialable addresses**:
 
-- The [Network Interface Addresses](#network-interface-addresses)  a node explicitly listens on/binds to.
+- The [Network Interface Addresses](#network-interface-addresses) a node explicitly listens on/binds to.
 
 - The node’s publicly visible addresses i.e. [Observed Addresses](#observed-addresses) it learns from other peers using the [Identify][spec_identify]
   protocol. This is especially relevant if the node is behind a [NAT](../nat/).
