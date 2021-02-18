@@ -36,13 +36,9 @@ The primary network interface is the interface responsible for communicating wit
 
 #### Observed Addresses
 
-Libp2p nodes are often run behind NATs, which results in them not knowing their correct public addresses,
-only their local network addresses. In order to fix this problem so that libp2p can traverse the NAT,
-we exchange observed addresses, via the Identify protocol, any time we connect to another node.
+Libp2p nodes are often run behind NATs, which results in them not knowing their correct public addresses, only their local network addresses. In order to fix this problem so that libp2p can traverse the NAT, we exchange observed addresses, via the Identify protocol, any time we connect to another node.
 
-- For NAT traversal and hole punching, it is important for a peer to know it’s observed address in such cases so that
-it can share them with other peers if it’s fairly confident(we’ll get to how this confidence is built in a moment)
-that it’s dialable on those addresses.
+For NAT traversal and hole punching, it's important for a peer to know its observed address in such cases so that it can share them with other peers if it’s fairly confident that it’s dialable on those addresses.
 
 To facilitate this, we leverage the [Identify][spec_identify] protocol. When two peers connect, they exchange an `Identify` message with each other, which includes the address they currently observe for one another. So not only am I telling you my addresses, but I am also telling you the address that I observe for you.
 
