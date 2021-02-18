@@ -79,7 +79,7 @@ We use [circuit relays][doc_relay] to enable other peers to connect to us when w
 
 A relay address is usually a combination of the Relay server’s address combined with its peer id. Any peer that then wants to talk to us can do so via the relay server.
 
-- There are three parts to this:
+There are three parts to this:
     - Discovering we are completely NAT’d and thus NOT dialable at all using `AutoNAT`.
 
     - Discovering Relay Servers we can connect to and building relay addresses by using [AutoRelay][repo_autorelay].
