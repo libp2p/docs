@@ -171,26 +171,19 @@ The way a libp2p peer shares these dialable addresses with other peers is:
 
 
     #### When does the Host event loop fire ?
-    - Every 5 seconds.
+- On interval, every 5 seconds.
 
-    - When the user starts listening on a new interface address/es by calling `Host.Network.Listen(addrs...)`.
+- When the user starts listening on a new interface address/es by calling `Host.Network.Listen(addrs...)`.
 
-    - When `AutoRelay` detects a change in it’s reachability(private -> public or vice versa), creates a
-    connection with a new relay server or loses connection with an existing relay server since all of these would
-    cause a change in it’s relay addresses.
+- When `AutoRelay` detects a change in it’s reachability(private -> public or vice versa), creates a connection with a new relay server, or loses connection with an existing relay server since all of these would cause a change in its relay addresses.
 
-    #### What does the Host do when the event loop fires ?
-    - Updates it’s primary network interface address by using the netroute library as discussed above
-    (if it has changed). This takes care of network changes/routers assigning new addresses via DHCP.
+##### What does the Host do when the event loop fires ?
+- Updates its primary network interface address by using the netroute library as discussed above (if it has changed). This takes care of network changes/routers assigning new addresses via DHCP.
 
-    - Builds a new address set by using all the addresses discovered by the various mechanisms described in the
-    `Address Discovery` section and compares it with the previous address set.
+- Builds a new address set by using all the addresses discovered by the various mechanisms described in the `Address Discovery` section and compares it with the previous address set.
 
-    - If the new address set is different from the previous address set, it fires an `EvtLocalAddressesUpdated` event.
-
-    - The ID service listens for the `EvtLocalAddressesUpdated` event and pushes the new set of addresses to all
-    peers it is connected to via the `Identify Push` protocol.
-    The ID service is the same service that also handles the `Identify` protocol described above.
+- If the new address set is different from the previous address set, it fires an `EvtLocalAddressesUpdated` event.
+    - The ID service listens for the `EvtLocalAddressesUpdated` event and pushes the new set of addresses to all peers it is connected to via the `Identify Push` protocol. The ID service is the same service that also handles the `Identify` protocol described above.
 
 
 {{% notice "note" %}}
