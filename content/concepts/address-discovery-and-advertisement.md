@@ -86,53 +86,31 @@ There are three parts to this:
 
     - Creating long lived connections with the Relay server and advertising relay addresses in `AutoRelay`.
 
-    ##### AutoNAT
+##### AutoNAT
 
-    [AutoNAT](https://docs.libp2p.io/concepts/nat/#autonat) helps us discover if we are NAT'd/not dialable.
-    The basic idea to is to ask peers that are AutoNAT servers to dial us back on a list of addresses we send them and tell us if we are dialable on any of those addresses or not.
-    You can read more about it [here](https://docs.libp2p.io/concepts/nat/#autonat).
+[AutoNAT](https://docs.libp2p.io/concepts/nat/#autonat) helps us discover if we are NAT'd and/or cannot be dialed.  The basic idea is to ask peers that are AutoNAT servers to dial us back on a list of addresses we send them and tell us if we are dialable on any of those addresses or not.
 
-    ##### Discovering Relay Servers
+You can read more about it in the [nat docs](https://docs.libp2p.io/concepts/nat/#autonat).
 
-    - A peer can be a Relay server if the `libp2p.EnableRelay` option is set on it with the `circuit.OptHop`
-  option and the `libp2p.EnableAutoRelay` is also set on it.
+##### Discovering Relay Servers
 
-    - When a Relay server is created, it starts advertising itself as the provider of the Relay `/libp2p/relay`
-  namespace on the DHT.
+When a Relay server is created, it starts advertising itself as the provider of the Relay `/libp2p/relay` namespace on the DHT.  Any peer that wants to connect to a Relay server can then look for them by searching the DHT for providers of the `/libp2p/relay` namespace and then randomly picking one Relay server they can dial.
 
-    - Any peer that wants to connect to a Relay server can then look for them by searching for providers of the
-  `/libp2p/relay` namespace on the DHT and then randomly picking one Relay server that’s dialable.
+##### Binding to Relay Servers
 
-    ##### Creating long lived connections with the Relay server and advertising relay addresses
+Once a peer knows it has private reachability by using AutoNAT, the only way it can be dialed from peers outside of its NAT is through Relay servers.
 
-    - Once a peer knows it has private reachability by using AutoNAT, the only way it can be dialled from
-    outside is through Relay servers.
+In go-libp2p when a peer receivers an `EvtLocalReachabilityChanged` event with Private reachability, it searches the DHT for Relay servers as described above and connects to one of them.
 
-    - So, when a peer receivers an `EvtLocalReachabilityChanged` event with Private reachability, it searches the
-    DHT for Relay servers as described above and connects to one of them.
+It then creates a Relay address for itself by combining the address of the Relay server with its peer ID and adds that to the set of addresses it advertises to the network. In this case, the peer also removes all public addresses from its advertised addresses in favor of the relay address. These public addresses include its public interface addresses, UPnP addresses and even publicly observed addresses it is confident can be dialed. It will however retain all private IP addresses it discovers using all these mechanisms so peers on the same network can dial it directly.
 
-    - It then creates a Relay address for itself by combining the address of the Relay server with it’s peerID and
-    adds it to the dialable address set of the peer. In this case, the peer also removes all public addresses from
-    it’s set of dialable addresses as it overwrites them with the Relay addresses since it does NOT have public
-    reachability. This means it will remove public interface addresses, UPnP addresses and even public observed
-    addresses it is confident about from it’s set of dialable addresses. However it will retain all
-    private IP addresses it discovers using all these mechanisms so peers on the same network can dial it
-    without using Relays.
+Note that the connection with the Relay server should be long lived as peers can ONLY connect to it using the relay address if it is connected to the Relay server.
 
-    - Note that the connection with the Relay server should be a long lived one as peers can ONLY connect to it
-    using the relay address if it is connected to the Relay server.
+If a peer discovers it has public reachability by seeing a public `EvtLocalReachabilityChanged` event, it stops advertising Relay addresses.
 
-    - If a peer discovers it has public reachability by seeing an “EvtLocalReachabilityChanged” event for it,
-    it stops advertising Relay addresses.
+When a peer with private reachability loses connection to its Relay server, it will remove the corresponding relay addresses from its advertised addresses and look for a new Relay server to connect to.
 
-    - When a peer with private reachability loses connection to it’s Relay server, it will remove the corresponding
-    relay addresses from it’s address set and look for a new Relay server to connect to.
-
-    - When a peer connects to a new Relay server, it adds the corresponding Relay address to it’s set
-    of dialable addresses.
-
-    - The component that listens to NAT reachability events, connects to Relay servers and builds/advertises
-    Relay addresses is called [AutoRelay][repo_autorelay]. It can be enabled by using the `libp2p.EnableRelay(nil)` and `libp2p.EnableAutoRelay()` option on the Host.
+This logic is managed by [AutoRelay][repo_autorelay].
 
 {{% notice "note" %}}
 We can also configure AutoRelay to use static relay servers rather than discovering them via DHT by
