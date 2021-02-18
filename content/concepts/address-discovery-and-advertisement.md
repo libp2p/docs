@@ -111,8 +111,7 @@ When a peer with private reachability loses connection to its Relay server, it w
 This logic is managed by [AutoRelay][repo_autorelay].
 
 {{% notice "note" %}}
-We can also configure AutoRelay to use static relay servers rather than discovering them via DHT by
-using the `libp2p.StaticRelays(relayServerAddrs...)` option on the Host.
+We can also configure AutoRelay to use static relay servers rather than discovering them via DHT by using the `libp2p.StaticRelays(relayServerAddrs...)` option on the Host.
 {{% /notice %}}
 
 ### Advertising Dialable Addresses
