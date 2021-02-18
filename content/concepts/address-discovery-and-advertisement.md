@@ -27,8 +27,7 @@ Let’s dig deeper into how each of those address sets are built.
 
 #### Network Interface Addresses
 
-- These are the network interface addresses a libp2p node explicitly binds to by either passing in the
-`libp2p.ListenAddrs(addrs..)` option when constructing a `Host` or by calling the `h.Network().Listen(addrs..)` API.
+These are the network interface addresses a libp2p node explicitly binds to by either passing in the `libp2p.ListenAddrs(addrs..)` option when constructing a `Host` or by calling the `h.Network().Listen(addrs..)` API.
 
 Instead of strict addresses, users can pass in ephemeral IPv4 (`/ip4/0.0.0.0/tcp/0`) and/or IPv6 (`/ip6/::/tcp/0`) addresses to listen on all available network interfaces.
 In previous versions of libp2p, ephemeral addresses would result in libp2p binding to **all** available network interfaces (link local interfaces, docker interfaces, etc). This was problematic, as it led to "address explosion", resulting in libp2p having redundant and irrelevant addresses. To fix this, libp2p now **only** resolves the primary network interface addresses (which we discover using the [netroute][net_route] library) and the loopback interface addresses for both IPv4 and IPv6.
