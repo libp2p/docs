@@ -75,11 +75,9 @@ Here are the rules used by the Manager to determine which addresses will be shar
 
 #### Relay Addresses
 
-- We use [circuit relays][doc_relay] to enable other peers to connect to us when we discover we are completely
-  NAT’d and are not dialable at all. The basic idea is that we connect to a publicly reachable “relay” server and
-  then create a “relay address” which we can advertise.
-  A relay address is usually a combination of the Relay server’s address combined with it’s peer id.
-  Any peer that then wants to talk to us can do so via the relay server.
+We use [circuit relays][doc_relay] to enable other peers to connect to us when we discover we are completely NAT’d and cannot be dialed. The basic idea is that we connect to a publicly reachable “relay” server and then create a “relay address” which we can advertise.
+
+A relay address is usually a combination of the Relay server’s address combined with its peer id. Any peer that then wants to talk to us can do so via the relay server.
 
 - There are three parts to this:
     - Discovering we are completely NAT’d and thus NOT dialable at all using `AutoNAT`.
