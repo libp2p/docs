@@ -46,7 +46,7 @@ In order to ensure we do not advertise invalid addresses our peers have observed
 
 ##### The Observed Address Manager
 
-- The purpose of the Observed Address Manager is to ensure that we are reasonably certain that the addresses our peers have observed for us are valid before we share them.
+The purpose of the Observed Address Manager is to ensure that we are reasonably certain that the addresses our peers have observed for us are valid before we share them.
 
 - Every observed address we get using the Identify protocol is recorded in the Observed Address Manager.
 
