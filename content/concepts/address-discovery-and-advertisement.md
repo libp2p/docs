@@ -11,8 +11,7 @@ The following address sets make up a libp2p node’s complete **set of dialable 
 
 - The [Network Interface Addresses](#network-interface-addresses) a node explicitly listens on/binds to.
 
-- The node’s publicly visible addresses i.e. [Observed Addresses](#observed-addresses) it learns from other peers using the [Identify][spec_identify]
-  protocol. This is especially relevant if the node is behind a [NAT](../nat/).
+- The node’s publicly visible addresses, i.e. [Observed Addresses](#observed-addresses), it learns from other peers using the [Identify][spec_identify] protocol. This is especially relevant if the node is behind a [NAT](../nat/).
 
 - [Relay Addresses](#relay-addresses) a node discovers after connecting to public Relay servers if it determines it’s not publicly dialable.
 
