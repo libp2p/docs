@@ -62,7 +62,7 @@ The basic idea as per the implementation in `go-libp2p` is as follows:
 
 - If the AutoNAT server fails to dial back the node, it sends back a failure message to the client.
 
-- A peer can become an AutoNAT server by providing services on the “"/libp2p/autonat/1.0.0" protocol.
+- A peer can become an AutoNAT server by providing services on the "/libp2p/autonat/1.0.0" protocol.
 
 - Peers that want to discover their reachability are AutoNAT clients.
   They periodically pick a random AutoNAT server they are connected to, send the server it’s complete list of
