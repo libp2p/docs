@@ -193,11 +193,8 @@ The way a libp2p peer shares these dialable addresses with other peers is:
 
 
 {{% notice "note" %}}
-While the blog post mentions that a peer shares it’s dialable addresses with other peers in the
-`Identify` and `Identify Push` messages, what it actually shares is a `Signed Peer Record`
-containing all the addresses and signed with it’s private key.
-That way, anyone who receives that address set can verify that it was announced by the intended peer.
-You can read more about how this works at https://github.com/libp2p/specs/pull/217.
+While this page mentions that a peer shares its dialable addresses with other peers in the `Identify` and `Identify Push` messages, what it actually shares is a `Signed Peer Record` containing all the addresses and signed with its private key. That way, anyone who receives that address set can verify that it was indeed created by that peer.
+You can read more about how this works in the [Routing Record RFC](https://github.com/libp2p/specs/blob/master/RFC/0003-routing-records.md).
 {{% /notice %}}
 
 [net_route]: https://github.com/libp2p/go-netroute
