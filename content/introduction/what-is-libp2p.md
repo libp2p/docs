@@ -35,7 +35,7 @@ In a world with billions of networked devices, knowing who you're talking to is 
 
 It's essential that we are able to send and receive data between peers *securely*, meaning that we can trust the [identity](#identity) of the peer we're communicating with and that no third-party can read our conversation or alter it in-flight.
 
-libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. libp2p currently supports [TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](http://noiseprotocol.org/), though not every language implementation of libp2p supports both of these. (Older versions of libp2p may support a [deprecated](https://blog.ipfs.io/2020-08-07-deprecating-secio/) protocol called SECIO; all projects should switch to TLS 1.3 or Noise instead.)
+libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. libp2p currently supports [TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](https://noiseprotocol.org/), though not every language implementation of libp2p supports both of these. (Older versions of libp2p may support a [deprecated](https://blog.ipfs.io/2020-08-07-deprecating-secio/) protocol called SECIO; all projects should switch to TLS 1.3 or Noise instead.)
 
 ### Peer Routing
 
