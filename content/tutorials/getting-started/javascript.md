@@ -147,7 +147,7 @@ const TCP = require('libp2p-tcp')
 const { NOISE } = require('libp2p-noise')
 const MPLEX = require('libp2p-mplex')
 
-const multiaddr = require('multiaddr')
+const { multiaddr } = require('multiaddr')
 
 const main = async () => {
   const node = await Libp2p.create({
