@@ -141,6 +141,10 @@ Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexe
 
 A libp2p node needs to have a listen address for the given transport, so that it can be reached by other nodes in the network. Accordingly, we will install the `multiaddr` module to create a tcp [multiaddress][definition_multiaddress] and add it to the node.
 
+```shell
+npm install multiaddr
+```
+
 ```js
 const Libp2p = require('libp2p')
 const TCP = require('libp2p-tcp')
