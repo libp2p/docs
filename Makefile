@@ -29,6 +29,8 @@ endif
 MACH:=$(shell uname -m)
 ifeq ('$(MACH)', 'x86_64')
 	MACH=64bit
+else ifeq ('$(MACH)', 'arm64')
+  MACH=64bit
 else
 	MACH=32bit
 endif
