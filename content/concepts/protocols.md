@@ -4,13 +4,13 @@ weight: 3
 ---
 
 There are protocols everywhere you look when you're writing network applications, and libp2p is
-especially thick with them. 
+especially thick with them.
 
 The kind of protocols this article is concerned with are the ones built with libp2p itself,
 using the core libp2p abstractions like [transport](/concepts/transport), [peer identity](/concepts/peer-id/), [addressing](/concepts/addressing/), and so on.
 
 Throughout this article, we'll call this kind of protocol that is built with libp2p
-a **libp2p protocol**, but you may also see them referred to as "wire protocols" or "application protocols". 
+a **libp2p protocol**, but you may also see them referred to as "wire protocols" or "application protocols".
 
 These are the protocols that define your application and provide its core functionality.
 
@@ -61,31 +61,31 @@ properties:
 - Bidirectional, reliable delivery of binary data
   - Each side can read and write from the stream at any time
   - Data is read in the same order as it was written
-  - Can be "half-closed", that is, closed for writing and open for reading, or closed for reading and open for writing 
+  - Can be "half-closed", that is, closed for writing and open for reading, or closed for reading and open for writing
 - Supports backpressure
   - Readers can't be flooded by eager writers <!-- TODO(yusef) elaborate: how is backpressure implemented? is it transport-depdendent? -->
-  
+
 Behind the scenes, libp2p will also ensure that the stream is [secure](/concepts/secure-comms/) and efficiently
 [multiplexed](/concepts/stream-multiplexing/). This is transparent to the protocol handler, which reads and writes
 unencrypted binary data over the stream.
 
-The format of the binary data and the mechanics of what to send when and by whom are all up to the protocol to determine. For insipiration, some [common patterns](#common-patterns) that are used in libp2p's internal protocols are outlined below.
+The format of the binary data and the mechanics of what to send when and by whom are all up to the protocol to determine. For inspiration, some [common patterns](#common-patterns) that are used in libp2p's internal protocols are outlined below.
 
 
 ## Protocol Negotiation
 
 When dialing out to initiate a new stream, libp2p will send the protocol id of the protocol you want to use.
-The listening peer on the other end will check the incoming protocol id against the registered protcol handlers.
+The listening peer on the other end will check the incoming protocol id against the registered protocol handlers.
 
 If the listening peer does not support the requested protocol, it will end the stream, and the dialing peer can
 try again with a different protocol, or possibly a fallback version of the initially requested protocol.
 
-If the protocol is supported, the listening peer will echo back the protocol id as a signal that future data 
+If the protocol is supported, the listening peer will echo back the protocol id as a signal that future data
 sent over the stream will
 use the agreed protocol semantics.
 
 This process of reaching agreement about what protocol to use for a given stream or connection is called
-**protocol negotiation**. 
+**protocol negotiation**.
 
 
 ### Matching protocol ids and versions
@@ -134,7 +134,7 @@ In addition to the protocols that you write when developing a libp2p application
 The protocols described below all use [protocol buffers](https://developers.google.com/protocol-buffers/) (aka protobuf) to define message schemas.
 
 Messages are exchanged over the wire using a very simple convention which prefixes binary
-message payloads with an integer that represents the length of the payload in bytes. The 
+message payloads with an integer that represents the length of the payload in bytes. The
 length is encoded as a [protobuf varint](https://developers.google.com/protocol-buffers/docs/encoding#varints)  (variable-length integer).
 
 
@@ -154,7 +154,7 @@ length is encoded as a [protobuf varint](https://developers.google.com/protocol-
 The ping protocol is a simple liveness check that peers can use to quickly see if another peer is online.
 
 After the initial protocol negotiation, the dialing peer sends 32 bytes of random binary data. The listening
-peer echoes the data back, and the dialing peer will verify the response and measure 
+peer echoes the data back, and the dialing peer will verify the response and measure
 the latency between request and response.
 
 ### Identify
@@ -196,10 +196,10 @@ instead of in response to a request.
 
 This is useful if a peer starts listening on a new address, establishes a new [relay circuit](/concepts/circuit-relay/), or
 learns of its public address from other peers using the standard `identify` protocol. Upon creating or learning of a new address,
-the peer can push the new address to all peers it's currently aware of. This keeps everyones routing tables up to date and
+the peer can push the new address to all peers it's currently aware of. This keeps everyone's routing tables up to date and
 makes it more likely that other peers will discover the new address.
 
-### secio 
+### secio
 
 | **Protocol id** | spec                     |                |                | implementations    |
 |-----------------|--------------------------|----------------|----------------|--------------------|
