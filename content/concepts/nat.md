@@ -36,7 +36,7 @@ libp2p will try to take advantage of this behavior when using IP-backed transpor
 
 If our peer is in a favorable network environment, they will be able to make an outgoing connection and get a publicly-reachable listening port "for free," but they might never know it. Unfortunately, there's no way for the dialing program to discover what port was assigned to the connection on its own.
 
-However, an external peer can can tell us what address they observed us on. We can then take that address and advertise it to other peers in our [peer routing network](/concepts/peer-routing/) to let them know where to find us.
+However, an external peer can tell us what address they observed us on. We can then take that address and advertise it to other peers in our [peer routing network](/concepts/peer-routing/) to let them know where to find us.
 
 This basic premise of peers informing each other of their observed addresses is the foundation of [STUN][wiki_stun] (Session Traversal Utilities for NAT), which [describes][rfc_stun] a client / server protocol for discovering publicly reachable IP address and port combinations.
 
