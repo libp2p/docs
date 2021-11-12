@@ -72,11 +72,8 @@ import (
 )
 
 func main() {
-	// create a background context (i.e. one that never cancels)
-	ctx := context.Background()
-
 	// start a libp2p node with default settings
-	node, err := libp2p.New(ctx)
+	node, err := libp2p.New()
 	if err != nil {
 		panic(err)
 	}
@@ -116,7 +113,7 @@ func main() {
 
         // start a libp2p node that listens on TCP port 2000 on the IPv4
         // loopback interface
-        node, err := libp2p.New(ctx,
+        node, err := libp2p.New(
                 libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/2000"),
         )
 	if err != nil {
@@ -222,7 +219,7 @@ func main() {
 
 	// start a libp2p node that listens on a random local TCP port,
 	// but without running the built-in ping protocol
-	node, err := libp2p.New(ctx,
+	node, err := libp2p.New(
 		libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
 		libp2p.Ping(false),
 	)
@@ -357,12 +354,9 @@ import (
 )
 
 func main() {
-	// create a background context (i.e. one that never cancels)
-	ctx := context.Background()
-
 	// start a libp2p node that listens on a random local TCP port,
 	// but without running the built-in ping protocol
-	node, err := libp2p.New(ctx,
+	node, err := libp2p.New(
 		libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
 		libp2p.Ping(false),
 	)
