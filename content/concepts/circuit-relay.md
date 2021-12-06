@@ -47,6 +47,17 @@ By giving the full relay path to my friend `QmBob`, they're able to quickly esta
 When [advertising your address](/concepts/peer-routing/), it's best to provide relay addresses that include the transport address of the relay peer. If the relay has many transport addresses, you can advertise a `p2p-circuit` through each of them.
 {{% /notice %}}
 
+#### Process
+
+The below sequence diagram depicts a sample relay process:
+
+![Circuit v2 Protocol Interaction](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.svg)
+
+1. Node `A` is behind a NAT and/or firewall, e.g. detected via the [AutoNAT service](/concepts/nat/#autonat).
+2. Node `A` therefore requests a reservation with relay `R`. I.e. node `A` asks relay `R` to listen for incoming connections on its behalf.
+3. Node `B` wants to establish a connection to node `A`. Given that node `A` does not advertise any direct addresses but only a relay address, node `B` connects to relay `R`, asking relay `R` to relay a connection to `A`.
+4. Relay `R` forwards the connection request to node `A` and eventually relays all data send by `A` and `B`.
+
 #### Autorelay
 
 The circuit relay protocol is only effective if peers can discover willing relay peers that are accessible to both sides of the relayed connection.
