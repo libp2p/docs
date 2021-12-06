@@ -58,38 +58,5 @@ The below sequence diagram depicts a sample relay process:
 3. Node `B` wants to establish a connection to node `A`. Given that node `A` does not advertise any direct addresses but only a relay address, node `B` connects to relay `R`, asking relay `R` to relay a connection to `A`.
 4. Relay `R` forwards the connection request to node `A` and eventually relays all data send by `A` and `B`.
 
-#### Autorelay
-
-The circuit relay protocol is only effective if peers can discover willing relay peers that are accessible to both sides of the relayed connection.
-
-While it's possible to simply "hard-code" a list of well-known relays into your application, this adds a point of centralization to your architecture that you may want to avoid. This kind of bootstrap list is also a potential point of failure if the bootstrap nodes become unavailable.
-
-Autorelay is a feature (currently implemented in go-libp2p) that a peer can enable to attempt to discover relay peers using libp2p's [content routing](/concepts/content-routing/) interface.
-
-When Autorelay is enabled, a peer will try to discover one or more public relays and open relayed connections. If successful, the peer will advertise the relay addresses using libp2p's [peer routing](/concepts/peer-routing/) system.
-
-{{% notice "warning" %}}
-Autorelay is under active development and should be considered experimental. There are currently no protections against malicious or malfunctioning relays which could advertise relay services and refuse to provide them.
-{{% /notice %}}
-
-##### How Autorelay works
-
-The Autorelay service is responsible for:
-
-1. discovering relay nodes around the world,
-2. establishing long-lived connections to them, and
-3. advertising relay-enabled addresses for ourselves to our peers, thus making ourselves routable through delegated routing.
-
-When [AutoNAT service](/concepts/nat/#autonat) detects we're behind a NAT that blocks inbound connections, Autorelay jumps into action, and the following happens:
-
-1. We locate candidate relays by running a DHT provider search for the `/libp2p/relay` namespace.
-2. We select three results at random, and establish a long-lived connection to them (`/libp2p/circuit/relay/0.1.0` protocol). Support for using latency as a selection heuristic will be added soon.
-3. We enhance our local address list with our newly acquired relay-enabled multiaddrs, with format: `/ip4/1.2.3.4/tcp/4001/p2p/QmRelay/p2p-circuit`, where:
-   `1.2.3.4` is the relay's public IP address, `4001` is the libp2p port, and `QmRelay` is the peer ID of the relay.
-   Elements in the multiaddr can change based on the actual transports at use.
-4. We announce our new relay-enabled addresses to the peers we're already connected to via the `IdentifyPush` protocol.
-
-The last step is crucial, as it enables peers to learn our updated addresses, and in turn return them when another peer looks us up.
-
 [spec_relay]: https://github.com/libp2p/specs/tree/master/relay
 [definition_muiltiaddress]: /reference/glossary/#mulitaddress
