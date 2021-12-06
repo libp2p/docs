@@ -5,7 +5,7 @@ weight: 3
 
 Circuit relay is a [transport protocol](/concepts/transport/) that routes traffic between two peers over a third-party "relay" peer.
 
-In many cases, peers will be unable to [traverse their NAT](/concepts/nat/) in a way that makes them publicly accessible. Or they may not share common [transport protocols](/concepts/transport/) that would allow them to communicate directly.
+In many cases, peers will be unable to [traverse their NAT and/or firewall](/concepts/nat/) in a way that makes them publicly accessible. Or they may not share common [transport protocols](/concepts/transport/) that would allow them to communicate directly.
 
 To enable peer-to-peer architectures in the face of connectivity barriers like NAT, libp2p [defines a protocol called p2p-circuit][spec_relay]. When a peer isn't able to listen on a public address, it can dial out to a relay peer, which will keep a long-lived connection open. Other peers will be able to dial through the relay peer using a `p2p-circuit` address, which will forward traffic to its destination.
 
@@ -16,6 +16,10 @@ Relay connections are end-to-end encrypted, which means that the peer acting as 
 {{% /notice %}}
 
 An important aspect of the relay protocol is that it is not "transparent". In other words, both the source and destination are aware that traffic is being relayed. This is useful, since the destination can see the relay address used to open the connection and can potentially use it to construct a path back to the source. It is also not anonymous - all participants are identified using their peer id, including the relay node.
+
+#### Protocol Versions
+
+Today there are two versions of the circuit relay protocol, [v1](https://github.com/libp2p/specs/blob/master/relay/circuit-v1.md) and [v2](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md). We recommend using the latter over the former. See the [circuit relay v2 specification](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md#introduction) for a detailed comparison of the two. If not explicitly noted, this document describes the circuit relay v2 protocol.
 
 #### Relay addresses
 
