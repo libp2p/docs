@@ -21,7 +21,7 @@ While peer-to-peer networks have many advantages over the client / server model,
 
 
 
-Here I'll try to briefly outline the main problem areas that are addressed by libp2p today (early 2019). This is an ever-growing space, so don't be surprised if things change over time. We'll do our best to keep this section up-to-date as things progress, but if you notice something missing or have other ideas for improving this documentation, please [reach out to let us know][help_improve_docs].
+Here we'll briefly outline the main problem areas that are addressed by libp2p. This is an ever-growing space, so don't be surprised if things change over time. If you notice something missing or have other ideas for improving this documentation, please [reach out to let us know][help_improve_docs].
 
 <!-- TODO: as concept articles are written expanding on the below, add links -->
 
