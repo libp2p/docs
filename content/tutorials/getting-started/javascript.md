@@ -181,7 +181,7 @@ const main = async () => {
   console.log('libp2p has stopped')
 }
 
-main().then().catch(console.error);
+main().then().catch(console.error)
 ```
 
 Try running the code with `node src/index.js`. You should see something like:
