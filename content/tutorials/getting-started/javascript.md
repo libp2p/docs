@@ -91,16 +91,16 @@ You can add as many transports as you like to `modules.transport` in order to es
 
 Every connection must be encrypted to help ensure security for everyone. As such, Connection Encryption (Crypto) is a required component of libp2p.
 
-There are a growing number of Crypto modules being developed for libp2p. As those are released they will be tracked in the [Connection Encryption section of the configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption). For now, we are going to configure our node to use the `libp2p-noise` module.
+There are a growing number of Crypto modules being developed for libp2p. As those are released they will be tracked in the [Connection Encryption section of the configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption). For now, we are going to configure our node to use the `@chainsafe/libp2p-noise` module.
 
 ```sh
-npm install libp2p-noise
+npm install @chainsafe/libp2p-noise
 ```
 
 ```js
 const Libp2p = require('libp2p')
 const TCP = require('libp2p-tcp')
-const { NOISE } = require('libp2p-noise')
+const { NOISE } = require('@chainsafe/libp2p-noise')
 
 const node = await Libp2p.create({
   modules: {
@@ -123,7 +123,7 @@ npm install libp2p-mplex
 ```js
 const Libp2p = require('libp2p')
 const TCP = require('libp2p-tcp')
-const { NOISE } = require('libp2p-noise')
+const { NOISE } = require('@chainsafe/libp2p-noise')
 const MPLEX = require('libp2p-mplex')
 
 const node = await Libp2p.create({
@@ -148,7 +148,7 @@ npm install multiaddr
 ```js
 const Libp2p = require('libp2p')
 const TCP = require('libp2p-tcp')
-const { NOISE } = require('libp2p-noise')
+const { NOISE } = require('@chainsafe/libp2p-noise')
 const MPLEX = require('libp2p-mplex')
 
 const multiaddr = require('multiaddr')
