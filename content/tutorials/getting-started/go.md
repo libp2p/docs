@@ -89,7 +89,7 @@ func main() {
 Import the `libp2p/go-libp2p` module:
 
 ```shell
-go get github.com/libp2p/go-libp2p
+$ go get github.com/libp2p/go-libp2p
 ```
 
 We can now compile this into an executable using `go build` and run it from the command line:
