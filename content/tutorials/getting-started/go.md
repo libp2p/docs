@@ -65,9 +65,7 @@ prints the node's listening addresses, then shuts the node down:
 package main
 
 import (
-	"context"
 	"fmt"
-
 	"github.com/libp2p/go-libp2p"
 )
 
@@ -86,6 +84,12 @@ func main() {
 		panic(err)
 	}
 }
+```
+
+Import the `libp2p/go-libp2p` module:
+
+```shell
+go get github.com/libp2p/go-libp2p
 ```
 
 We can now compile this into an executable using `go build` and run it from the command line:
@@ -164,7 +168,6 @@ and `syscall` packages we're now using:
 
 ```go
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/signal"
@@ -341,7 +344,6 @@ To recap, here is the full program we have written:
 package main
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/signal"
