@@ -72,7 +72,7 @@ You should select Transports according to the runtime of your application; Node.
 npm install libp2p-tcp
 ```
 
-Now that we have the module installed, let's configure libp2p to use the Transport. We'll use the [`Libp2p.create`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#create) method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `modules.transport` array:
+Now that we have the module installed, let's configure libp2p to use the Transport. We'll use the [`Libp2p.create`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#create) method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `modules.transport` array. Create a `src/index.js` file and have the following code in it:
 
 ```js
 const Libp2p = require('libp2p')
