@@ -15,15 +15,15 @@ messages between them.
 ## Install Go
 
 go-libp2p recommends the use of a Go version that includes the [modules feature](https://github.com/golang/go/wiki/Modules),
-which means you need to have a version of Go that is at least 1.11.
+which means you need to have a version of Go that is at least 1.16.
 
 You can install a recent version of Go by following the [official installation instructions](https://golang.org/doc/install).
 
-Once installed, you should be able to run `go version` and see a version >= 1.11, for example:
+Once installed, you should be able to run `go version` and see a version >= 1.16, for example:
 
 ```sh
 $ go version
-go version go1.12 darwin/amd64
+go version go1.17.5 darwin/amd64
 ```
 
 ## Create a Go module
@@ -31,10 +31,10 @@ go version go1.12 darwin/amd64
 We're going to create a Go module that can be run from the command line.
 
 Let's create a new directory and use `go mod` to initialize it as a module. We'll create it in
-`/tmp`, but you can equally create it anywhere on your filesystem (however it's advisable _not_ to
-create this directory under your `GOPATH`). We'll also initialize it with the module name
-`github.com/user/go-libp2p-tutorial`, but you may want to replace this with a name that corresponds
-to a repository name you have the rights to push to if you want to publish your version of the code.
+`/tmp`, but you can equally create it anywhere on your filesystem. We'll also initialize it with the
+module name `github.com/user/go-libp2p-tutorial`, but you may want to replace this with a name that
+corresponds to a repository name you have the rights to push to if you want to publish your version
+of the code.
 
 ```sh
 $ mkdir -p /tmp/go-libp2p-tutorial
@@ -51,7 +51,7 @@ initialized and the version of Go you're using, for example:
 $ cat go.mod
 module github.com/user/go-libp2p-tutorial
 
-go 1.12
+go 1.17
 ```
 
 ## Start a libp2p node
