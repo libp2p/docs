@@ -348,6 +348,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+    "context"
 
 	"github.com/libp2p/go-libp2p"
 	peerstore "github.com/libp2p/go-libp2p-core/peer"
@@ -380,6 +381,8 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("libp2p node address:", addrs[0])
+
+	ctx:=context.Background()
 
 	// if a remote peer has been passed on the command line, connect to it
 	// and send it 5 ping messages, otherwise wait for a signal to stop
