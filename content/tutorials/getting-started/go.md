@@ -348,7 +348,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-    	"context"
+	"context"
 
 	"github.com/libp2p/go-libp2p"
 	peerstore "github.com/libp2p/go-libp2p-core/peer"
