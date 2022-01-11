@@ -51,7 +51,7 @@ When [advertising your address](/concepts/peer-routing/), it's best to provide r
 
 The below sequence diagram depicts a sample relay process:
 
-![Circuit v2 Protocol Interaction](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.svg)
+![Circuit v2 Protocol Interaction](https://raw.githubusercontent.com/libp2p/specs/master/relay/circuit-v2.svg)
 
 1. Node `A` is behind a NAT and/or firewall, e.g. detected via the [AutoNAT service](/concepts/nat/#autonat).
 2. Node `A` therefore requests a reservation with relay `R`. I.e. node `A` asks relay `R` to listen for incoming connections on its behalf.
