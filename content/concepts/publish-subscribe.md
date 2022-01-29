@@ -58,7 +58,7 @@ peers on its behalf, a process called **ambient peer discovery**.
 
 Potential methods for discovering peers include:
 
-* Distributed hash tables
+* Distributed hash tables (e.g. by combining libp2p's kademlia DHT with its identify protocol)
 * Local network broadcasts
 * Exchanging peer lists with existing peers
 * Centralized trackers or rendezvous points
