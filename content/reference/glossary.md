@@ -226,9 +226,6 @@ Can refer to a collection of interconnected peers.
 In the libp2p codebase, "swarm" may refer to a module that allows a peer to
 interact with its peers, although this component was later renamed ["switch"](#switch).
 
-See [the discussion about the name change](https://github.com/libp2p/js-libp2p-switch/issues/40)
-for context.
-
 ### Switch
 
 A libp2p component responsible for composing multiple [transports](#transport)
