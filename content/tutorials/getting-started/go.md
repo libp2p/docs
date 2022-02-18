@@ -195,7 +195,7 @@ Now that we have the ability to configure and start libp2p nodes, we can start c
 A node started with go-libp2p will run its own ping protocol by default, but let's disable it and
 set it up manually to demonstrate the process of running protocols by registering stream handlers.
 
-The object returned from `libp2p.New` implements the [Host interface](https://godoc.org/github.com/libp2p/go-libp2p-host#Host),
+The object returned from `libp2p.New` implements the [Host interface](https://pkg.go.dev/github.com/libp2p/go-libp2p-core/host#Host),
 and we'll use the `SetStreamHandler` method to set a handler for our ping protocol.
 
 First, let's add the `github.com/libp2p/go-libp2p/p2p/protocol/ping` package to our list of
