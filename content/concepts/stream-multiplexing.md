@@ -2,17 +2,21 @@
 title: Stream Multiplexing
 ---
 
-Stream Multiplexing (often abbreviated as "stream muxing") allows multiple independent logical streams to all share a common underlying transport medium.
+Stream Multiplexing (_stream muxing_) is a way of sending multiple streams of data over one communication link. It combines multiple signals into one unified signal so it can be transported 'over the wires', then it is demulitiplexed (_demuxed_) so it can be output and used by separate applications.
+
+//what type of multiplexing? Time-division? Frequency division because blocks?
+
+This is done to share the transmission bandwidth available between multiple sources to make transmission more efficient.
 
 libp2p applications often open many independent streams of communication between peers and may have several concurrent streams open at the same time with a given remote peer. Stream multiplexing allows us to amortize the overhead of establishing new [transport](/concepts/transport/) connections across the lifetime of our interaction with a peer. We also only need to deal with [NAT traversal](/concepts/nat/) once to be able to open as many streams as we need, since they will all share the same underlying transport connection.
 
 Multiplexing is by no means unique to libp2p. Most communication networks involve some kind of multiplexing, as the transport medium is generally scarce and needs to be shared by many participants. For example, the TCP/IP stack multiplexes many TCP streams over an underlying network connection, using unique port numbers to distinguish streams. libp2p's stream multiplexer sits "above" the transport stack and allows many streams to flow over a single TCP port or other raw transport connection.
 
-libp2p provides a common [interface](#interface) for stream multiplexers with several [implementations](#implementations) available. Applications can enable support for multiple multiplexers, which will allow you to fall back to a widely-supported multiplexer if a preferred choice is not supported by a remote peer. 
+libp2p provides a common [interface](#interface) for stream multiplexers with several [implementations](#implementations) available. Applications can enable support for multiple multiplexers, which will allow you to fall back to a widely-supported multiplexer if a preferred choice is not supported by a remote peer.
 
 ## Where it fits in the libp2p stack
 
-libp2p's multiplexing happens at the "application layer", meaning it's not provided by the operating system's network stack. However, developers writing libp2p applications rarely need to interact with stream multiplexers directly, except during initial configuration to control which modules are enabled. 
+libp2p's multiplexing happens at the "application layer", meaning it's not provided by the operating system's network stack. However, developers writing libp2p applications rarely need to interact with stream multiplexers directly, except during initial configuration to control which modules are enabled.
 
 ### Switch / swarm
 
@@ -70,7 +74,7 @@ quic is currently supported in go via [go-libp2p-quic-transport](https://github.
 <!-- links -->
 [interface-stream-muxing]: https://github.com/libp2p/interface-stream-muxer
 
-[repo-multistream-select]: https://github.com/multiformats/multistream-select 
+[repo-multistream-select]: https://github.com/multiformats/multistream-select
 
 [wiki-quic]: https://en.wikipedia.org/wiki/QUIC
 [wiki-spdy]: https://en.wikipedia.org/wiki/SPDY
