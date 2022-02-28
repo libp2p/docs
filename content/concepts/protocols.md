@@ -46,7 +46,7 @@ developer-friendly and enables [easier matching by version](#match-using-semver)
 #### Handler functions
 
 To accept connections, a libp2p application will register handler functions for protocols using their protocol id with the
-[switch][definition_switch] (aka "swarm"), or a higher level interface such as [go's Host interface](https://github.com/libp2p/go-libp2p-host/blob/master/host.go).
+[switch][definition_switch] (aka "swarm"), or a higher level interface such as [go's Host interface](https://github.com/libp2p/go-libp2p-core/blob/master/host/host.go).
 
 The handler function will be invoked when an incoming stream is tagged with the registered protocol id.
 If you register your handler with a [match function](#using-a-match-function), you can choose whether
@@ -201,28 +201,19 @@ makes it more likely that other peers will discover the new address.
 
 ### secio
 
-| **Protocol id** | spec                     |                |                | implementations    |
-|-----------------|--------------------------|----------------|----------------|--------------------|
-| `/secio/1.0.0`  | [secio spec][spec_secio] | [go][secio_go] | [js][secio_js] | [rust][secio_rust] |
+| **Protocol id** | spec                     |                | implementations  |
+|-----------------|--------------------------|----------------|------------------|
+| `/secio/1.0.0`  | [secio spec][spec_secio] | [go][secio_go] | [js][secio_js]   |
 
-<!-- TODO(yusef): update spec link when PR lands -->
-[spec_secio]: https://github.com/libp2p/specs/pull/106
+[spec_secio]: https://github.com/libp2p/specs/tree/master/secio
 [secio_go]: https://github.com/libp2p/go-libp2p-secio
 [secio_js]: https://github.com/libp2p/js-libp2p-secio
-[secio_rust]: https://github.com/libp2p/rust-libp2p/tree/master/protocols/secio
 
-`secio` (short for secure input/output) is a protocol for encrypted communication that is similar to TLS 1.2, but without the
-Certificate Authority requirements. Because each libp2p peer has a [PeerId](/concepts/peer-id) that's derived from their
-public key, the identity of a peer can be validated without needing a Certificate Authority by using their public
-key to validate signed messages.
+`secio` (short for secure input/output) was a protocol for encrypted communication similar to TLS 1.2. 
 
-See the [Secure Communication article](/concepts/secure-comms/) for more information.
+{{% notice "warning" %}}
 
-{{% notice "note" %}}
-
-While secio is the default encryption protocol used by libp2p today, work is progressing on integrating TLS 1.3 into libp2p,
-which is expected to become the default once completed. See [the libp2p TLS 1.3 spec](https://github.com/libp2p/specs/tree/master/tls)
-for an overview of the design.
+Secio is now **DEPRECATED**, and we advise against using it. It has since been replaced by [TLS 1.3](https://github.com/libp2p/specs/tree/master/tls) and [Noise](https://github.com/libp2p/specs/tree/master/noise) as the preferred security transports. See [this blog post](https://blog.ipfs.io/2020-08-07-deprecating-secio/) for details.
 
 {{% /notice %}}
 

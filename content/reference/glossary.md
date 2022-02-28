@@ -3,6 +3,12 @@ title: "Glossary"
 weight: 1
 ---
 
+### Boot Node
+
+New nodes in a p2p network often make their initial connection to the p2p network through a set of nodes known as boot nodes. Information (e.g. addresses) about these boot nodes is e.g. embedded in an application binary or provided as a configuration option.
+
+The boot nodes serve as an entry point, providing a list of other nodes in the network to newcomers. After connecting to the boot nodes, the new node can connect to those other nodes in the network, thereby no longer relying on the boot nodes.
+
 ### Circuit Relay
 
 A means of establishing communication between peers who are unable to communicate directly, with the assistance of a third peer willing and able to act as an intermediary.
@@ -219,9 +225,6 @@ Can refer to a collection of interconnected peers.
 
 In the libp2p codebase, "swarm" may refer to a module that allows a peer to
 interact with its peers, although this component was later renamed ["switch"](#switch).
-
-See [the discussion about the name change](https://github.com/libp2p/js-libp2p-switch/issues/40)
-for context.
 
 ### Switch
 
