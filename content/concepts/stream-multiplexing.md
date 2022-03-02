@@ -4,13 +4,13 @@ title: Stream Multiplexing
 
 Stream Multiplexing (_stream muxing_) is a way of sending multiple streams of data over one communication link. It combines multiple signals into one unified signal so it can be transported 'over the wires', then it is demulitiplexed (_demuxed_) so it can be output and used by separate applications.
 
-This is done to share the transmission bandwidth available between multiple sources to make connection and transmission more efficient. With muxing, libp2p applications may have many separate streams of communication between peers, as well as have multiple concurrent streams open at the same time with a peer.
+## Multiplexing 
+
+Multiplexing is by no means unique to libp2p. Most communication networks involve some kind of multiplexing, as the transport medium is generally scarce and needs to be shared by many participants.
+
+This is done to share a single TCP connection using unique port numbers to distinguish streams, between the multiple proceeses (such as kademlia and gossipsub) used by applications (such as ipfs) to make connection and transmission more efficient. With muxing, libp2p applications may have many separate streams of communication between peers, as well as have multiple concurrent streams open at the same time with a peer.
 
 Stream multiplexing allows us to initialize and use the same [transport](/concepts/transport/) connection across the lifetime of our interaction with a peer. With muxing, we also only need to deal with [NAT traversal](/concepts/nat/) once to be able to open as many streams as we need, since they will all share the same underlying transport connection.
-
-## Multiplexing history
-
-Multiplexing is by no means unique to libp2p. Most communication networks involve some kind of multiplexing, as the transport medium is generally scarce and needs to be shared by many participants. For example, the TCP/IP stack multiplexes many TCP streams over an underlying network connection, using unique port numbers to distinguish streams. libp2p's stream multiplexer sits "above" the transport stack and allows many streams to flow over a single TCP port or other raw transport connection.
 
 libp2p provides a common [interface](#interface) for stream multiplexers with several [implementations](#implementations) available. Applications can enable support for multiple multiplexers, which will allow you to fall back to a widely-supported multiplexer if a preferred choice is not supported by a remote peer.
 
