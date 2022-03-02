@@ -5,7 +5,6 @@ weight: 3
 
 Circuit relay is a [transport protocol](/concepts/transport/) that routes traffic between two peers over a third-party "relay" peer.
 
-When two peers cannot connect, such as when they both are both behind a NAT [the circuit relay can be used to connect them](https://blog.aira.life/understanding-ipfs-circuit-relay-ccc7d2a39).
 
 In many cases, peers will be unable to [traverse their NAT and/or firewall](/concepts/nat/) in a way that makes them publicly accessible. Or they may not share common [transport protocols](/concepts/transport/) that would allow them to communicate directly.
 
