@@ -51,7 +51,7 @@ initialized and the version of Go you're using, for example:
 $ cat go.mod
 module github.com/user/go-libp2p-tutorial
 
-go 1.12
+go 1.18
 ```
 
 ## Start a libp2p node
@@ -70,6 +70,10 @@ import (
 )
 
 func main() {
+    // The context governs the lifetime of the libp2p node.
+	// Cancelling it will stop the the host.
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	// start a libp2p node with default settings
 	node, err := libp2p.New()
 	if err != nil {
@@ -356,6 +360,10 @@ import (
 )
 
 func main() {
+    // The context governs the lifetime of the libp2p node.
+	// Cancelling it will stop the the host.
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	// start a libp2p node that listens on a random local TCP port,
 	// but without running the built-in ping protocol
 	node, err := libp2p.New(
