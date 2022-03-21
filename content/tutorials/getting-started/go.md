@@ -287,7 +287,7 @@ package to parse the peer's address from the command line argument):
 ```go
 import (
 	...
-
+	"context"
 	"github.com/libp2p/go-libp2p"
 	peerstore "github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
@@ -309,6 +309,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+		ctx := context.Background()
 		if err := node.Connect(ctx, *peer); err != nil {
 			panic(err)
 		}
@@ -348,6 +349,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"context"
 
 	"github.com/libp2p/go-libp2p"
 	peerstore "github.com/libp2p/go-libp2p-core/peer"
@@ -392,6 +394,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+		ctx := context.Background()
 		if err := node.Connect(ctx, *peer); err != nil {
 			panic(err)
 		}
