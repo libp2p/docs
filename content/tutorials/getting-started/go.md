@@ -309,11 +309,11 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		if err := node.Connect(ctx, *peer); err != nil {
+		if err := node.Connect(context.Background(), *peer); err != nil {
 			panic(err)
 		}
 		fmt.Println("sending 5 ping messages to", addr)
-		ch := pingService.Ping(ctx, peer.ID)
+		ch := pingService.Ping(context.Background(), peer.ID)
 		for i := 0; i < 5; i++ {
 			res := <-ch
 			fmt.Println("got ping response!", "RTT:", res.RTT)
@@ -344,6 +344,7 @@ To recap, here is the full program we have written:
 package main
 
 import (
+    "context"
 	"fmt"
 	"os"
 	"os/signal"
@@ -392,11 +393,11 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		if err := node.Connect(ctx, *peer); err != nil {
+		if err := node.Connect(context.Background(), *peer); err != nil {
 			panic(err)
 		}
 		fmt.Println("sending 5 ping messages to", addr)
-		ch := pingService.Ping(ctx, peer.ID)
+		ch := pingService.Ping(context.Background(), peer.ID)
 		for i := 0; i < 5; i++ {
 			res := <-ch
 			fmt.Println("pinged", addr, "in", res.RTT)
