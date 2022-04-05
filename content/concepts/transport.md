@@ -100,7 +100,7 @@ in a web browser.
 
 The libp2p component responsible for managing the transports is called the
 [switch][definition_switch], which also coordinates
-[protocol negotiation](/concepts/protocol-negotiation),
+[protocol negotiation](/concepts/protocols/#protocol-negotiation),
 [stream multiplexing](/concepts/stream-multiplexing),
 [establishing secure communication](/concepts/secure-comms/) and other forms of
 "connection upgrading".
