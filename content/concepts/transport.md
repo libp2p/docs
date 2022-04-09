@@ -57,7 +57,7 @@ Here's an example of a multiaddr for a TCP/IP transport:
 /ip4/7.7.7.7/tcp/6543
 ```
 
-This is equivalent to the more familiar `7.7.7.7:6542` construction, but it
+This is equivalent to the more familiar `7.7.7.7:6543` construction, but it
 has the advantage of being explicit about the protocols that are being
 described. With the multiaddr, you can see at a glance that the `7.7.7.7`
 address belongs to the IPv4 protocol, and the `6543` belongs to TCP.
