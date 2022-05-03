@@ -139,11 +139,6 @@ const node = await Libp2p.create({
 
 Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexer** module, you can start your libp2p node. We can start and stop libp2p using the [`libp2p.start()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#start) and [`libp2p.stop()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#stop) methods.
 
-A libp2p node needs to have a listen address for the given transport, so that it can be reached by other nodes in the network. Accordingly, we will install the `multiaddr` module to create a tcp [multiaddress][definition_multiaddress] and add it to the node.
-
-```shell
-npm install multiaddr
-```
 
 ```js
 const Libp2p = require('libp2p')
@@ -198,15 +193,14 @@ Now that we have the basic building blocks of transport, multiplexing, and secur
 
 We can use [`libp2p.ping()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#ping) to dial and send ping messages to another peer. That peer will send back a "pong" message, so that we know that it is still alive. This also enables us to measure the latency between peers.
 
-We can have our application accepting a peer multiaddress via command line argument and try to ping it. To do so, we'll need to add a couple things. First, require the `process` module so that we can get the command line arguments:
+We can have our application accepting a peer multiaddress via command line argument and try to ping it. To do so, we'll need to add a couple things. First, require the `process` module so that we can get the command line arguments. Then we'll need to parse the multiaddress from the command line and try to ping it:
+
 
 ```javascript
+
 const process = require('process')
-```
+const { multiaddr } = require('multiaddr');
 
-Then we'll need to parse the multiaddress from the command line and try to ping it:
-
-```javascript
 const node = await Libp2p.create({
   addresses: {
     // add a listen address (localhost) to accept TCP connections on a random port

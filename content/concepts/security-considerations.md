@@ -160,3 +160,4 @@ determined bad actors.
 [concepts-peer-routing]: ../peer-routing/
 [concepts-content-routing]: ../content-routing/
 [wikipedia-sybil]: https://en.wikipedia.org/wiki/Sybil_attack
+[paper-s-kademlia]: https://telematics.tm.kit.edu/publications/Files/267/SKademlia_2007.pdf
