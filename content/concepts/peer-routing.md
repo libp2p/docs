@@ -3,7 +3,7 @@ title: Peer Routing
 weight: 5
 ---
 
-Libp2p primarily uses Kademlia DHT for peer discovery. Let's dive a little bit into how Kademlia works.
+One of the many mechanisms that libp2p uses for peer routing is Kademlia DHT. We will dive into how it works in this article, this will help you further understand more advanced topics.
 
 ## Static DHT
 
@@ -13,9 +13,9 @@ To grow intuition about the Kademlia let's assume for now that our DHT is static
 
 Each peer has their own peer ID. Kademlia provides an efficient lookup algorithm that locates successively “closer” nodes to any desired ID.
 
-In Kademlia peers are key-value pairs in the DHT. On practice peer ID stored as a key and [address](/concepts/addressing/) (or IP address) of a peer stored as a value.
+In Kademlia peers are key-value pairs in the DHT. Conceptually peer ID stored as a key and [address](/concepts/addressing/) (or IP address) of a peer stored as a value.
 
-Kademlia treats peers as leaves in a binary tree. Peer IDs in leaves represented as binary numbers. Notice, that we do not need to store the whole peer id to specify the peer. We can storeƒ only their prefix if prefix is unique.
+Kademlia treats peers as leaves in a binary tree. We store hashes of Peer IDs in leaves, which are represented as binary numbers. Notice, that we do not need to store the whole hash to specify the peer. We can store only prefix if prefix is unique.
 
 Leaves on the tree that are not peers represent [content](/concepts/content-routing/) which is stored by some close nodes.
 
@@ -65,7 +65,7 @@ Next, our `k-bucket` should, instead of storing just 1 computer, store `k` compu
 
 And, when hopping, instead of asking one computer from `k-bucket` we will be asking `k`. Some may not reply, but not all of them.
 
-To check if node is still alive we can ping it periodically. If node doesn't respond in the allotted time it will be evicted from our `k-bucket`.
+To check if node is still alive we can ping it periodically. If node doesn't respond in the allotted time it will be marked as non-responding and eventually replaced once we have a better one.
 
 How do we become aware of new computers that could fit into our unfilled `k-buckets`? We could perform lookups on random ids within a `k-bucket’s` id range (the range is defined by all leaves that are direct descendants of the `k-bucket’s` corresponding internal node, which is not leaf, in the complete tree) and thus learn about computers within that `k-bucket` if they exist. This is called a _bucket refresh_.
 
@@ -75,8 +75,10 @@ To join the DHT new computer `Eve` must know at least on IP address of computer 
 
 ## More information
 
-For more detailed informationg check out the article from [Stanford Code the Change](https://codethechange.stanford.edu/guides/guide_kademlia.html).
+It will be useful to read the original Kademlia [whitepaper](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf).
 
-It will be useful to read the original Kademlia [whitepaper](https://www.ic.unicamp.br/~bit/ensino/mo809_1s13/papers/P2P/Kademlia-%20A%20Peer-to-Peer%20Information%20System%20Based%20on%20the%20XOR%20Metric%20.pdf).
+[libp2p Kademlia specification](https://github.com/libp2p/specs/blob/master/kad-dht/README.md)
 
 In addition take a look at [libp2p kademlia implementation on go](https://github.com/libp2p/go-libp2p-kad-dht).
+
+For more detailed informationg check out the article from [Stanford Code the Change](https://codethechange.stanford.edu/guides/guide_kademlia.html).
