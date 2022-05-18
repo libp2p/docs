@@ -21,7 +21,7 @@ endif
 HUGO_LOCAL=./bin/hugo
 # Path to Hugo binary to use when building the site
 HUGO_BINARY=$(HUGO_LOCAL)
-HUGO_VERSION=0.54.0
+HUGO_VERSION=0.99.1
 PLATFORM:=$(shell uname)
 ifeq ('$(PLATFORM)', 'Darwin')
 	PLATFORM=macOS
@@ -29,6 +29,8 @@ endif
 MACH:=$(shell uname -m)
 ifeq ('$(MACH)', 'x86_64')
 	MACH=64bit
+else ifeq ('$(MACH)', 'arm64')
+    MACH=ARM64
 else
 	MACH=32bit
 endif
