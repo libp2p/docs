@@ -30,7 +30,7 @@ MACH:=$(shell uname -m)
 ifeq ('$(MACH)', 'x86_64')
 	MACH=64bit
 else ifeq ('$(MACH)', 'arm64')
-    MACH=ARM64
+	MACH=ARM64
 else
 	MACH=32bit
 endif
