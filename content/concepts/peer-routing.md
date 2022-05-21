@@ -9,7 +9,7 @@ One of the many mechanisms that libp2p uses for peer routing is Kademlia DHT. We
 
 In this example, we are going to assume for now that our DHT is static, in the sense that no one joins DHT and no one leaves.
 
-### System Descritpion
+### System Description
 
 When a peer is added to the DHT, each peer is assigned a peer ID. Kademlia provides an efficient lookup algorithm that locates successively “closer” nodes to any desired ID.
 
