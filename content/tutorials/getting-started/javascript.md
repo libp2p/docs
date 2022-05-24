@@ -75,12 +75,13 @@ npm install @libp2p/tcp
 Now that we have the module installed, let's configure libp2p to use the Transport. We'll use the `createLibp2pNode` method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `transports` array. Create a `src/index.js` file and have the following code in it:
 
 ```js
-import { createLibp2p } from "libp2p";
-import { TCP } from "@libp2p/tcp";
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
 
 const node = await createLibp2p({
-    transports: [new TCP()],
-  });
+  transports: [new TCP()]
+})
+
 ```
 
 You can add as many transports as you like to `transports` in order to establish connections with as many peers as possible.
@@ -96,14 +97,15 @@ npm install @chainsafe/libp2p-noise
 ```
 
 ```js
-import { createLibp2p } from "libp2p";
-import { TCP } from "@libp2p/tcp";
-import { Noise } from "@chainsafe/libp2p-noise";
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
+import { Noise } from '@chainsafe/libp2p-noise'
 
 const node = await createLibp2p({
-    transports: [new TCP()],
-    connectionEncryption: [new Noise()],
-  });
+  transports: [new TCP()],
+  connectionEncryption: [new Noise()]
+})
+
 ```
 
 #### Multiplexing
@@ -117,16 +119,17 @@ npm install @libp2p/mplex
 ```
 
 ```js
-import { createLibp2p } from "libp2p";
-import { TCP } from "@libp2p/tcp";
-import { Noise } from "@chainsafe/libp2p-noise";
-import { Mplex } from "@libp2p/mplex";
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
+import { Noise } from '@chainsafe/libp2p-noise'
+import { Mplex } from '@libp2p/mplex'
 
 const node = await createLibp2p({
-    transports: [new TCP()],
-    connectionEncryption: [new Noise()],
-    streamMuxers: [new Mplex()],
-  });
+  transports: [new TCP()],
+  connectionEncryption: [new Noise()],
+  streamMuxers: [new Mplex()]
+})
+
 ```
 
 #### Running Libp2p
@@ -135,38 +138,39 @@ Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexe
 
 
 ```js
-import { createLibp2p } from "libp2p";
-import { TCP } from "@libp2p/tcp";
-import { Noise } from "@chainsafe/libp2p-noise";
-import { Mplex } from "@libp2p/mplex";
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
+import { Noise } from '@chainsafe/libp2p-noise'
+import { Mplex } from '@libp2p/mplex'
 
 const main = async () => {
   const node = await createLibp2p({
     addresses: {
       // add a listen address (localhost) to accept TCP connections on a random port
-      listen: ["/ip4/127.0.0.1/tcp/0"],
+      listen: ['/ip4/127.0.0.1/tcp/0']
     },
     transports: [new TCP()],
     connectionEncryption: [new Noise()],
-    streamMuxers: [new Mplex()],
-  });
+    streamMuxers: [new Mplex()]
+  })
 
   // start libp2p
-  await node.start();
-  console.log("libp2p has started");
+  await node.start()
+  console.log('libp2p has started')
 
   // print out listening addresses
-  console.log("listening on addresses:");
+  console.log('listening on addresses:')
   node.getMultiaddrs().forEach((addr) => {
-    console.log(addr.toString());
-  });
-  
-  // stop libp2p
-  await node.stop();
-  console.log("libp2p has stopped");
-};
+    console.log(addr.toString())
+  })
 
-main().then().catch(console.error);
+  // stop libp2p
+  await node.stop()
+  console.log('libp2p has stopped')
+}
+
+main().then().catch(console.error)
+
 ```
 
 Try running the code with `node src/index.js`. You should see something like:
@@ -191,52 +195,53 @@ npm install multiaddr
 ```
 
 ```javascript
-import process from "node:process";
-import { createLibp2p } from "libp2p";
-import { TCP } from "@libp2p/tcp";
-import { Noise } from "@chainsafe/libp2p-noise";
-import { Mplex } from "@libp2p/mplex";
-import { multiaddr } from "multiaddr";
+import process from 'node:process'
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
+import { Noise } from '@chainsafe/libp2p-noise'
+import { Mplex } from '@libp2p/mplex'
+import { multiaddr } from 'multiaddr'
 
 const node = await createLibp2p({
   addresses: {
     // add a listen address (localhost) to accept TCP connections on a random port
-    listen: ["/ip4/127.0.0.1/tcp/0"],
+    listen: ['/ip4/127.0.0.1/tcp/0']
   },
   transports: [new TCP()],
   connectionEncryption: [new Noise()],
-  streamMuxers: [new Mplex()],
-});
+  streamMuxers: [new Mplex()]
+})
 
 // start libp2p
-await node.start();
-console.log("libp2p has started");
+await node.start()
+console.log('libp2p has started')
 
 // print out listening addresses
-console.log("listening on addresses:");
+console.log('listening on addresses:')
 node.getMultiaddrs().forEach((addr) => {
-  console.log(addr.toString());
-});
+  console.log(addr.toString())
+})
 
 // ping peer if received multiaddr
 if (process.argv.length >= 3) {
-  const ma = multiaddr(process.argv[2]);
-  console.log(`pinging remote peer at ${process.argv[2]}`);
-  const latency = await node.ping(ma);
-  console.log(`pinged ${process.argv[2]} in ${latency}ms`);
+  const ma = multiaddr(process.argv[2])
+  console.log(`pinging remote peer at ${process.argv[2]}`)
+  const latency = await node.ping(ma)
+  console.log(`pinged ${process.argv[2]} in ${latency}ms`)
 } else {
-  console.log("no remote peer address given, skipping ping");
+  console.log('no remote peer address given, skipping ping')
 }
 
 const stop = async () => {
   // stop libp2p
-  await node.stop();
-  console.log("libp2p has stopped");
-  process.exit(0);
-};
+  await node.stop()
+  console.log('libp2p has stopped')
+  process.exit(0)
+}
 
-process.on("SIGTERM", stop);
-process.on("SIGINT", stop);
+process.on('SIGTERM', stop)
+process.on('SIGINT', stop)
+
 ```
 
 Now we can start one instance with no arguments:
