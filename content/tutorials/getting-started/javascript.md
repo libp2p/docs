@@ -83,7 +83,7 @@ const node = await createLibp2p({
   });
 ```
 
-You can add as many transports as you like to `modules.transport` in order to establish connections with as many peers as possible.
+You can add as many transports as you like to `transports` in order to establish connections with as many peers as possible.
 
 #### Connection Encryption
 
