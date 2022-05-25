@@ -99,9 +99,9 @@
     {{safeHTML .Params.head }}
     {{ $isParent := or (.IsAncestor $currentNode) (.Params.alwaysopen) }}
     {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
-    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item
+    <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item
         {{if $isParent }}parent{{end}}
-        {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}
+        {{if eq .File.UniqueID $currentNode.File.UniqueID}}active{{end}}
         ">
       <a href="{{.RelPermalink}}">
           {{ if and (ne $numberOfPages 0) (ne .Parent .Site.Home) }}
@@ -145,7 +145,7 @@
     </li>
   {{else}}
     {{ if not .Params.Hidden }}
-      <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
+      <li data-nav-id="{{.RelPermalink}}" title="{{.Title}}" class="dd-item {{if eq .File.UniqueID $currentNode.File.UniqueID}}active{{end}}">
         <a href="{{ .RelPermalink}}">
         {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
         {{ if $showvisitedlinks}}<i class="fas fa-check read-icon"></i>{{end}}

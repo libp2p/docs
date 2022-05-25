@@ -3,9 +3,12 @@ title: "What is libp2p?"
 weight: 2
 ---
 
-Good question! The one-liner pitch is that libp2p is a modular system of *protocols*, *specifications* and *libraries* that enable the development of peer-to-peer network applications.
+Moving from a location-addressed system to a peer-to-peer, content addressed system presents a lot of challenges. The internet as it is, with firewalls and NATs, was designed to provide data (securely) in the traditional Web2 system.
 
-<!--more-->
+There are also a lot of assumptions built in, such as assuming the
+fact that everyone is reying on client-server arcitecture, with a central server that clients connect to, and the Domanin Name System (DNS) is used to assign addresses to content that can then be used by clients to access that information.
+
+libp2p is a modular system of *protocols*, *specifications* and *libraries* that enable the development of peer-to-peer network applications. Because of the way libp2p is architected, a lot of the needs and considerations that the web2 network was built on no longer apply.
 
 ## Peer-to-peer basics
 
@@ -17,8 +20,9 @@ Because the definition of peer-to-peer networking is quite broad, many different
 
 ## What problems can libp2p solve?
 
-While peer-to-peer networks have many advantages over the client / server model, there are also challenges that are unique and require careful thought and practice to overcome. In our process of overcoming these challenges while building [IPFS](https://ipfs.io), we took care to build our solutions in a modular, composable way, into what is now libp2p. Although libp2p grew out of IPFS, it does not require or depend on IPFS, and today [many projects][built_with_libp2p] use libp2p as their network transport layer. Together we can leverage our collective experience and solve these foundational problems in a way that benefits an entire ecosystem of developers and a world of users.
+While peer-to-peer networks have many advantages over the client-server model, there are also challenges that are unique and require careful thought and practice to overcome.
 
+With libp2p, it is possible for you to preserve your identity from network to network, overcome network censorship issues, as well as communicate over different transfer protocols that different applications use to communicate.
 
 
 Here we'll briefly outline the main problem areas that are addressed by libp2p. This is an ever-growing space, so don't be surprised if things change over time. If you notice something missing or have other ideas for improving this documentation, please [reach out to let us know][help_improve_docs].
