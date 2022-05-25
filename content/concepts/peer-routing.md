@@ -25,7 +25,7 @@ The red node in this diagram has the prefix `001`. Traversing this graph from th
 
 For any given node, Kademlia divides the whole binary tree into a series of successively lower subtrees. The highest subtree consists of the half of the binary tree not containing the original node. The next subtree consists of the half of the remaining tree not containing the next highest node, and so on.
 
-You can see here for node `001` there are three levels of subtrees are also circle, consisting of all nodes with prefixes `1` (highest level subtree) , `01`, `000` (lowest level subtree).
+You can see here for node `001` there are three levels of subtrees are also circled, consisting of all nodes with prefixes `1` (highest level subtree) , `01`, and `000` (lowest level subtree).
 
 The Kademlia protocol ensures that every node knows of at least one node in each of its subtrees, if that subtree contains a node. This guarantees that any node can be located by it's peer ID.
 
@@ -59,7 +59,7 @@ The place where one node stores info about other nodes is called a routing table
 
 Take a look at the initial tree:
 ![Kademlia-system](Kademlia-system.png)
-See this circled sub-trees? Remember that the Kademlia protocol ensures that every node knows of (and can locate) at least one node in each of its subtrees. If that subtree contains a node. `k-bucket` of a sub-tree is a set of that nodes. Once again: from each subtree we take only those nodes that we know - and we call it `k-bucket`. In out case `k-buckets` for Bob look like this
+See these circled sub-trees? Remember that the Kademlia protocol ensures that every node knows of (and can locate) at least one node in each of its subtrees. If that subtree contains a node. `k-bucket` of a sub-tree is a set of that nodes. Once again: from each subtree we take only those nodes that we know - and we call it `k-bucket`. In out case `k-buckets` for Bob look like this
 
 ![k-buckets](k-buckets.png)
 
@@ -67,7 +67,7 @@ Each `k-bucket` covers some range of the ID space, and together the `k-buckets` 
 
 ## Dynamic DHT
 
-Okay, that was it for static DHT. And the gap from our current state to a fully dynamic DHT is not as far away as it seems. Let us first consider how we can extend this protocol to support computers sporadically leaving.
+The gap from our current state to a fully dynamic DHT is not as far away as it seems. Let us first consider how we can extend this protocol to support computers sporadically leaving.
 
 ### Peers Leaving
 
