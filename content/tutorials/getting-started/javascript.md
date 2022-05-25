@@ -66,73 +66,70 @@ Now that we have libp2p installed, let's configure the minimum needed to get you
 
 Libp2p uses Transports to establish connections between peers over the network. You can configure any number of Transports, but you only need 1 to start with.
 
-You should select Transports according to the runtime of your application; Node.js or the browser. You can see a list of some of the available Transports in the [configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#transport). For this guide let's install `libp2p-tcp`.
+You should select Transports according to the runtime of your application; Node.js or the browser. You can see a list of some of the available Transports in the [configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#transport). For this guide let's install `@libp2p/tcp`.
 
 ```sh
-npm install libp2p-tcp
+npm install @libp2p/tcp
 ```
 
-Now that we have the module installed, let's configure libp2p to use the Transport. We'll use the [`Libp2p.create`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#create) method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `modules.transport` array. Create a `src/index.js` file and have the following code in it:
+Now that we have the module installed, let's configure libp2p to use the Transport. We'll use the `createLibp2pNode` method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `transports` array. Create a `src/index.js` file and have the following code in it:
 
 ```js
-const Libp2p = require('libp2p')
-const TCP = require('libp2p-tcp')
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
 
-const node = await Libp2p.create({
-  modules: {
-    transport: [TCP]
-  }
+const node = await createLibp2p({
+  transports: [new TCP()]
 })
+
 ```
 
-You can add as many transports as you like to `modules.transport` in order to establish connections with as many peers as possible.
+You can add as many transports as you like to `transports` in order to establish connections with as many peers as possible.
 
 #### Connection Encryption
 
 Every connection must be encrypted to help ensure security for everyone. As such, Connection Encryption (Crypto) is a required component of libp2p.
 
-There are a growing number of Crypto modules being developed for libp2p. As those are released they will be tracked in the [Connection Encryption section of the configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption). For now, we are going to configure our node to use the `libp2p-noise` module.
+There are a growing number of Crypto modules being developed for libp2p. As those are released they will be tracked in the [Connection Encryption section of the configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption). For now, we are going to configure our node to use the `@chainsafe/libp2p-noise` module.
 
 ```sh
-npm install libp2p-noise
+npm install @chainsafe/libp2p-noise
 ```
 
 ```js
-const Libp2p = require('libp2p')
-const TCP = require('libp2p-tcp')
-const { NOISE } = require('libp2p-noise')
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
+import { Noise } from '@chainsafe/libp2p-noise'
 
-const node = await Libp2p.create({
-  modules: {
-    transport: [TCP],
-    connEncryption: [NOISE]
-  }
+const node = await createLibp2p({
+  transports: [new TCP()],
+  connectionEncryption: [new Noise()]
 })
+
 ```
 
 #### Multiplexing
 
 While multiplexers are not strictly required, they are highly recommended as they improve the effectiveness and efficiency of connections for the various protocols libp2p runs.
 
-Looking at the [available stream multiplexing](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing) modules, js-libp2p currently only supports `libp2p-mplex`, so we will use that here. You can install `libp2p-mplex` and add it to your libp2p node as follows in the next example.
+Looking at the [available stream multiplexing](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing) modules, js-libp2p currently only supports `@libp2p/mplex`, so we will use that here. You can install `@libp2p/mplex` and add it to your libp2p node as follows in the next example.
 
 ```sh
-npm install libp2p-mplex
+npm install @libp2p/mplex
 ```
 
 ```js
-const Libp2p = require('libp2p')
-const TCP = require('libp2p-tcp')
-const { NOISE } = require('libp2p-noise')
-const MPLEX = require('libp2p-mplex')
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
+import { Noise } from '@chainsafe/libp2p-noise'
+import { Mplex } from '@libp2p/mplex'
 
-const node = await Libp2p.create({
-  modules: {
-    transport: [TCP],
-    connEncryption: [NOISE],
-    streamMuxer: [MPLEX]
-  }
+const node = await createLibp2p({
+  transports: [new TCP()],
+  connectionEncryption: [new Noise()],
+  streamMuxers: [new Mplex()]
 })
+
 ```
 
 #### Running Libp2p
@@ -141,23 +138,20 @@ Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexe
 
 
 ```js
-const Libp2p = require('libp2p')
-const TCP = require('libp2p-tcp')
-const { NOISE } = require('libp2p-noise')
-const MPLEX = require('libp2p-mplex')
-
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
+import { Noise } from '@chainsafe/libp2p-noise'
+import { Mplex } from '@libp2p/mplex'
 
 const main = async () => {
-  const node = await Libp2p.create({
+  const node = await createLibp2p({
     addresses: {
       // add a listen address (localhost) to accept TCP connections on a random port
       listen: ['/ip4/127.0.0.1/tcp/0']
     },
-    modules: {
-      transport: [TCP],
-      connEncryption: [NOISE],
-      streamMuxer: [MPLEX]
-    }
+    transports: [new TCP()],
+    connectionEncryption: [new Noise()],
+    streamMuxers: [new Mplex()]
   })
 
   // start libp2p
@@ -166,8 +160,8 @@ const main = async () => {
 
   // print out listening addresses
   console.log('listening on addresses:')
-  node.multiaddrs.forEach(addr => {
-    console.log(`${addr.toString()}/p2p/${node.peerId.toB58String()}`)
+  node.getMultiaddrs().forEach((addr) => {
+    console.log(addr.toString())
   })
 
   // stop libp2p
@@ -176,6 +170,7 @@ const main = async () => {
 }
 
 main().then().catch(console.error)
+
 ```
 
 Try running the code with `node src/index.js`. You should see something like:
@@ -195,22 +190,26 @@ We can use [`libp2p.ping()`](https://github.com/libp2p/js-libp2p/blob/master/doc
 
 We can have our application accepting a peer multiaddress via command line argument and try to ping it. To do so, we'll need to add a couple things. First, require the `process` module so that we can get the command line arguments. Then we'll need to parse the multiaddress from the command line and try to ping it:
 
+```sh
+npm install multiaddr
+```
 
 ```javascript
+import process from 'node:process'
+import { createLibp2p } from 'libp2p'
+import { TCP } from '@libp2p/tcp'
+import { Noise } from '@chainsafe/libp2p-noise'
+import { Mplex } from '@libp2p/mplex'
+import { multiaddr } from 'multiaddr'
 
-const process = require('process')
-const { multiaddr } = require('multiaddr');
-
-const node = await Libp2p.create({
+const node = await createLibp2p({
   addresses: {
     // add a listen address (localhost) to accept TCP connections on a random port
     listen: ['/ip4/127.0.0.1/tcp/0']
   },
-  modules: {
-    transport: [TCP],
-    connEncryption: [NOISE],
-    streamMuxer: [MPLEX]
-  }
+  transports: [new TCP()],
+  connectionEncryption: [new Noise()],
+  streamMuxers: [new Mplex()]
 })
 
 // start libp2p
@@ -219,8 +218,8 @@ console.log('libp2p has started')
 
 // print out listening addresses
 console.log('listening on addresses:')
-node.multiaddrs.forEach(addr => {
-  console.log(`${addr.toString()}/p2p/${node.peerId.toB58String()}`)
+node.getMultiaddrs().forEach((addr) => {
+  console.log(addr.toString())
 })
 
 // ping peer if received multiaddr
@@ -242,6 +241,7 @@ const stop = async () => {
 
 process.on('SIGTERM', stop)
 process.on('SIGINT', stop)
+
 ```
 
 Now we can start one instance with no arguments:
