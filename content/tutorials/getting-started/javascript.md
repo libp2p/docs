@@ -44,7 +44,7 @@ Side note: throughout this tutorial, we use the `> ` character to indicate your 
 
 libp2p is a very modular framework, which allows javascript devs to target different runtime environments and opt-in to various features by including a custom selection of modules.
 
-Because every application is different, we recommend configuring your libp2p node with just the modules you need. You can even make more than one configuration, if you want to target multiple javascript runtimes with different features. For example, the IPFS project has two libp2p configurations, [one for node.js](https://github.com/ipfs/js-ipfs/blob/master/packages/ipfs-core/src/runtime/libp2p-nodejs.js) and [one for the browser](https://github.com/ipfs/js-ipfs/blob/master/packages/ipfs-core/src/runtime/libp2p-browser.js).
+Because every application is different, we recommend configuring your libp2p node with just the modules you need. You can even make more than one configuration, if you want to target multiple javascript runtimes with different features.
 
 {{% notice note %}}
 In a production application, it may make sense to create a separate npm module for your libp2p node, which will give you one place to manage the libp2p dependencies for all your javascript projects. In that case, you should not depend on `libp2p` directly in your application. Instead you'd depend on your libp2p configuration module, which would in turn depend on `libp2p` and whatever modules (transports, etc) you might need.
