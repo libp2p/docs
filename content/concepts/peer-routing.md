@@ -37,11 +37,11 @@ Bob can locate Alice in this example. Bob knows Alice's peerID and he needs to g
 
 ![1-hop](1-hop.png)
 
-Peer `100` doesn't have Alice's key. But they have key of node `110` from their subtree which locates Alice better! And we are doing second hop:
+Peer `100` doesn't have Alice's address, so they reroute and ask the peer located at the node with the prefix `110` from their subtree.
 
 ![2-hop](2-hop.png)
 
-Peer `110` also doesn't have Alice's key, but they again locate Alice better and send request to node with prefix `1111`.
+In this example, peer `110` also doesn't have Alice's address, so they send request to another node, with the prefix `1111`.
 
 ![3-hop](3-hop.png)
 
