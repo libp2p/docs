@@ -6,9 +6,9 @@ weight: 2
 Moving from a location-addressed system to a peer-to-peer, content addressed system presents a lot of challenges. The internet as it is, with firewalls and NATs, was designed to provide data (securely) in the traditional Web2 system.
 
 There are also a lot of assumptions built in, such as assuming the
-fact that everyone is reying on client-server arcitecture, with a central server that clients connect to, and the Domanin Name System (DNS) is used to assign addresses to content that can then be used by clients to access that information.
+fact that everyone is reying on client-server arcitecture, with a central server that clients connect to, and the Domain Name System (DNS) is used to assign addresses to content that can then be used by clients to access that information.
 
-libp2p is a modular system of *protocols*, *specifications* and *libraries* that enable the development of peer-to-peer network applications. Because of the way libp2p is architected, a lot of the needs and considerations that the web2 network was built on no longer apply.
+libp2p is a modular system of _protocols_, _specifications_ and _libraries_ that enable the development of peer-to-peer network applications. Because of the way libp2p is architected, a lot of the needs and considerations that the web2 network was built on no longer apply.
 
 ## Peer-to-peer basics
 
@@ -24,7 +24,6 @@ While peer-to-peer networks have many advantages over the client-server model, t
 
 With libp2p, it is possible for you to preserve your identity from network to network, overcome network censorship issues, as well as communicate over different transfer protocols that different applications use to communicate.
 
-
 Here we'll briefly outline the main problem areas that are addressed by libp2p. This is an ever-growing space, so don't be surprised if things change over time. If you notice something missing or have other ideas for improving this documentation, please [reach out to let us know][help_improve_docs].
 
 <!-- TODO: as concept articles are written expanding on the below, add links -->
@@ -35,11 +34,11 @@ At the foundation of libp2p is the transport layer, which is responsible for the
 
 ### Identity
 
-In a world with billions of networked devices, knowing who you're talking to is key to secure and reliable communication. libp2p uses [public key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography) as the basis of peer identity, which serves two complementary purposes.  First, it gives each peer a globally unique "name", in the form of a [PeerId][definition_peerid]. Second, the `PeerId` allows anyone to retrieve the public key for the identified peer, which enables secure communication between peers.
+In a world with billions of networked devices, knowing who you're talking to is key to secure and reliable communication. libp2p uses [public key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography) as the basis of peer identity, which serves two complementary purposes. First, it gives each peer a globally unique "name", in the form of a [PeerId][definition_peerid]. Second, the `PeerId` allows anyone to retrieve the public key for the identified peer, which enables secure communication between peers.
 
 ### Security
 
-It's essential that we are able to send and receive data between peers *securely*, meaning that we can trust the [identity](#identity) of the peer we're communicating with and that no third-party can read our conversation or alter it in-flight.
+It's essential that we are able to send and receive data between peers _securely_, meaning that we can trust the [identity](#identity) of the peer we're communicating with and that no third-party can read our conversation or alter it in-flight.
 
 libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. libp2p currently supports [TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](https://noiseprotocol.org/), though not every language implementation of libp2p supports both of these. (Older versions of libp2p may support a [deprecated](https://blog.ipfs.io/2020-08-07-deprecating-secio/) protocol called SECIO; all projects should switch to TLS 1.3 or Noise instead.)
 
@@ -53,7 +52,6 @@ In a peer routing system, a peer can either give us the address we need if they 
 
 The current stable implementation of peer routing in libp2p uses a [distributed hash table][definition_dht] to iteratively route requests closer to the desired `PeerId` using the [Kademlia][wiki_kademlia] routing algorithm.
 
-
 ### Content Discovery
 
 In some systems, we care less about who we're speaking with than we do about what they can offer us. For example, we may want some specific piece of data, but we don't care who we get it from since we're able to verify its integrity.
@@ -64,7 +62,7 @@ libp2p provides a [content routing interface][interface_content_routing] for thi
 
 Sending messages to other peers is at the heart of most peer-to-peer systems, and pubsub (short for publish / subscribe) is a very useful pattern for sending a message to groups of interested receivers.
 
-libp2p defines a [pubsub interface][interface_pubsub] for sending messages to all peers subscribed to a given "topic". The interface currently has two stable implementations; `floodsub` uses a very simple but inefficient  "network flooding" strategy, and [gossipsub](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub) defines an extensible gossip protocol.  There is also active development in progress on [episub](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/episub.md), an extended `gossipsub` that is optimized for single source multicast and scenarios with a few fixed sources broadcasting to a large number of clients in a topic.
+libp2p defines a [pubsub interface][interface_pubsub] for sending messages to all peers subscribed to a given "topic". The interface currently has two stable implementations; `floodsub` uses a very simple but inefficient "network flooding" strategy, and [gossipsub](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub) defines an extensible gossip protocol. There is also active development in progress on [episub](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/episub.md), an extended `gossipsub` that is optimized for single source multicast and scenarios with a few fixed sources broadcasting to a large number of clients in a topic.
 
 [glossary]: {{< ref "/reference/glossary.md" >}}
 [definition_dht]: {{< ref "/reference/glossary.md#dht" >}}
@@ -77,9 +75,6 @@ libp2p defines a [pubsub interface][interface_pubsub] for sending messages to al
 
 [interface_content_routing]: https://github.com/libp2p/js-libp2p-interfaces/tree/master/packages/interfaces/src/content-routing
 [interface_pubsub]: https://github.com/libp2p/specs/tree/master/pubsub
-
-
 [built_with_libp2p]: https://discuss.libp2p.io/c/ecosystem-community
 [help_improve_docs]: https://github.com/libp2p/docs/issues
-
 [wiki_kademlia]: https://en.wikipedia.org/wiki/Kademlia
