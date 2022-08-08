@@ -4,7 +4,7 @@ weight: 4
 ---
 
 In general we have to design our protocols to be resilient to malicious or
-misbehaving nodes. libp2p offers reasonable defaults and primitives tools let the
+misbehaving nodes. libp2p offers reasonable defaults and primitives to let the
 end application developer design resilient peer-to-peer programs.
 
 # General tactics that work across libp2p implementations
