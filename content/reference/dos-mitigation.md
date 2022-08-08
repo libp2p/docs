@@ -48,7 +48,7 @@ we hope that this advice will work equally well amongst all implementations.
 go-libp2p includes a powerful resource manager that keeps track of every active
 connection and stream. It exposes some useful metrics that can help you tune
 your resource limits. It’s important to keep an eye on the number of blocked
-resource requests, if you are constantly blocking resources during normal
+resource requests.  If you are constantly blocking resources during normal
 operation your limits are too low. But a very rare spike is a good sign that the
 resource manager protected your node from something. You can hook these metrics
 up to Prometheus (or any other opencensus exporter) and Grafana (we even include
