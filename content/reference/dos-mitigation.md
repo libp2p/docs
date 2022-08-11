@@ -14,7 +14,7 @@ Here we'll cover how we can use libp2p to achieve the above goals.
 
 - [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
 - [Incoporating DOS mitigation from the start](#incoporating-dos-mitigation-from-the-start)
-  - [Limit the number of concurrent streams your protocol needs](#limit-the-number-of-concurrent-streams-your-protocol-needs)
+  - [Limit the number of concurrent streams per connection your protocol needs](#limit-the-number-of-concurrent-streams-per-connection-your-protocol-needs)
   - [Limit the number of connections your application needs](#limit-the-number-of-connections-your-application-needs)
   - [Reduce blast radius](#reduce-blast-radius)
   - [Fail2ban](#fail2ban)
@@ -25,6 +25,7 @@ Here we'll cover how we can use libp2p to achieve the above goals.
   - [Who’s misbehaving?](#whos-misbehaving)
   - [How to block a misbehaving peer](#how-to-block-a-misbehaving-peer)
   - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
+  - [Leverage Resource Manager and a set of trusted peers to form an allow list (go-libp2p only)](#leverage-resource-manager-and-a-set-of-trusted-peers-to-form-an-allow-list-go-libp2p-only)
 - [Summary](#summary)
 
 # What we mean by a DOS attack
