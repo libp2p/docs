@@ -70,7 +70,7 @@ below).
 
 Here are some more specific recommendations
 
-## Limit the number of concurrent streams your protocol needs
+## Limit the number of concurrent streams per connection your protocol needs
 
 Each stream has some resource cost associated with it. Depending on the
 transport and multiplexer, this can be bigger or smaller. Try to avoid having
@@ -149,9 +149,9 @@ For rust-libp2p look at the [libp2p-metrics crate](https://github.com/libp2p/rus
 
 For go-libp2p resource usage take a look at the OpenCensus metrics exposed by the resource
 manager
-[here](https://pkg.go.dev/github.com/libp2p/go-libp2p-resource-manager@v0.5.2/obs).
-In general go-libp2p wants to add more metrics across the stack in the future,
-this work is being tracked in issue
+[here](https://pkg.go.dev/github.com/libp2p/go-libp2p-resource-manager/obs).
+In general go-libp2p wants to add more metrics across the stack.
+This work is being tracked in issue
 [go-libp2p#1356](https://github.com/libp2p/go-libp2p/issues/1356).
 
 # Responding to an attack
@@ -293,6 +293,16 @@ Status for the jail: go-libp2p-weird-behavior-iptables
 ```
 
 Then you’re good to go! You’ve successfully set up a go-libp2p jail.
+
+## Leverage Resource Manager and a set of trusted peers to form an allow list (go-libp2p only)
+
+The [resource manager](https://github.com/libp2p/go-libp2p-resource-manager) can
+accept a list of trusted multiaddrs and can use a different set of limits in
+case the normal system limits are reached. This is useful if you're currently
+experiencing an attack since you can set low limits for the general use, and
+higher limits for trusted peers. See the [allowlist
+section](https://github.com/libp2p/go-libp2p-resource-manager#allowlisting-multiaddrs-to-mitigate-eclipse-attacks)
+for more details.
 
 # Summary
 
