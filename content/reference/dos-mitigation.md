@@ -220,7 +220,7 @@ like this:
 # than 90 failed handshakes over 3 minutes. (50 logs/s * 1% = 1 log every 
 # 2 seconds. for 60 * 3 seconds = 90 reqs in 3 minutes.)
 enabled  = true
-filter   = go-libp2p-peer-status
+filter   = go-libp2p-peer-status # This is the filename of the filter above.
 action   = iptables-allports[name=go-libp2p-fail2ban]
 backend = systemd[journalflags=1]
 # This uses systemd for logging. 
@@ -257,7 +257,10 @@ User=ipfs
 
 ### Example screen recording of fail2ban in action
 
-[fail2ban+go-libp2p.mov](./assets/fail2bango-libp2p.mov)
+<!-- {{ <video library="1" src="fail2bango-libp2p.mp4"> }} -->
+
+
+[fail2ban+go-libp2p screen recording](/images/fail2bango-libp2p.mp4)
 
 ### Setting Up fail2ban
 
