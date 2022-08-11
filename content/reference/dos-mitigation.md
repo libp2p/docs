@@ -264,21 +264,17 @@ User=ipfs
 
 ### Setting Up fail2ban
 
-For a general guide to setting up fail2ban, consult this useful tutorial:
-[How to protect ssh with fail2ban on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-20-04).
-We’ll focus on the specifics around fail2ban and go-libp2p here.
+We’ll focus on the specifics around fail2ban and go-libp2p here.  The steps to
+take are:
 
-Once you have fail2ban installed simple copy the above files into their
-respective places. The filter definition into
-`/etc/fail2ban/filter.d/go-libp2p-peer-status.conf` and the rule into
-`/etc/fail2ban/jail.d/go-libp2p-weird-behavior-iptables.conf`. Remember you may
-need to tweak the rule to read from the correct log location or change the
-systemd service name. Also remember you need to enable the canonical log level
-(see the above section for how to enable this log level). Finally restart
-fail2ban to reload the configuration with `systemctl restart fail2ban`.
-
-Verify our jail is active by running `fail2ban-client status
-go-libp2p-weird-behavior-iptables`. If you see something like:
+1. Install fail2ban.  For a general guide to setting up fail2ban, consult this useful tutorial: [https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-20-04](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-20-04).
+2. Copy the above files into their respective places.
+    1. The filter definition into `/etc/fail2ban/filter.d/go-libp2p-peer-status.conf`
+    2. The rule into `/etc/fail2ban/jail.d/go-libp2p-weird-behavior-iptables.conf`.
+3. Remember you may need to tweak the rule to read from the correct log location or change the systemd service name.
+4. Remember you need to enable the canonical log level (see the above section for how to enable this log level).
+5. Restart fail2ban to reload the configuration with `systemctl restart fail2ban`.
+6. Verify our jail is active by running `fail2ban-client status go-libp2p-weird-behavior-iptables`. If you see something like:
 
 ```
 Status for the jail: go-libp2p-weird-behavior-iptables
