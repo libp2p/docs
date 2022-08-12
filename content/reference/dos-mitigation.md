@@ -10,21 +10,24 @@ able to respond to an attack.
 
 Here we'll cover how we can use libp2p to achieve the above goals.
 
-# Table of contents
+# Table of contents <!-- omit in toc -->
 
 - [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
-- [Incoporating DOS mitigation from the start](#incoporating-dos-mitigation-from-the-start)
-  - [Limit the number of concurrent streams per connection your protocol needs](#limit-the-number-of-concurrent-streams-per-connection-your-protocol-needs)
+- [Incorporating DOS mitigation from the start](#incorporating-dos-mitigation-from-the-start)
   - [Limit the number of connections your application needs](#limit-the-number-of-connections-your-application-needs)
+  - [Transient Connections](#transient-connections)
+  - [Limit the number of concurrent streams per connection your protocol needs](#limit-the-number-of-concurrent-streams-per-connection-your-protocol-needs)
   - [Reduce blast radius](#reduce-blast-radius)
   - [Fail2ban](#fail2ban)
-  - [Leverage the resoure manager to limit resource (go-libp2p only)](#leverage-the-resoure-manager-to-limit-resource-go-libp2p-only)
+  - [Leverage the resource manager to limit resource usage (go-libp2p only)](#leverage-the-resource-manager-to-limit-resource-usage-go-libp2p-only)
   - [Rate limiting incoming connections (go-libp2p only)](#rate-limiting-incoming-connections-go-libp2p-only)
 - [Monitoring your application](#monitoring-your-application)
 - [Responding to an attack](#responding-to-an-attack)
   - [Who’s misbehaving?](#whos-misbehaving)
   - [How to block a misbehaving peer](#how-to-block-a-misbehaving-peer)
   - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
+    - [Example screen recording of fail2ban in action](#example-screen-recording-of-fail2ban-in-action)
+    - [Setting Up fail2ban](#setting-up-fail2ban)
   - [Leverage Resource Manager and a set of trusted peers to form an allow list (go-libp2p only)](#leverage-resource-manager-and-a-set-of-trusted-peers-to-form-an-allow-list-go-libp2p-only)
 - [Summary](#summary)
 
@@ -34,77 +37,144 @@ A DOS attack is any attack that can cause your application to crash, stall, or
 otherwise fail to respond normally. An attack is considered viable if it takes
 fewer resources to execute than the damage it does. In other words, if the
 payoff is higher than the investment it is a viable attack and should be
-mitigated. Here are a couple examples
+mitigated. Here are a few examples:
 
-1. One server opening many connections to a remote server and forcing that
-   server to spend 10x the compute time to handle the request relative to the
-   attacker server. This is attack viable because a single server amplifies it's
+1. A node opening many connections to a remote node and forcing that
+   node to spend 10x the compute time to handle the request relative to the
+   attacker node. This is attack viable because a single node amplifies its
    affect 10x. This attack will continue to scale if the attacker adds more
-   servers.
+   nodes.
 
-2. 100 servers asking a single server to do some work, but if this single server
+2. 100 nodes asking a single node to do some work, but if this single node
    goes down it will indirectly cause the loss of an asset. If the asset is more
-   valuable than the compute time of 100 servers, this attack is viable.
+   valuable than the compute time of 100 nodes, this attack is viable.
 
-3. Many servers connecting to a single server such that that server can no
-   longer accept new connections from an honest peer. This server is now
+3. Many nodes connecting to a single node such that that node can no
+   longer accept new connections from an honest peer. This node is now
    isolated from the honest peers in the network. This is commonly called an
    eclipse attack and is viable if it's either cheap to eclipse this node, or if
    eclipsing this node has a high payoff.
 
-Generally the effect on our application can range from crashing to stalling to
+Generally, the effect on our application can range from crashing to stalling to
 failing to handle new peers to degraded performance. Ideally we want
-our application to at worst suffer a slight perfomance penalty, but otherwise
+our application to at worst suffer a slight performance penalty, but otherwise
 stay up and healthy.
 
 In the next section we'll cover some design strategies you should incorporate
 into your protocol to make sure your application stays up and healthy.
 
-# Incoporating DOS mitigation from the start
+# Incorporating DOS mitigation from the start
 
-The general strategy is to use the minimum amount of resources as possible, and
+The general strategy is to use the minimum amount of resources as possible and
 make sure that there's no untrusted amplification mechanism (e.g. an untrusted
-node can force you do to 10x the work it does). A protocol level reputation
+node can force you to do 10x the work it does). A protocol-level reputation
 system can help (take a look at [GossipSub](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub) for inspiration) as well as
 logging misbehaving nodes and actioning those logs separately (see fail2ban
 below).
 
 Here are some more specific recommendations
 
+## Limit the number of connections your application needs
+
+Each connection has a resource cost associated with it. A connection will
+usually represent a peer and a set of protocols with each their own resource
+usage. So limiting connections can have a leveraged effect on your resource
+usage.
+
+In go-libp2p the number of active connections is managed by the
+[`connmgr`](https://pkg.go.dev/github.com/libp2p/go-libp2p/p2p/net/connmgr).
+The `ConnManager` will trim connections when you hit the high watermark number of
+connections, and try to keep the number of connections above the low watermark.
+You can protect certain connections with the
+[`.Protect`](https://github.com/libp2p/rust-libp2p/blob/ea487aebfe6eb672b05d2bec2d9d79bbd92450ba/protocols/kad/src/handler.rs#L562)
+method. The `ConnManager` is in charge of pruning connections to stay below the
+defined high watermark, in contrast, the `Resource Manager` represents a hard
+limit where connections will fail to be created in the first place once we've
+reached our limits. Use the `Resource Manager` when you need hard limits and the
+`ConnManager` when you have a range of connections you want to keep. There are
+multiple knobs here that do similar things, so take care to set these. We know
+this is not ideal and we are tracking this issue
+[here](https://github.com/libp2p/go-libp2p/issues/1640), contributions welcome.
+
+
+In rust-libp2p handlers should implement
+[`connection_keep_alive`](https://docs.rs/libp2p/latest/libp2p/swarm/trait.ConnectionHandler.html#tymethod.connection_keep_alive)
+to define when a connection can be closed. The swarm will close connections when
+the root behavior no longer needs it.
+
+You can also set hard limits on the number of connections your application is
+allowed to use. In go-libp2p this is done by the [Resource
+Manager](https://github.com/libp2p/go-libp2p-resource-manager) and setting
+limits on the [system
+scope](https://github.com/libp2p/go-libp2p-resource-manager/blob/master/limit_defaults.go#L342).
+In rust-libp2p this is done by using
+[`ConnectionLimits`](https://docs.rs/libp2p/latest/libp2p/swarm/struct.ConnectionLimits.html)
+and passing it to the
+[`SwarmBuilder`](https://docs.rs/libp2p/latest/libp2p/swarm/struct.SwarmBuilder.html#method.connection_limits).
+
+## Transient Connections
+
+When a connection is first established to libp2p but before that connection has
+been tied to a specific peer (before security and muxer have been negotiated),
+it is labeled as "transient" in go-libp2p and "negotiating" in rust-libp2p. Both
+go-libp2p and rust-libp2p limit the total number of connections that can be in
+this state since it can be an avenue for DOS attacks. The defaults should work
+well for most applications, but you may need to change them if your use case
+involves supporting a lot of connections at once as quickly as possible, or if
+you want to only handle very few connections at once. We recommend not changing
+this until you see tangible benefits. And if so, please let us know by filing an
+issue – we'd be interested in understanding your use case.
+
+In go-libp2p you can tune this by changing the connection limit in the
+[transient
+scope](https://github.com/libp2p/go-libp2p-resource-manager/blob/master/limit_defaults.go#L342).
+
+In rust-libp2p you can tune this with `ConnectionLimits` as explained above.
+
 ## Limit the number of concurrent streams per connection your protocol needs
 
 Each stream has some resource cost associated with it. Depending on the
-transport and multiplexer, this can be bigger or smaller. Try to avoid having
-too many concurrent streams open per peer for your protocol. Instead try to
-limit the maximum number of concurrent streams to something reasonable (surely
-you don't need >512 streams open at once for a peer?). Multiple concurrent
-streams can be useful for logic or to avoid [Head-of-line
+transport and multiplexer, this can be bigger or smaller. Design your protocol
+to avoid having too many concurrent streams open per peer for your protocol.
+Instead, try to limit the maximum number of concurrent streams to something
+reasonable (surely you don't need >512 streams open at once for a peer?).
+Multiple concurrent streams can be useful for logic or to avoid [Head-of-line
 blocking](https://en.wikipedia.org/wiki/Head-of-line_blocking), but having too
 many streams will offset these benefits.
 
 Using a stream for a short period of time and then closing it is fine. It's
-really the number of _concurrent_ streams that you need to be careful of.
+the number of _concurrent_ streams that you need to be careful of.
 
-## Limit the number of connections your application needs
+The Identify protocol serves as an example of how a protocol can limit the
+number of concurrent streams it uses. For go-libp2p look at how `pushSemaphore`
+is 
+[created](https://github.com/libp2p/go-libp2p/blob/24b27cc71b7a62340f90d5f057e705cf10d5690f/p2p/protocol/identify/id.go#L150)
+and
+[used](https://github.com/libp2p/go-libp2p/blob/24b27cc71b7a62340f90d5f057e705cf10d5690f/p2p/protocol/identify/peer_loop.go#L182).
+For rust-libp2p look at how
+[MAX_NUM_INBOUND_SUBSTREAMS](https://github.com/libp2p/rust-libp2p/blob/ea487aebfe6eb672b05d2bec2d9d79bbd92450ba/protocols/kad/src/handler.rs#L562)
+is used to limit the number of concurrent inbound substreams.
 
-Like streams, each connection has a resource cost associated with it. A
-connection will usually represent a peer and a set of protocols with each their
-own resource usage. So limiting connections can have a leveraged effect on your
-resource usage. 
+As another example, imagine we are building an RPC-style protocol where responses
+take minutes. Here are two ways we could implement it:
 
-In go-libp2p the number of active connections is managed by the
-[`connmgr`](https://pkg.go.dev/github.com/libp2p/go-libp2p@v0.21.0/p2p/net/connmgr#BasicConnMgr.Protect).
-`ConnManager` will trim connections when you hit the high watermark number of
-connections. You can protect certain connections with the `.Protect` method.
+1. Open a stream for each RPC call, and keep that stream open until the RPC call
+   returns.
+2. Open a stream for the start of the call then close it. The remote side will
+   open a new stream with the response.
 
-In rust-libp2p handlers should implement
-[`connection_keep_alive`](https://docs.rs/libp2p/0.46.1/libp2p/swarm/trait.ConnectionHandler.html#tymethod.connection_keep_alive)
-to define when a connection can be closed.
+Assume we make a lot of concurrent calls, method 1 would result in a large
+number of concurrent and mostly inactive streams. Method 2 would result in a
+fewer number of concurrent streams, and thus lower memory footprint.
+
+If we add a limit in this protocol of say 10 streams, then method 1 will mean
+we can only have 10 concurrent RPC calls, while method 2 would let us have a
+much larger number of concurrent RPC calls.
 
 ## Reduce blast radius
 
 If you can split up your libp2p application into multiple separate processes you
-can increase the resiliency of your overall system. For example your node may
+can increase the resiliency of your overall system. For example, your node may
 have to help achieve consensus and respond to user queries. By splitting this up
 into two processes you now rely on the OS’s guarantee that the user query
 process won’t take down the consensus process.
@@ -113,11 +183,11 @@ process won’t take down the consensus process.
 
 If you can log when a peer is misbehaving or is malicious, you can then hook up
 those logs to fail2ban and have fail2ban manage your firewall to automatically
-block misbehaving nodes. go-libp2p includes some builtin support for this
-usecase. More details below.
+block misbehaving nodes. go-libp2p includes some built-in support for this
+use case. More details below.
 
 
-## Leverage the resoure manager to limit resource (go-libp2p only)
+## Leverage the resource manager to limit resource usage (go-libp2p only)
 
 go-libp2p includes a powerful [resource
 manager](https://github.com/libp2p/go-libp2p-resource-manager) that keeps track 
@@ -138,7 +208,7 @@ Gater)[https://github.com/prysmaticlabs/prysm/blob/63a8690140c00ba6e3e4054cac3f3
 # Monitoring your application
 
 Once we've designed our protocols to be resilient to DOS attacks and deployed
-them, we then need to monitor our application to both verify our mitigation works
+them, we then need to monitor our application both to verify our mitigation works
 and to be alerted if a new attack vector is exploited.
 
 
@@ -151,7 +221,7 @@ For rust-libp2p look at the [libp2p-metrics crate](https://github.com/libp2p/rus
 For go-libp2p resource usage take a look at the OpenCensus metrics exposed by the resource
 manager
 [here](https://pkg.go.dev/github.com/libp2p/go-libp2p-resource-manager/obs).
-In general go-libp2p wants to add more metrics across the stack.
+In general, go-libp2p wants to add more metrics across the stack.
 This work is being tracked in issue
 [go-libp2p#1356](https://github.com/libp2p/go-libp2p/issues/1356).
 
@@ -165,7 +235,7 @@ usage), then the next step is responding to the attack.
 To answer the question of which peer is misbehaving and harming you, go-libp2p
 exposes a [canonical log
 lines](https://github.com/libp2p/go-libp2p-core/blob/master/canonicallog/canonicallog.go#L18)
-that identifies a misbehaving peers. A canonical log line is simply a log line
+that identifies misbehaving peers. A canonical log line is simply a log line
 with a special format. For example here’s a peer status log line that tells us a
 peer established a connection with us, and that this log line was randomly
 sampled (1 out of 100).
@@ -180,7 +250,7 @@ log level. You can do this in code like
 or by setting the environment variable `GOLOG_LOG_LEVEL="canonical-log=info"`.
 
 In rust-libp2p you can do something similar yourself by logging a sample of
-connection events from [SwarmEvent](https://docs.rs/libp2p/0.46.1/libp2p/swarm/enum.SwarmEvent.html).
+connection events from [SwarmEvent](https://docs.rs/libp2p/latest/libp2p/swarm/enum.SwarmEvent.html).
 
 ## How to block a misbehaving peer
 
@@ -296,7 +366,7 @@ Then you’re good to go! You’ve successfully set up a go-libp2p jail.
 The [resource manager](https://github.com/libp2p/go-libp2p-resource-manager) can
 accept a list of trusted multiaddrs and can use a different set of limits in
 case the normal system limits are reached. This is useful if you're currently
-experiencing an attack since you can set low limits for the general use, and
+experiencing an attack since you can set low limits for general use, and
 higher limits for trusted peers. See the [allowlist
 section](https://github.com/libp2p/go-libp2p-resource-manager#allowlisting-multiaddrs-to-mitigate-eclipse-attacks)
 for more details.
@@ -306,6 +376,6 @@ for more details.
 Mitigating DOS attacks is hard because an attacker needs only one flaw, while a
 protocol developer needs to cover _all_ their bases. Libp2p provides some tools
 to design better protocols, but developers should still monitor their
-applications to protect against novel attacks. Finally developers should
+applications to protect against novel attacks. Finally, developers should
 leverage existing tools like `fail2ban` to automate blocking misbehaving nodes
 by logging when peers behave maliciously.
