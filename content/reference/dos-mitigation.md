@@ -69,10 +69,10 @@ The general strategy is to use the minimum amount of resources as possible and
 make sure that there's no untrusted amplification mechanism (e.g. an untrusted
 node can force you to do 10x the work it does). A protocol-level reputation
 system can help (take a look at [GossipSub](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub) for inspiration) as well as
-logging misbehaving nodes and actioning those logs separately (see fail2ban
+logging misbehaving nodes and actioning those logs separately (see [fail2ban](#how-to-automate-blocking-with-fail2ban)
 below).
 
-Here are some more specific recommendations
+Below are some more specific recommendations
 
 ## Limit the number of connections your application needs
 
@@ -82,15 +82,15 @@ usage. So limiting connections can have a leveraged effect on your resource
 usage.
 
 In go-libp2p the number of active connections is managed by the
-[`connmgr`](https://pkg.go.dev/github.com/libp2p/go-libp2p/p2p/net/connmgr).
+[`ConnManager`](https://pkg.go.dev/github.com/libp2p/go-libp2p/p2p/net/connmgr).
 The `ConnManager` will trim connections when you hit the high watermark number of
 connections, and try to keep the number of connections above the low watermark.
 You can protect certain connections with the
-[`.Protect`](https://github.com/libp2p/rust-libp2p/blob/ea487aebfe6eb672b05d2bec2d9d79bbd92450ba/protocols/kad/src/handler.rs#L562)
+[`.Protect`](https://pkg.go.dev/github.com/libp2p/go-libp2p/p2p/net/connmgr#BasicConnMgr.Protect)
 method. The `ConnManager` is in charge of pruning connections to stay below the
-defined high watermark, in contrast, the `Resource Manager` represents a hard
+defined high watermark, in contrast, the [Resource Manager](github.com/libp2p/go-libp2p-resource-manager/) represents a hard
 limit where connections will fail to be created in the first place once we've
-reached our limits. Use the `Resource Manager` when you need hard limits and the
+reached our limits. Use the Resource Manager when you need hard limits and the
 `ConnManager` when you have a range of connections you want to keep. There are
 multiple knobs here that do similar things, so take care to set these. We know
 this is not ideal and we are tracking this issue
@@ -163,7 +163,7 @@ take minutes. Here are two ways we could implement it:
 2. Open a stream for the start of the call then close it. The remote side will
    open a new stream with the response.
 
-Assume we make a lot of concurrent calls, method 1 would result in a large
+Assume we make a lot of concurrent calls. Method 1 would result in a large
 number of concurrent and mostly inactive streams. Method 2 would result in a
 fewer number of concurrent streams, and thus lower memory footprint.
 
@@ -202,8 +202,8 @@ Depending on your use case, it can help to limit the number of inbound
 connections. You can use go-libp2p's
 [ConnectionGater](https://pkg.go.dev/github.com/libp2p/go-libp2p-core/connmgr#ConnectionGater)
 and `InterceptAccept` for this. For a concrete example, take a look at how Prysm
-implements their (Connection
-Gater)[https://github.com/prysmaticlabs/prysm/blob/63a8690140c00ba6e3e4054cac3f38a5107b7fb2/beacon-chain/p2p/connection_gater.go#L43].
+implements their [Connection
+Gater](https://github.com/prysmaticlabs/prysm/blob/63a8690140c00ba6e3e4054cac3f38a5107b7fb2/beacon-chain/p2p/connection_gater.go#L43).
 
 # Monitoring your application
 
