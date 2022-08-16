@@ -29,7 +29,4 @@ This can be extended to account for multiple layers of addressing and abstractio
 
 ### More information
 
-For more detail, see the [multiaddr spec][spec_multiaddr], which has links to many implementations.
-
-
-[spec_multiaddr]: https://github.com/multiformats/multiaddr
+For more detail, see the [Addressing spec](https://github.com/libp2p/specs/blob/master/addressing/README.md).
