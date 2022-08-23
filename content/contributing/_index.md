@@ -67,7 +67,7 @@ libp2p in their applications. These users sometimes get stuck or have questions
 that need answering. If you’ve contributed something with code or documentation,
 chances are that you can probably help a lot of people with their questions.
 
-We do most support via the [IPFS discussion forums](https://discuss.ipfs.io), with
+We do most support via the [libp2p discussion forums](https://discuss.libp2p.io/), with
 libp2p-specific topic tagged with the [libp2p tag](https://discuss.ipfs.io/tags/libp2p).
 
 ### Testing
