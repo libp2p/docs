@@ -12,16 +12,17 @@ unsure, please open a issue.
 
 ## Areas of contribution
 
-- [Code](#code)
-- [Documentation](#documentation)
-- [Support](#support)
-- [Testing](#testing)
-- [Design](#design)
-- [Issues / Triaging](#issues-triaging)
-- [Community](#community)
-- [Applications](#applications)
-- [Protocol Design](#protocol-design)
-- [Research](#research)
+- [Areas of contribution](#areas-of-contribution)
+  - [Code](#code)
+  - [Documentation](#documentation)
+  - [Support](#support)
+  - [Testing](#testing)
+  - [Design](#design)
+  - [Issues / Triaging](#issues--triaging)
+  - [Community](#community)
+  - [Applications](#applications)
+  - [Protocol Design](#protocol-design)
+  - [Research](#research)
 
 
 ### Code
@@ -66,7 +67,7 @@ libp2p in their applications. These users sometimes get stuck or have questions
 that need answering. If you’ve contributed something with code or documentation,
 chances are that you can probably help a lot of people with their questions.
 
-We do most support via the forum we have at: https://discuss.ipfs.io/, with
+We do most support via the [IPFS discussion forums](https://discuss.ipfs.io), with
 libp2p-specific topic tagged with the [libp2p tag](https://discuss.ipfs.io/tags/libp2p).
 
 ### Testing
