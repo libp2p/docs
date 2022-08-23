@@ -199,24 +199,6 @@ learns of its public address from other peers using the standard `identify` prot
 the peer can push the new address to all peers it's currently aware of. This keeps everyone's routing tables up to date and
 makes it more likely that other peers will discover the new address.
 
-### secio
-
-| **Protocol id** | spec                     |                | implementations  |
-|-----------------|--------------------------|----------------|------------------|
-| `/secio/1.0.0`  | [secio spec][spec_secio] | [go][secio_go] | [js][secio_js]   |
-
-[spec_secio]: https://github.com/libp2p/specs/tree/master/secio
-[secio_go]: https://github.com/libp2p/go-libp2p-secio
-[secio_js]: https://github.com/libp2p/js-libp2p-secio
-
-`secio` (short for secure input/output) was a protocol for encrypted communication similar to TLS 1.2. 
-
-{{% notice "warning" %}}
-
-Secio is now **DEPRECATED**, and we advise against using it. It has since been replaced by [TLS 1.3](https://github.com/libp2p/specs/tree/master/tls) and [Noise](https://github.com/libp2p/specs/tree/master/noise) as the preferred security transports. See [this blog post](https://blog.ipfs.io/2020-08-07-deprecating-secio/) for details.
-
-{{% /notice %}}
-
 ### kad-dht
 
 | **Protocol id**   | spec                     |              |              | implementations  |

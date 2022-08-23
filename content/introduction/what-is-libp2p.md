@@ -41,7 +41,7 @@ In a world with billions of networked devices, knowing who you're talking to is 
 
 It's essential that we are able to send and receive data between peers *securely*, meaning that we can trust the [identity](#identity) of the peer we're communicating with and that no third-party can read our conversation or alter it in-flight.
 
-libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. libp2p currently supports [TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](https://noiseprotocol.org/), though not every language implementation of libp2p supports both of these. (Older versions of libp2p may support a [deprecated](https://blog.ipfs.io/2020-08-07-deprecating-secio/) protocol called SECIO; all projects should switch to TLS 1.3 or Noise instead.)
+libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. libp2p currently supports [TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](https://noiseprotocol.org/), though not every language implementation of libp2p supports both of these. (Older versions of libp2p may support a [deprecated](https://blog.ipfs.io/2020-08-07-deprecating-secio/) protocol; all projects should switch to TLS 1.3 or Noise instead.)
 
 ### Peer Routing
 
@@ -71,7 +71,6 @@ libp2p defines a [pubsub interface][interface_pubsub] for sending messages to al
 [definition_p2p]: {{< ref "/reference/glossary.md#p2p" >}}
 [definition_peer]: {{< ref "/reference/glossary.md#peer" >}}
 [definition_peerid]: {{< ref "/reference/glossary.md#peerid" >}}
-[definition_secio]: {{< ref "/reference/glossary.md#secio" >}}
 [definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddr" >}}
 [definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
 
