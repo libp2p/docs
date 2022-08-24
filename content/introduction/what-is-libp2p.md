@@ -14,7 +14,7 @@ See the [Glossary][glossary] to understand the basic building blocks for underst
 
  Let's start with what a _peer-to-peer network application_ is:
 
-_A [peer-to-peer network][definition_p2p] is one in which the participants (referred to as [peers][definition_peer] or nodes) communicate with one another directly, on more or less "equal footing". This does not necessarily mean that all peers are identical; some may have different roles in the overall network. However, one of the defining characteristics of a peer-to-peer network is that they do not require a privileged set of "servers" which behave completely differently from their "clients", as is the case in the predominant [client / server model][definition_client_server]._
+_A [peer-to-peer network][definition_p2p] is one in which the participants (referred to as [peers][definition_peer]) communicate directly with one another on a relative "equal footing". This does not mean that all peers are identical; some may have different roles in the overall network. However, one of the defining characteristics of a peer-to-peer network is that the network does not require a privileged set of "servers" which behave completely differently from their "clients", as is the case in the predominant [client / server model][definition_client_server]._
 
 Because the definition of peer-to-peer networking is quite broad, many different kinds of systems have been built that all fall under the umbrella of "peer-to-peer". The most culturally prominent examples are likely the file sharing networks like bittorrent, and, more recently, the proliferation of blockchain networks that communicate in a peer-to-peer fashion.
 
