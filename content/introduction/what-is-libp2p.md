@@ -24,7 +24,7 @@ While peer-to-peer networks have many advantages over the client-server model, t
 
 libp2p lets you preserve your network identity, overcome network censorship, and communicate over different transfer protocols.
 
-In our process of overcoming these challenges while building [IPFS](https://ipfs.io), we took care to build our solutions in a modular, composable way, into what is now libp2p. Although libp2p grew out of IPFS, it does not require or depend on IPFS, and today [many projects][built_with_libp2p] use libp2p as their network transport layer. Together we can leverage our collective experience and solve these foundational problems in a way that benefits an entire ecosystem of developers and a world of users.
+In our process of overcoming these challenges while building [IPFS](https://ipfs.io), we took care to build our solutions in a modular, composable way, into what is now libp2p. Although libp2p grew out of IPFS, it does not dependant on IPFS, and today, [many projects][built_with_libp2p] use libp2p as their networking layer. Together, we can leverage our collective experience and solve these foundational problems in a way that benefits an entire ecosystem of developers and a world of users.
 
 
 
