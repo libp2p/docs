@@ -5,7 +5,7 @@ weight: 2
 
 Moving from a location-addressed system to a peer-to-peer, content-addressed system presents many challenges. The internet as it is, with firewalls and NATs, was designed to [securely] provide data. There are also trust assumptions, as clients must trust the central servers they connect to and the data they provide, despite these servers verifying their identity using certificate authorities.
 
-libp2p is a modular system of *protocols*, *specifications* and *libraries* that enable the development of peer-to-peer network applications. Because of the way libp2p is architected, a lot of the needs and considerations that the web2 network was built on no longer apply.
+libp2p is a modular system of *protocols*, *specifications* and *libraries* that enable the development of peer-to-peer network applications. Because of the way libp2p's architecture, most of the needs and considerations that the current web was built on no longer apply.
 
 See the [Glossary][glossary] to understand the basic building blocks for understanding libp2p.
 <!--more-->
