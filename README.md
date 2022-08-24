@@ -46,7 +46,7 @@ The documentation site contains several different kinds of content. We’d love 
 
 5. **Community.** If there are important missing community links, file an issue or PR here!
 
-This repo is also a website, which means we could also use your help with design and technical features (interactive examples, better syntax highlighting, scripts to pull in content from other repos, etc.) in addition to writing. To get a sense of what we could use help on, check the [the issues](https://github.com/libp2p/docs/issues). If you decide to work on one, please post to the issue to let us know!
+This repo is also a website, which means we could also use your help with design and technical features (interactive examples, better syntax highlighting, scripts to pull in content from other repos, etc.) in addition to writing. To get a sense of what we could use help on, check the [issues](https://github.com/libp2p/docs/issues). If you decide to work on one, please post to the issue to let us know!
 
 Before posting a PR with your changes, please check [our styleguide](https://github.com/ipfs/community/blob/master/DOCS_STYLEGUIDE.md) and [contributing guide](https://github.com/libp2p/community/blob/master/CONTRIBUTE.md).
 
@@ -64,13 +64,8 @@ Finally, let’s work together to keep this a respectful and friendly space. Ple
 To create a production build, run `make build` instead. You’ll find the final static site in the `public` directory.
 
 ### CI and publication
-
-On every commit, a [CI configuration](./.circleci/config.yml) builds the site and publishes the result to IPFS.
-
-For PR commits, you can see the latest build by checking out the preview link:
-![IPFS preview link screenshot](./ipfs-site-preview.png).
-
-For commits to master, the DNS entry for docs.libp2p.io will also be updated to refer to the latest IPFS hash, which causes the latest version to be served on the web.
+  
+This site deploys through [Fleek](https://app.fleek.co) to https://docs.libp2p.io
 
 ## FAQ
 

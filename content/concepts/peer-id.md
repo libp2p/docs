@@ -100,16 +100,10 @@ The peer store acts as a sort of "phone book" when dialing out to
 other peers; if a peer is in the peer store, we probably don't need to discover
 their addresses using [peer routing](/concepts/peer-routing/).
 
-
-{{% notice "tip" %}}
-You can help improve this article! Please [refer to this issue](https://github.com/libp2p/docs/issues/12) to make suggestions and let us know how to help.
-{{% /notice %}}
-
 [wiki_hash_function]: https://en.wikipedia.org/wiki/Cryptographic_hash_function
 [wiki_base58]: https://en.wikipedia.org/wiki/Base58
 
 [definition_multiaddr]: /reference/glossary/#multiaddr
 [definition_multihash]: /reference/glossary/#multihash
 
-<!-- TODO(yusef): update link when peer-id PR lands -->
-[spec_peerid]: https://github.com/libp2p/specs/pull/100
+[spec_peerid]: https://github.com/libp2p/specs/blob/master/peer-ids/peer-ids.md

@@ -12,7 +12,7 @@ For example: `/ip4/127.0.0.1/udp/1234` encodes two protocols along with their es
 Things get more interesting as we compose further. For example, the multiaddr `/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` uniquely identifies my local IPFS node, using libp2p's [registered protocol id](https://github.com/multiformats/multiaddr/blob/master/protocols.csv) `/p2p/` and the [multihash](/reference/glossary/#multihash) of my IPFS node's public key.
 
 {{% notice "tip" %}}
-For more on peer identity and its relation to public key cryptography, see [Peer Identity](./peer-identity/).
+For more on peer identity and its relation to public key cryptography, see [Peer Identity](../peer-id/).
 {{% /notice %}}
 
 Let's say that I have the peer id `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` as above, and my public ip is `7.7.7.7`. I start my libp2p application and listen for connections on TCP port `4242`.
@@ -29,7 +29,4 @@ This can be extended to account for multiple layers of addressing and abstractio
 
 ### More information
 
-For more detail, see the [multiaddr spec][spec_multiaddr], which has links to many implementations.
-
-
-[spec_multiaddr]: https://github.com/multiformats/multiaddr
+For more detail, see the [Addressing spec](https://github.com/libp2p/specs/blob/master/addressing/README.md).

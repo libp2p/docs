@@ -65,18 +65,13 @@ prints the node's listening addresses, then shuts the node down:
 package main
 
 import (
-	"context"
 	"fmt"
-
 	"github.com/libp2p/go-libp2p"
 )
 
 func main() {
-	// create a background context (i.e. one that never cancels)
-	ctx := context.Background()
-
 	// start a libp2p node with default settings
-	node, err := libp2p.New(ctx)
+	node, err := libp2p.New()
 	if err != nil {
 		panic(err)
 	}
@@ -89,6 +84,12 @@ func main() {
 		panic(err)
 	}
 }
+```
+
+Import the `libp2p/go-libp2p` module:
+
+```shell
+$ go get github.com/libp2p/go-libp2p
 ```
 
 We can now compile this into an executable using `go build` and run it from the command line:
@@ -116,7 +117,7 @@ func main() {
 
         // start a libp2p node that listens on TCP port 2000 on the IPv4
         // loopback interface
-        node, err := libp2p.New(ctx,
+        node, err := libp2p.New(
                 libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/2000"),
         )
 	if err != nil {
@@ -167,7 +168,6 @@ and `syscall` packages we're now using:
 
 ```go
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/signal"
@@ -195,7 +195,7 @@ Now that we have the ability to configure and start libp2p nodes, we can start c
 A node started with go-libp2p will run its own ping protocol by default, but let's disable it and
 set it up manually to demonstrate the process of running protocols by registering stream handlers.
 
-The object returned from `libp2p.New` implements the [Host interface](https://godoc.org/github.com/libp2p/go-libp2p-host#Host),
+The object returned from `libp2p.New` implements the [Host interface](https://pkg.go.dev/github.com/libp2p/go-libp2p-core/host#Host),
 and we'll use the `SetStreamHandler` method to set a handler for our ping protocol.
 
 First, let's add the `github.com/libp2p/go-libp2p/p2p/protocol/ping` package to our list of
@@ -222,7 +222,7 @@ func main() {
 
 	// start a libp2p node that listens on a random local TCP port,
 	// but without running the built-in ping protocol
-	node, err := libp2p.New(ctx,
+	node, err := libp2p.New(
 		libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
 		libp2p.Ping(false),
 	)
@@ -309,11 +309,11 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		if err := node.Connect(ctx, *peer); err != nil {
+		if err := node.Connect(context.Background(), *peer); err != nil {
 			panic(err)
 		}
 		fmt.Println("sending 5 ping messages to", addr)
-		ch := pingService.Ping(ctx, peer.ID)
+		ch := pingService.Ping(context.Background(), peer.ID)
 		for i := 0; i < 5; i++ {
 			res := <-ch
 			fmt.Println("got ping response!", "RTT:", res.RTT)
@@ -344,7 +344,7 @@ To recap, here is the full program we have written:
 package main
 
 import (
-	"context"
+    "context"
 	"fmt"
 	"os"
 	"os/signal"
@@ -357,12 +357,9 @@ import (
 )
 
 func main() {
-	// create a background context (i.e. one that never cancels)
-	ctx := context.Background()
-
 	// start a libp2p node that listens on a random local TCP port,
 	// but without running the built-in ping protocol
-	node, err := libp2p.New(ctx,
+	node, err := libp2p.New(
 		libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
 		libp2p.Ping(false),
 	)
@@ -396,11 +393,11 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		if err := node.Connect(ctx, *peer); err != nil {
+		if err := node.Connect(context.Background(), *peer); err != nil {
 			panic(err)
 		}
 		fmt.Println("sending 5 ping messages to", addr)
-		ch := pingService.Ping(ctx, peer.ID)
+		ch := pingService.Ping(context.Background(), peer.ID)
 		for i := 0; i < 5; i++ {
 			res := <-ch
 			fmt.Println("pinged", addr, "in", res.RTT)

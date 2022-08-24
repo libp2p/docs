@@ -5,7 +5,7 @@ weight: 3
 
 Circuit relay is a [transport protocol](/concepts/transport/) that routes traffic between two peers over a third-party "relay" peer.
 
-In many cases, peers will be unable to [traverse their NAT](/concepts/nat/) in a way that makes them publicly accessible. Or they may not share common [transport protocols](/concepts/transport/) that would allow them to communicate directly.
+In many cases, peers will be unable to [traverse their NAT and/or firewall](/concepts/nat/) in a way that makes them publicly accessible. Or they may not share common [transport protocols](/concepts/transport/) that would allow them to communicate directly.
 
 To enable peer-to-peer architectures in the face of connectivity barriers like NAT, libp2p [defines a protocol called p2p-circuit][spec_relay]. When a peer isn't able to listen on a public address, it can dial out to a relay peer, which will keep a long-lived connection open. Other peers will be able to dial through the relay peer using a `p2p-circuit` address, which will forward traffic to its destination.
 
@@ -16,6 +16,10 @@ Relay connections are end-to-end encrypted, which means that the peer acting as 
 {{% /notice %}}
 
 An important aspect of the relay protocol is that it is not "transparent". In other words, both the source and destination are aware that traffic is being relayed. This is useful, since the destination can see the relay address used to open the connection and can potentially use it to construct a path back to the source. It is also not anonymous - all participants are identified using their peer id, including the relay node.
+
+#### Protocol Versions
+
+Today there are two versions of the circuit relay protocol, [v1](https://github.com/libp2p/specs/blob/master/relay/circuit-v1.md) and [v2](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md). We recommend using the latter over the former. See the [circuit relay v2 specification](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md#introduction) for a detailed comparison of the two. If not explicitly noted, this document describes the circuit relay v2 protocol.
 
 #### Relay addresses
 
@@ -43,38 +47,16 @@ By giving the full relay path to my friend `QmBob`, they're able to quickly esta
 When [advertising your address](/concepts/peer-routing/), it's best to provide relay addresses that include the transport address of the relay peer. If the relay has many transport addresses, you can advertise a `p2p-circuit` through each of them.
 {{% /notice %}}
 
-#### Autorelay
+#### Process
 
-The circuit relay protocol is only effective if peers can discover willing relay peers that are accessible to both sides of the relayed connection.
+The below sequence diagram depicts a sample relay process:
 
-While it's possible to simply "hard-code" a list of well-known relays into your application, this adds a point of centralization to your architecture that you may want to avoid. This kind of bootstrap list is also a potential point of failure if the bootstrap nodes become unavailable.
+![Circuit v2 Protocol Interaction](https://raw.githubusercontent.com/libp2p/specs/master/relay/circuit-v2.svg)
 
-Autorelay is a feature (currently implemented in go-libp2p) that a peer can enable to attempt to discover relay peers using libp2p's [content routing](/concepts/content-routing/) interface.
-
-When Autorelay is enabled, a peer will try to discover one or more public relays and open relayed connections. If successful, the peer will advertise the relay addresses using libp2p's [peer routing](/concepts/peer-routing/) system.
-
-{{% notice "warning" %}}
-Autorelay is under active development and should be considered experimental. There are currently no protections against malicious or malfunctioning relays which could advertise relay services and refuse to provide them.
-{{% /notice %}}
-
-##### How Autorelay works
-
-The Autorelay service is responsible for:
-
-1. discovering relay nodes around the world,
-2. establishing long-lived connections to them, and
-3. advertising relay-enabled addresses for ourselves to our peers, thus making ourselves routable through delegated routing.
-
-When [AutoNAT service](/concepts/nat/#autonat) detects we're behind a NAT that blocks inbound connections, Autorelay jumps into action, and the following happens:
-
-1. We locate candidate relays by running a DHT provider search for the `/libp2p/relay` namespace.
-2. We select three results at random, and establish a long-lived connection to them (`/libp2p/circuit/relay/0.1.0` protocol). Support for using latency as a selection heuristic will be added soon.
-3. We enhance our local address list with our newly acquired relay-enabled multiaddrs, with format: `/ip4/1.2.3.4/tcp/4001/p2p/QmRelay/p2p-circuit`, where:
-   `1.2.3.4` is the relay's public IP address, `4001` is the libp2p port, and `QmRelay` is the peer ID of the relay.
-   Elements in the multiaddr can change based on the actual transports at use.
-4. We announce our new relay-enabled addresses to the peers we're already connected to via the `IdentifyPush` protocol.
-
-The last step is crucial, as it enables peers to learn our updated addresses, and in turn return them when another peer looks us up.
+1. Node `A` is behind a NAT and/or firewall, e.g. detected via the [AutoNAT service](/concepts/nat/#autonat).
+2. Node `A` therefore requests a reservation with relay `R`. I.e. node `A` asks relay `R` to listen for incoming connections on its behalf.
+3. Node `B` wants to establish a connection to node `A`. Given that node `A` does not advertise any direct addresses but only a relay address, node `B` connects to relay `R`, asking relay `R` to relay a connection to `A`.
+4. Relay `R` forwards the connection request to node `A` and eventually relays all data send by `A` and `B`.
 
 [spec_relay]: https://github.com/libp2p/specs/tree/master/relay
 [definition_muiltiaddress]: /reference/glossary/#mulitaddress
