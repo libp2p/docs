@@ -3,26 +3,29 @@ title: "What is libp2p?"
 weight: 2
 ---
 
-Moving from a location-addressed system to a peer-to-peer, content addressed system presents a lot of challenges. The internet as it is, with firewalls and NATs, was designed to provide data (securely) in the traditional Web2 system.
+Moving from a location-addressed system to a peer-to-peer, content-addressed system presents many challenges. The internet as it is, with firewalls and NATs, was designed to [securely] provide data. There are also trust assumptions, as clients must trust the central servers they connect to and the data they provide, despite these servers verifying their identity using certificate authorities.
 
-There are also a lot of assumptions built in, such as assuming the
-fact that everyone is relying on client-server architecture, with a central server that clients connect to, and the Domain Name System (DNS) is used to assign addresses to content that can then be used by clients to access that information.
+libp2p is a modular system of *protocols*, *specifications* and *libraries* that enable the development of peer-to-peer network applications. Because of the way libp2p's architecture, most of the needs and considerations that the current web was built on no longer apply.
 
-libp2p is a modular system of *protocols*, *specifications* and *libraries* that enable the development of peer-to-peer network applications. Because of the way libp2p is architected, a lot of the needs and considerations that the web2 network was built on no longer apply.
+See the [Glossary][glossary] to understand the basic building blocks for understanding libp2p.
+<!--more-->
 
 ## Peer-to-peer basics
 
-There's a lot to unpack in that one-liner! Let's start with the last bit, "peer-to-peer network applications." You may be here because you're knee-deep in development of a peer-to-peer system and are looking for help. Likewise, you may be here because you're just exploring the world of peer-to-peer networking for the first time. Either way, we ought to spend a minute defining our terms upfront, so we can have some [shared vocabulary][glossary] to build on.
+ Let's start with what a _peer-to-peer network application_ is:
 
-A [peer-to-peer network][definition_p2p] is one in which the participants (referred to as [peers][definition_peer] or nodes) communicate with one another directly, on more or less "equal footing". This does not necessarily mean that all peers are identical; some may have different roles in the overall network. However, one of the defining characteristics of a peer-to-peer network is that they do not require a privileged set of "servers" which behave completely differently from their "clients", as is the case in the predominant [client / server model][definition_client_server].
+_A [peer-to-peer network][definition_p2p] is one in which the participants (referred to as [peers][definition_peer]) communicate directly with one another on a relative "equal footing". This does not mean that all peers are identical; some may have different roles in the overall network. However, one of the defining characteristics of a peer-to-peer network is that the network does not require a privileged set of "servers" which behave completely differently from their "clients", as is the case in the predominant [client / server model][definition_client_server]._
 
 Because the definition of peer-to-peer networking is quite broad, many different kinds of systems have been built that all fall under the umbrella of "peer-to-peer". The most culturally prominent examples are likely the file sharing networks like bittorrent, and, more recently, the proliferation of blockchain networks that communicate in a peer-to-peer fashion.
 
 ## What problems can libp2p solve?
 
-While peer-to-peer networks have many advantages over the client-server model, there are also challenges that are unique and require careful thought and practice to overcome.
+While peer-to-peer networks have many advantages over the client-server model, there are unique challenges that require careful thought and practice to overcome.
 
-With libp2p, it is possible for you to preserve your identity from network to network, overcome network censorship issues, as well as communicate over different transfer protocols that different applications use to communicate.
+libp2p lets you preserve your network identity, overcome network censorship, and communicate over different transfer protocols.
+
+In our process of overcoming these challenges while building [IPFS](https://ipfs.io), we took care to build our solutions in a modular, composable way, into what is now libp2p. Although libp2p grew out of IPFS, it does not dependant on IPFS, and today, [many projects][built_with_libp2p] use libp2p as their networking layer. Together, we can leverage our collective experience and solve these foundational problems in a way that benefits an entire ecosystem of developers and a world of users.
+
 
 
 Here we'll briefly outline the main problem areas that are addressed by libp2p. This is an ever-growing space, so don't be surprised if things change over time. If you notice something missing or have other ideas for improving this documentation, please [reach out to let us know][help_improve_docs].
@@ -41,7 +44,7 @@ In a world with billions of networked devices, knowing who you're talking to is 
 
 It's essential that we are able to send and receive data between peers *securely*, meaning that we can trust the [identity](#identity) of the peer we're communicating with and that no third-party can read our conversation or alter it in-flight.
 
-libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. libp2p currently supports [TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](https://noiseprotocol.org/), though not every language implementation of libp2p supports both of these. (Older versions of libp2p may support the [deprecated secio protocol](https://blog.ipfs.io/2020-08-07-deprecating-secio/); all projects should switch to TLS 1.3 or Noise instead.)
+libp2p supports "upgrading" a connection provided by a [transport](#transport) into a securely encrypted channel. The process is flexible, and can support multiple methods of encrypting communication. libp2p currently supports [TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](https://noiseprotocol.org/), though not every language implementation of libp2p supports both of these. (Older versions of libp2p may support a [deprecated](https://blog.ipfs.io/2020-08-07-deprecating-secio/) protocol called SECIO; all projects should switch to TLS 1.3 or Noise instead.)
 
 ### Peer Routing
 
@@ -71,6 +74,7 @@ libp2p defines a [pubsub interface][interface_pubsub] for sending messages to al
 [definition_p2p]: {{< ref "/reference/glossary.md#p2p" >}}
 [definition_peer]: {{< ref "/reference/glossary.md#peer" >}}
 [definition_peerid]: {{< ref "/reference/glossary.md#peerid" >}}
+[definition_secio]: {{< ref "/reference/glossary.md#secio" >}}
 [definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddr" >}}
 [definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
 
