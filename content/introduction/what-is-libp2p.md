@@ -20,7 +20,7 @@ Because the definition of peer-to-peer networking is quite broad, many different
 
 ## What problems can libp2p solve?
 
-While peer-to-peer networks have many advantages over the client-server model, there are also challenges that are unique and require careful thought and practice to overcome.
+While peer-to-peer networks have many advantages over the client-server model, there are unique challenges that require careful thought and practice to overcome.
 
 libp2p lets you preserve your network identity, overcome network censorship, and communicate over different transfer protocols.
 
