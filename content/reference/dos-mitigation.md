@@ -88,7 +88,7 @@ connections, and try to keep the number of connections above the low watermark.
 You can protect certain connections with the
 [`.Protect`](https://pkg.go.dev/github.com/libp2p/go-libp2p/p2p/net/connmgr#BasicConnMgr.Protect)
 method. The `ConnManager` is in charge of pruning connections to stay below the
-defined high watermark, in contrast, the [Resource Manager](github.com/libp2p/go-libp2p-resource-manager/) represents a hard
+defined high watermark, in contrast, the [Resource Manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) represents a hard
 limit where connections will fail to be created in the first place once we've
 reached our limits. Use the Resource Manager when you need hard limits and the
 `ConnManager` when you have a range of connections you want to keep. There are
@@ -104,9 +104,9 @@ the root behavior no longer needs it.
 
 You can also set hard limits on the number of connections your application is
 allowed to use. In go-libp2p this is done by the [Resource
-Manager](https://github.com/libp2p/go-libp2p-resource-manager) and setting
+Manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) and setting
 limits on the [system
-scope](https://github.com/libp2p/go-libp2p-resource-manager/blob/master/limit_defaults.go#L342).
+scope](https://github.com/libp2p/go-libp2p/blob/v0.22.0/p2p/host/resource-manager/limit_defaults.go#L342).
 In rust-libp2p this is done by using
 [`ConnectionLimits`](https://docs.rs/libp2p/latest/libp2p/swarm/struct.ConnectionLimits.html)
 and passing it to the
@@ -127,7 +127,7 @@ issue – we'd be interested in understanding your use case.
 
 In go-libp2p you can tune this by changing the connection limit in the
 [transient
-scope](https://github.com/libp2p/go-libp2p-resource-manager/blob/master/limit_defaults.go#L342).
+scope](https://github.com/libp2p/go-libp2p/blob/v0.22.0/p2p/host/resource-manager/limit_defaults.go#L342).
 
 In rust-libp2p you can tune this with `ConnectionLimits` as explained above.
 
@@ -148,11 +148,11 @@ the number of _concurrent_ streams that you need to be careful of.
 The Identify protocol serves as an example of how a protocol can limit the
 number of concurrent streams it uses. For go-libp2p look at how `pushSemaphore`
 is 
-[created](https://github.com/libp2p/go-libp2p/blob/24b27cc71b7a62340f90d5f057e705cf10d5690f/p2p/protocol/identify/id.go#L150)
+[created](https://github.com/libp2p/go-libp2p/blob/v0.22.0/p2p/protocol/identify/id.go#L149)
 and
-[used](https://github.com/libp2p/go-libp2p/blob/24b27cc71b7a62340f90d5f057e705cf10d5690f/p2p/protocol/identify/peer_loop.go#L182).
+[used](https://github.com/libp2p/go-libp2p/blob/v0.22.0/p2p/protocol/identify/peer_loop.go#L181).
 For rust-libp2p look at how
-[MAX_NUM_INBOUND_SUBSTREAMS](https://github.com/libp2p/rust-libp2p/blob/ea487aebfe6eb672b05d2bec2d9d79bbd92450ba/protocols/kad/src/handler.rs#L562)
+[MAX_NUM_INBOUND_SUBSTREAMS](https://github.com/libp2p/rust-libp2p/blob/v0.47.0/protocols/kad/src/handler.rs#L562)
 is used to limit the number of concurrent inbound substreams.
 
 As another example, imagine we are building an RPC-style protocol where responses
@@ -190,7 +190,7 @@ use case. More details below.
 ## Leverage the resource manager to limit resource usage (go-libp2p only)
 
 go-libp2p includes a powerful [resource
-manager](https://github.com/libp2p/go-libp2p-resource-manager) that keeps track 
+manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) that keeps track 
 of resources used for each protocol, peer, connection, and more. You can use it
 within your protocol implementation to make sure you don't allocate more than
 some predetermined amount of memory per connection. It's basically a resource
@@ -234,7 +234,7 @@ usage), then the next step is responding to the attack.
 
 To answer the question of which peer is misbehaving and harming you, go-libp2p
 exposes a [canonical log
-lines](https://github.com/libp2p/go-libp2p-core/blob/master/canonicallog/canonicallog.go#L18)
+lines](https://github.com/libp2p/go-libp2p/blob/v0.22.0/core/canonicallog/canonicallog.go#L18)
 that identifies misbehaving peers. A canonical log line is simply a log line
 with a special format. For example here’s a peer status log line that tells us a
 peer established a connection with us, and that this log line was randomly
@@ -246,7 +246,7 @@ Jul 27 12:14:14 ipfsNode ipfs[46133]: 2022-07-27T12:14:14.674Z        INFO      
 
 To see these kinds of logs make sure you’ve enabled the `"canonical-log=info"`
 log level. You can do this in code like
-[so](https://github.com/libp2p/go-libp2p-core/blob/master/canonicallog/canonicallog_test.go#L14),
+[so](https://github.com/libp2p/go-libp2p/blob/v0.22.0/core/canonicallog/canonicallog_test.go#L15),
 or by setting the environment variable `GOLOG_LOG_LEVEL="canonical-log=info"`.
 
 In rust-libp2p you can do something similar yourself by logging a sample of
@@ -363,12 +363,12 @@ Then you’re good to go! You’ve successfully set up a go-libp2p jail.
 
 ## Leverage Resource Manager and a set of trusted peers to form an allow list (go-libp2p only)
 
-The [resource manager](https://github.com/libp2p/go-libp2p-resource-manager) can
+The [resource manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) can
 accept a list of trusted multiaddrs and can use a different set of limits in
 case the normal system limits are reached. This is useful if you're currently
 experiencing an attack since you can set low limits for general use, and
 higher limits for trusted peers. See the [allowlist
-section](https://github.com/libp2p/go-libp2p-resource-manager#allowlisting-multiaddrs-to-mitigate-eclipse-attacks)
+section](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager#allowlisting-multiaddrs-to-mitigate-eclipse-attacks)
 for more details.
 
 # Summary
