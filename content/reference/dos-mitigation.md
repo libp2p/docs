@@ -3,8 +3,6 @@ title: "DOS Mitigation"
 weight: 3
 ---
 
-><em> This document is up to date as of go-libp2p [v0.22.0](https://github.com/libp2p/go-libp2p/releases/tag/v0.22.0)</em>
-
 DOS mitigation is an essential part of any P2P application. We need to design
 our protocols to be resilient to malicious peers. We need to monitor our
 application for signs of suspicious activity or an attack. And we need to be
