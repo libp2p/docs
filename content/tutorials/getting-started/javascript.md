@@ -267,6 +267,17 @@ libp2p has stopped
 ```
 
 Success! Our two peers are now communicating over a multiplexed, secure channel.  Sure, they can only say "ping", but it's a start!
+## Working version
+This tutorial was created and tested using these packages versions:
+```
+    "@chainsafe/libp2p-noise": "^8.0.1",
+    "@libp2p/mplex": "^5.1.0",
+    "@libp2p/tcp": "^3.0.4",
+    "@libp2p/websockets": "^3.0.2",
+    "libp2p": "^0.38.0",
+    "multiaddr": "^10.0.1"
+```
+If you are using any different version of those above, make sure to change your code and adapt it to work for you.  
 
 ## What's next?
 
