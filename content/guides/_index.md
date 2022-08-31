@@ -1,6 +1,6 @@
 ---
-title: Examples
-weight: 3
+title: Guides
+weight: 4
 pre: '<i class="fas fa-fw fa-code"></i> '
 ---
 
