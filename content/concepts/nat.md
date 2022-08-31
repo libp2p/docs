@@ -55,7 +55,7 @@ Once again, other peers can help us observe our situation, this time by attempti
 A libp2p protocol called AutoNAT lets peers request dial-backs from peers providing the AutoNAT service.
 
 {{% notice "info" %}}
-AutoNAT is currently implemented in go-libp2p via [go-libp2p-autonat](https://github.com/libp2p/go-libp2p-autonat).
+AutoNAT is currently implemented in go-libp2p via [go-libp2p-autonat](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/autonat).
 {{% /notice %}}
 
 
@@ -72,6 +72,4 @@ This serves a similar function to the [TURN protocol](https://tools.ietf.org/htm
 [wiki_stun]: https://en.wikipedia.org/wiki/STUN
 [rfc_stun]: https://tools.ietf.org/html/rfc3489
 [lwn_reuseport]: https://lwn.net/Articles/542629/
-
-<!-- TODO: update identify spec link after PR merge -->
-[spec_identify]: https://github.com/libp2p/specs/pull/97
+[spec_identify]: https://github.com/libp2p/specs/tree/master/identify
