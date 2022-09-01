@@ -60,10 +60,6 @@ yamux is currently supported in go and rust:
 
 quic is currently supported in go via [go-libp2p-quic-transport](https://github.com/libp2p/go-libp2p/tree/master/p2p/transport/quic).
 
-#### muxado
-
-[muxado](https://github.com/inconshreveable/muxado) is a go stream muxing library, supported by go-libp2p via [go-smux-muxado](https://github.com/whyrusleeping/go-smux-muxado).
-
 <!-- links -->
 [interface-stream-muxing]: https://github.com/libp2p/js-libp2p-interfaces/tree/master/packages/interface-stream-muxer
 
