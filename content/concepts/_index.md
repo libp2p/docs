@@ -1,6 +1,6 @@
 ---
-title: "Concepts"
-weight: 4
+title: "Core Components"
+weight: 2
 pre: '<i class="fas fa-fw fa-lightbulb"></i> '
 ---
 
