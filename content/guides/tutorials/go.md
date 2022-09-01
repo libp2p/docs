@@ -1,6 +1,6 @@
 ---
 title: "Getting Started with go-libp2p"
-menuTitle: Go
+menuTitle: Golang
 weight: 1
 ---
 
