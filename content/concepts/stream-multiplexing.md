@@ -10,7 +10,7 @@ Multiplexing is by no means unique to libp2p. Most communication networks involv
 
 This is done to share a single TCP connection using unique port numbers to distinguish streams, between the multiple proceeses (such as kademlia and gossipsub) used by applications (such as ipfs) to make connection and transmission more efficient. With muxing, libp2p applications may have many separate streams of communication between peers, as well as have multiple concurrent streams open at the same time with a peer.
 
-Stream multiplexing allows us to initialize and use the same [transport](/concepts/transport/) connection across the lifetime of our interaction with a peer. With muxing, we also only need to deal with [NAT traversal](/concepts/nat/) once to be able to open as many streams as we need, since they will all share the same underlying transport connection.
+Stream multiplexing allows us to initialize and use the same [transport](/concepts/transport/) connection across the lifetime of our interaction with a peer. With muxing, we also only need to deal with [NAT traversal](nat) once to be able to open as many streams as we need, since they will all share the same underlying transport connection.
 
 libp2p provides a common [interface](#interface) for stream multiplexers with several [implementations](#implementations) available. Applications can enable support for multiple multiplexers, which will allow you to fall back to a widely-supported multiplexer if a preferred choice is not supported by a remote peer.
 
@@ -24,7 +24,7 @@ libp2p maintains some state about known peers and existing connections in a comp
 
 When configuring libp2p, applications enable stream muxing modules, which the switch will use when dialing peers and listening for connections. If the remote peers support any of the same stream muxing implementations, the switch will select and use it when establishing the connection. If you dial a peer that the switch already has an open connection to, the new stream will automatically be multiplexed over the existing connection.
 
-Reaching agreement on which stream multiplexer to use happens early in the connection establishment process. Peers use [protocol negotiation](/concepts/protocols/#protocol-negotiation) to agree on a commonly supported multiplexer, which upgrades a "raw" transport connection into a muxed connection capable of opening new streams.
+Reaching agreement on which stream multiplexer to use happens early in the connection establishment process. Peers use [protocol negotiation](/concepts/protocols/#protocol-negotiation/) to agree on a commonly supported multiplexer, which upgrades a "raw" transport connection into a muxed connection capable of opening new streams.
 
 ## Interface and Implementations
 
@@ -58,23 +58,11 @@ yamux is currently supported in go and rust:
 
 [QUIC][wiki-quic] is a [transport](/concepts/transport/) protocol that contains a "native" stream multiplexer. libp2p will automatically use the native multiplexer for streams using a quic transport.
 
-quic is currently supported in go via [go-libp2p-quic-transport](https://github.com/libp2p/go-libp2p-quic-transport).
-
-#### spdy
-
-[SPDY][wiki-spdy] is a Google-developed protocol that was the precursor to HTTP/2. SPDY implements a stream multiplexer, which is supported by some libp2p implementations:
-
-- Go: [go-smux-spdystream](https://github.com/whyrusleeping/go-smux-spdystream)
-- Javascript: [js-libp2p-spdy](https://github.com/libp2p/js-libp2p-spdy)
-
-#### muxado
-
-[muxado](https://github.com/inconshreveable/muxado) is a go stream muxing library, supported by go-libp2p via [go-smux-muxado](https://github.com/whyrusleeping/go-smux-muxado).
+quic is currently supported in go via [go-libp2p-quic-transport](https://github.com/libp2p/go-libp2p/tree/master/p2p/transport/quic).
 
 <!-- links -->
-[interface-stream-muxing]: https://github.com/libp2p/interface-stream-muxer
+[interface-stream-muxing]: https://github.com/libp2p/js-libp2p-interfaces/tree/master/packages/interface-stream-muxer
 
 [repo-multistream-select]: https://github.com/multiformats/multistream-select
 
 [wiki-quic]: https://en.wikipedia.org/wiki/QUIC
-[wiki-spdy]: https://en.wikipedia.org/wiki/SPDY
