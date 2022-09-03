@@ -1,0 +1,35 @@
+#
+
+name: Links (Fail Fast)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: linkchecker-py
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          . venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install linkchecker
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Lint with LinkChecker
+        run: |
+          # linkcheckerrc is the configuration file for LinkChecker.
+          mkdir -p ~/.linkchecker
+          echo -e "[MarkdownCheck]\nfilename_re=*.md\n" > ~/.linkchecker/linkcheckerrc
+          # Check from broken (exteernal) links
+          . venv/bin/activate
+          linkchecker -v --check-extern ./docs/develop/getting-started.md
