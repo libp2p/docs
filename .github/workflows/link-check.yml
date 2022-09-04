@@ -1,6 +1,4 @@
-# Lint checker for links
-
-name: Links
+name: Links (Fail Fast)
 
 on:
   push:
@@ -9,27 +7,14 @@ on:
 jobs:
   linkChecker:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1
         with:
-          ref: linkchecker-py
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.11"
-      - name: Install dependencies
-        run: |
-          python -m venv venv
-          . venv/bin/activate
-          python -m pip install --upgrade pip
-          python -m pip install linkchecker
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Lint with LinkChecker
-        run: |
-          # linkcheckerrc is the configuration file for LinkChecker.
-          mkdir -p ~/.linkchecker
-          echo -e "[MarkdownCheck]\nfilename_re=*.md\n" > ~/.linkchecker/linkcheckerrc
-          # Check from broken (exteernal) links
-          . venv/bin/activate
-          linkchecker -v --check-extern ./content
+          # Check all markdown in docs/develop
+          args: --verbose --no-progress './content'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
