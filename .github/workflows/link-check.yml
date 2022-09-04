@@ -1,4 +1,4 @@
-name: Links (Fail Fast)
+name: links
 
 on:
   push:
@@ -13,8 +13,8 @@ jobs:
       - name: Link Checker
         uses: lycheeverse/lychee-action@v1
         with:
-          # Check all markdown in docs/develop
-          args: --verbose --no-progress './content'
+          # Check all markdown in /content/
+          args: --verbose --no-progress './content/'
           fail: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
