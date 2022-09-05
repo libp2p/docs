@@ -3,7 +3,6 @@
 </p>
 
 <div align="center">
-<h2> The networking layer of the web3 and the distributed web</h2>
 
 [![Made by icon.](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
 [![Project icon.](https://img.shields.io/badge/project-libp2p-lightgrey)](https://libp2p.io/)
@@ -128,13 +127,13 @@ Please stay tuned for the steps to translate the documentation.
 
 ## Primary maintainers
 
-- [@DannyS03](https://github.com/DannyS03): primary contact, project organization & technical writing(engineering)
-- [@mxinden](https://github.com/mxinden): libp2p steward(engineering), primarily rust-libp2p
-- [@marten-seemann](https://github.com/marten-seemann): libp2p steward(engineering), primarily go-libp2p
-- [@MarcoPolo](https://github.com/MarcoPolo): libp2p steward(engineering), primarily go-libp2p
-- [@jennijuju](https://github.com/jennijuju): program management(engineering)
-- [@p-shahi](https://github.com/p-shahi): libp2p project management(engineering)
-- [@BigLep](https://github.com/BigLep): interplanetary management and supervision(engineering)
+- [@DannyS03](https://github.com/DannyS03): primary contact, project organization & technical writing (engineering)
+- [@mxinden](https://github.com/mxinden): libp2p steward (engineering), primarily rust-libp2p
+- [@marten-seemann](https://github.com/marten-seemann): libp2p steward (engineering), primarily go-libp2p
+- [@MarcoPolo](https://github.com/MarcoPolo): libp2p steward (engineering), primarily go-libp2p
+- [@jennijuju](https://github.com/jennijuju): program management (engineering)
+- [@p-shahi](https://github.com/p-shahi): libp2p project management (engineering)
+- [@BigLep](https://github.com/BigLep): interplanetary management and supervision (engineering)
 
 ## License
 
