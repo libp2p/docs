@@ -32,7 +32,7 @@
 
 libp2p is a modular framework that encapsulates an evolving set of specifications for peer-to-peer networking. What started as the networking component that enables IPFS turned into a general-purpose framework to deliver a modular, peer-to-peer networking stack of protocols that are transport agnostic, flexible, reusable, and easy to upgrade.
 
-libp2p enables interoperability between applications, resilient, decentralized applications, and advanced networking features like decentralized publish-subscribe or data structures like distributed hash tables.
+libp2p enables interoperability between applications, resilient applications, and advanced networking features like decentralized publish-subscribe or advanced data structures like distributed hash tables.
 
 ## Contributing content
 
@@ -78,7 +78,6 @@ To create a production build, run:
 make build
 ```
 > This requires hugo & ipfs on your PATH
-
 
 You’ll find the final static site in the `public` directory.
 
