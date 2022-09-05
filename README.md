@@ -131,10 +131,12 @@ Please stay tuned for the steps to translate the documentation.
 - [@mxinden](https://github.com/mxinden): libp2p steward (engineering), primarily rust-libp2p
 - [@marten-seemann](https://github.com/marten-seemann): libp2p steward (engineering), primarily go-libp2p
 - [@MarcoPolo](https://github.com/MarcoPolo): libp2p steward (engineering), primarily go-libp2p
-- [@jennijuju](https://github.com/jennijuju): program management (engineering)
+- [@jennijuju](https://github.com/jennijuju): documentation management (engineering)
 - [@p-shahi](https://github.com/p-shahi): libp2p project management (engineering)
 - [@BigLep](https://github.com/BigLep): interplanetary management and supervision (engineering)
 
 ## License
 
-All software code is copyright (c) Protocol Labs, Inc. under the **MIT license**. Other written documentation and content are copyright (c) Protocol Labs, Inc. under the [**Creative Commons Attribution-Share-Alike License**](https://creativecommons.org/licenses/by/4.0/).
+All software code is copyright (c) Protocol Labs, Inc. under the **MIT/Apache-2 dual license**. 
+Other written documentation and content are copyright (c) Protocol Labs, Inc. under the 
+[**Creative Commons Attribution-Share-Alike License**](https://creativecommons.org/licenses/by/4.0/).
