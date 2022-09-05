@@ -74,6 +74,7 @@ To create a production build, run:
 ```bash
 make build
 ```
+
 > This requires hugo & ipfs on your PATH
 
 You’ll find the final static site in the `public` directory.
@@ -83,6 +84,7 @@ To serve the static files, run:
 ```bash
 make serve
 ```
+
 > This requires hugo & ipfs on your PATH
 
 Preview the site at http://localhost:1313.
@@ -92,6 +94,7 @@ Run the following `make` command in the root directory to start a hot-reloading 
 ```bash
 make dev
 ```
+
 > This requires hugo on your PATH
 
 Preview the site at http://localhost:1313.
@@ -101,25 +104,26 @@ To add an preview the site on IPFS, build the site in the root directory by runn
 ```
 make deploy
 ```
+
 > This requires hugo & ipfs on your PATH
 
-See the `Makefile` for the full list of `make` commands, or run make help in the project root. You can pass the env var `DEBUG=true` to increase the verbosity of your chosen command.
+See the `Makefile` for the full list of `make` commands, or run `make help` in the project root. 
+
+> You can pass the environment variable `DEBUG=true` to increase the verbosity of your chosen command.
 
 ## Configuration guide
 
 ### Static site generator
 
-The libp2p documentation site uses [Hugo](https://gohugo.io/)
-as a static site generator, making it easy to serve and host the static files on IPFS.
-In particular, the site uses the [Hugo Learn theme](https://learn.netlify.app/en/) to present 
-the libp2p documentation.
+The libp2p documentation site uses [Hugo](https://gohugo.io/) as a static site generator, 
+making it easy to serve and host the static files on IPFS. In particular, the site uses 
+the [Hugo Learn theme](https://learn.netlify.app/en/) to present the libp2p documentation.
 
 ### Automated deployments
 
 When opening a pull request, CI scripts will run against your feature branch to test your changes.
 
-The CI/CD production workflow builds on the `master` branch and deploys the documentation site on [fleek](https://fleek.co/). 
-It reflects the latest commit on `master` and publishes at [https://docs.libp2p.io](https://docs.libp2p.io).
+The CI/CD production workflow builds on the `master` branch and deploys the documentation site on [fleek](https://fleek.co/). It reflects the latest commit on `master` and publishes at [https://docs.libp2p.io](https://docs.libp2p.io).
 
 ### Translation
 
@@ -127,13 +131,13 @@ Please stay tuned for the steps to translate the documentation.
 
 ## Primary maintainers
 
-- [@DannyS03](https://github.com/DannyS03): primary contact, project organization & technical writing (engineering)
-- [@mxinden](https://github.com/mxinden): libp2p steward (engineering), primarily rust-libp2p
-- [@marten-seemann](https://github.com/marten-seemann): libp2p steward (engineering), primarily go-libp2p
-- [@MarcoPolo](https://github.com/MarcoPolo): libp2p steward (engineering), primarily go-libp2p
-- [@jennijuju](https://github.com/jennijuju): documentation management (engineering)
-- [@p-shahi](https://github.com/p-shahi): libp2p project management (engineering)
-- [@BigLep](https://github.com/BigLep): interplanetary management and supervision (engineering)
+- [@DannyS03](https://github.com/DannyS03): primary contact, project organization & technical writing
+- [@mxinden](https://github.com/mxinden): libp2p steward, primarily rust-libp2p
+- [@marten-seemann](https://github.com/marten-seemann): libp2p steward, primarily go-libp2p
+- [@MarcoPolo](https://github.com/MarcoPolo): libp2p steward, primarily go-libp2p
+- [@jennijuju](https://github.com/jennijuju): documentation management
+- [@p-shahi](https://github.com/p-shahi): libp2p project management
+- [@BigLep](https://github.com/BigLep): interplanetary management and supervision
 
 ## License
 
