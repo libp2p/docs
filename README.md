@@ -1,11 +1,9 @@
 <p align="center">
-<img align="center" src="static/images/libp2p-docs-logo.png" width="1000">
+<img align="center" src="static/images/libp2p-docs-logo.png" width="615">
 </p>
 
 <div align="center">
 <h2> The networking layer of the web3 and the distributed web</h2>
-
-<br>
 
 [![Made by icon.](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
 [![Project icon.](https://img.shields.io/badge/project-libp2p-lightgrey)](https://libp2p.io/)
@@ -13,6 +11,8 @@
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 [![Discuss](https://img.shields.io/discourse/https/discuss.libp2p.io/posts.svg?style=flat-square)](https://discuss.libp2p.io)
 </div>
+
+---
 
 <!-- TOC -->
 - [Overview](#overview)
