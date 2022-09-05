@@ -268,7 +268,7 @@ libp2p has stopped
 
 Success! Our two peers are now communicating over a multiplexed, secure channel.  Sure, they can only say "ping", but it's a start!
 ## Working version
-This tutorial was created and tested using these packages versions:
+This tutorial uses the following js-libp2p package versions:
 ```
     "@chainsafe/libp2p-noise": "^8.0.1",
     "@libp2p/mplex": "^5.1.0",
