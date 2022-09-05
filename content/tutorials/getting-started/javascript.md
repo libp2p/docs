@@ -277,7 +277,8 @@ This tutorial was created and tested using these packages versions:
     "libp2p": "^0.38.0",
     "multiaddr": "^10.0.1"
 ```
-If you are using any different version of those above, make sure to change your code and adapt it to work for you.  
+
+> Modify your js-libp2p packages if you start to experience issues to those mentioned above.
 
 ## What's next?
 
