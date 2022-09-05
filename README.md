@@ -112,6 +112,8 @@ See the `Makefile` for the full list of `make` commands, or run make help in the
 
 The libp2p documentation site uses [Hugo](https://gohugo.io/)
 as a static site generator, making it easy to serve and host the static files on IPFS.
+In particular, the site uses the [Hugo Learn theme](https://learn.netlify.app/en/) to present 
+the libp2p documentation.
 
 ### Automated deployments
 
