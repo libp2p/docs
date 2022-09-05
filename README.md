@@ -12,8 +12,6 @@
 [![Discuss](https://img.shields.io/discourse/https/discuss.libp2p.io/posts.svg?style=flat-square)](https://discuss.libp2p.io)
 </div>
 
----
-
 <!-- TOC -->
 - [Overview](#overview)
 - [Contributing content](#contributing-content)
@@ -128,7 +126,7 @@ Please stay tuned for the steps to translate the documentation.
 
 ## Primary maintainers
 
-- [@DannyS03](https://github.com/DannyS03}: primary contact, project organization & technical writing(engineering)
+- [@DannyS03](https://github.com/DannyS03): primary contact, project organization & technical writing(engineering)
 - [@mxinden](https://github.com/mxinden): libp2p steward(engineering), primarily rust-libp2p
 - [@marten-seemann](https://github.com/marten-seemann): libp2p steward(engineering), primarily go-libp2p
 - [@MarcoPolo](https://github.com/MarcoPolo): libp2p steward(engineering), primarily go-libp2p
