@@ -51,7 +51,7 @@ While peer-to-peer networks have many advantages over the client-server model,
 there are unique challenges that require careful thought and practice to overcome.
 
 libp2p lets all users preserve their network identity, overcome network censorship, 
-and communicate over different transfer protocols.
+and communicate over different transport protocols.
 
 In overcoming these challenges while building [IPFS](https://ipfs.io),
 we took care to build our solutions in a modular, composable way into what is 
