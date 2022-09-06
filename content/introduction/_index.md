@@ -20,11 +20,11 @@ that enable the development of peer-to-peer network applications.
 
 Because of libp2p's peer-to-peer and distributed architecture, most of the 
 needs and considerations that the current web was built on no longer apply.
-Moving from a location-addressed system to a peer-to-peer, content-addressed 
-system presents many challenges. The internet, such as it is, with firewalls 
-and NATs, was designed to [securely] provide data by relying on trust assumptions, 
-Clients must trust the service providers they connect to and the data they provide, 
-despite servers needing to verify their identity using certificate authorities.
+The internet, such as it is, with firewalls and NATs, was designed to [securely] 
+provide data by relying on trust assumptions. There are many distributed
+peer-to-peer network models with different challenges and tradeoffs that try
+to improve on the way we network. Libp2p aims to be a modular, general-purpose 
+toolkit for any peer-to-peer application.
 
 ## Peer-to-peer basics
 
@@ -91,17 +91,18 @@ as the basis of peer identity, which serves two complementary purposes.
 
 ### Secure communication
 
-We must be able to send and receive data between peers securely, 
-where we can trust the [identity](#peer-identity) of the peer we're 
-communicating with no third party can read our conversation or alter it in flight.
+There needs to be a method to securely send and receive data between peers, 
+where peers are able to trust the [identity](#peer-identity) of the peer they're
+communicating with while ensuring that no external entity can access or tamper with
+the communication.
 
-libp2p supports *upgrading* a connection provided by a [transport protocol](#transport) 
-into a securely encrypted channel. The process is flexible and supports multiple 
-methods of encrypting communication. 
+All libp2p connections are encrypted and authenticated. Some [transport protocol](#transport) 
+protocols are encrypted at the transport layer (e.g. QUIC). For other protocols, libp2p runs 
+a cryptographic handshake on top of an unencrypted connection (e.g. TCP).
 
-libp2p currently supports [TLS 1.3](https://www.ietf.org/blog/tls13/) and 
-[Noise](https://noiseprotocol.org/), though not every language implementation of 
-libp2p supports both of these. 
+For secure communication channels, libp2p currently supports 
+[TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](https://noiseprotocol.org/), 
+though not every language implementation of libp2p supports both of these. 
 
 > (Older versions of libp2p may support a 
 > [deprecated](https://blog.ipfs.io/2020-08-07-deprecating-secio/) protocol called SECIO; 
