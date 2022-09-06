@@ -73,7 +73,7 @@ the actual transmission and receipt of data from one peer to another. There are 
 ways to send data across networks in use today, with more in development and still more yet 
 to be designed. 
 
-libp2p provides a simple [interface](https://github.com/libp2p/js-libp2p-interfaces) 
+libp2p provides a list of specifications [specifcations](https://github.com/libp2p/specs) 
 that can be adapted to support existing and future protocols, allowing libp2p applications 
 to operate in many different runtime and networking environments.
 
@@ -135,7 +135,7 @@ In some systems, we care less about who we're speaking with than what they can o
 For example, we may want some specific piece of data, but we don't care who we get it from 
 since we can verify its integrity.
 
-libp2p provides a [content routing interface][interface_content_routing] for this 
+libp2p provides a [content routing specification][spec_content_routing] for this 
 purpose, with the primary stable implementation using the same 
 [Kademlia][wiki_kademlia]-based DHT as used in peer routing.
 
@@ -145,8 +145,8 @@ Sending messages to other peers is at the heart of most peer-to-peer systems,
 and pubsub (short for publish/subscribe) is an instrumental pattern for sending 
 a message to groups of interested receivers.
 
-libp2p defines a [pubsub interface][interface_pubsub] for sending messages to all 
-peers subscribed to a given "topic". The interface currently has two stable 
+libp2p defines a [pubsub specification][spec_pubsub] for sending messages to all 
+peers subscribed to a given "topic". The specification currently has two stable 
 implementations; `floodsub` uses a very simple but inefficient  "network flooding" 
 strategy, and [gossipsub](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub) 
 defines an extensible gossip protocol.  There is also active development in progress on 
@@ -181,8 +181,8 @@ specific information and references:
 [definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddr" >}}
 [definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
 
-[interface_content_routing]: https://github.com/libp2p/js-libp2p-interfaces/tree/master/packages/interfaces/src/content-routing
-[interface_pubsub]: https://github.com/libp2p/specs/tree/master/pubsub
+[spec_content_routing]: https://github.com/libp2p/specs/blob/master/kad-dht/README.md
+[spec_pubsub]: https://github.com/libp2p/specs/blob/master/pubsub/README.md
 [built_with_libp2p]: https://discuss.libp2p.io/c/ecosystem-community
 [help_improve_docs]: https://github.com/libp2p/docs/issues
 [wiki_kademlia]: https://en.wikipedia.org/wiki/Kademlia
