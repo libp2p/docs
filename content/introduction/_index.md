@@ -16,7 +16,7 @@ start.
 libp2p is a modular system of *protocols*, *specifications* and *libraries* 
 that enable the development of peer-to-peer network applications. 
 
-**The networking protocol of web3**
+**A p2p networking stack**
 
 Because of libp2p's peer-to-peer and distributed architecture, most of the 
 needs and considerations that the current web was built on no longer apply.
@@ -69,7 +69,7 @@ please [reach out to let us know][help_improve_docs].
 ### Data transmission
 
 The transport layer is at the foundation of libp2p, which is responsible for 
-the actual transmission and receipt of data from one peer to another. There are many 
+transmitting and receiving bytes between two peers. There are many 
 ways to send data across networks in use today, with more in development and still more yet 
 to be designed. 
 
