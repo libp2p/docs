@@ -105,8 +105,6 @@ all of the registered match functions. If any returns `true`, the associated han
 This gives you a lot of flexibility to do your own "fuzzy matching" and define whatever rules for protocol matching
 make sense for your application.
 
-If you'd like to concurrently support a range of numbered versions, you may want to use semantic versioning (aka [semver](https://semver.org)).
-
 ### Dialing a specific protocol
 
 When dialing a remote peer to open a new stream, the initiating peer sends the protocol id that they'd like to use. The remote peer will use
