@@ -70,10 +70,11 @@ please [reach out to let us know][help_improve_docs].
 
 The transport layer is at the foundation of libp2p, which is responsible for 
 transmitting and receiving bytes between two peers. There are many 
-ways to send data across networks in use today, with more in development and still more yet 
+ways to send data across networks in use today, including TCP, QUIC, WebSocket,
+WebTransport and WebRTC, with some still in development and others still yet 
 to be designed. 
 
-libp2p provides a list of specifications [specifcations](https://github.com/libp2p/specs) 
+libp2p also provides a list of specifications [specifcations](https://github.com/libp2p/specs) 
 that can be adapted to support existing and future protocols, allowing libp2p applications 
 to operate in many different runtime and networking environments.
 
