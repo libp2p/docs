@@ -1,7 +1,7 @@
 ---
 title: "Getting Started with rust-libp2p"
 menuTitle: Rust
-weight: 3
+weight: 2
 ---
 
 Check out [tutorials of the Rust libp2p
