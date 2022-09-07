@@ -1,8 +1,13 @@
 ---
-title: "Core Components"
+title: "Explore libp2p"
 weight: 2
-pre: '<i class="fas fa-fw fa-lightbulb"></i> '
+pre: "<b>2. </b>"
+chapter: true
 ---
+
+### Chapter 2
+
+# Explore libp2p
 
 libp2p covers a lot of ground, and may involve unfamiliar terminology and concepts.
 This section goes over the foundational concepts involved in libp2p.
