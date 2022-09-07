@@ -1,5 +1,5 @@
 ---
-title: Contributing
+title: "Get Involved"
 weight: 10
 pre: '<i class="fas fa-fw fa-heart"></i> '
 ---
@@ -9,9 +9,7 @@ of things we need help with and how you can get started. Even if what you want
 to do is not listed here, we probably accept contributions for it! If you're
 unsure, please open a issue.
 
-
 ## Areas of contribution
-
 - [Areas of contribution](#areas-of-contribution)
   - [Code](#code)
   - [Documentation](#documentation)
@@ -23,7 +21,6 @@ unsure, please open a issue.
   - [Applications](#applications)
   - [Protocol Design](#protocol-design)
   - [Research](#research)
-
 
 ### Code
 
