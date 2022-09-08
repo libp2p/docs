@@ -1,16 +1,13 @@
 ---
-title: Guides
-weight: 3
-pre: "<b>3. </b>"
+title: "Miscellaneous"
+weight: 11
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.10. </b>'
 chapter: true
 ---
 
-### Chapter 3
+### Chapter 2.10
 
-# Guides
-
-The guides section of the libp2p documentation hub is a developer portal 
-containing how-to guides, technical tutorials, and examples for each libp2p implementation.
+# Learn more
 
 {{% children %}}
 

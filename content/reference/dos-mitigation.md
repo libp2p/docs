@@ -1,6 +1,7 @@
 ---
 title: "DOS Mitigation"
 weight: 3
+pre: '<i class="fas fa-fw fa-book"></i> <b>4.3. </b>'
 ---
 
 DOS mitigation is an essential part of any P2P application. We need to design

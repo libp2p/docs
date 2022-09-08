@@ -1,10 +1,9 @@
 ---
-title: Specifications
-weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b>4.2. </b>'
+title: Get Started with Peer Routing
+menuTitle: Peer Routing
+weight: 7
+pre: '<i class="fas fa-fw fa-book"></i> <b>3.2.7. </b>'
 ---
-
-Check out the [specs repo](https://github.com/libp2p/specs) for details about the libp2p architecture.
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

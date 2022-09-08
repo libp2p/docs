@@ -164,14 +164,14 @@ specific information and references:
 - [The Permissive License Stack](https://protocol.ai/blog/announcing-the-permissive-license-stack) 
   is a licensing strategy for software development that embraces open-source values.
 
-[glossary]: {{< ref "/reference/glossary.md" >}}
-[definition_dht]: {{< ref "/reference/glossary.md#dht" >}}
-[definition_p2p]: {{< ref "/reference/glossary.md#p2p" >}}
-[definition_peer]: {{< ref "/reference/glossary.md#peer" >}}
-[definition_peerid]: {{< ref "/reference/glossary.md#peerid" >}}
-[definition_secio]: {{< ref "/reference/glossary.md#secio" >}}
-[definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddr" >}}
-[definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
+[glossary]: {{< ref "concepts/miscellaneous/glossary.md" >}}
+[definition_dht]: {{< ref "concepts/miscellaneous/glossary.md#dht" >}}
+[definition_p2p]: {{< ref "concepts/miscellaneous/glossary.md#p2p" >}}
+[definition_peer]: {{< ref "concepts/miscellaneous/glossary.md#peer" >}}
+[definition_peerid]: {{< ref "concepts/miscellaneous/glossary.md#peerid" >}}
+[definition_secio]: {{< ref "concepts/miscellaneous/glossary.md#secio" >}}
+[definition_muiltiaddress]: {{< ref "concepts/miscellaneous/glossary.md#multiaddr" >}}
+[definition_client_server]: {{< ref "concepts/miscellaneous/glossary.md#client-server" >}}
 
 [spec_content_routing]: https://github.com/libp2p/specs/blob/master/kad-dht/README.md
 [spec_pubsub]: https://github.com/libp2p/specs/blob/master/pubsub/README.md

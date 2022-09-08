@@ -1,5 +1,6 @@
 ---
-title: Welcome the libp2p
+title: Welcome to the libp2p documentation portal
+menuTitle: libp2p
 weight: 1
 pre: "<b>1. </b>"
 chapter: false
@@ -7,17 +8,12 @@ chapter: false
 
 # Welcome the libp2p Documentation Portal
 
-Welcome to the official libp2p documentation hub!
+### Chapter 1: Introduction
 
-### Chapter 1
+### Chapter 2: Core Components
 
-For new comers and those interested to understand key computer network concepts, start
-here.
+### Chapter 3: Guides
 
-### Chapter 2
+### Chapter 4: Reference Documentation
 
-### Chapter 3
-
-### Chapter 4
-
-### Chapter 5
+### Chapter 5: Get Involved

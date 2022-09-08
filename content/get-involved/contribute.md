@@ -1,7 +1,7 @@
 ---
-title: "Get Involved"
-weight: 10
-pre: '<i class="fas fa-fw fa-heart"></i> '
+title: "How to Contribute"
+weight: 1
+pre: '<i class="fas fa-fw fa-book"></i> <b>5.1 </b>'
 ---
 
 So you want to contribute to libp2p and the peer-to-peer ecosystem? Here is a quick listing

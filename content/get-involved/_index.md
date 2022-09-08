@@ -1,16 +1,8 @@
 ---
-title: Guides
-weight: 3
-pre: "<b>3. </b>"
-chapter: true
+title: "Get Involved"
+weight: 5
+pre: "<b>5. </b>"
 ---
-
-### Chapter 3
-
-# Guides
-
-The guides section of the libp2p documentation hub is a developer portal 
-containing how-to guides, technical tutorials, and examples for each libp2p implementation.
 
 {{% children %}}
 

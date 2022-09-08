@@ -1,8 +1,13 @@
 ---
-title: Reference
-weight: 5
-pre: '<i class="fas fa-fw fa-book"></i> '
+title: "Reference"
+weight: 4
+pre: "<b>4. </b>"
+chapter: true
 ---
+
+### Chapter 4
+
+# Reference Documentation
 
 This section contains in-depth reference material, including a [glossary](/reference/glossary/) with definitions of libp2p terminology.
 

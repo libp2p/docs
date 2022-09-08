@@ -1,10 +1,10 @@
 ---
-title: Specifications
+title: Chat Application
 weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b>4.2. </b>'
+pre: '<i class="fas fa-fw fa-book"></i> <b>3.3.2 </b>'
 ---
 
-Check out the [specs repo](https://github.com/libp2p/specs) for details about the libp2p architecture.
+Stay tuned for libp2p examples!
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

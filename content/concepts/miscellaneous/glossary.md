@@ -1,6 +1,7 @@
 ---
 title: "Glossary"
 weight: 1
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.10.1 </b>'
 ---
 
 ### Boot Node

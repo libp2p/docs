@@ -1,7 +1,7 @@
 ---
-title: "Help & Discussion"
-weight: 100
-pre: "<i class='fas fa-fw fa-question-circle'></i> "
+title: "Community"
+weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b>5.2 </b>'
 ---
 
 We love talking about libp2p, and we'd be happy to have you in the mix.
