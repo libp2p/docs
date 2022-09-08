@@ -1,7 +1,7 @@
 ---
 title: "Getting Started with go-libp2p"
 menuTitle: Go
-weight: 1
+weight: 2
 ---
 
 This is the first in a series of tutorials on working with libp2p’s Go implementation,
