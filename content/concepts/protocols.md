@@ -105,16 +105,6 @@ all of the registered match functions. If any returns `true`, the associated han
 This gives you a lot of flexibility to do your own "fuzzy matching" and define whatever rules for protocol matching
 make sense for your application.
 
-#### Match using semver
-
-If you'd like to concurrently support a range of numbered versions, you may want to use semantic versioning (aka [semver](https://semver.org)).
-
-In go-libp2p, a helper function called [`MultistreamSemverMatcher`](https://github.com/libp2p/go-libp2p-core/blob/master/helpers/match.go) can be used
-as a protocol match function to see if an incoming request can be satisfied by the registered protocol version.
-
-js-libp2p provides a [similar match function](https://github.com/multiformats/js-multistream-select/blob/master/src/listener/match-semver.js)
-as part of [js-multistream-select](https://github.com/multiformats/js-multistream-select/)
-
 ### Dialing a specific protocol
 
 When dialing a remote peer to open a new stream, the initiating peer sends the protocol id that they'd like to use. The remote peer will use
@@ -239,4 +229,3 @@ addresses and how to enable automatic relay connection when behind an intractabl
 [definition_multiaddr]: /reference/glossary/#multiaddr
 
 [repo_multistream-select]: https://github.com/multiformats/multistream-select
-
