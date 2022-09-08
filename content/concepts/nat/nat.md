@@ -1,6 +1,7 @@
 ---
-title: NAT Traversal
-weight: 2
+title: Overview
+weight: 1
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.4.1. </b>'
 ---
 
 The internet is composed of countless networks, bound together into shared address spaces by foundational [transport protocols](/concepts/transport/).

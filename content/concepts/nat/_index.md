@@ -1,16 +1,13 @@
 ---
-title: "Core Components"
-weight: 2
-pre: "<b>2. </b>"
+title: "NAT Traversal"
+weight: 5
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.4. </b>'
 chapter: true
 ---
 
-### Chapter 2
+### Chapter 2.4
 
-# Explore libp2p
-
-libp2p covers a lot of ground, and may involve unfamiliar terminology and concepts.
-This section goes over the foundational concepts involved in libp2p.
+# Traverse Bytes
 
 {{% children %}}
 

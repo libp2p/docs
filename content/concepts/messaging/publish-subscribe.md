@@ -1,5 +1,7 @@
 ---
 title: Publish/Subscribe
+weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.7.2 </b>'
 ---
 
 Publish/Subscribe is a system where peers congregate around topics they are

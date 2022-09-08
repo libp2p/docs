@@ -1,6 +1,7 @@
 ---
-title: Peer Identity
-weight: 4
+title: "Peer Identity"
+weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.6.2. </b>'
 ---
 
 A Peer Identity (often written `PeerId`) is a unique reference to a specific

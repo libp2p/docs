@@ -1,13 +1,11 @@
 ---
-title: Introduction
+title: Network Basics
 weight: 1
-pre: "<b>1. </b>"
-chapter: true
+pre: '<i class="fas fa-fw fa-book"></i> <b>1.1. </b>'
+chapter: false
 ---
 
-### Chapter 1
-
-# Get Started with libp2p
+### Chapter 1.1
 
 Whether you’re just starting to dive into peer-to-peer concepts and 
 solutions, learning how to build peer-to-peer systems with libp2p, or 

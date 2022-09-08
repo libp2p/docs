@@ -1,16 +1,13 @@
 ---
-title: "Core Components"
+title: "Transports"
 weight: 2
-pre: "<b>2. </b>"
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.1. </b>'
 chapter: true
 ---
 
-### Chapter 2
+### Chapter 2.1
 
-# Explore libp2p
-
-libp2p covers a lot of ground, and may involve unfamiliar terminology and concepts.
-This section goes over the foundational concepts involved in libp2p.
+# Exchange Bytes
 
 {{% children %}}
 

@@ -1,8 +1,7 @@
 ---
-title: Introduction
-weight: 1
-pre: "<b>1. </b>"
-chapter: true
+title: LIBP2P
+weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b>1.2. </b>'
 ---
 
 ### Chapter 1

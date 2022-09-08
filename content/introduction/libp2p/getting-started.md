@@ -1,15 +1,13 @@
 ---
-title: "Introduction"
+title: A Modular P2P Networking Framework
 weight: 2
-pre: '<i class="fas fa-fw fa-comments"></i> '
+pre: '<i class="fas fa-fw fa-book"></i> '
 ---
 
 ## What is libp2p?
 
 libp2p is a modular system of *protocols*, *specifications* and *libraries* 
 that enable the development of peer-to-peer network applications. 
-
-**A p2p networking stack**
 
 Because of libp2p's peer-to-peer and distributed architecture, most of the 
 needs and considerations that the current web was built on no longer apply.

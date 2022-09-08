@@ -1,6 +1,7 @@
 ---
-title: 'Security Considerations'
-weight: 12
+title: 'Overview'
+weight: 1
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.9.1. </b>'
 ---
 
 libp2p makes it simple to establish [encrypted, authenticated communication

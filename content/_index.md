@@ -11,6 +11,9 @@ Welcome to the official libp2p documentation hub!
 
 ### Chapter 1
 
+For new comers and those interested to understand key computer network concepts, start
+here.
+
 ### Chapter 2
 
 ### Chapter 3

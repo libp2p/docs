@@ -1,6 +1,7 @@
 ---
 title: Circuit Relay
-weight: 3
+weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.4.2. </b>'
 ---
 
 Circuit relay is a [transport protocol](/concepts/transport/) that routes traffic between two peers over a third-party "relay" peer.
