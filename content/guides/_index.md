@@ -12,7 +12,7 @@ chapter: true
 The guides section of the libp2p documentation hub is a developer portal 
 containing how-to guides, technical tutorials, and examples for each libp2p implementation.
 
-{{% children %}}
+{{% children description="true" %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

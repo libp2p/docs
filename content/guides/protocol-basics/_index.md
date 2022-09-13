@@ -11,7 +11,7 @@ for each of its main implementations:
 * For javascript, see the [/examples directory of the js-libp2p repo](https://github.com/libp2p/js-libp2p/tree/master/examples).
 * For rust, see [/examples directory of the rust-libp2p repo](https://github.com/libp2p/rust-libp2p/tree/master/examples).
 
-{{% children %}}
+{{% children description="true" %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in
