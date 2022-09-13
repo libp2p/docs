@@ -3,7 +3,7 @@ relativeURLs = true
 languageCode = "en-us"
 title = "libp2p Documentation"
 
-theme = "hugo-theme-learn"
+theme = ["hugo-theme-learn"]
 
 [params]
 themeVariant = "libp2p"

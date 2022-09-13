@@ -4,7 +4,7 @@ weight: 5
 pre: "<b>5. </b>"
 ---
 
-{{% children %}}
+{{% children description="true" %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

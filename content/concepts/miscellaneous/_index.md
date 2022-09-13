@@ -9,7 +9,7 @@ chapter: true
 
 # Learn more
 
-{{% children %}}
+{{% children description="true" %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

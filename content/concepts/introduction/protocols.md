@@ -1,7 +1,7 @@
 ---
 title: Protocols
-weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b>2.0.3. </b>'
+weight: 3
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.0.2. </b>'
 ---
 
 There are protocols everywhere you look when you're writing network applications, and libp2p is

@@ -4,8 +4,6 @@ weight: 2
 pre: '<i class="fas fa-fw fa-book"></i> <b>1.2. </b>'
 ---
 
-### Chapter 1
-
 # Get Started with libp2p
 
 Whether you’re just starting to dive into peer-to-peer concepts and 

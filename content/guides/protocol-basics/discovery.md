@@ -1,7 +1,7 @@
 ---
 title: Get Started with Discovery
 menuTitle: Peer Discovery
-weight: 5
+weight: 6
 pre: '<i class="fas fa-fw fa-book"></i> <b>3.2.6. </b>'
 ---
 

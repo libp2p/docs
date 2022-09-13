@@ -1,7 +1,7 @@
 ---
 title: AutoNAT
-weight: 3
-pre: '<i class="fas fa-fw fa-book"></i> <b>2.4.3. </b>'
+weight: 4
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.4.4. </b>'
 ---
 
 {{% notice "note" %}}

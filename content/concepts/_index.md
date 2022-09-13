@@ -12,7 +12,7 @@ chapter: true
 libp2p covers a lot of ground, and may involve unfamiliar terminology and concepts.
 This section goes over the foundational concepts involved in libp2p.
 
-{{% children %}}
+{{% children description="true" %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

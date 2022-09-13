@@ -1,7 +1,7 @@
 ---
 title: WebTransport
-weight: 6
-pre: '<i class="fas fa-fw fa-book"></i> <b>2.1.6. </b>'
+weight: 5
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.1.5. </b>'
 ---
 
 {{% notice "note" %}}
