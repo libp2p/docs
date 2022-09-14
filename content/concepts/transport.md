@@ -115,3 +115,120 @@ and some places in the codebase still use the "swarm" terminology.
 {{% /notice %}}
 
 [definition_switch]: /reference/glossary/#switch
+
+## QUIC
+
+Transport protocols continue to improve transport methods in an attempt to alleviate 
+the shortcomings of the transport layer. 
+
+{{% notice "note" %}}
+
+Recalling the purpose of transports
+
+The IP service model provides logical communication between hosts (or nodes) but 
+is considered a best-effort delivery service, as segment delivery is not guaranteed. 
+The primary responsibility of transport protocols is to extend the IP 
+delivery service between two end systems. TCP connects the unreliable service of IP 
+between end systems into a reliable transport service between processes (i.e., the 
+processes running on the end systems). The purpose of newer transport protocols is not 
+only to improve current transport methods but also to allow for efficient connections 
+that distributed and peer-to-peer network stacks can utilize, like libp2p.
+
+{{% /notice %}}
+
+We need a transport protocol that:
+
+- Understands streams 
+- Is not byte-ordered
+- Overcomes HOL blocking (Head-of-line blocking)
+- Overcomes the latency of connection setup
+- Overcomes the ossification risks of TCP
+
+and, ideally, with the guarantees of TCP.
+
+In 2014, a new transport protocol 
+called QUIC (which, at the time, stood for Quick UDP Internet Connections, but now 
+is only referred to as QUIC and does not use the original acronym) was launched as an 
+experiment on Google Chrome. It has since been refined and maintained by an official 
+working group under the IETF (Internet Engineering Task Force). 
+
+QUIC is a UDP-based multiplexed and secure transport. 
+The official standard is defined in [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000).
+
+Being UDP-based, QUIC optimizes for speedy transmission, as opposed to the latency 
+that exists in HTTP leveraging TLS over TCP.
+
+A web browser connection typically entails the following (TCP+TLS+HTTP/2):
+
+1. IP layer: the connection will run on the IP layer, which is responsible for 
+   packet routing. 
+2. Transport layer: TCP then runs on top of the IP layer to provide a reliable 
+   byte stream.
+3. Secure communication layer: Secure communication (i.e., TLS) runs on TCP to 
+   encrypt the bytes.
+   - Negotiation (SYN-ACK) of encryption parameters for TLS. Standard TLS over 
+     TCP requires 3 RTT.
+4. Application layer: HTTP runs on a secure transport connection to transfer 
+   information.
+   - Data starts to flow.
+
+Secure TCP-based connections offer a multi-layered approach for secure communication 
+over IP, whereas QUIC, by design, is an optimized transport consolidation of layers. 
+QUIC has to deal with TCP-like congestion control, loss recovery, and encryption. 
+Part of the application layer is also built directly into QUIC; when you
+run HTTP on top of QUIC; only a small shim layer exists that maps 
+[HTTP semantics](https://httpwg.org/http-core/draft-ietf-httpbis-semantics-latest.html) 
+onto QUIC streams.
+
+To establish a connection, QUIC assumes that the node sends the right address over
+the packet. QUIC saves one round-trip by doing this. If there is suspicion of an 
+attack, QUIC has a defense mechanism that can require a three-way handshake, but only 
+under particular conditions. A minimum packet size rule exists for the first packet to 
+ensure that small malicious packets like SYN packets cannot be sent and consume excessive 
+resources, as can be done with TCP.
+
+QUIC saves another round-trip in using TLS 1.3 by optimistically providing keyshares. 
+If you have established a connection before, the host can send you a session ticket 
+that can be used to establish a new secure connection instantly, without any round-trips.
+
+> Over the last several years, the IETF has been working on a new version of TLS, TLS 1.3.
+> Learn more about TLS 1.3 and how it is used in libp2p on the secure communication concept guide.
+
+<!-- to add link to secure comm guide, and later to the specific doc that covers TLS -->
+
+libp2p only supports bidirectional streams and uses TLS 1.3 by default (but can use other
+cryptography methods). The streams in libp2p map cleanly to QUIC packets.
+
+When a connection starts, peers will take their host key and create a self-signed CA 
+certificate. They then sign an intermediate chain using their self-signed CA and put it 
+as a certificate chain in the TLS handshake.
+
+At the end of the handshake, each peer knows the certificate of the other. The peer can 
+verify if the connection was established with the correct peer by looking up the first 
+CA certificate on the certificate chain, retreive the public key, and using it to calculate 
+the opposing peer ID. QUIC acts like a record layer with TLS 1.3  as the backend as TLS is 
+responsible for all the cryptography.
+
+{{% notice "info" %}}
+
+To be clear, there is no additional security handshake and stream muxer need as QUIC provides 
+all of this by default.
+
+{{% /notice %}}
+
+Following the multiaddress format described earlier, a standard QUIC connection will
+look like:
+
+```
+/ip4/127.0.0.1/udp/65432/quic/
+```
+
+In this section, we offered an overview of QUIC and how QUIC works in libp2p.
+
+{{% notice "tip" %}}
+
+For more details on QUIC, including its limitations 
+check out the following resources:
+
+
+{{% /notice %}}
