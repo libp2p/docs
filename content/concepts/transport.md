@@ -252,7 +252,7 @@ WebTransport streams can be arbitrary in size and independent when possible.
 They are reliable but can be canceled when possible. The datagrams in a 
 WebTransport connections are MTU-sized and can be unreliable when possible.
 
-{{% caution "note" %}}
+{{% notice "caution" %}}
 
 There is a functioning WebTransport implementation in go-libp2p that is part 
 of the v0.23 release.
