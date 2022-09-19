@@ -3,55 +3,109 @@ title: Content Routing
 weight: 5
 ---
 
-Peer-to-peer networks are inherently difficult to route because of the following 
+Peer-to-peer networks are inherently tricky to route because of the following 
 interdisciplinary routing challenges:
 
-- The lack of universal orchestration that a central sever can provide when 
+- The lack of universal orchestration that a central server can provide when 
   querying and retrieving content.
-- Not have a central directory that contains information about reaching every peer 
+- Not having a central directory that contains information about reaching every peer 
   in the network.
 - The presence of high node churn.
-- Data classification being communication-expensive.
+- Data classification is communication-expensive.
 - Creating a resilient, scalable, and optimal routing protocol that is resistant to 
-  sybil attacks and node churn, while being future-proof.
+  Sybil attacks and node churn while being future-proof.
 
-Content requests are done in content addressing through the CID.
+Content requests are made in content addressing through the CID.
 If we want to retrieve a file, we send a general request to the network with the CID.
 
-In libp2p, there exists a common content routing interface with operations that allows 
+In libp2p, content routing is used for advertising content-addressed chunks of data.
+There exists a standard content routing interface with operations that allows 
 for content lookups:
+
 - Provide: make content available for other peers on the network by their CID. 
-- Resolve: locate the peer (content provider) storing the content in the network by hash key.
+- Resolve: locate the peer (content provider) storing the content in the network by the hash key.
 - Fetch: download the content from the provider using the CID.
 
 Peer routing schemes may be required to find the peers on the network based on the content 
-routing protocol; DHT-based routing is an example of this, where a DHT is used as namespace 
-that contains peer information about how to contract different peers on the network. 
+routing protocol; DHT-based routing is an example of this, where a DHT is used as a namespace 
+that contains peer information about how to contact different peers on the network. 
 See the peer routing guide for more details.
 
 <!-- add when published -->
 
-While there are different design approaches for a content routing protocol, the libp2p 
+While there are different design approaches for a content routing protocol, such as
+Kademlia DHT, DNS, and BitTorrent trackers, the libp2p 
 documentation will focus on a DHT-based approach that implements the content routing 
-interface: KadDHT-libp2p. Libp2p uses an adpedtation of a Kademila DHT. For other material 
-on content routing, please refer to the IPFS documentation.
+interface: KadDHT-libp2p. Libp2p uses an adapation of the 
+[Kademila DHT algorithm](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) 
+to route peers. The DHT provides a key-value store that multiple peers maintain on the network. 
+A different peer stores each row. The network knows which peer is responsible 
+for which row by a distance metric: K-closest neighbor. 
+Learn more about DHT and Kademila on the 
+[IPFS documentation](https://docs.ipfs.tech/concepts/dht/). 
 
-The DHT provides a key-value store that is maintained by multiple peers on the network. 
-Each row is stored by a different peer. The way the network knows which peer is responsible 
-for which row is by a distance metric: K-closest neighbor. 
+<!-- to add add diagram -->
 
-Kademila uses an XOR metric as a distance calculation between nodes and the CID: 
-distance(PeerID, CID) = PeerID XOR CID = distance(CID,PeerID)
+A typical content lookup follows this process:
 
-To know if a node is responsible for storing a specific piece of content, 
-that node's `PeerId` and the CID of the content to store are used to calculate 
-the distance between that peer and the piece of content. The node with a `PeerID`
-closest to the content is responsible for storing that content ID in the 
-DHT.
+- Peers on the libp2p network maintain routing tables. A peer can send a request 
+  through a network gateway to obtain a random list of peers.
+- Usually, a peer will either want to add content (provide) or get a piece of content 
+  (fetch) to the network. To fetch content, a peer must provide the `CID` for the content of 
+  interest. The peer identifies the neighboring peers as candidate peers for content retrieval. 
+  > One of the ways libp2p offers structured peer-to-peer networking is through content closeness. 
+  Instead of the arbitrary ownership of content, libp2p peers store data to their closest 
+  neighbor and use XOR as a *distance* metric (i.e., the distance between a 
+  chunk of content, which is identified by a `CID`, and a `PeerID` of a peer, is close to 0).
+- A peer will find a set of peers that satisfy content closeness for the `CID` of interest and request 
+  a list of their closest peers to the `CID`.
+- The peer then compares the provided lists to look for a node quorum across the list of 
+  peers. This also protects against a potential malicious actor who may have filled out their 
+  routing and is dishonest about having the closest peer.
+- After identifying the closest peer, the peer either matches with the `CID` and provides a 
+pointer to the content, or, the peer does not have the `CID` and suggests that the lookup failed.
+> This generalization assumes that the peer who has the content does not need to be discovered.
+> Providing content follows a similar approach.
 
-The Kademila DHT in libp2p uses a 256 bit address space as a way to uniquely 
-identify all content. In libp2p, this is all the numbers from `0` to `2^256-1`. 
-Once the CID is known to the network, libp2p takes `SHA256(PeerID)` and interprets 
-it as an integer between `0` and `2^256-1`.
+### Provide: Announce content
 
-Providing content
+Content stays local to peers across the network. Whenever a peer wants to provide content, 
+the peer defines a pointer that points to the `PeerID` of the peer. The peer generates a key 
+based on the `CID` by performing SHA-256 on the `CID`. To know if a node is responsible for 
+storing a specific piece of content, the peer's `PeerId` and the `CID` of the content of interest
+are used to calculate the distance between that peer and content chunk. The node with 
+a `PeerID` closest to the `CID` of the content is responsible for storing that CID in the 
+DHT. These parameters are stored together in a tuple known as a provider record, 
+
+A provider record is a record of pointers that is distributed to the closest peers of the key. 
+Provider records associate a peer's `PeerID` with the generated key based on the `CID`. 
+The network uses a pull-model to pull content based on the pointers within the provider record.
+
+Provider records also account for node churn; they expire after 24 hours
+and are re-published every 12 hours as peers may go offline or no longer provide 
+certain content.
+
+<!-- to add add diagram -->
+
+In addition, peers requesting content can become temporary content providers when 
+receiving content. But to become a permanent content provider, the peer must pin the content.
+The network clears peer memory of temporary content and unpinned content through garbage 
+collection in temporary nodes when over 90% of the peer `datastore` is reached.
+
+<!-- to add add diagram -->
+
+
+## Resolve: Retrieve content
+
+To find the peers that are storing a `CID` of interest, the peer performs a multi-round
+iterative lookup. Similar to providing content, the peer generates a key based on the 
+`CID` by performing SHA-256 on the `CID`. The peer walks across the DHT to obtain
+the provider record and a list of k-closest peers storing the content chunk based on their
+distance to the `CID`.
+
+Ideally, the peer will be able to retrieve the `multiaddr` from the `PeerStore` to dial
+the peer and retrieve the content. Still, if the `multiaddr` is unknown, the peer will need 
+to perform additional peer discovery. The peer can perform another walk by completing a new
+DHT query to find the peer's address.
+
+<!-- to add add diagram -->
