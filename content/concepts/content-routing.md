@@ -19,12 +19,8 @@ Content requests are made in content addressing through the CID.
 If we want to retrieve a file, we send a general request to the network with the CID.
 
 In libp2p, content routing is used for advertising content-addressed chunks of data.
-There exists a standard content routing interface with operations that allows 
-for content lookups:
-
-- Provide: make content available for other peers on the network by their CID. 
-- Resolve: locate the peer (content provider) storing the content in the network by the hash key.
-- Fetch: download the content from the provider using the CID.
+There exists a content routing interface with operations that allows 
+for content lookups.
 
 Peer routing schemes may be required to find the peers on the network based on the content 
 routing protocol; DHT-based routing is an example of this, where a DHT is used as a namespace 
@@ -33,12 +29,16 @@ See the peer routing guide for more details.
 
 <!-- add when published -->
 
+{{% notice "note" %}}
 While there are different design approaches for a content routing protocol, such as
 Kademlia DHT, DNS, and BitTorrent trackers, the libp2p 
 documentation will focus on a DHT-based approach that implements the content routing 
 interface: KadDHT-libp2p. Libp2p uses an adapation of the 
 [Kademila DHT algorithm](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) 
-to route peers. The DHT provides a key-value store that multiple peers maintain on the network. 
+to route peers.
+{{% /notice %}}
+
+The DHT provides a key-value store that multiple peers maintain on the network. 
 A different peer stores each row. The network knows which peer is responsible 
 for which row by a distance metric: K-closest neighbor. 
 Learn more about DHT and Kademila on the 
@@ -64,10 +64,14 @@ A typical content lookup follows this process:
   routing and is dishonest about having the closest peer.
 - After identifying the closest peer, the peer either matches with the `CID` and provides a 
 pointer to the content, or, the peer does not have the `CID` and suggests that the lookup failed.
-> This generalization assumes that the peer who has the content does not need to be discovered.
-> Providing content follows a similar approach.
 
-### Provide: Announce content
+{{% notice "note" %}}
+This generalization assumes that the peer who has the content does not need to be discovered.
+
+Providing content follows a similar approach.
+{{% /notice %}}
+
+## Provide: Announce content
 
 Content stays local to peers across the network. Whenever a peer wants to provide content, 
 the peer defines a pointer that points to the `PeerID` of the peer. The peer generates a key 
@@ -94,7 +98,6 @@ collection in temporary nodes when over 90% of the peer `datastore` is reached.
 
 <!-- to add add diagram -->
 
-
 ## Resolve: Retrieve content
 
 To find the peers that are storing a `CID` of interest, the peer performs a multi-round
@@ -104,8 +107,8 @@ the provider record and a list of k-closest peers storing the content chunk base
 distance to the `CID`.
 
 Ideally, the peer will be able to retrieve the `multiaddr` from the `PeerStore` to dial
-the peer and retrieve the content. Still, if the `multiaddr` is unknown, the peer will need 
+the peer and retrieve the content. If the `multiaddr` is unknown, the peer will need 
 to perform additional peer discovery. The peer can perform another walk by completing a new
-DHT query to find the peer's address.
+DHT query to find the peer's address. 
 
 <!-- to add add diagram -->
