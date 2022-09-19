@@ -1,15 +1,15 @@
 ---
-title: Peer Identity
+title: All about Peers
 weight: 4
 ---
+
+### What is a PeerId
 
 A Peer Identity (often written `PeerId`) is a unique reference to a specific
 peer within the overall peer-to-peer network.
 
 As well as serving as a unique identifier for each peer, a PeerId is a
 verifiable link between a peer and its public cryptographic key.
-
-### What is a PeerId
 
 Each libp2p peer controls a private key, which it keeps secret from all other
 peers. Every private key has a corresponding public key, which is shared with
@@ -83,7 +83,6 @@ representation in multiaddrs. Which one is rendered in the string format
 depends on the version of the multiaddr library in use.
 {{% /notice %}}
 
-
 ### PeerInfo
 
 Another common libp2p data structure related to peer identity is the `PeerInfo`
@@ -107,3 +106,35 @@ their addresses using [peer routing](/concepts/peer-routing/).
 [definition_multihash]: /reference/glossary/#multihash
 
 [spec_peerid]: https://github.com/libp2p/specs/blob/master/peer-ids/peer-ids.md
+
+## PeerStore
+
+`PeerStore`, also known as a `PeerBook`, is a register in libp2p that holds an updated data registry of all known peers, known as `PeerInfo`. Other peers can dial the `PeerStore` and listen for updates and learn about
+any peer within the network. The `PeerStore` works like a phone or address book.; think of it like a multiaddr book. To maintain the source of truth for all `PeerInfo`:
+
+- `addressBook`: holds the known `multiaddrs` of a peer, which may change over time, which the book accounts for.
+- `keyBook`: uses  the`PeerId` to keep track of the peers' public keys.
+- `protocolBook`: holds the protocol identifiers that each peer supports, which may change over time, which the `protocolBook` accounts for.
+- `metadataBook`: Keeps track of the available peer metadata, which is stored in a key-value fashion, where a key identifier (string) represents a metadata value (Uint8Array).
+
+The `PeerStore` also provides an API for the components of the inner book, as well as data events.
+
+A `datastore` helps with data persistence for peers that may have been offline or reset, to improve connection efficiency on the libp2p network. A libp2p node will need to receive a `datastore` to persist data across restarts—a `datastore` stores data as key-value pairs. The store maintains data persistence and connection efficiency by not constantly updating the `datastore` with new data. Instead, the `datastore` stores new data only after reaching a certain threshold of peers out-of-date, and when a node stops to, batch writes to the datastore.
+
+The `PeerID` appends the `datastore` key for each data namespace. The namespaces were defined as follows:
+
+The `PeerStore` also uses an Event Emitter to notify interested parties of relevant events, such as peer discovery.
+
+### Discovery events
+
+A discovery method is likely needed if a peer is undiscoverable using the `PeerStore`. A peer `multiaddr` is typically discovered with their `PeerId`. Once the network successfully discovers a peer `multiaddr`, the peer discovery protocol will emit a peer event to add the `PeerInfo` and peer `multiaddr`  to the `PeerStore`. Learn more about how to discover un-{known, identified} peers on the Peer Routing guide. 
+
+This is one way that the network updates the `PeerStore`. In general, an identify protocol automatically runs on every connection when multiplexing is enabled. The protocol will put the `multiaddrs` and protocols identifiers provided by the peer to the `PeerStore`. Similarly, an `IdentifyPush` protocol waits for change notifications about protocols that a peer supports and updates the `PeerStore` accordingly.
+
+### Retreival events
+
+The `PeerStore` emits a `peer` event to the libp2p network when the network discovers a new peer. Peers can dial the new peer to retrieve its `PeerInfo`.
+
+The `PeerStore` emits a `change:protocols` event when the supported protocols of a peer change.
+
+The `PeerStore` emits a `change:multiaddrs` event when the known listening multiaddrs of a peer changes.
