@@ -191,22 +191,18 @@ makes it more likely that other peers will discover the new address.
 
 ### kad-dht
 
-| **Protocol id**   | spec                     |              |              | implementations  |
-|-------------------|--------------------------|--------------|--------------|------------------|
-| `/ipfs/kad/1.0.0` | [kad-dht spec][spec_kad] | [go][kad_go] | [js][kad_js] | [rust][kad_rust] |
+`kad-dht` is a [Distributed Hash Table][wiki_dht] based on the [Kademlia][wiki_kad] routing algorithm, with some modifications. 
 
-`kad-dht` is a [Distributed Hash Table][wiki_dht] based on the [Kademlia][wiki_kad] routing algorithm, with some modifications.
+libp2p uses the DHT as the foundation of its [peer routing](/concepts/peer-routing/) and [content routing](/concepts/content-routing/) functionality. To learn more about DHT and the Kademlia algorithm,
+check out the [Distributed Hash Tables guide][dht] on the IPFS documentation site. In addition, check out the [libp2p implementations page](https://libp2p.io/implementations/) for updates on all the kad-libp2p implementations.
 
-libp2p uses the DHT as the foundation of its [peer routing](/concepts/peer-routing/) and [content routing](/concepts/content-routing/) functionality.
+<!-- Consider adding general kad matrix on implementations page, then link -->
 
-<!-- TODO(yusef): update spec link when PR lands -->
 [spec_kad]: https://github.com/libp2p/specs/pull/108
-[kad_go]: https://github.com/libp2p/go-libp2p-kad-dht
-[kad_js]: https://github.com/libp2p/js-libp2p-kad-dht
-[kad_rust]: https://github.com/libp2p/rust-libp2p/tree/master/protocols/kad
 
 [wiki_dht]: https://en.wikipedia.org/wiki/Distributed_hash_table
 [wiki_kad]: https://en.wikipedia.org/wiki/Kademlia
+[dht]: https://docs.ipfs.tech/concepts/dht/
 
 ### Circuit Relay
 
