@@ -139,7 +139,6 @@ that distributed and peer-to-peer network stacks can utilize, like libp2p.
 We need a transport protocol that:
 
 - Understands streams 
-- Is not byte-ordered
 - Overcomes HOL blocking (Head-of-line blocking)
 - Overcomes the latency of connection setup
 - Overcomes the ossification risks of TCP
@@ -207,8 +206,7 @@ as a certificate chain in the TLS handshake. View the full TLS specification
 At the end of the handshake, each peer knows the certificate of the other. The peer can 
 verify if the connection was established with the correct peer by looking up the first 
 CA certificate on the certificate chain, retreive the public key, and using it to calculate 
-the opposing peer ID. QUIC acts like a record layer with TLS 1.3 as the backend as TLS is 
-responsible for all the cryptography.
+the opposing peer ID. QUIC acts like the TLS record layer, where TLS 1.3 handles the handshake.
 
 {{% notice "info" %}}
 
@@ -218,22 +216,9 @@ all of this by default.
 {{% /notice %}}
 
 Following the multiaddress format described earlier, a standard QUIC connection will
-look like:
-
-```
-/ip4/127.0.0.1/udp/65432/quic/
-```
+look like: `/ip4/127.0.0.1/udp/65432/quic/`.
 
 In this section, we offered an overview of QUIC and how QUIC works in libp2p.
-
-{{% notice "tip" %}}
-
-For more details on QUIC, including its limitations 
-check out the following resources:
-
-
-
-{{% /notice %}}
 
 ## WebTransport
 
@@ -268,14 +253,14 @@ protocol that fits well with a modular network design.
 
 For a standard WebSocket connection, the roundtrips required are as follows:
 
-- 1-RTT for DNS resolution
 - 1-RTT for TCP handshake
-- 1-RTT for TLS handshake
-- 1-RTT for WebSocket handshake
-- 1-RTT for Multistream Security handshake
-- 1-RTT for libp2p handshake
+- 1-RTT for TLS 1.3 handshake
+- 1-RTT for WebSocket upgrade
+- 1-RTT for multistream security negotiation (Noise or TLS 1.3)
+- 1-RTT for security handshake (Noise or TLS 1.3)
+- 1-RTT for multistream muxer negotiation (mplex or yamux)
 
-In total, 6-RTTs: 5 handshakes + 1 DNS resolution.
+In total, 6-RTTs.
 
 WebTransport running over QUIC only requires 4 RTTs, as:
 
@@ -302,3 +287,6 @@ instead. The HTTP endpoint of a libp2p WebTransport servers must be located at
 For instance, the WebTransport URL of a WebTransport server advertising 
 `/ip4/1.2.3.4/udp/1234/quic/webtransport/` that is authenticated would be 
 `https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise`.
+
+In this section, we offered an overview of WebTransport and how WebTransport works 
+in libp2p.
