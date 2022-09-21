@@ -51,19 +51,19 @@ A typical content lookup follows this process:
 - Peers on the libp2p network maintain routing tables. A peer can send a request 
   through a network gateway to obtain a random list of peers.
 - Usually, a peer will either want to add content (provide) or get a piece of content 
-  (fetch) to the network. To fetch content, a peer must provide the `CID` for the content of 
+  (fetch) to the network. To fetch content, a peer must provide the CID for the content of 
   interest. The peer identifies the neighboring peers as candidate peers for content retrieval. 
   > One of the ways libp2p offers structured peer-to-peer networking is through content closeness. 
   Instead of the arbitrary ownership of content, libp2p peers store data to their closest 
   neighbor and use XOR as a *distance* metric (i.e., the distance between a 
-  chunk of content, which is identified by a `CID`, and a `PeerID` of a peer, is close to 0).
-- A peer will find a set of peers that satisfy content closeness for the `CID` of interest and request 
-  a list of their closest peers to the `CID`.
+  chunk of content, which is identified by a CID, and a PeerID of a peer, is close to 0).
+- A peer will find a set of peers that satisfy content closeness for the CID of interest and request 
+  a list of their closest peers to the CID.
 - The peer then compares the provided lists to look for a node quorum across the list of 
   peers. This also protects against a potential malicious actor who may have filled out their 
   routing and is dishonest about having the closest peer.
-- After identifying the closest peer, the peer either matches with the `CID` and provides a 
-pointer to the content, or, the peer does not have the `CID` and suggests that the lookup failed.
+- After identifying the closest peer, the peer either matches with the CID and provides a 
+pointer to the content, or, the peer does not have the CID and suggests that the lookup failed.
 
 {{% notice "note" %}}
 This generalization assumes that the peer who has the content does not need to be discovered.
@@ -74,15 +74,15 @@ Providing content follows a similar approach.
 ## Provide: Announce content
 
 Content stays local to peers across the network. Whenever a peer wants to provide content, 
-the peer defines a pointer that points to the `PeerID` of the peer. The peer generates a key 
-based on the `CID` by performing SHA-256 on the `CID`. To know if a node is responsible for 
-storing a specific piece of content, the peer's `PeerId` and the `CID` of the content of interest
+the peer defines a pointer that points to the Peer ID of the peer. The peer generates a key 
+based on the CID by performing SHA-256 on the CID. To know if a node is responsible for 
+storing a specific piece of content, the peer's Peer Id and the CID of the content of interest
 are used to calculate the distance between that peer and content chunk. The node with 
-a `PeerID` closest to the `CID` of the content is responsible for storing that CID in the 
+a Peer ID closest to the CID of the content is responsible for storing that CID in the 
 DHT. These parameters are stored together in a tuple known as a provider record, 
 
 A provider record is a record of pointers that is distributed to the closest peers of the key. 
-Provider records associate a peer's `PeerID` with the generated key based on the `CID`. 
+Provider records associate a peer's Peer ID with the generated key based on the CID. 
 The network uses a pull-model to pull content based on the pointers within the provider record.
 
 Provider records also account for node churn; they expire after 24 hours
@@ -94,20 +94,20 @@ certain content.
 In addition, peers requesting content can become temporary content providers when 
 receiving content. But to become a permanent content provider, the peer must pin the content.
 The network clears peer memory of temporary content and unpinned content through garbage 
-collection in temporary nodes when over 90% of the peer `datastore` is reached.
+collection in temporary nodes when over 90% of the peer datastore is reached.
 
 <!-- to add add diagram -->
 
 ## Resolve: Retrieve content
 
-To find the peers that are storing a `CID` of interest, the peer performs a multi-round
+To find the peers that are storing a CID of interest, the peer performs a multi-round
 iterative lookup. Similar to providing content, the peer generates a key based on the 
-`CID` by performing SHA-256 on the `CID`. The peer walks across the DHT to obtain
+CID by performing SHA-256 on the CID. The peer walks across the DHT to obtain
 the provider record and a list of k-closest peers storing the content chunk based on their
-distance to the `CID`.
+distance to the CID.
 
-Ideally, the peer will be able to retrieve the `multiaddr` from the `PeerStore` to dial
-the peer and retrieve the content. If the `multiaddr` is unknown, the peer will need 
+Ideally, the peer will be able to retrieve the multiaddr from the Peer Store to dial
+the peer and retrieve the content. If the multiaddr is unknown, the peer will need 
 to perform additional peer discovery. The peer can perform another walk by completing a new
 DHT query to find the peer's address. 
 
