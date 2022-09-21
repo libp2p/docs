@@ -163,8 +163,8 @@ A web browser connection typically entails the following (TCP+TLS+HTTP/2):
 1. Transport layer: TCP runs on top of the IP layer to provide a reliable 
    byte stream.
    - TCP provides a reliable, bidirectional connection between two end systems.
-2. Secure communication layer: A TLS handshake runs on top of TCP to,
-   establishing an encrypted and authenticated connection.
+2. Secure communication layer: A TLS handshake runs on top of TCP to
+   establish an encrypted and authenticated connection.
    - Standard TLS over TCP requires 3-RTT. A typical TLS 1.3 handshake takes 1-RTT.
 3. Application layer: HTTP runs on a secure transport connection to transfer 
    information and applies a stream muxer to serve multiple requests.
