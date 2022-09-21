@@ -201,12 +201,13 @@ cryptography methods). The streams in libp2p map cleanly to QUIC streams.
 
 When a connection starts, peers will take their host key and create a self-signed CA 
 certificate. They then sign an intermediate chain using their self-signed CA and put it 
-as a certificate chain in the TLS handshake.
+as a certificate chain in the TLS handshake. View the full TLS specification
+[here](https://github.com/libp2p/specs/blob/master/tls/tls.md).
 
 At the end of the handshake, each peer knows the certificate of the other. The peer can 
 verify if the connection was established with the correct peer by looking up the first 
 CA certificate on the certificate chain, retreive the public key, and using it to calculate 
-the opposing peer ID. QUIC acts like a record layer with TLS 1.3  as the backend as TLS is 
+the opposing peer ID. QUIC acts like a record layer with TLS 1.3 as the backend as TLS is 
 responsible for all the cryptography.
 
 {{% notice "info" %}}
@@ -230,6 +231,8 @@ In this section, we offered an overview of QUIC and how QUIC works in libp2p.
 For more details on QUIC, including its limitations 
 check out the following resources:
 
+
+
 {{% /notice %}}
 
 ## WebTransport
@@ -248,41 +251,38 @@ Recall that WebSockets are bidirectional, full-duplex communication between two
 points over a single-socket connection. WebTransport can be used
 like WebSockets, but with the support of multiple streams.
 
-WebTransport streams can be arbitrary in size and independent when possible. 
-They are reliable but can be canceled when possible. The datagrams in a 
-WebTransport connections are MTU-sized and can be unreliable when possible.
+WebTransport supports reliable streams that can be arbitrary in size. They can be 
+independent and canceled if needed. The datagrams in a 
+WebTransport connections are MTU-sized.
 
 {{% notice "caution" %}}
 
 There is an experimental WebTransport transport in go-libp2p that is part 
-of the v0.23 release.
-
-The implementation should be used experimentally and is not recommended for
-production environments.
+of the v0.23 release. The implementation should be used experimentally and is not 
+recommended for production environments.
 
 {{% /notice %}}
 
 For network stacks like libp2p, WebTransport is a pluggable
 protocol that fits well with a modular network design.
 
-For a standard WebSocket connection:
+For a standard WebSocket connection, the roundtrips required are as follows:
 
-- 1 RTT for DNS resolution
-- 1 RTT for TCP handshake
-- 1 RTT for TLS handshake
-- 1 RTT for WebSocket handshake
-- 1 RTT for Multistream Security handshake
-- 1 RTT for libp2p handshake
+- 1-RTT for DNS resolution
+- 1-RTT for TCP handshake
+- 1-RTT for TLS handshake
+- 1-RTT for WebSocket handshake
+- 1-RTT for Multistream Security handshake
+- 1-RTT for libp2p handshake
 
-Plenty of handshakes and roundtrips: 6 RTTs: 5 handshakes + 1 DNS resolution
+In total, 6-RTTs: 5 handshakes + 1 DNS resolution.
 
 WebTransport running over QUIC only requires 4 RTTs, as:
 
-- 1 RTT for QUIC handshake
-- 1 RTT for WebTransport handshake
-- 2 RTT for libp2p handshake; one for multistream and one for the secure 
-  communication (TLS 1.3 or Noise)
-
+- 1-RTT for QUIC handshake
+- 1-RTT for WebTransport handshake
+- 2-RTT for libp2p handshake; one for multistream and one for authentication 
+  (with a Noise handshake)
 > With protocol select, the WebTransport handshake and the libp2p handshake 
 > can run in parallel, bringing down the total round trips to 2.
 
@@ -296,8 +296,9 @@ server will use to verify the connection.
 
 WebTransport requires an HTTPS URL to establish a WebTransport session - 
 e.g., `https://docs.libp2p.com/webtransport` and the multiaddresses use an HTTP URL
-instead. Since multiaddrs don't allow the encoding of URLs, the HTTP endpoint of a libp2p 
-WebTransport servers must be located at `/.well-known/libp2p-webtransport`.
+instead. The HTTP endpoint of a libp2p WebTransport servers must be located at 
+`/.well-known/libp2p-webtransport`.
 
 For instance, the WebTransport URL of a WebTransport server advertising 
-`/ip4/1.2.3.4/udp/1234/quic/webtransport/` would be `https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=tls`.
+`/ip4/1.2.3.4/udp/1234/quic/webtransport/` that is authenticated would be 
+`https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise`.
