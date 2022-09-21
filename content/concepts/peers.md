@@ -92,16 +92,20 @@ that the peer is listening on.
 A libp2p node will typically have a temporary store to store peer keys, 
 addresses and associated metadata. The peer store works like a phone or address 
 book; think of it like a universal multiaddr book that maintains the source of truth 
-for all known peers. Implementations may wish to persist a snapshot of the peer store 
-on shutdown, so that they don’t have to start with an empty peer store when they boot 
-up the next time.
+for all known peers. 
+
+{{% notice "info" %}}
+Implementations may wish to persist a snapshot of the peer store on shutdown, so that 
+they don’t have to start with an empty peer store when they boot up the next time.
+
+{{% /notice %}}
 
 ### Peer Discovery
 
-A discovery method is likely needed if a peer is undiscoverable using the Peer Store. 
-A peer multiaddr is typically discovered with their Peer Id. Once the network successfully 
-discovers a peer multiaddr (and able to establish a connection), the peer discovery protocol 
-adds the Peer Info and multiaddr to the Peer Store. Learn more about how to discover 
+A discovery method is likely needed if no information about a peer is available in the 
+peer store. A peer multiaddr is typically discovered with their Peer Id. Once the network 
+successfully discovers a peer multiaddr (and able to establish a connection), the peer discovery 
+protocol adds the Peer Info and multiaddr to the Peer Store. Learn more about how to discover 
 un-{known, identified} peers on the peer routing guide.
 
 <!-- to add when peer routing guide is up -->
