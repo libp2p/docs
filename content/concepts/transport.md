@@ -210,3 +210,76 @@ Following the multiaddress format described earlier, a standard QUIC connection 
 look like: `/ip4/127.0.0.1/udp/65432/quic/`.
 
 In this section, we offered an overview of QUIC and how QUIC works in libp2p.
+
+## WebTransport
+
+Another transport protocol under development at the IETF is WebTransport.
+WebTransport is a new specification that uses QUIC to offer an alternative to
+WebSockets. It can be considered WebSockets over QUIC by allowing 
+browsers to establish a stream-multiplexed and bidirectional 
+connection to servers. 
+
+The specification can depend on and reuse the QUIC infrastructure in place 
+to offer WebSockets that take the benefits of UDP and offer streams without 
+head-of-line blocking.
+
+Recall that WebSockets are bidirectional, full-duplex communication between two 
+points over a single-socket connection. WebTransport can be used
+like WebSockets, but with the support of multiple streams.
+
+WebTransport supports reliable streams that can be arbitrary in size. They can be 
+independent and canceled if needed. The datagrams in a 
+WebTransport connections are MTU-sized.
+
+{{% notice "caution" %}}
+
+There is an experimental WebTransport transport in go-libp2p that is part 
+of the v0.23 release. The implementation should be used experimentally and is not 
+recommended for production environments.
+
+{{% /notice %}}
+
+For network stacks like libp2p, WebTransport is a pluggable
+protocol that fits well with a modular network design.
+
+For a standard WebSocket connection, the roundtrips required are as follows:
+
+- 1-RTT for TCP handshake
+- 1-RTT for TLS 1.3 handshake
+- 1-RTT for WebSocket upgrade
+- 1-RTT for multistream security negotiation (Noise or TLS 1.3)
+- 1-RTT for security handshake (Noise or TLS 1.3)
+- 1-RTT for multistream muxer negotiation (mplex or yamux)
+
+In total, 6-RTTs.
+
+WebTransport running over QUIC only requires 4 RTTs, as:
+
+- 1-RTT for QUIC handshake
+- 1-RTT for WebTransport handshake
+- 2-RTT for libp2p handshake; one for multistream and one for authentication 
+  (with a Noise handshake)
+> With protocol select, the WebTransport handshake and the libp2p handshake 
+> can run in parallel, bringing down the total round trips to 2.
+
+### WebTransport in libp2p
+
+WebTransport multiaddresses are composed of a QUIC multiaddr, followed 
+by `/webtransport` and a list of multihashes of the node certificates that the server uses.
+
+For instance, for multiaddress `/ip4/127.0.0.1/udp/123/quic/webtransport/certhash/<hash1>`, 
+a standard local QUIC connection is defined up until and including `/quic.` 
+Then, `/webtransport/` runs over QUIC and the self-signed certificate hash that the 
+server will use to verify the connection.
+
+WebTransport requires an HTTPS URL to establish a WebTransport session - 
+e.g., `https://docs.libp2p.com/webtransport` and the multiaddresses use an HTTP URL
+instead. The HTTP endpoint of a libp2p WebTransport servers must be located at 
+`/.well-known/libp2p-webtransport`.
+
+For instance, the WebTransport URL of a WebTransport server advertising 
+`/ip4/1.2.3.4/udp/1234/quic/webtransport/` that is authenticated would be 
+`https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise`.
+
+In this section, we offered an overview of WebTransport and how WebTransport works 
+in libp2p.
