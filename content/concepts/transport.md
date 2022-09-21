@@ -129,7 +129,7 @@ in 2014, and was later standardized by the IETF in
    so streams layered on top of TCP experience HoL blocking.
 
    {{% notice "info" %}}
-   HoL blocking occurs when a the head packet holds up the other packets in the transmission 
+   HoL blocking occurs when a lost, or out-of-order delivered head packet holds up the other packets in the transmission 
    queue. 
    {{% /notice %}}
 
@@ -174,9 +174,9 @@ A web browser connection typically entails the following (TCP+TLS+HTTP/2):
 
 ### What is QUIC?
 
-QUIC combines the functionality of these layers: it sends UDP packets. Therefore, 
+QUIC combines the functionality of these layers. It sends UDP packets and therefore
 it is responsible for loss detection and repair itself. By using encryption, 
-QUIC avoid middleboxes. The TLS 1.3 handshake is performed in the first flight, 
+QUIC avoids ossified middleboxes. The TLS 1.3 handshake is performed in the first flight, 
 removing the 1-RTT cost of verifying the client’s address. QUIC also exposes multiple 
 streams, so no stream multiplexer is needed at the application layer. Part of the application 
 layer is also built directly into QUIC; when you run HTTP on top of QUIC; only a small shim 
