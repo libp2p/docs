@@ -118,23 +118,36 @@ and some places in the codebase still use the "swarm" terminology.
 
 ## QUIC
 
-Transport protocols continue to improve transport methods in an attempt to alleviate 
-the shortcomings of the transport layer. 
+QUIC is a new transport protocol that provides an always-encrypted, stream-multiplexed 
+connection built on top of UDP. It started as an experiment by Google on Google Chrome 
+in 2014, and was later standardized by the IETF in 
+[RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000).
 
-{{% notice "note" %}}
+### Key challenges with TCP
 
-Recalling the purpose of transports
+1. Head-of-line blocking (HoL blocking): TCP is a single byte stream exposed by the kernel, 
+   so streams layered on top of TCP experience HoL blocking.
 
-The IP service model provides logical communication between hosts (or nodes) but 
-is considered a best-effort delivery service, as segment delivery is not guaranteed. 
-The primary responsibility of transport protocols is to extend the IP 
-delivery service between two end systems. TCP connects the unreliable service of IP 
-between end systems into a reliable transport service between processes (i.e., the 
-processes running on the end systems). The purpose of newer transport protocols is not 
-only to improve current transport methods but also to allow for efficient connections 
-that distributed and peer-to-peer network stacks can utilize, like libp2p.
+   {{% notice "info" %}}
+   HoL blocking occurs when a the head packet holds up the other packets in the transmission 
+   queue. 
+   {{% /notice %}}
 
-{{% /notice %}}
+2. Ossification: Because TCP is unencrypted, middleboxes can inspect and modify
+   TCP header fields and may break unexpectedly when they encounter anything they don’t like.
+
+   {{% notice "info" %}}
+   Middleboxes are intermediary networking devices that can perform special functions to 
+   inspect, transform, and even manipulate network traffic. Examples of middleboxes are 
+   firewalls, NATs, proxies, and load balancers.
+   {{% /notice %}}
+
+3. Handshake inefficiency: the 3-way handshake is inefficient, as it spends 1-RTT on verifying 
+   the client’s address.
+
+   {{% notice "info" %}}
+   TCP requires a 3-way handshake to establish a reliable, bidirectional connection as it intends to.
+   {{% /notice %}}
 
 We need a transport protocol that:
 
@@ -145,73 +158,51 @@ We need a transport protocol that:
 
 and, ideally, keeps the guarantees of TCP.
 
-In 2014, a new transport protocol 
-called QUIC (which, at the time, stood for Quick UDP Internet Connections, but now 
-is only referred to as QUIC and does not use the original acronym) was launched as an 
-experiment on Google Chrome. It has since been refined and maintained by an official 
-working group under the IETF (Internet Engineering Task Force). 
-
-QUIC is a UDP-based multiplexed and secure transport. 
-The official standard is defined in [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000).
-
-Being UDP-based, QUIC optimizes for speedy transmission, as opposed to the latency 
-that exists in HTTP leveraging TLS over TCP.
-
 A web browser connection typically entails the following (TCP+TLS+HTTP/2):
 
-1. IP layer: the connection will run on the IP layer, which is responsible for 
-   packet routing. 
-2. Transport layer: TCP then runs on top of the IP layer to provide a reliable 
+1. Transport layer: TCP runs on top of the IP layer to provide a reliable 
    byte stream.
-3. Secure communication layer: Secure communication (i.e., TLS) runs on TCP to 
-   encrypt the bytes.
-   - Negotiation (SYN-ACK) of encryption parameters for TLS. Standard TLS over 
-     TCP requires 3 RTT.
-4. Application layer: HTTP runs on a secure transport connection to transfer 
-   information.
-   - Data starts to flow.
+   - TCP provides a reliable, bidirectional connection between two end systems.
+2. Secure communication layer: A TLS handshake runs on top of TCP to,
+   establishing an encrypted and authenticated connection.
+   - Standard TLS over TCP requires 3-RTT. A typical TLS 1.3 handshake takes 1-RTT.
+3. Application layer: HTTP runs on a secure transport connection to transfer 
+   information and applies a stream muxer to serve multiple requests.
+   - Application data starts to flow.
 
-Secure TCP-based connections offer a multi-layered approach for secure communication 
-over IP, whereas QUIC, by design, is an optimized transport consolidation of layers. 
-QUIC has to deal with TCP-like congestion control, loss recovery, and encryption. 
-Part of the application layer is also built directly into QUIC; when you
-run HTTP on top of QUIC; only a small shim layer exists that maps 
+<!-- to add diagram -->
+
+### What is QUIC?
+
+QUIC combines the functionality of these layers: it sends UDP packets. Therefore, 
+it is responsible for loss detection and repair itself. By using encryption, 
+QUIC avoid middleboxes. The TLS 1.3 handshake is performed in the first flight, 
+removing the 1-RTT cost of verifying the client’s address. QUIC also exposes multiple 
+streams, so no stream multiplexer is needed at the application layer. Part of the application 
+layer is also built directly into QUIC; when you run HTTP on top of QUIC; only a small shim 
+layer exists that maps 
 [HTTP semantics](https://httpwg.org/http-core/draft-ietf-httpbis-semantics-latest.html) 
 onto QUIC streams.
 
-To establish a connection, QUIC assumes that the node sends the right address over
-the packet. QUIC saves one round-trip by doing this. If there is suspicion of an 
-attack, QUIC has a defense mechanism that can require a three-way handshake, but only 
-under particular conditions. A minimum packet size rule exists for the first packet to 
-ensure that small malicious packets like SYN packets cannot be sent and consume excessive 
-resources, as can be done with TCP.
+QUIC supports the resumption of connections (0-RTT connections), allowing a 
+client to send application data right away, even before the QUIC handshake has finished.
 
-QUIC saves another round-trip in using TLS 1.3 by optimistically providing keyshares. 
-If you have established a connection before, the host can send you a session ticket 
-that can be used to establish a new secure connection instantly, without any round-trips.
+<!-- to add diagram -->
 
-> Over the last several years, the IETF has been working on a new version of TLS, TLS 1.3.
-> Learn more about TLS 1.3 and how it is used in libp2p on the secure communication concept guide.
+### QUIC in libp2p
 
-<!-- to add link to secure comm guide, and later to the specific doc that covers TLS -->
-
-libp2p only supports bidirectional streams and uses TLS 1.3 by default (but can use other
-cryptography methods). The streams in libp2p map cleanly to QUIC streams.
+libp2p only supports bidirectional streams and uses TLS 1.3 by default. 
+The streams in libp2p map cleanly to QUIC streams.
 
 When a connection starts, peers will take their host key and create a self-signed CA 
 certificate. They then sign an intermediate chain using their self-signed CA and put it 
 as a certificate chain in the TLS handshake. View the full TLS specification
 [here](https://github.com/libp2p/specs/blob/master/tls/tls.md).
 
-At the end of the handshake, each peer knows the certificate of the other. The peer can 
-verify if the connection was established with the correct peer by looking up the first 
-CA certificate on the certificate chain, retreive the public key, and using it to calculate 
-the opposing peer ID. QUIC acts like the TLS record layer, where TLS 1.3 handles the handshake.
+{{% notice "note" %}}
 
-{{% notice "info" %}}
-
-To be clear, there is no additional security handshake and stream muxer needed as QUIC provides 
-all of this by default.
+To be clear, there is no additional security handshake and stream muxer needed as QUIC 
+provides all of this by default.
 
 {{% /notice %}}
 
