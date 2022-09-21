@@ -144,7 +144,7 @@ We need a transport protocol that:
 - Overcomes the latency of connection setup
 - Overcomes the ossification risks of TCP
 
-and, ideally, with the guarantees of TCP.
+and, ideally, keeps the guarantees of TCP.
 
 In 2014, a new transport protocol 
 called QUIC (which, at the time, stood for Quick UDP Internet Connections, but now 
@@ -197,7 +197,7 @@ that can be used to establish a new secure connection instantly, without any rou
 <!-- to add link to secure comm guide, and later to the specific doc that covers TLS -->
 
 libp2p only supports bidirectional streams and uses TLS 1.3 by default (but can use other
-cryptography methods). The streams in libp2p map cleanly to QUIC packets.
+cryptography methods). The streams in libp2p map cleanly to QUIC streams.
 
 When a connection starts, peers will take their host key and create a self-signed CA 
 certificate. They then sign an intermediate chain using their self-signed CA and put it 
@@ -211,7 +211,7 @@ responsible for all the cryptography.
 
 {{% notice "info" %}}
 
-To be clear, there is no additional security handshake and stream muxer need as QUIC provides 
+To be clear, there is no additional security handshake and stream muxer needed as QUIC provides 
 all of this by default.
 
 {{% /notice %}}
@@ -236,17 +236,17 @@ check out the following resources:
 
 Another transport protocol under development at the IETF is WebTransport.
 WebTransport is a new specification that uses QUIC to offer an alternative to
-WebSockets. Instead, it can be considered WebSockets over QUIC by allowing 
+WebSockets. It can be considered WebSockets over QUIC by allowing 
 browsers to establish a stream-multiplexed and bidirectional 
 connection to servers. 
 
 The specification can depend on and reuse the QUIC infrastructure in place 
-to offer WebSockets that take the benefits of UDP and offer sockets without head-of-line 
+to offer WebSockets that take the benefits of UDP and offer streams without head-of-line 
 blocking.
 
 Recall that WebSockets are bidirectional, full-duplex communication between two 
-points over a single-socket connection. WebTransports, as a result, can be used
-like WebSockets, but with the support of multistreams.
+points over a single-socket connection. WebTransport can be used
+like WebSockets, but with the support of multiple streams.
 
 WebTransport streams can be arbitrary in size and independent when possible. 
 They are reliable but can be canceled when possible. The datagrams in a 
@@ -254,7 +254,7 @@ WebTransport connections are MTU-sized and can be unreliable when possible.
 
 {{% notice "caution" %}}
 
-There is a functioning WebTransport implementation in go-libp2p that is part 
+There is an experimental WebTransport transport in go-libp2p that is part 
 of the v0.23 release.
 
 The implementation should be used experimentally and is not recommended for
