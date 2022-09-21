@@ -24,11 +24,7 @@ verify that the public key used to secure the channel is the same one used
 to identify the peer.
 
 The [Peer Id spec][spec_peerid] goes into detail about the byte formats used
-for libp2p public keys and how to hash the key to produce a valid Pee Id.
-
-Peer Ids are encoded using the [multihash][definition_multihash] format, which
-adds a small header to the hash itself that identifies the hash algorithm used
-to produce it.
+for libp2p public keys and how to hash the key to produce a valid Peer Id.
 
 ### How are Peer Ids represented as strings?
 
@@ -94,56 +90,21 @@ that the peer is listening on.
 ## Peer Store
 
 A libp2p node will typically have a temporary store to store peer keys, 
-addresses and associated metadata. `PeerStore`, also known as a `PeerBook`, 
-is a register in libp2p that holds an updated data (Peer Info) registry of all 
-known peers. Other peers can dial the peer store and listen for updates and learn 
-about any peer within the network. The peer store works like a phone or address book; 
-think of it like a universal multiaddr book that maintains the source of truth for all
-known peers.
-
-{{% notice "note" %}}
-
-With different design choices possible, here is a snapshot of how the js-libp2p 
-implements the peer store: an `addressBook` holds the known multiaddrs of a peer, 
-which may change over time, which the book accounts for; a `keyBook` uses the Peer Id 
-to keep track of the peers' public keys; a `protocolBook` holds the protocol identifiers 
-that each peer supports, which may change over time, which the `protocolBook` accounts 
-for; a `metadataBook` keeps track of the available peer metadata, which is stored in a 
-key-value fashion, where a key identifier (string) represents a metadata value (Uint8Array). 
-There is also an API to expose the components of the inner book, as well as data events 
-to emit data about new information and changes.
-  
-{{% /notice %}}
-
-A datastore helps with data persistence for peers that may have been offline or reset, to 
-improve connection efficiency on the libp2p network. A libp2p node will need to receive a 
-datastore to persist data across restarts—a datastore stores data as key-value pairs. The 
-store maintains data persistence and connection efficiency by not constantly updating the 
-datastore with new data. Instead, the datastore stores new data only after reaching a certain 
-threshold of peers out-of-date, and when a node stops to, batch writes to the datastore.
-The Peer ID will be appended to the datastore key for each data namespace.
+addresses and associated metadata. The peer store works like a phone or address 
+book; think of it like a universal multiaddr book that maintains the source of truth 
+for all known peers. Implementations may wish to persist a snapshot of the peer store 
+on shutdown, so that they don’t have to start with an empty peer store when they boot 
+up the next time.
 
 ### Peer Discovery
 
-A discovery method is likely needed if a peer is undiscoverable using the Peer Store. A peer 
-multiaddr is typically discovered with their Peer Id. Once the network successfully discovers 
-a peer multiaddr (and able to establish a connection), the peer discovery protocol adds the 
-Peer Info and multiaddr to the Peer Store. Learn more about how to discover 
+A discovery method is likely needed if a peer is undiscoverable using the Peer Store. 
+A peer multiaddr is typically discovered with their Peer Id. Once the network successfully 
+discovers a peer multiaddr (and able to establish a connection), the peer discovery protocol 
+adds the Peer Info and multiaddr to the Peer Store. Learn more about how to discover 
 un-{known, identified} peers on the peer routing guide.
 
 <!-- to add when peer routing guide is up -->
-
-This is one way that the network updates the Peer Store. 
-In general, an [Identify protocol][identity] automatically runs on every connection when 
-multiplexing is enabled. The protocol will put the multiaddrs and protocols identifiers provided 
-by the peer to the Peer Store. Similarly, the Identity protocol waits for change notifications 
-about protocols that a peer supports and updates the Peer Store accordingly.
-
-### Peer Retrieval
-
-The Peer Store notifies the libp2p network when the network discovers 
-a new peer. The Peer Store also notifies the network about changes to the Peer Info
-about the peer, such as the peer's supported protocols and known multiaddrs.
 
 [wiki_hash_function]: https://en.wikipedia.org/wiki/Cryptographic_hash_function
 [wiki_base58]: https://en.wikipedia.org/wiki/Base58
