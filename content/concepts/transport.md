@@ -136,18 +136,8 @@ in 2014, and was later standardized by the IETF in
 2. Ossification: Because TCP is unencrypted, middleboxes can inspect and modify
    TCP header fields and may break unexpectedly when they encounter anything they don’t like.
 
-   {{% notice "info" %}}
-   Middleboxes are intermediary networking devices that can perform special functions to 
-   inspect, transform, and even manipulate network traffic. Examples of middleboxes are 
-   firewalls, NATs, proxies, and load balancers.
-   {{% /notice %}}
-
 3. Handshake inefficiency: the 3-way handshake is inefficient, as it spends 1-RTT on verifying 
    the client’s address.
-
-   {{% notice "info" %}}
-   TCP requires a 3-way handshake to establish a reliable, bidirectional connection as it intends to.
-   {{% /notice %}}
 
 We need a transport protocol that:
 
@@ -194,9 +184,9 @@ client to send application data right away, even before the QUIC handshake has f
 libp2p only supports bidirectional streams and uses TLS 1.3 by default. 
 The streams in libp2p map cleanly to QUIC streams.
 
-When a connection starts, peers will take their host key and create a self-signed CA 
-certificate. They then sign an intermediate chain using their self-signed CA and put it 
-as a certificate chain in the TLS handshake. View the full TLS specification
+When a connection starts, peers will take their host key and create a self-signed 
+CA certificate. They then sign an intermediate chain using their self-signed CA certificate 
+and put it as a certificate chain in the TLS handshake. View the full TLS specification
 [here](https://github.com/libp2p/specs/blob/master/tls/tls.md).
 
 {{% notice "note" %}}
