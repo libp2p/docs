@@ -91,14 +91,6 @@ structure.
 Peer Info combines a Peer Id with a set of [multiaddrs][definition_multiaddr]
 that the peer is listening on.
 
-[wiki_hash_function]: https://en.wikipedia.org/wiki/Cryptographic_hash_function
-[wiki_base58]: https://en.wikipedia.org/wiki/Base58
-
-[definition_multiaddr]: /reference/glossary/#multiaddr
-[definition_multihash]: /reference/glossary/#multihash
-
-[spec_peerid]: https://github.com/libp2p/specs/blob/master/peer-ids/peer-ids.md
-
 ## Peer Store
 
 A libp2p node will typically have a temporary store to store peer keys, 
@@ -141,14 +133,23 @@ un-{known, identified} peers on the peer routing guide.
 
 <!-- to add when peer routing guide is up -->
 
-This is one way that the network updates the Peer Store. In general, an Identify protocol 
-automatically runs on every connection when multiplexing is enabled. The protocol will put 
-the multiaddrs and protocols identifiers provided by the peer to the Peer Store. Similarly, 
-the Identity protocol waits for change notifications about protocols that a peer supports 
-and updates the Peer Store accordingly.
+This is one way that the network updates the Peer Store. 
+In general, an [Identify protocol][identity] automatically runs on every connection when 
+multiplexing is enabled. The protocol will put the multiaddrs and protocols identifiers provided 
+by the peer to the Peer Store. Similarly, the Identity protocol waits for change notifications 
+about protocols that a peer supports and updates the Peer Store accordingly.
 
 ### Peer Retrieval
 
 The Peer Store notifies the libp2p network when the network discovers 
 a new peer. The Peer Store also notifies the network about changes to the Peer Info
 about the peer, such as the peer's supported protocols and known multiaddrs.
+
+[wiki_hash_function]: https://en.wikipedia.org/wiki/Cryptographic_hash_function
+[wiki_base58]: https://en.wikipedia.org/wiki/Base58
+
+[definition_multiaddr]: /reference/glossary/#multiaddr
+[definition_multihash]: /reference/glossary/#multihash
+
+[spec_peerid]: https://github.com/libp2p/specs/blob/master/peer-ids/peer-ids.md
+[identity]: https://github.com/libp2p/specs/blob/master/identify/README.md#identifypush
