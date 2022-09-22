@@ -605,8 +605,9 @@ section.attachments.grey .attachments-files {
     padding-bottom: 0px;
 }
 .children-li p {
-    font-size: small;
-    font-style: italic;
+    font-size: medium;
+    font-style: normal;
+    padding-bottom: 3px;
 
 }
 .children-h2 p, .children-h3 p {
