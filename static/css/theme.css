@@ -417,6 +417,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     justify-content: center;
     height: 100%;
     padding: 2rem 0;
+    font-size: 1.5rem;
 }
 #chapter #body-inner {
     padding-bottom: 3rem;
@@ -428,12 +429,13 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     text-align: center;
 }
 #chapter h1 {
-    font-size: 5rem;
+    font-size: 10rem;
     border-bottom: 4px solid #F0F2F4;
 }
 #chapter p {
-    text-align: center;
-    font-size: 1.2rem;
+    text-align: left;
+    font-size: 1.3rem;
+    padding: 2rem 1rem;
 }
 #footer {
     padding: 3rem 1rem;

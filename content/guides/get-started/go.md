@@ -1,7 +1,8 @@
 ---
 title: "Getting Started with go-libp2p"
-menuTitle: Go
+menuTitle: go-libp2p
 weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b>3.1.1. </b>'
 ---
 
 This is the first in a series of tutorials on working with libp2p’s Go implementation,

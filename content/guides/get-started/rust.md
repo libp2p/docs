@@ -1,7 +1,8 @@
 ---
 title: "Getting Started with rust-libp2p"
-menuTitle: Rust
+menuTitle: rust-libp2p
 weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b>3.1.3. </b>'
 ---
 
 Check out [tutorials of the Rust libp2p

@@ -1,7 +1,8 @@
 ---
 title: "Getting Started with js-libp2p"
-menuTitle: "Javascript"
+menuTitle: js-libp2p
 weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b>3.1.2. </b>'
 ---
 
 This is the first in a series of tutorials on working with libp2p's javascript implementation, [js-libp2p](https://github.com/libp2p/js-libp2p).
