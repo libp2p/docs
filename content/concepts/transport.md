@@ -129,12 +129,15 @@ in 2014, and was later standardized by the IETF in
    so streams layered on top of TCP experience head-of-line (HoL) blocking.
 
    {{% notice "info" %}}
-   In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered after that need to wait in the kernel buffer until a retransmission for the lost packet is received.
+   In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered 
+   after that need to wait in the kernel buffer until a retransmission for the lost packet 
+   is received.
    {{% /notice %}}
 
 2. Ossification: Because the header of TCP packet is unencrypted, middleboxes can inspect and modify
    TCP header fields and may break unexpectedly when they encounter anything they don’t understand.
-   This makes it practically impossible to deploy any changes to the TCP protocol that change the wire format.
+   This makes it practically impossible to deploy any changes to the TCP protocol that change the 
+   wire format.
 
 3. Handshake inefficiency: the 3-way handshake is inefficient, as it spends 1-RTT on verifying 
    the client’s address.
@@ -142,23 +145,38 @@ in 2014, and was later standardized by the IETF in
 QUIC was designed with the following goals in mind:
 
 - Streams at the transport layer, thereby overcoming HoL blocking
-- Reducing the latency of connection establishment to a single RTT for new connections, and to allow sending of 0-RTT application data for resumed connections
-- Encrypting as much as possible. This eliminates the ossification risk, as middleboxes aren't able to read any encrypted fields, and allows future evolution of the protocol
+- Reducing the latency of connection establishment to a single RTT for new connections, and to 
+  allow sending of 0-RTT application data for resumed connections
+- Encrypting as much as possible. This eliminates the ossification risk, as middleboxes aren't 
+  able to read any encrypted fields, and allows future evolution of the protocol
 
+### Comparing HTTP/2 and HTTP/3
 
-A web browser connection typically entails the following (TCP+TLS+HTTP/2):
+The IETF introduced a new hypertext transfer protocol standard in late 2018, 
+which turned into a proposed standard for HTTP/3 in 
+[RFC 9114](https://datatracker.ietf.org/doc/html/rfc9114). HTTP/3 combines the advantages 
+of the existing transfer protocols HTTP/2 and HTTP over QUIC in one standard for faster and 
+more stable data transmission.
+
+The following diagram illustrates the OSI model for HTTP/2 and HTTP/3 [1]:
+
+![HTTP/2 & HTTP/3 OSI model](transports/http3-osi.png)
+
+A web browser connection typically entails the following **(TCP+TLS+HTTP/2)**:
 
 1. Transport layer: TCP runs on top of the IP layer to provide a reliable 
    byte stream.
    - TCP provides a reliable, bidirectional connection between two end systems.
-2. Secure communication layer: A TLS handshake runs on top of TCP to
+2. Security layer: A TLS handshake runs on top of TCP to
    establish an encrypted and authenticated connection.
    - Standard TLS over TCP requires 3-RTT. A typical TLS 1.3 handshake takes 1-RTT.
 3. Application layer: HTTP runs on a secure transport connection to transfer 
    information and applies a stream muxer to serve multiple requests.
    - Application data starts to flow.
 
-<!-- to add diagram -->
+In contrast, HTTP/3 runs over [QUIC](##what-is-quic), where QUIC is similar to 
+TCP+TLS+HTTP/2 and runs over UDP. Building on UDP allows HTTP/3 to bypass the challenges 
+found in TCP and use all the advantages of HTTP/2 and HTTP over QUIC.
 
 ### What is QUIC?
 
@@ -196,3 +214,7 @@ two nodes using QUIC only takes a single RTT.
 
 Following the multiaddress format described earlier, a standard QUIC connection will
 look like: `/ip4/127.0.0.1/udp/65432/quic/`.
+
+### References
+
+[1] [Cloudspoint: What is HTTP/3?](https://cloudspoint.xyz/what-is-http3/)
