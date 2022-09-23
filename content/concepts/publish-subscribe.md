@@ -556,7 +556,7 @@ the full message column populated with a purple speech bubble representing
 that the full message contents are remembered as part of the state for
 messages seen in the last few seconds. All eight of the table rows are
 bracketed with the label “Last 2 minutes”, however for the last four rows
-the full message column is empty. These rows only have the sender (peer ID),
+the full message column is empty. These rows only have the sender (Peer ID),
 sequence number and time first seen columns populated. The table rows are
 listed in order of time first seen, from 1 second ago in the top row to 90
 seconds ago in the bottom row. Some of the sequence numbers are shared between

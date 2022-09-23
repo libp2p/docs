@@ -7,7 +7,7 @@ There are protocols everywhere you look when you're writing network applications
 especially thick with them.
 
 The kind of protocols this article is concerned with are the ones built with libp2p itself,
-using the core libp2p abstractions like [transport](/concepts/transport), [peer identity](/concepts/peer-id/), [addressing](/concepts/addressing/), and so on.
+using the core libp2p abstractions like [transport](/concepts/transport), [peer identity](/concepts/peers#peer-id/), [addressing](/concepts/addressing/), and so on.
 
 Throughout this article, we'll call this kind of protocol that is built with libp2p
 a **libp2p protocol**, but you may also see them referred to as "wire protocols" or "application protocols".
@@ -167,7 +167,7 @@ The basic identify protocol works by establishing a new stream to a peer using t
 shown in the table above.
 
 When the remote peer opens the new stream, they will fill out an [`Identify` protobuf message][identify_proto] containing
-information about themselves, such as their public key, which is used to derive their [`PeerId`](/concepts/peer-id/).
+information about themselves, such as their public key, which is used to derive their [`PeerId`](/concepts/peers/).
 
 Importantly, the `Identify` message includes an `observedAddr` field that contains the [multiaddr][definition_multiaddr] that
 the peer observed the request coming in on. This helps peers determine their NAT status, since it allows them to
