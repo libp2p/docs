@@ -40,7 +40,7 @@ However, an external peer can tell us what address they observed us on. We can t
 
 This basic premise of peers informing each other of their observed addresses is the foundation of [STUN][wiki_stun] (Session Traversal Utilities for NAT), which [describes][rfc_stun] a client / server protocol for discovering publicly reachable IP address and port combinations.
 
-One of libp2p's core protocols is the [identify protocol][spec_identify], which allows one peer to ask another for some identifying information. When sending over their [public key](/concepts/peer-id/) and some other useful information, the peer being identified includes the set of addresses that it has observed for the peer asking the question.
+One of libp2p's core protocols is the [identify protocol][spec_identify], which allows one peer to ask another for some identifying information. When sending over their [public key](/concepts/peers/) and some other useful information, the peer being identified includes the set of addresses that it has observed for the peer asking the question.
 
 This external discovery mechanism serves the same role as STUN, but without the need for a set of "STUN servers".
 

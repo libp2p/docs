@@ -69,7 +69,7 @@ transport the address you'd like to listen on, and when dialing you provide the
 address to dial to.
 
 When dialing a remote peer, the multiaddress should include the
-[PeerId](/concepts/peer-id/) of the peer you're trying to reach.
+[PeerId](/concepts/peers/) of the peer you're trying to reach.
 This lets libp2p establish a [secure communication channel](/concepts/secure-comms/)
 and prevents impersonation.
 
@@ -81,7 +81,7 @@ An example multiaddress that includes a `PeerId`:
 
 The `/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6` component uniquely
 identifies the remote peer using the hash of its public key.
-For more, see [Peer Identity](/concepts/peer-id/).
+For more, see [Peer Identity](/concepts/peers/).
 
 {{% notice "tip" %}}
 
