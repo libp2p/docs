@@ -126,27 +126,25 @@ in 2014, and was later standardized by the IETF in
 ### Key challenges with TCP
 
 1. Head-of-line blocking (HoL blocking): TCP is a single byte stream exposed by the kernel, 
-   so streams layered on top of TCP experience HoL blocking.
+   so streams layered on top of TCP experience head-of-line (HoL) blocking.
 
    {{% notice "info" %}}
-   HoL blocking occurs when a lost, or out-of-order delivered head packet holds up the other packets in the transmission 
-   queue. 
+   In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered after that need to wait in the kernel buffer until a retransmission for the lost packet is received.
    {{% /notice %}}
 
-2. Ossification: Because TCP is unencrypted, middleboxes can inspect and modify
-   TCP header fields and may break unexpectedly when they encounter anything they don’t like.
+2. Ossification: Because the header of TCP packet is unencrypted, middleboxes can inspect and modify
+   TCP header fields and may break unexpectedly when they encounter anything they don’t understand.
+   This makes it practically impossible to deploy any changes to the TCP protocol that change the wire format.
 
 3. Handshake inefficiency: the 3-way handshake is inefficient, as it spends 1-RTT on verifying 
    the client’s address.
 
-We need a transport protocol that:
+QUIC was designed with the following goals in mind:
 
-- Understands streams 
-- Overcomes HOL blocking (Head-of-line blocking)
-- Overcomes the latency of connection setup
-- Overcomes the ossification risks of TCP
+- Streams at the transport layer, thereby overcoming HoL blocking
+- Reducing the latency of connection establishment to a single RTT for new connections, and to allow sending of 0-RTT application data for resumed connections
+- Encrypting as much as possible. This eliminates the ossification risk, as middleboxes aren't able to read any encrypted fields, and allows future evolution of the protocol
 
-and, ideally, keeps the guarantees of TCP.
 
 A web browser connection typically entails the following (TCP+TLS+HTTP/2):
 
@@ -182,21 +180,19 @@ client to send application data right away, even before the QUIC handshake has f
 ### QUIC in libp2p
 
 libp2p only supports bidirectional streams and uses TLS 1.3 by default. 
-The streams in libp2p map cleanly to QUIC streams.
+libp2p directly uses QUIC streams, without any additional framing.
 
-When a connection starts, peers will take their host key and create a self-signed 
-CA certificate. They then sign an intermediate chain using their self-signed CA certificate 
-and put it as a certificate chain in the TLS handshake. View the full TLS specification
-[here](https://github.com/libp2p/specs/blob/master/tls/tls.md).
+To authenticate each others' peer IDs, peers encode their peer ID into a self-signed certificate,
+which they sign using their host's private key. This is the same way peer IDs are authenticated in
+the [libp2p TLS handshake](https://github.com/libp2p/specs/blob/master/tls/tls.md).
 
 {{% notice "note" %}}
 
 To be clear, there is no additional security handshake and stream muxer needed as QUIC 
-provides all of this by default.
+provides all of this by default. This also means that establishing a libp2p connection between
+two nodes using QUIC only takes a single RTT.
 
 {{% /notice %}}
 
 Following the multiaddress format described earlier, a standard QUIC connection will
 look like: `/ip4/127.0.0.1/udp/65432/quic/`.
-
-In this section, we offered an overview of QUIC and how QUIC works in libp2p.
