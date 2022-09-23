@@ -158,9 +158,9 @@ which turned into a proposed standard for HTTP/3 in
 of the existing transfer protocols HTTP/2 and HTTP over QUIC in one standard for faster and 
 more stable data transmission.
 
-The following diagram illustrates the OSI model for HTTP/2 and HTTP/3 [1]:
+The following diagram illustrates the OSI model for HTTP/2 and HTTP/3:
 
-![HTTP/2 & HTTP/3 OSI model](http3-osi.png)
+![HTTP/2 & HTTP/3 OSI model](https://cloudspoint.xyz/wp-content/uploads/2022/03/http3.png)
 
 A web browser connection typically entails the following **(TCP+TLS+HTTP/2)**:
 
@@ -214,7 +214,3 @@ two nodes using QUIC only takes a single RTT.
 
 Following the multiaddress format described earlier, a standard QUIC connection will
 look like: `/ip4/127.0.0.1/udp/65432/quic/`.
-
-### References
-
-[1] [Cloudspoint: What is HTTP/3?](https://cloudspoint.xyz/what-is-http3/)
