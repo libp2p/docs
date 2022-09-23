@@ -160,7 +160,7 @@ more stable data transmission.
 
 The following diagram illustrates the OSI model for HTTP/2 and HTTP/3 [1]:
 
-![HTTP/2 & HTTP/3 OSI model](transports/http3-osi.png)
+![HTTP/2 & HTTP/3 OSI model](http3-osi.png)
 
 A web browser connection typically entails the following **(TCP+TLS+HTTP/2)**:
 
