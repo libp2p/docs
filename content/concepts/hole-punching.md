@@ -5,11 +5,10 @@ weight: 3
 
 ## Types of nodes
 
-Nodes on the public internet can be divided into two groups: 
-public and non-public. Most nodes are not publicly accessible as 
-routers act as firewalls and allow for NATs. 
+Nodes on a p2p network can be categorized into two groups: 
+public and non-public. Public nodes are those nodes that have unobstructed access to the internet, whereas non-public nodes are located behind some kind of firewall. This applies to most nodes in home and in corporate network, as well as mobile phones.
 
-To be clear, a non-public node from a standard LAN:
+To be clear, a non-public node behind a firewall and/or NAT:
 
 - can dial other public nodes;
 - cannot dial non-public nodes.
@@ -19,14 +18,12 @@ Likewise, a public node on the internet:
 - can dial other public nodes;
 - cannot dial non-public nodes.
 
-### How can a node dial a non-public node?
+### How can a node become dialable despite being behind a firewall and/or NAT?
 
 Here are a few methods that nodes can use to dial a non-public node:
 
-- UPnP (Universal Plug and Play): A protocol that enables nodes 
-  to discover and connect by automatically opening
-  ports into a firewall.
-- Port forwarding: Manually configuring a port forward on a router.
+- UPnP (Universal Plug and Play): A protocol spoken between routers and computers inside the network. It allows the computer to request that certain ports be opened and forward to that computer.
+- Port forwarding: Manually configuring a port forwarding on a router.
 - Traversal Using Relay NAT (TURN): A protocol that can traverse
   a NAT, allowing a client to obtain IP addresses and ports from 
   relaying.
@@ -34,7 +31,7 @@ Here are a few methods that nodes can use to dial a non-public node:
 ### Limitations
 
 UPnP automates the process of node discovery and connectivity. Still, 
-it may not be available everywhere, and there can posses the risk
+it may not be available everywhere, and can posses the risk
 of establishing connections with untrustworthy nodes as the protocol
 does not enforce authentication or authorization. Manually opening a
 port requires technical expertise and does not enforce 
@@ -65,8 +62,7 @@ Take two nodes, `A` and `B`, that would like the dial each other:
 5. Once `A`'s packet arrives at `router B`, `router B` checks its state 
    table and finds a 5-tuple previously added through the packet sent by 
    node B. 
-6. The routers forward the packets through the "punched holes". 6. It 
-   then forwards the packet to `B`. The same occurs with `B`'s packet; 
+6. The routers forward the packets through the "punched holes" to `B`. The same occurs with `B`'s packet; 
    upon arriving at `router A`, it matches a 5-tuple in `router A`'s state 
    table and thus forwards the packet to `A`.
   
@@ -82,7 +78,7 @@ This process assumes a mechanism to synchronize `A` and `B` simultaneously.
 
 Inspired by the 
 [ICE protocol](https://datatracker.ietf.org/doc/html/rfc8445) 
-specified by the IETF, libp2p includes a decentralized hole punching 
+libp2p includes a decentralized hole punching 
 feature that allows for firewall and NAT traversal without the need 
 for central coordination servers like STUN and TURN. 
 
@@ -90,7 +86,7 @@ The following sequence diagram illustrates the whole process.
 
 ![](https://i.imgur.com/sMGMfGZ.png)
 
-libp2p hole punching can be derived in two phases, a preparation phase and 
+libp2p hole punching can be divided into two phases, a preparation phase and 
 a hole punching phase.
 
 ### Phase I: Preparation
@@ -170,7 +166,7 @@ a hole punching phase.
     ![](https://i.imgur.com/wXehUlC.png)
 
     - `A` sends a `Connect` message to `B` through `Relay`. 
-        - `Connect` contains the addresses of A. libp2p and offers multiple 
+        - `Connect` contains the addresses of A. libp2p offers multiple 
           mechanisms to discover one's addresses, e.g., via the libp2p identify 
           protocol. 
     - `B` receives the `Connect` message on the relayed connection and replies 
