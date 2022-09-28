@@ -3,7 +3,9 @@ title: Hole Punching
 weight: 3
 ---
 
-## Types of nodes
+## Background
+
+### Types of nodes
 
 Nodes on a p2p network can be categorized into two groups: 
 public and non-public. Public nodes are those nodes that have unobstructed access to the internet, whereas non-public nodes are located behind some kind of firewall. This applies to most nodes in home and in corporate network, as well as mobile phones.
@@ -45,11 +47,10 @@ In the case where the other options aren't sufficient, networks can
 use a technique called hole punching to establish connections with 
 non-public nodes.
 
-Each node connects to an unrestricted third-party server and 
-shares its external and internal address and port information.
-The server temporarily stores the node's information and relays 
-each node's information to the other. Clients can use this 
-information to establish direct connections with each other.
+Each node connects to a Relay server and shares its external and internal 
+address and port information. The server temporarily stores the node's 
+information and relays each node's information to the other. Clients can 
+use this information to establish direct connections with each other.
 
 Take two nodes, `A` and `B`, that would like the dial each other:
 
@@ -62,9 +63,9 @@ Take two nodes, `A` and `B`, that would like the dial each other:
 5. Once `A`'s packet arrives at `router B`, `router B` checks its state 
    table and finds a 5-tuple previously added through the packet sent by 
    node B. 
-6. The routers forward the packets through the "punched holes" to `B`. The same occurs with `B`'s packet; 
-   upon arriving at `router A`, it matches a 5-tuple in `router A`'s state 
-   table and thus forwards the packet to `A`.
+6. The routers forward the packets through the "punched holes" to `B`. 
+   The same occurs with `B`'s packet; upon arriving at `router A`, it matches 
+   a 5-tuple in `router A`'s state table and thus forwards the packet to `A`.
   
 The following use case diagram illustrates the above process.
 
@@ -77,7 +78,7 @@ This process assumes a mechanism to synchronize `A` and `B` simultaneously.
 ## Hole punching in libp2p
 
 Inspired by the 
-[ICE protocol](https://datatracker.ietf.org/doc/html/rfc8445) 
+[ICE protocol](https://datatracker.ietf.org/doc/html/rfc8445), 
 libp2p includes a decentralized hole punching 
 feature that allows for firewall and NAT traversal without the need 
 for central coordination servers like STUN and TURN. 
