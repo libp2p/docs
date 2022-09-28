@@ -94,7 +94,7 @@ or connection is called **protocol negotiation**.
 
 There are two methods available to register a protocol handler.
 
-1. **The first takes two arguments: a protocol ID and a handler function. If an incoming 
+1. The first takes two arguments: a protocol ID and a handler function. If an incoming 
 stream request sends an exact match for the protocol ID; the handler function invokes 
 the new stream as an argument.
 
@@ -143,21 +143,25 @@ Check out the [libp2p implementations page](https://libp2p.io/implementations/) 
 updates on all the libp2p implementations.
 {{% /notice %}}
 
-| **Specification**                                                                         | **Protocol ID**                   |
-|-------------------------------------------------------------------------------------------|-----------------------------------|
-| Ping                                                                                      | `/ipfs/ping/1.0.0`                |
-| [Identify](https://github.com/libp2p/specs/blob/master/identify/README.md)                | `/ipfs/id/1.0.0`                  |
-| [Identify (push)](https://github.com/libp2p/specs/blob/master/identify/README.md)         | `/ipfs/id/push/1.0.0`             |
-| [Kademlia DHT](https://github.com/libp2p/specs/blob/master/kad-dht/README.md)             | `/ipfs/kad/1.0.0`                 |
-| [QUIC](https://datatracker.ietf.org/doc/html/rfc9000)                                     | `/libp2p/quic/1.0.0`              |
-| [WebTransport](https://github.com/libp2p/specs/pull/404)                                  | `/libp2p/quic/webtransport/1.0.0` |
-| [Noise](https://github.com/libp2p/specs/blob/master/noise/README.md)                      | `/libp2p/noise/1.0.0`             |
-| [TLS 1.3](https://github.com/libp2p/specs/blob/master/tls/tls.md)                         | `/libp2p/tls/1.0.0`               |
-| [Plaintext](https://github.com/libp2p/specs/blob/master/plaintext/README.md)              | `/libp2p/plaintext/2.0.0`         |
-| [Rendezvous](https://github.com/libp2p/specs/blob/master/rendezvous/README.md)            | `/libp2p/rendezvous/1.0.0`        |
-| [mDNS](https://github.com/libp2p/specs/blob/master/discovery/mdns.md)                     | `/libp2p/mdns/1.0.0`              |
-| [AutoNAT](https://github.com/libp2p/specs/blob/master/autonat/README.md#autonat-protocol) | `/libp2p/autonat/1.0.0`           |
-| [Circuit relay](https://github.com/libp2p/specs/blob/master/relay/README.md)              | `/libp2p/circuit/relay/0.1.0`     |
-| [DCUtR](https://github.com/libp2p/specs/blob/master/relay/DCUtR.md)                       | `/libp2p/dcutr/1.0.0`             |
-| [mplex](https://github.com/libp2p/specs/blob/master/mplex/README.md)                      | `/libp2p/mplex/1.0.0`             |
-| [pnet](https://github.com/libp2p/specs/blob/master/pnet/Private-Networks-PSK-V1.md)       | `libp2p/key/swarm/psk/1.0.0/`     |
+| **Specification**                                                                          | **Protocol ID**                    |
+|--------------------------------------------------------------------------------------------|------------------------------------|
+| [AutoNAT](https://github.com/libp2p/specs/blob/master/autonat/README.md#autonat-protocol)  | `/libp2p/autonat/1.0.0`            |
+| [Circuit Relay v2 (hop) ](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md) | `/libp2p/circuit/relay/0.2.0/hop`  |
+| [Circuit Relay v2 (stop)](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md) | `/libp2p/circuit/relay/0.2.0/stop` |
+| [DCUtR](https://github.com/libp2p/specs/blob/master/relay/DCUtR.md)                        | `/libp2p/dcutr/1.0.0`              |
+| [Fetch](https://github.com/libp2p/specs/tree/master/fetch)                                 | `/libp2p/fetch/0.0.1`              |
+| [GossipSub v1.0](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub)             | `/libp2p/gossipsub/1.0.0`          |
+| [GossipSub v1.1](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub)             | `/libp2p/gossipsub/1.1.0`          |
+| [Identify](https://github.com/libp2p/specs/blob/master/identify/README.md)                 | `/ipfs/id/1.0.0`                   |
+| [Identify (push)](https://github.com/libp2p/specs/blob/master/identify/README.md)          | `/ipfs/id/push/1.0.0`              |
+| [Kademlia DHT](https://github.com/libp2p/specs/blob/master/kad-dht/README.md)              | `/ipfs/kad/1.0.0`                  |
+| [mDNS](https://github.com/libp2p/specs/blob/master/discovery/mdns.md)                      | `/libp2p/mdns/1.0.0`               |
+| [mplex](https://github.com/libp2p/specs/blob/master/mplex/README.md)                       | `/libp2p/mplex/1.0.0`              |
+| [Noise](https://github.com/libp2p/specs/blob/master/noise/README.md)                       | `/libp2p/noise/1.0.0`              |
+| Ping                                                                                       | `/ipfs/ping/1.0.0`                 |
+| [Plaintext](https://github.com/libp2p/specs/blob/master/plaintext/README.md)               | `/libp2p/plaintext/2.0.0`          |
+| [pnet](https://github.com/libp2p/specs/blob/master/pnet/Private-Networks-PSK-V1.md)        | `libp2p/key/swarm/psk/1.0.0/`      |
+| [QUIC](https://datatracker.ietf.org/doc/html/rfc9000)                                      | `/libp2p/quic/1.0.0`               |
+| [Rendezvous](https://github.com/libp2p/specs/blob/master/rendezvous/README.md)             | `/libp2p/rendezvous/1.0.0`         |
+| [TLS 1.3](https://github.com/libp2p/specs/blob/master/tls/tls.md)                          | `/libp2p/tls/1.0.0`                |
+| [WebTransport](https://github.com/libp2p/specs/pull/404)                                   | `/libp2p/quic/webtransport/1.0.0`  |
