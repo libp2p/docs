@@ -19,7 +19,9 @@ to establish a connection from the public internet to a non-public node.
 
 Here are a few methods that nodes can use to dial a non-public node:
 
-- UPnP (Universal Plug and Play): A protocol spoken between routers and computers inside the network. It allows the computer to request that certain ports be opened and forward to that computer.
+- UPnP (Universal Plug and Play): A protocol spoken between routers and computers 
+  inside the network. It allows the computer to request that certain ports be 
+  opened and forward to that computer.
 - Port forwarding: Manually configuring a port forwarding on a router.
 
 ### Limitations
@@ -68,15 +70,15 @@ Take two nodes, `A` and `B`, that would like the dial each other:
    destination IP address, destination port, and transport protocol.
    {{% /notice %}}
 
-3. `Packet A` and `B` "punch holes" into their respective routers' 
+3. `PacketA` and `PacketB` "punch holes" into their respective routers' 
    firewalls.
 4. Both packets arrive at the opposite router.
-5. Once `A`'s packet arrives at `router B`, `router B` checks its state 
+5. Once `A`'s packet arrives at `Router_B`, `Router_B` checks its state 
    table and finds a 5-tuple previously added through the packet sent by 
    node B. 
 6. The routers forward the packets through the "punched holes" to `B`. 
-   The same occurs with `B`'s packet; upon arriving at `router A`, it matches 
-   a 5-tuple in `router A`'s state table and thus forwards the packet to `A`.
+   The same occurs with `B`'s packet; upon arriving at `Router_A`, it matches 
+   a 5-tuple in `Router_A`'s state table and thus forwards the packet to `A`.
   
 The following use case diagram illustrates the above process.
 
