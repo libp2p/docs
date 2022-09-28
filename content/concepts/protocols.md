@@ -143,20 +143,21 @@ Check out the [libp2p implementations page](https://libp2p.io/implementations/) 
 updates on all the libp2p implementations.
 {{% /notice %}}
 
-| **name**      | **protocol id**               | **spec**                                                                                       |
-|---------------|-------------------------------|------------------------------------------------------------------------------------------------|
-| ping          | `/ipfs/ping/1.0.0`            | N/A                                                                                            |
-| identity      | `/ipfs/id/1.0.0`              | [spec_identity](https://github.com/libp2p/specs/blob/master/identify/README.md)                |
-| identify/push | `/ipfs/id/push/1.0.0`         | [spec_identity](https://github.com/libp2p/specs/blob/master/identify/README.md)                |
-| kad-dht       | `/ipfs/kad/1.0.0`             | [spec_kad](https://github.com/libp2p/specs/blob/master/kad-dht/README.md)                      |
-| noise         | `/libp2p/noise/1.0.0`         | [spec_noise](https://github.com/libp2p/specs/blob/master/noise/README.md)                      |
-| tls           | `/libp2p/tls/1.0.0`           | [spec_tls](https://github.com/libp2p/specs/blob/master/tls/tls.md)                             |
-| plaintext     | `/libp2p/plaintext/2.0.0`     | [spec_plaintext](https://github.com/libp2p/specs/blob/master/plaintext/README.md)              |
-| rendezvous    | `/libp2p/rendezvous/1.0.0`    | [spec_rendezvous](https://github.com/libp2p/specs/blob/master/rendezvous/README.md)            |
-| mdns          | `/libp2p/mdns/1.0.0`          | [spec_mdns](https://github.com/libp2p/specs/blob/master/discovery/mdns.md)                     |
-| autonat       | `/libp2p/autonat/1.0.0`       | [spec_autonat](https://github.com/libp2p/specs/blob/master/autonat/README.md#autonat-protocol) |
-| circuit relay | `/libp2p/circuit/relay/0.1.0` | [spec_relay](https://github.com/libp2p/specs/blob/master/relay/README.md)                      |
-| dcutr         | `/libp2p/dcutr/1.0.0`         | [spec_dcutr](https://github.com/libp2p/specs/blob/master/relay/DCUtR.md)                       |
-| mplex         | `/libp2p/mplex/1.0.0`         | [spec_mplex](https://github.com/libp2p/specs/blob/master/mplex/README.md)                      |
-| pnet          | `libp2p/key/swarm/psk/1.0.0/` | [spec_pnet](https://github.com/libp2p/specs/blob/master/pnet/Private-Networks-PSK-V1.md)       |
-
+| **Specification**                                                                         | **Protocol ID**                   |
+|-------------------------------------------------------------------------------------------|-----------------------------------|
+| Ping                                                                                      | `/ipfs/ping/1.0.0`                |
+| [Identify](https://github.com/libp2p/specs/blob/master/identify/README.md)                | `/ipfs/id/1.0.0`                  |
+| [Identify (push)](https://github.com/libp2p/specs/blob/master/identify/README.md)         | `/ipfs/id/push/1.0.0`             |
+| [Kademlia DHT](https://github.com/libp2p/specs/blob/master/kad-dht/README.md)             | `/ipfs/kad/1.0.0`                 |
+| [QUIC](https://datatracker.ietf.org/doc/html/rfc9000)                                     | `/libp2p/quic/1.0.0`              |
+| [WebTransport](https://github.com/libp2p/specs/pull/404)                                  | `/libp2p/quic/webtransport/1.0.0` |
+| [Noise](https://github.com/libp2p/specs/blob/master/noise/README.md)                      | `/libp2p/noise/1.0.0`             |
+| [TLS 1.3](https://github.com/libp2p/specs/blob/master/tls/tls.md)                         | `/libp2p/tls/1.0.0`               |
+| [Plaintext](https://github.com/libp2p/specs/blob/master/plaintext/README.md)              | `/libp2p/plaintext/2.0.0`         |
+| [Rendezvous](https://github.com/libp2p/specs/blob/master/rendezvous/README.md)            | `/libp2p/rendezvous/1.0.0`        |
+| [mDNS](https://github.com/libp2p/specs/blob/master/discovery/mdns.md)                     | `/libp2p/mdns/1.0.0`              |
+| [AutoNAT](https://github.com/libp2p/specs/blob/master/autonat/README.md#autonat-protocol) | `/libp2p/autonat/1.0.0`           |
+| [Circuit relay](https://github.com/libp2p/specs/blob/master/relay/README.md)              | `/libp2p/circuit/relay/0.1.0`     |
+| [DCUtR](https://github.com/libp2p/specs/blob/master/relay/DCUtR.md)                       | `/libp2p/dcutr/1.0.0`             |
+| [mplex](https://github.com/libp2p/specs/blob/master/mplex/README.md)                      | `/libp2p/mplex/1.0.0`             |
+| [pnet](https://github.com/libp2p/specs/blob/master/pnet/Private-Networks-PSK-V1.md)       | `libp2p/key/swarm/psk/1.0.0/`     |
