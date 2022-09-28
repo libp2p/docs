@@ -8,7 +8,10 @@ weight: 3
 ### Types of nodes
 
 Nodes on a p2p network can be categorized into two groups: 
-public and non-public. Public nodes are those nodes that have unobstructed access to the internet, whereas non-public nodes are located behind some kind of firewall. This applies to most nodes in home and in corporate network, as well as mobile phones.
+public and non-public. Public nodes are those nodes that have unobstructed 
+access to the internet, whereas non-public nodes are located behind some kind 
+of firewall. This applies to most nodes in home and in corporate network, as 
+well as mobile phones.
 
 To be clear, a non-public node behind a firewall and/or NAT:
 
@@ -26,29 +29,36 @@ Here are a few methods that nodes can use to dial a non-public node:
 
 - UPnP (Universal Plug and Play): A protocol spoken between routers and computers inside the network. It allows the computer to request that certain ports be opened and forward to that computer.
 - Port forwarding: Manually configuring a port forwarding on a router.
-- Traversal Using Relay NAT (TURN): A protocol that can traverse
-  a NAT, allowing a client to obtain IP addresses and ports from 
-  relaying.
 
 ### Limitations
 
-UPnP automates the process of node discovery and connectivity. Still, 
-it may not be available everywhere, and can posses the risk
-of establishing connections with untrustworthy nodes as the protocol
-does not enforce authentication or authorization. Manually opening a
-port requires technical expertise and does not enforce 
-authentication or authorization. Using a relay node also requires
-technical expertise. Relaying adds additional latency and is resource
-intensive.
+In many settings, UPnP is disabled by the router or a firewall. 
+UPnP may also not work depending on the router's firmware. 
+
+Manually opening a port requires technical expertise and does not 
+enforce authentication or authorization. 
 
 ### Possible solution: hole punching
+
+#### Relaying overview
+
+Relaying is a mechanism used to send information between two ends. 
+In the case of non-public nodes:
+
+Node A maintains a permanent connection to a relay node, R, and when node B 
+wants to connect to node A, it first establishes a connection to node R, 
+where R forwards all the packets on the connection. Relaying adds additional 
+latency and is resource intensive as node R needs to handle a lot of traffic.
+Using a relay node also requires technical expertise.
+
+#### What if we could use node R to help facilitate a **direct connection** between node A and node B?
 
 In the case where the other options aren't sufficient, networks can 
 use a technique called hole punching to establish connections with 
 non-public nodes.
 
-Each node connects to a Relay server and shares its external and internal 
-address and port information. The server temporarily stores the node's 
+Each node connects to a relay node and shares its external address and port 
+information. The server temporarily stores the node's 
 information and relays each node's information to the other. Clients can 
 use this information to establish direct connections with each other.
 
@@ -56,7 +66,16 @@ Take two nodes, `A` and `B`, that would like the dial each other:
 
 1. The first packet of both nodes (e.g., in the case of TCP, an SYN) 
    passes through their respective routers.
-2. The routers add a 5-tuple to their router's state table. 
+2. The routers add a 5-tuple to their router's state table.
+
+   {{% notice "info" %}}
+   A router state table (routing table) is data store within a router that lists 
+   the routes to particular network destinations.
+
+   The 5-tuple structure includes the source IP address, source port, 
+   destination IP address, destination port, and transport protocol.
+   {{% /notice %}}
+
 3. `Packet A` and `B` "punch holes" into their respective routers' 
    firewalls.
 4. Both packets arrive at the opposite router.
@@ -102,28 +121,33 @@ a hole punching phase.
    
    - `B` reaches out to `Other_Peers` (e.g., boot nodes) on the network it 
      is on and asks each node to dial it on a set of addresses it suspects 
-     could be reachable. 
-   - `Other_Peers`attempt to dial each of `B`'s addresses and report the 
+     could be reachable. A libp2p node has multiple ways of discovering its 
+     addresses, but the most prominent is using the 
+     [libp2p Identify protocol](https://github.com/libp2p/specs/blob/master/identify/README.md).
+   - `Other_Peers` attempt to dial each of `B`'s addresses and report the 
      outcome back to `B`. 
    - Based on the reports, `B` can gauge whether it is publicly dialable and 
      determine if hole punching is needed.
    
 <!-- to add routing reference when available -->
-1. Routing: Discover the k-closest public Relay nodes using a lookup method 
-   (e.g. IPFS uses Kademlia DHT): `/<RELAY_ADDR>/p2p-circuit/<PEER_ID_B>`
+<!-- to add autorelay reference when available -->
+
+1. AutoRelay: Dynamically discover and bind to relay nodes on the network. 
+   > IPFS discovers the k-closest public relay nodes using a lookup method 
+   > via Kademlia DHT): `/<RELAY_ADDR>/p2p-circuit/<PEER_ID_B>`
 
     ![](https://i.imgur.com/cdqmJCo.png)
     
     - `Other_Peers` outside `B`'s network can dial `B` indirectly through 
-      a public Relay node. In the case of [IPFS](https://ipfs.tech/), each public 
+      a public relay node. In the case of [IPFS](https://ipfs.tech/), each public 
       node would serve as a `Relay`. `B` would either perform a lookup on the 
       [Kademlia DHT](https://github.com/libp2p/specs/blob/master/kad-dht/README.md) 
       for the closest peers to its Peer ID or choose a subset of the public nodes 
       it is already connected to.
    
 2. [Circuit Relay](/concepts/circuit-relay): Connect to and request 
-   reservations with the discovered Relay nodes. A node can advertise itself as being 
-   reachable through a remote Relay node. 
+   reservations with the discovered relay nodes. A node can advertise itself as 
+   being reachable through a remote relay node. 
    
    > This is equivalent to the 
    > [TURN protocol](https://datatracker.ietf.org/doc/html/rfc5766) in ICE.
@@ -143,9 +167,9 @@ a hole punching phase.
 ### Phase II: Hole punching
 
 1. [Circuit Relay](/concepts/circuit-relay): Establish a secure relay connection 
-   through the public Relay node. The node establishes a direct connection with 
-   the Relay node. It then requests a relayed connection to the other node through 
-   the Relay node, creating a bi-directional channel and using TLS to secure the 
+   through the public relay node. Node `A` establishes a direct connection with 
+   the relay node. Node `B` then requests a relayed connection to node `A` through 
+   the relay node, creating a bi-directional channel and uses TLS to secure the 
    channel.
    
     ![](https://i.imgur.com/zoIWcwK.png)
@@ -160,7 +184,9 @@ a hole punching phase.
           communicate.
         - `A` and `B` upgrade the relayed connection with a security protocol 
           like TLS.
+
    <!-- to add dcutr reference when available -->
+
 2. [DCUtR](https://github.com/libp2p/specs/blob/master/relay/DCUtR.md): Use 
    DCUtR as a synchronization mechanism to coordinate hole punching.
 
@@ -168,7 +194,7 @@ a hole punching phase.
 
     - `A` sends a `Connect` message to `B` through `Relay`. 
         - `Connect` contains the addresses of A. libp2p offers multiple 
-          mechanisms to discover one's addresses, e.g., via the libp2p identify 
+          mechanisms to discover one's addresses, e.g., via the libp2p Identify 
           protocol. 
     - `B` receives the `Connect` message on the relayed connection and replies 
       with a `Connect` message containing its (non-relayed) addresses. 
