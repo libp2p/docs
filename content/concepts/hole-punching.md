@@ -7,21 +7,13 @@ weight: 3
 
 ### Types of nodes
 
-Nodes on a p2p network can be categorized into two groups: 
+Nodes on a peer-to-peer network can be categorized into two groups: 
 public and non-public. Public nodes are those nodes that have unobstructed 
 access to the internet, whereas non-public nodes are located behind some kind 
-of firewall. This applies to most nodes in home and in corporate network, as 
-well as mobile phones.
-
-To be clear, a non-public node behind a firewall and/or NAT:
-
-- can dial other public nodes;
-- cannot dial non-public nodes.
-
-Likewise, a public node on the internet:
-
-- can dial other public nodes;
-- cannot dial non-public nodes.
+of firewall. This applies to most nodes in home and in corporate network, 
+as well as mobile phones. In most configurations, both public and non-public 
+nodes can dial connections to other public nodes. However, it's not possible 
+to establish a connection from the public internet to a non-public node.
 
 ### How can a node become dialable despite being behind a firewall and/or NAT?
 
