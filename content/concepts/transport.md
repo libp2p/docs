@@ -215,7 +215,7 @@ In this section, we offered an overview of QUIC and how QUIC works in libp2p.
 
 Another transport protocol under development at the IETF is WebTransport.
 WebTransport is a new specification that uses QUIC to offer an alternative to
-WebSockets. It can be considered WebSockets over QUIC by allowing 
+WebSocket. It can be considered WebSocket over QUIC by allowing 
 browsers to establish a stream-multiplexed and bidirectional 
 connection to servers. 
 
@@ -223,9 +223,7 @@ The specification can depend on and reuse the QUIC infrastructure in place
 to offer WebSockets that take the benefits of UDP and offer streams without 
 head-of-line blocking.
 
-Recall that WebSockets are bidirectional, full-duplex communication between two 
-points over a single-socket connection. WebTransport can be used
-like WebSockets, but with the support of multiple streams.
+While WebSocket provides a bidirectional, full-duplex communication between a browser and a server over a TCP connection, WebTransport exposes the streams of a QUIC connection to the browser.``
 
 WebTransport supports reliable streams that can be arbitrary in size. They can be 
 independent and canceled if needed. The datagrams in a 
@@ -259,8 +257,7 @@ WebTransport running over QUIC only requires 4 RTTs, as:
 - 1 RTT for WebTransport handshake
 - 2 RTT for libp2p handshake; one for multistream and one for authentication 
   (with a Noise handshake)
-> With protocol select, the WebTransport handshake and the libp2p handshake 
-> can run in parallel, bringing down the total round trips to 2.
+In principle, the WebTransport protocol would even allow running the WebTransport handshake and the Noise handshake at the same time. However, this is currently not possible in Chrome due to a bug in its WebTransport implementation.
 
 ### WebTransport in libp2p
 
