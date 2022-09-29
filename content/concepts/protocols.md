@@ -14,7 +14,7 @@ abstractions to name a few.
 A libp2p protocol is a network protocol that includes
 the key features mentioned below.
 
-#### Protocol IDs
+### Protocol IDs
 
 libp2p protocols have unique string identifiers, which are used in the 
 [protocol negotiation](#protocol-negotiation) process when streams are first opened.
@@ -30,7 +30,7 @@ Breaking changes to a protocol's wire format or semantics should result in a new
 version number. See the [protocol negotiation section](#protocol-neotiation) for more 
 information about how version selection works during the dialing and listening.
 
-#### Handler functions
+### Handler functions
 
 A libp2p application will define a stream handler that takes over the 
 stream after protocol negotiation. Everything sent and received after the
@@ -42,7 +42,7 @@ the registered protocol ID. If you register a handler with a
 to accept non-exact string matches for protocol ids, for example, to match 
 on [semantic major versions](#match-using-semver).
 
-#### Binary streams
+### Binary streams
 
 The "medium" over which a libp2p protocol transpires is a bi-directional binary stream 
 with the following properties:
@@ -66,19 +66,33 @@ internal protocols are outlined below.
 
 ## Protocol Negotiation
 
+Libp2p protocols can have sub-protocols or protocol-suites. It is difficult 
+to select and route protocols, or even know which protocols are available.
+
+[Multistream-select](https://github.com/multiformats/multistream-select) 
+is a protocol multiplexer negotiates the application-layer protocol. When a new 
+stream is created, it is ran through `multistream-select` to route the stream to the 
+ppropriate protocol handler.
+
 When dialing out to initiate a new stream, libp2p sends the protocol ID of the 
 protocol you want to use. The listening peer on the other end checks the incoming 
 protocol ID against the registered protocol handlers.
 
-If the listening peer does not support the requested protocol, it will send "na" on the stream
-and the dialing peer can try again with a different protocol or possibly a fallback 
-version of the initially requested protocol.
+If the listening peer does not support the requested protocol, it will send "na" 
+on the stream and the dialing peer can try again with a different protocol or possibly 
+a fallback version of the initially requested protocol.
 
 If the protocol is supported, the listening peer will echo back the protocol ID as 
 a signal that future data sent over the stream will use the agreed protocol semantics.
 
 This process of reaching an agreement about what protocol to use for a given stream 
 or connection is called **protocol negotiation**.
+
+{{% notice "note" %}}
+Not to be mistaken with [stream multiplexers](/concepts/stream-multiplexing), 
+which are solely responsible for the internal streams on a connection and aren't 
+concerned with underlying protocol being used.
+{{% /notice %}}
 
 ### Matching protocol IDs and versions
 
