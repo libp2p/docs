@@ -215,22 +215,29 @@ In this section, we offered an overview of QUIC and how QUIC works in libp2p.
 
 Another transport protocol under development at the IETF is WebTransport.
 WebTransport is a new specification that uses QUIC to offer an alternative to
-WebSocket. It can be considered WebSocket over QUIC by allowing 
-browsers to establish a stream-multiplexed and bidirectional 
-connection to servers. 
+WebSocket. Conceptually, it can be considered WebSocket over QUIC. 
+It allows browsers to establish a stream-multiplexed and bidirectional connection 
+to servers. 
 
-The specification can depend on and reuse the QUIC infrastructure in place 
-to offer WebSockets that take the benefits of UDP and offer streams without 
-head-of-line blocking.
+While WebSocket provides a bidirectional, full-duplex communication between a 
+browser and a server over a TCP connection, WebTransport exposes the streams of a 
+QUIC connection to the browser.
 
 WebTransports allows us to connect to any libp2p browser node with any server node
 because the protocol supports certificate verification via certificate hash, whereas
 for WebSocket, it is necessary that the TLS certificate is signed by a trusted CA
 (certificate authority).
 
-While WebSocket provides a bidirectional, full-duplex communication between a 
-browser and a server over a TCP connection, WebTransport exposes the streams of a 
-QUIC connection to the browser.
+When connecting to a WebSocket server, browsers require the server to present a
+TLS certificate signed by a trusted CA (certificate authority). Few nodes have such
+a certificate, which is the reason that WebSocket never saw widespread adoption in the
+libp2p network. libp2p WebTransport offers a browser API that includes a way to 
+accept the server's certificate by checking the (SHA-256) hash of the certificate 
+(using the [`serverCertificateHashes` option](https://www.w3.org/TR/webtransport/#dom-webtransportoptions-servercertificatehashes)), even if the certificate is "just" 
+a self-signed certificate. This allows us to connect any browser node to any server node, 
+as long as the browser knows the certificate hash in advance 
+(see [WebTransport in libp2p](#webtransport-in-libp2p) for how WebTransport addresses 
+achieve this).
 
 Therefore, WebTransport exhibits all the advantages of QUIC over TCP, that being 
 faster handshakes, no HoL blocking, and being future-proof.
@@ -243,7 +250,7 @@ The implementation should be used experimentally and is not recommended for prod
 environments.
 
 js-libp2p also plans to release 
-[WebTransport support](https://github.com/libp2p/js-libp2p-webtransport) relatively soon.
+[WebTransport support](https://github.com/libp2p/js-libp2p-webtransport) very soon.
 
 There are currently no concrete plans to support WebTransport beyond the Go and JS 
 implementations.
@@ -264,15 +271,15 @@ For a standard WebSocket connection, the roundtrips required are as follows:
 
 In total, 6 RTTs.
 
-WebTransport running over QUIC only requires 4 RTTs, as:
+WebTransport running over QUIC only requires 3 RTTs, as:
 
 - 1 RTT for QUIC handshake
 - 1 RTT for WebTransport handshake
-- 2 RTT for libp2p handshake; one for multistream and one for authentication 
+- 1 RTT for libp2p handshake; one for multistream and one for authentication 
   (with a Noise handshake)
 
 In principle, the WebTransport protocol would even allow running the WebTransport 
-handshake and the Noise handshake at the same time. However, this is currently not 
+handshake and the Noise handshake in parallel. However, this is currently not 
 possible in Chrome due to a bug in its WebTransport implementation.
 
 ### WebTransport in libp2p
@@ -282,7 +289,7 @@ by `/webtransport` and a list of multihashes of the node certificates that the s
 
 For instance, for multiaddress `/ip4/127.0.0.1/udp/123/quic/webtransport/certhash/<hash1>`, 
 a standard local QUIC connection is defined up until and including `/quic.` 
-Then, `/webtransport/` runs over QUIC and the self-signed certificate hash that the 
+Then, `/webtransport/` runs over QUIC. The self-signed certificate hash that the 
 server will use to verify the connection.
 
 WebTransport requires an HTTPS URL to establish a WebTransport session - 
@@ -293,6 +300,3 @@ instead. The HTTP endpoint of a libp2p WebTransport servers must be located at
 For instance, the WebTransport URL of a WebTransport server advertising 
 `/ip4/1.2.3.4/udp/1234/quic/webtransport/` that is authenticated would be 
 `https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise`.
-
-In this section, we offered an overview of WebTransport and how WebTransport works 
-in libp2p.
