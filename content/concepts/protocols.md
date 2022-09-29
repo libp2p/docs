@@ -30,21 +30,11 @@ Breaking changes to a protocol's wire format or semantics should result in a new
 version number. See the [protocol negotiation section](#protocol-neotiation) for more 
 information about how version selection works during the dialing and listening.
 
-{{% notice "info" %}}
-
-While libp2p can accept any string as a valid protocol ID,
-using the recommended path structure with a version component is both
-developer-friendly and enables [easier matching by version](#match-using-semver).
-
-{{% /notice %}}
-
 #### Handler functions
 
-A libp2p application will register handler functions 
-for protocols using their protocol ID with the
-[switch][definition_switch] (aka "swarm"), or a higher level interface such as 
-[go's Host interface](https://github.com/libp2p/go-libp2p-core/blob/master/host/host.go) 
-to accept connections.
+A libp2p application will define a stream handler that takes over the 
+stream after protocol negotiation. Everything sent and received after the
+negotiation phase is then defined by the application protocol.
 
 The handler function invokes when an incoming stream is tagged with 
 the registered protocol ID. If you register a handler with a 
