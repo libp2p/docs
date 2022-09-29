@@ -270,7 +270,10 @@ WebTransport running over QUIC only requires 4 RTTs, as:
 - 1 RTT for WebTransport handshake
 - 2 RTT for libp2p handshake; one for multistream and one for authentication 
   (with a Noise handshake)
-In principle, the WebTransport protocol would even allow running the WebTransport handshake and the Noise handshake at the same time. However, this is currently not possible in Chrome due to a bug in its WebTransport implementation.
+
+In principle, the WebTransport protocol would even allow running the WebTransport 
+handshake and the Noise handshake at the same time. However, this is currently not 
+possible in Chrome due to a bug in its WebTransport implementation.
 
 ### WebTransport in libp2p
 
