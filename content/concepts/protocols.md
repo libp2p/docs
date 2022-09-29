@@ -155,13 +155,5 @@ updates on all the libp2p implementations.
 | [Identify](https://github.com/libp2p/specs/blob/master/identify/README.md)                 | `/ipfs/id/1.0.0`                   |
 | [Identify (push)](https://github.com/libp2p/specs/blob/master/identify/README.md)          | `/ipfs/id/push/1.0.0`              |
 | [Kademlia DHT](https://github.com/libp2p/specs/blob/master/kad-dht/README.md)              | `/ipfs/kad/1.0.0`                  |
-| [mDNS](https://github.com/libp2p/specs/blob/master/discovery/mdns.md)                      | `/libp2p/mdns/1.0.0`               |
-| [mplex](https://github.com/libp2p/specs/blob/master/mplex/README.md)                       | `/libp2p/mplex/1.0.0`              |
-| [Noise](https://github.com/libp2p/specs/blob/master/noise/README.md)                       | `/libp2p/noise/1.0.0`              |
 | Ping                                                                                       | `/ipfs/ping/1.0.0`                 |
-| [Plaintext](https://github.com/libp2p/specs/blob/master/plaintext/README.md)               | `/libp2p/plaintext/2.0.0`          |
-| [pnet](https://github.com/libp2p/specs/blob/master/pnet/Private-Networks-PSK-V1.md)        | `libp2p/key/swarm/psk/1.0.0/`      |
-| [QUIC](https://datatracker.ietf.org/doc/html/rfc9000)                                      | `/libp2p/quic/1.0.0`               |
 | [Rendezvous](https://github.com/libp2p/specs/blob/master/rendezvous/README.md)             | `/libp2p/rendezvous/1.0.0`         |
-| [TLS 1.3](https://github.com/libp2p/specs/blob/master/tls/tls.md)                          | `/libp2p/tls/1.0.0`                |
-| [WebTransport](https://github.com/libp2p/specs/pull/404)                                   | `/libp2p/quic/webtransport/1.0.0`  |
