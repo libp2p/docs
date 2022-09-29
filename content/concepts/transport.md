@@ -119,14 +119,16 @@ and some places in the codebase still use the "swarm" terminology.
 ## QUIC
 
 QUIC is a new transport protocol that provides an always-encrypted, stream-multiplexed 
-connection built on top of UDP. It started as an experiment by Google on Google Chrome 
-in 2014, and was later standardized by the IETF in 
-[RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000).
+connection built on top of UDP. It started as an experiment by Google between Google 
+services and Chrome in 2014, and was later standardized by the IETF in 
+[RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000), 
+[RFC 9001](https://datatracker.ietf.org/doc/html/rfc9001), and
+[RFC 9002](https://datatracker.ietf.org/doc/html/rfc9002).
 
 ### Key challenges with TCP
 
-1. Head-of-line blocking (HoL blocking): TCP is a single byte stream exposed by the kernel, 
-   so streams layered on top of TCP experience head-of-line (HoL) blocking.
+1. Head-of-line blocking (HoL blocking): TCP is a single byte stream exposed by the 
+   kernel, so streams layered on top of TCP experience head-of-line (HoL) blocking.
 
    {{% notice "info" %}}
    In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered 
@@ -134,21 +136,23 @@ in 2014, and was later standardized by the IETF in
    is received.
    {{% /notice %}}
 
-2. Ossification: Because the header of TCP packet is unencrypted, middleboxes can inspect and modify
-   TCP header fields and may break unexpectedly when they encounter anything they don’t understand.
-   This makes it practically impossible to deploy any changes to the TCP protocol that change the 
-   wire format.
+2. Ossification: Because the header of TCP packet is not encrypted, middleboxes can 
+   inspect and modify TCP header fields and may break unexpectedly when they encounter 
+   anything they don’t understand. This makes it practically impossible to deploy any 
+   changes to the TCP protocol that change the wire format.
 
-3. Handshake inefficiency: the 3-way handshake is inefficient, as it spends 1-RTT on verifying 
-   the client’s address.
+3. Handshake inefficiency: TCP spends one network round-trip (RTT) on verifying the 
+   client's address. Only after this can TLS start the cryptographic handshake, consuming 
+   another RTT. Setting up an encrypted connection therefore always takes 2-RTTs.
 
 QUIC was designed with the following goals in mind:
 
-- Streams at the transport layer, thereby overcoming HoL blocking
+- Making the transport layer aware of streams, so that packet loss doesn't cause HoL blocking 
+  between streams.
 - Reducing the latency of connection establishment to a single RTT for new connections, and to 
-  allow sending of 0-RTT application data for resumed connections
+  allow sending of 0-RTT application data for resumed connections.
 - Encrypting as much as possible. This eliminates the ossification risk, as middleboxes aren't 
-  able to read any encrypted fields, and allows future evolution of the protocol
+  able to read any encrypted fields. This allows future evolution of the protocol.
 
 ### Comparing HTTP/2 and HTTP/3
 
@@ -158,7 +162,7 @@ which turned into a proposed standard for HTTP/3 in
 of the existing transfer protocols HTTP/2 and HTTP over QUIC in one standard for faster and 
 more stable data transmission.
 
-The following diagram illustrates the OSI model for HTTP/2 and HTTP/3:
+The following diagram illustrates the OSI model for HTTP/2 and HTTP/3 [1]:
 
 ![HTTP/2 & HTTP/3 OSI model](https://cloudspoint.xyz/wp-content/uploads/2022/03/http3.png)
 
@@ -180,29 +184,29 @@ found in TCP and use all the advantages of HTTP/2 and HTTP over QUIC.
 
 ### What is QUIC?
 
-QUIC combines the functionality of these layers. It sends UDP packets and therefore
-it is responsible for loss detection and repair itself. By using encryption, 
-QUIC avoids ossified middleboxes. The TLS 1.3 handshake is performed in the first flight, 
-removing the 1-RTT cost of verifying the client’s address. QUIC also exposes multiple 
-streams, so no stream multiplexer is needed at the application layer. Part of the application 
-layer is also built directly into QUIC; when you run HTTP on top of QUIC; only a small shim 
-layer exists that maps 
-[HTTP semantics](https://httpwg.org/http-core/draft-ietf-httpbis-semantics-latest.html) 
-onto QUIC streams.
+QUIC combines the functionality of these layers. Instead of TCP, it builds on UDP. 
+When a UDP datagram is lost, it is not automatically retransmitted by the kernel. 
+QUIC therefore takes responsibility for loss detection and repair itself. By using 
+encryption, QUIC avoids ossified middleboxes. The TLS 1.3 handshake is performed in 
+the first flight, removing the cost of verifying the client’s address and saving an 
+RTT. QUIC also exposes multiple streams (and not just a single byte stream), so 
+no stream multiplexer is needed at the application layer. Part of the application 
+layer is also built directly into QUIC.
 
-QUIC supports the resumption of connections (0-RTT connections), allowing a 
-client to send application data right away, even before the QUIC handshake has finished.
-
-<!-- to add diagram -->
+In addition, a client can make use of QUIC's 0-RTT feature for subsequent connections 
+when it has already communicated with a certain server. The client can then send 
+(encrypted) application data even before the QUIC handshake has finished.
 
 ### QUIC in libp2p
 
 libp2p only supports bidirectional streams and uses TLS 1.3 by default. 
+Since QUIC already provides an encrypted, stream-multiplexed connection, 
 libp2p directly uses QUIC streams, without any additional framing.
 
-To authenticate each others' peer IDs, peers encode their peer ID into a self-signed certificate,
-which they sign using their host's private key. This is the same way peer IDs are authenticated in
-the [libp2p TLS handshake](https://github.com/libp2p/specs/blob/master/tls/tls.md).
+To authenticate each others' peer IDs, peers encode their peer ID into a self-signed 
+certificate, which they sign using their host's private key. This is the same way peer 
+IDs are authenticated in the 
+[libp2p TLS handshake](https://github.com/libp2p/specs/blob/master/tls/tls.md).
 
 {{% notice "note" %}}
 
@@ -214,3 +218,7 @@ two nodes using QUIC only takes a single RTT.
 
 Following the multiaddress format described earlier, a standard QUIC connection will
 look like: `/ip4/127.0.0.1/udp/65432/quic/`.
+
+## References
+
+[1] [What is HTTP/3 by Cloudspoint](https://cloudspoint.xyz/what-is-http3/)
