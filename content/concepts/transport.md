@@ -142,7 +142,7 @@ in 2014, and was later standardized by the IETF in
    firewalls, NATs, proxies, and load balancers.
    {{% /notice %}}
 
-3. Handshake inefficiency: the 3-way handshake is inefficient, as it spends 1-RTT on verifying 
+3. Handshake inefficiency: the 3-way handshake is inefficient, as it spends 1 RTT on verifying 
    the client’s address.
 
    {{% notice "info" %}}
@@ -165,7 +165,7 @@ A web browser connection typically entails the following (TCP+TLS+HTTP/2):
    - TCP provides a reliable, bidirectional connection between two end systems.
 2. Secure communication layer: A TLS handshake runs on top of TCP to,
    establishing an encrypted and authenticated connection.
-   - Standard TLS over TCP requires 3-RTT. A typical TLS 1.3 handshake takes 1-RTT.
+   - Standard TLS over TCP requires 3 RTT. A typical TLS 1.3 handshake takes 1 RTT.
 3. Application layer: HTTP runs on a secure transport connection to transfer 
    information and applies a stream muxer to serve multiple requests.
    - Application data starts to flow.
@@ -244,20 +244,20 @@ protocol that fits well with a modular network design.
 
 For a standard WebSocket connection, the roundtrips required are as follows:
 
-- 1-RTT for TCP handshake
-- 1-RTT for TLS 1.3 handshake
-- 1-RTT for WebSocket upgrade
-- 1-RTT for multistream security negotiation (Noise or TLS 1.3)
-- 1-RTT for security handshake (Noise or TLS 1.3)
-- 1-RTT for multistream muxer negotiation (mplex or yamux)
+- 1 RTT for TCP handshake
+- 1 RTT for TLS 1.3 handshake
+- 1 RTT for WebSocket upgrade
+- 1 RTT for multistream security negotiation (Noise or TLS 1.3)
+- 1 RTT for security handshake (Noise or TLS 1.3)
+- 1 RTT for multistream muxer negotiation (mplex or yamux)
 
-In total, 6-RTTs.
+In total, 6 RTTs.
 
 WebTransport running over QUIC only requires 4 RTTs, as:
 
-- 1-RTT for QUIC handshake
-- 1-RTT for WebTransport handshake
-- 2-RTT for libp2p handshake; one for multistream and one for authentication 
+- 1 RTT for QUIC handshake
+- 1 RTT for WebTransport handshake
+- 2 RTT for libp2p handshake; one for multistream and one for authentication 
   (with a Noise handshake)
 > With protocol select, the WebTransport handshake and the libp2p handshake 
 > can run in parallel, bringing down the total round trips to 2.
