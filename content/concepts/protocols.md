@@ -36,7 +36,7 @@ A libp2p application will define a stream handler that takes over the
 stream after protocol negotiation. Everything sent and received after the
 negotiation phase is then defined by the application protocol.
 
-The handler function invokes when an incoming stream is tagged with 
+The handler function is invoked when an incoming stream is received with 
 the registered protocol ID. If you register a handler with a 
 [match function](#matching-protocol-ids-and-versions), you can choose whether
 to accept non-exact string matches for protocol ids, for example, to match 
@@ -98,11 +98,11 @@ the new stream as an argument.
 
 ### Dialing a specific protocol
 
-When dialing a remote peer to open a new stream, the initiating peer sends the protocol 
-ID they'd like to use. The remote peer will use the matching logic described above to 
+When opening a new stream on a connection, the initiating peer sends the protocol 
+ID it would like to use. The remote peer will use the matching logic described above to 
 accept or reject the protocol. If the protocol is rejected, the dialing peer can try again.
 
-When dialing, you can optionally provide a list of protocol IDs instead of a single ID. 
+When opening a new stream, the initiator can optionally provide a list of protocol IDs instead of a single ID. 
 When you provide multiple protocol IDs, they will each is tried in succession, and the 
 first successful match will be used if at least one of the protocols is supported by the 
 remote peer. This can be useful if you support a range of protocol versions since you can 
