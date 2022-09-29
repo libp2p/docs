@@ -19,8 +19,8 @@ the key features mentioned below.
 libp2p protocols have unique string identifiers, which are used in the 
 [protocol negotiation](#protocol-negotiation) process when streams are first opened.
 
-Historically, the IDs of many protocols in use by libp2p have a path-like structure, with a version number as the 
-final component:
+Historically, the IDs of many protocols in use by libp2p have a path-like structure, 
+with a version number as the final component:
 
 ```
 /my-app/amazing-protocol/1.0.1
@@ -82,19 +82,10 @@ or connection is called **protocol negotiation**.
 
 ### Matching protocol IDs and versions
 
-There are two methods available to register a protocol handler.
-
-1. The first takes two arguments: a protocol ID and a handler function. If an incoming 
-stream request sends an exact match for the protocol ID; the handler function invokes 
-the new stream as an argument.
-
-2. **Using a match function**: The second kind of protocol registration takes three arguments: 
-   the protocol ID, a protocol match function, and the handler function.
-   - When a stream request comes in whose protocol ID doesn't have any exact matches, 
-     the protocol ID will pass through all the registered match functions if any returns 
-     `true`, the associated handler function invokes.
-   - This offers a lot of flexibility to do your own "fuzzy matching" and define 
-     whatever rules for protocol matching make sense of your application.
+There are different ways to register a protocol handler. For instance, a match function 
+is a flexible method for protocol registration. A match function
+takes three arguments: the protocol ID, a protocol match function, 
+and the handler function as arguments.
 
 ### Dialing a specific protocol
 
@@ -102,9 +93,9 @@ When opening a new stream on a connection, the initiating peer sends the protoco
 ID it would like to use. The remote peer will use the matching logic described above to 
 accept or reject the protocol. If the protocol is rejected, the dialing peer can try again.
 
-When opening a new stream, the initiator can optionally provide a list of protocol IDs instead of a single ID. 
-When you provide multiple protocol IDs, they will each is tried in succession, and the 
-first successful match will be used if at least one of the protocols is supported by the 
+When opening a new stream, the initiator can optionally provide a list of protocol IDs instead 
+of a single ID. When you provide multiple protocol IDs, they will each is tried in succession, 
+and the first successful match will be used if at least one of the protocols is supported by the 
 remote peer. This can be useful if you support a range of protocol versions since you can 
 propose the most recent version and fallback to older versions if the remote hasn't adopted 
 the latest version yet.
