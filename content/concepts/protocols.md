@@ -66,20 +66,20 @@ internal protocols are outlined below.
 
 ## Protocol Negotiation
 
-Libp2p protocols can have sub-protocols or protocol-suites. It is difficult 
+Libp2p protocols can have sub-protocols or protocol-suites. It isn't easy 
 to select and route protocols, or even know which protocols are available.
 
 [Multistream-select](https://github.com/multiformats/multistream-select) 
-is a protocol multiplexer negotiates the application-layer protocol. When a new 
-stream is created, it is ran through `multistream-select` to route the stream to the 
-ppropriate protocol handler.
+is a protocol multiplexer that negotiates the application-layer protocol. When 
+a new stream is created, it is run through `multistream-select`, which routes the 
+stream to the appropriate protocol handler.
 
 When dialing out to initiate a new stream, libp2p sends the protocol ID of the 
 protocol you want to use. The listening peer on the other end checks the incoming 
 protocol ID against the registered protocol handlers.
 
 If the listening peer does not support the requested protocol, it will send "na" 
-on the stream and the dialing peer can try again with a different protocol or possibly 
+on the stream, and the dialing peer can try again with a different protocol or possibly 
 a fallback version of the initially requested protocol.
 
 If the protocol is supported, the listening peer will echo back the protocol ID as 
