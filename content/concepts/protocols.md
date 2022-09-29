@@ -17,9 +17,9 @@ the key features mentioned below.
 #### Protocol IDs
 
 libp2p protocols have unique string identifiers, which are used in the 
-[protocol negotiation](#protocol-negotiation) process when connections are first opened.
+[protocol negotiation](#protocol-negotiation) process when streams are first opened.
 
-By convention, protocol IDs have a path-like structure, with a version number as the 
+Historically, the IDs of many protocols in use by libp2p have a path-like structure, with a version number as the 
 final component:
 
 ```
@@ -76,11 +76,11 @@ internal protocols are outlined below.
 
 ## Protocol Negotiation
 
-When dialing out to initiate a new stream, libp2p will send the protocol ID of the 
-protocol you want to use. The listening peer on the other end will check the incoming 
+When dialing out to initiate a new stream, libp2p sends the protocol ID of the 
+protocol you want to use. The listening peer on the other end checks the incoming 
 protocol ID against the registered protocol handlers.
 
-If the listening peer does not support the requested protocol, it will end the stream, 
+If the listening peer does not support the requested protocol, it will send "na" on the stream
 and the dialing peer can try again with a different protocol or possibly a fallback 
 version of the initially requested protocol.
 
