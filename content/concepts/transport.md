@@ -143,14 +143,14 @@ services and Chrome in 2014, and was later standardized by the IETF in
 
 3. Handshake inefficiency: TCP spends one network round-trip (RTT) on verifying the 
    client's address. Only after this can TLS start the cryptographic handshake, consuming 
-   another RTT. Setting up an encrypted connection therefore always takes 2-RTTs.
+   another RTT. Setting up an encrypted connection therefore always takes 2 RTTs.
 
 QUIC was designed with the following goals in mind:
 
 - Making the transport layer aware of streams, so that packet loss doesn't cause HoL blocking 
   between streams.
 - Reducing the latency of connection establishment to a single RTT for new connections, and to 
-  allow sending of 0-RTT application data for resumed connections.
+  allow sending of 0 RTT application data for resumed connections.
 - Encrypting as much as possible. This eliminates the ossification risk, as middleboxes aren't 
   able to read any encrypted fields. This allows future evolution of the protocol.
 
@@ -173,7 +173,7 @@ A web browser connection typically entails the following **(TCP+TLS+HTTP/2)**:
    - TCP provides a reliable, bidirectional connection between two end systems.
 2. Security layer: A TLS handshake runs on top of TCP to
    establish an encrypted and authenticated connection.
-   - Standard TLS over TCP requires 3-RTT. A typical TLS 1.3 handshake takes 1-RTT.
+   - Standard TLS over TCP requires 3 RTT. A typical TLS 1.3 handshake takes 1 RTT.
 3. Application layer: HTTP runs on a secure transport connection to transfer 
    information and applies a stream muxer to serve multiple requests.
    - Application data starts to flow.
@@ -193,7 +193,7 @@ RTT. QUIC also exposes multiple streams (and not just a single byte stream), so
 no stream multiplexer is needed at the application layer. Part of the application 
 layer is also built directly into QUIC.
 
-In addition, a client can make use of QUIC's 0-RTT feature for subsequent connections 
+In addition, a client can make use of QUIC's 0 RTT feature for subsequent connections 
 when it has already communicated with a certain server. The client can then send 
 (encrypted) application data even before the QUIC handshake has finished.
 
