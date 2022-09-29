@@ -223,17 +223,30 @@ The specification can depend on and reuse the QUIC infrastructure in place
 to offer WebSockets that take the benefits of UDP and offer streams without 
 head-of-line blocking.
 
-While WebSocket provides a bidirectional, full-duplex communication between a browser and a server over a TCP connection, WebTransport exposes the streams of a QUIC connection to the browser.``
+WebTransports allows us to connect to any libp2p browser node with any server node
+because the protocol supports certificate verification via certificate hash, whereas
+for WebSocket, it is necessary that the TLS certificate is signed by a trusted CA
+(certificate authority).
 
-WebTransport supports reliable streams that can be arbitrary in size. They can be 
-independent and canceled if needed. The datagrams in a 
-WebTransport connections are MTU-sized.
+While WebSocket provides a bidirectional, full-duplex communication between a 
+browser and a server over a TCP connection, WebTransport exposes the streams of a 
+QUIC connection to the browser.
+
+Therefore, WebTransport exhibits all the advantages of QUIC over TCP, that being 
+faster handshakes, no HoL blocking, and being future-proof.
 
 {{% notice "caution" %}}
 
 There is an experimental WebTransport transport in go-libp2p that is part 
-of the v0.23 release. The implementation should be used experimentally and is not 
-recommended for production environments.
+of the [v0.23 release](https://github.com/libp2p/go-libp2p/releases/tag/v0.23.0). 
+The implementation should be used experimentally and is not recommended for production 
+environments.
+
+js-libp2p also plans to release 
+[WebTransport support](https://github.com/libp2p/js-libp2p-webtransport) relatively soon.
+
+There are currently no concrete plans to support WebTransport beyond the Go and JS 
+implementations.
 
 {{% /notice %}}
 
