@@ -156,9 +156,8 @@ QUIC was designed with the following goals in mind:
 
 ### Comparing HTTP/2 and HTTP/3
 
-The IETF introduced a new hypertext transfer protocol standard in late 2018, 
-which turned into a proposed standard for HTTP/3 in 
-[RFC 9114](https://datatracker.ietf.org/doc/html/rfc9114). HTTP/3 combines the advantages 
+In addition to defining the QUIC transport, the IETF also standardized a new version of HTTP that runs on top of QUIC: HTTP/3 (
+[RFC 9114](https://datatracker.ietf.org/doc/html/rfc9114)). HTTP/3 combines the advantages 
 of the existing transfer protocols HTTP/2 and HTTP over QUIC in one standard for faster and 
 more stable data transmission.
 
