@@ -3,14 +3,13 @@ title: Connections
 weight: 3
 ---
 
-A libp2p connection is a communication channel that allows two peers to read 
-and write data to each other. Peers can connect through transport 
-protocols. Transport protocols are core abstractions of libp2p and offer 
-extensibility. As a modular networking stack, libp2p is transport-agnostic 
-and does not enforce the implementation of a specific transport protocol. 
-Though the support of modern transport protocols is a primary focus for 
-libp2p, implementers may choose to support multiple types of transport. Learn 
-more about transport protocols in libp2p on the 
+A libp2p connection allows two peers to read and write data to each other. 
+Peers can connect through transport protocols. Transport protocols are core 
+abstractions of libp2p and offer extensibility. As a modular networking stack, 
+libp2p is transport-agnostic and does not enforce the implementation of a specific 
+transport protocol. Though the support of modern transport protocols is a primary 
+focus for libp2p, implementers may choose to support multiple types of transport. 
+Learn more about transport protocols in libp2p on the 
 [transport guide]((/concepts/transports/)). 
 
 Let's first outline key terminology to help us understand connections in libp2p.
@@ -50,25 +49,22 @@ initation process is abstracted through libp2p's interfaces.
 An interface called a [switch](/concepts/stream-multiplexing/#switch/swarm) 
 (and sometimes swarm) implements a basic dial queue that manages an application's 
 dialing and listening state. This prevents multiple, 
-simultaneous dial requests to the same peer. Peers will generally dial other
-peers using the switch interface, which initiates a stream to read from and write 
-to. The switch will find the appropriate transport protocol to open a connection. 
+simultaneous dial requests to the same peer. 
 
 ### How do peers know what transports other peers support?
 
-A data store known as a Peer Store in libp2p holds an updated data registry of 
-all known peers and their Peer Info. Other peers can dial the Peer Store, listen 
-for updates, and learn about any peer within the network. More information about peers
-is available on the [peers guide](/concepts/peers).
+Each libp2p node has information about the transports it supports.
+Peers can obtain this information by dialing a peer and listen 
+for updates on the network. More information about peers is available 
+on the [peers guide](/concepts/peers).
 
 ### How do peers establish a connection once they find others to connect to?
 
-A peer sends its multiaddr to the switch when it is ready to connect. 
+There are different approaches that peers can take to establish a connection.
 The dialing peer, known as the *Initiator* of the connection, sends a dialing request 
 to the listening peer, known as the *Responder* of the connection, via the Initiator's 
-multiaddr over the transport that the switch initiated. To accept connections, a libp2p 
-application registers handler functions for  protocols using their protocol ID with the 
-switch.
+multiaddr over the transport. To accept connections, a libp2p application registers 
+handler functions for protocols using their protocol ID.
 
 More information on multiaddrs, peers, and protocols is available on the
 [addressing](/concepts/addressing), [peers](/concepts/peers),
@@ -114,7 +110,7 @@ adds the Peer Info and multiaddr to the Peer Store. Stay tuned for a dedicated
 guide on discovering un-{known, identified}. For now, please refer to the
 [peers guide](/concepts/peers) for more information. 
 
-<!-- to add peer routing guide reference when available-->
+<!-- to add peer routing guide reference when available -->
 
 ### How do peers check if other peers are dialable?
 
@@ -123,9 +119,9 @@ Learn about AutoNAT on the [NAT traversal guide](/concepts/nat/#autonat).
 
 ### What if a peer is not dialable?
 
-Libp2p includes a decentralized hole punching feature that allows firewall 
+Libp2p includes a decentralized hole punching feature that allows for firewall 
 and NAT traversal. Learn more about establishing direct connections with non-public
-nodes on the [hole punching guide](/concepts/circuit-relay).
+nodes on the [hole punching guide](/concepts/hole-punching).
 
 ## Upgrading a raw libp2p connection
 
