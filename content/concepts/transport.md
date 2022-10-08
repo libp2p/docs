@@ -298,5 +298,5 @@ instead. The HTTP endpoint of a libp2p WebTransport servers must be located at
 `/.well-known/libp2p-webtransport`.
 
 For instance, the WebTransport URL of a WebTransport server advertising 
-`/ip4/1.2.3.4/udp/1234/quic/webtransport/` that is authenticated would be 
-`https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise`.
+`/ip4/1.2.3.4/udp/1234/quic/webtransport/` would be 
+`https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise` (the ?type=noise refers to the authentication scheme using Noise).
