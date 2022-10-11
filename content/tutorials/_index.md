@@ -7,8 +7,38 @@ chapter: true
 
 # Get Started with libp2p
 
+## Examples using libp2p
+
+If you are looking for specific examples - here's where to find working examples illustrating some 
+of libp2p's key features for each of its main implementations.
+
+{{< tabs >}}
+{{% tab name="Go" %}}
+
+See the [/examples directory of the go-libp2p-examples repository](https://github.com/libp2p/go-libp2p/tree/master/).
+
+{{% /tab %}}
+{{% tab name="Rust" %}}
+
+See [/examples directory of the rust-libp2p repository](https://github.com/libp2p/rust-libp2p/tree/master/examples).
+
+{{% /tab %}}
+{{% tab name="JavaScript" %}}
+
+See the [/examples directory of the js-libp2p repository](https://github.com/libp2p/js-libp2p/tree/master/).
+
+{{% /tab %}}
+{{< /tabs >}}
+
+## Run a libp2p node
+
 The getting started tutorials cover setting up a development environment, getting familiar with libp2p basics, 
 and implementing a simple node that can send and receive "ping" messages.
+
+{{% notice "tip" %}}
+The [Protocol Labs Launchpad curriculum](https://curriculum.pl-launchpad.io/) also includes a tutorial on spinning up 
+a libp2p node using a go-libp2p bolierplate. Check it out [here](https://curriculum.pl-launchpad.io/curriculum/libp2p/creating-simple-node/).
+{{% /notice %}}
 
 {{< tabs >}}
 {{% tab name="Go" %}}
@@ -17,7 +47,7 @@ This is the first in a series of tutorials on working with libp2p’s Go impleme
 [go-libp2p](https://github.com/libp2p/go-libp2p). We’ll cover installing Go, setting up a new Go module, 
 starting libp2p nodes, and sending ping messages between them.
 
-## Install Go
+### Install Go
 
 - Ensure your Go version is at least 1.19.
 - You can install a recent version of Go by following the [official installation instructions](https://golang.org/doc/install).
@@ -28,7 +58,7 @@ $ go version
 go version go1.19 darwin/arm64
 ```
 
-## Create a Go module
+### Create a Go module
 
 We're going to create a Go module that can be run from the command line.
 
@@ -56,7 +86,7 @@ module github.com/user/go-libp2p-tutorial
 go 1.19
 ```
 
-## Start a libp2p node
+### Start a libp2p node
 
 We'll now add some code to our module to start a libp2p node.
 Let's start by creating a `main.go` file that simply starts a libp2p node with default settings,
@@ -106,7 +136,7 @@ The listening addresses are formatted using the [multiaddr](https://github.com/m
 format, and there is typically more than one printed because go-libp2p will listen on all available
 IPv4 and IPv6 network interfaces by default.
 
-### Configure the node
+#### Configure the node
 
 A node's default settings can be overridden by passing extra arguments to `libp2p.New`. Let's use
 `libp2p.ListenAddrStrings` to configure the node to listen on TCP port 2000 on the IPv4 loopback
@@ -142,7 +172,7 @@ Listening addresses: [/ip4/127.0.0.1/tcp/2000]
 [options.go](https://github.com/libp2p/go-libp2p/blob/master/options.go) for a full list of those
 options.
 
-### Wait for a signal
+#### Wait for a signal
 
 A node that immediately exits is not all that useful. Let's add the following towards the end of the
 `main` function that blocks waiting for an OS signal before shutting down the node:
@@ -187,11 +217,11 @@ Listening addresses: [/ip4/127.0.0.1/tcp/2000]
 ^CReceived signal, shutting down...
 ```
 
-## Run the ping protocol
+### Run the ping protocol
 
 Now that we have the ability to configure and start libp2p nodes, we can start communicating!
 
-### Set a stream handler
+#### Set a stream handler
 
 A node started with go-libp2p will run its own ping protocol by default, but let's disable it and
 set it up manually to demonstrate the process of running protocols by registering stream handlers.
@@ -239,7 +269,7 @@ func main() {
 }
 ```
 
-### Connect to a peer
+#### Connect to a peer
 
 With the ping protocol configured, we need a way to instruct the node to connect to another node and
 send it ping messages.
@@ -334,7 +364,7 @@ func main() {
 }
 ```
 
-## Let's play ping pong!
+### Let's play ping pong!
 
 We are finally in a position to run two libp2p nodes, have one connect to the other and for
 them to run a protocol!
@@ -459,12 +489,12 @@ We will walk you through setting up a fully functional libp2p node with some bas
 TODO(yusef): put full example code on github and link to it here
  -->
 
-## Install node.js
+### Install node.js
 
 Working with js-libp2p requires [node.js](https://nodejs.org) >= v16 for development. If you haven't already, install node using whatever package manager you prefer or [using the official installer](https://nodejs.org/en/download/).
 We recommend using the latest stable version of node, but anything fairly recent should work fine. If you want to see how low you can go, the current version requirements can always be found at the [js-libp2p project page](https://github.com/libp2p/js-libp2p).
 
-## Create an empty project
+### Create an empty project
 
 We need a place to put our work, so open a terminal to make a new directory for your project somewhere and set it up as an npm project:
 
@@ -484,7 +514,7 @@ We need a place to put our work, so open a terminal to make a new directory for 
 
 Side note: throughout this tutorial, we use the `> ` character to indicate your terminal's shell prompt. When following along, don't type the `>` character, or you'll get some weird errors.
 
-## Configure libp2p
+### Configure libp2p
 
 libp2p is a very modular framework, which allows javascript devs to target different runtime environments and opt-in to various features by including a custom selection of modules.
 
@@ -500,7 +530,7 @@ As an initial step, you should install libp2p module.
 npm install libp2p
 ```
 
-### Basic setup
+#### Basic setup
 
 Now that we have libp2p installed, let's configure the minimum needed to get your node running. The only modules libp2p requires are a **Transport** and **Crypto** module. However, we recommend that a basic setup should also have a **Stream Multiplexer** configured, which we will explain shortly. Let's start by setting up a Transport.
 
@@ -574,7 +604,7 @@ const node = await createLibp2p({
 
 ```
 
-#### Running Libp2p
+#### Running libp2p
 
 Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexer** module, you can start your libp2p node. We can start and stop libp2p using the [`libp2p.start()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#start) and [`libp2p.stop()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#stop) methods.
 
@@ -624,7 +654,7 @@ listening on addresses:
 libp2p has stopped
 ```
 
-## Lets play ping pong!
+### Lets play ping pong!
 
 Now that we have the basic building blocks of transport, multiplexing, and security in place, we can start communicating!
 
@@ -710,7 +740,7 @@ libp2p has stopped
 
 Success! Our two peers are now communicating over a multiplexed, secure channel.  Sure, they can only say "ping", but it's a start!
 
-## What's next?
+### What's next?
 
 After finishing this tutorial, you should have a look into the [js-libp2p getting started](https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md) document, which goes from a base configuration like this one, to more custom ones.
 
@@ -722,16 +752,3 @@ You also have a panoply of examples on [js-libp2p repo](https://github.com/libp2
 
 {{% /tab %}}
 {{< /tabs >}}
-
-{{% notice "tip" %}}
-The [Protocol Labs Launchpad curriculum](https://curriculum.pl-launchpad.io/) also includes a tutorial on spinning up 
-a libp2p node using a go-libp2p bolierplate. Check it out [here](https://curriculum.pl-launchpad.io/curriculum/libp2p/creating-simple-node/).
-{{% /notice %}}
-
-## Examples 
-
-Here's where to find working examples illustrating some of libp2p's key features for each of its main implementations:
-
-* For Go, see the [/examples directory of the go-libp2p-examples repository](https://github.com/libp2p/go-libp2p/tree/master/examples).
-* For JavaScript, see the [/examples directory of the js-libp2p repository](https://github.com/libp2p/js-libp2p/tree/master/examples).
-* For Rust, see [/examples directory of the rust-libp2p repository](https://github.com/libp2p/rust-libp2p/tree/master/examples).
