@@ -14,20 +14,14 @@ and implementing a simple node that can send and receive "ping" messages.
 {{% tab name="Go" %}}
 
 This is the first in a series of tutorials on working with libp2p’s Go implementation,
-[go-libp2p](https://github.com/libp2p/go-libp2p).
-
-We’ll cover installing Go, setting up a new Go module, starting libp2p nodes, and sending ping
-messages between them.
-
-<!--more-->
+[go-libp2p](https://github.com/libp2p/go-libp2p). We’ll cover installing Go, setting up a new Go module, 
+starting libp2p nodes, and sending ping messages between them.
 
 ## Install Go
 
-Ensure your Go version is at least 1.19.
-
-You can install a recent version of Go by following the [official installation instructions](https://golang.org/doc/install).
-
-Once installed, you should be able to run `go version` and see a version >= 1.19, for example:
+- Ensure your Go version is at least 1.19.
+- You can install a recent version of Go by following the [official installation instructions](https://golang.org/doc/install).
+- Once installed, you should be able to run `go version` and see a version >= 1.19, for example:
 
 ```sh
 $ go version
@@ -65,7 +59,6 @@ go 1.19
 ## Start a libp2p node
 
 We'll now add some code to our module to start a libp2p node.
-
 Let's start by creating a `main.go` file that simply starts a libp2p node with default settings,
 prints the node's listening addresses, then shuts the node down:
 
@@ -458,7 +451,6 @@ implementation](https://docs.rs/libp2p/newest/libp2p/tutorials/index.html).
 {{% tab name="JavaScript" %}}
 
 This is the first in a series of tutorials on working with libp2p's javascript implementation, [js-libp2p](https://github.com/libp2p/js-libp2p).
-
 We will walk you through setting up a fully functional libp2p node with some basic functionality, and finally we'll send ping messages back and forth between two peers.
 
 <!--more-->
@@ -470,7 +462,6 @@ TODO(yusef): put full example code on github and link to it here
 ## Install node.js
 
 Working with js-libp2p requires [node.js](https://nodejs.org) >= v16 for development. If you haven't already, install node using whatever package manager you prefer or [using the official installer](https://nodejs.org/en/download/).
-
 We recommend using the latest stable version of node, but anything fairly recent should work fine. If you want to see how low you can go, the current version requirements can always be found at the [js-libp2p project page](https://github.com/libp2p/js-libp2p).
 
 ## Create an empty project
@@ -499,9 +490,7 @@ libp2p is a very modular framework, which allows javascript devs to target diffe
 
 Because every application is different, we recommend configuring your libp2p node with just the modules you need. You can even make more than one configuration, if you want to target multiple javascript runtimes with different features.
 
-{{% notice note %}}
-In a production application, it may make sense to create a separate npm module for your libp2p node, which will give you one place to manage the libp2p dependencies for all your javascript projects. In that case, you should not depend on `libp2p` directly in your application. Instead you'd depend on your libp2p configuration module, which would in turn depend on `libp2p` and whatever modules (transports, etc) you might need.
-{{% /notice %}}
+> In a production application, it may make sense to create a separate npm module for your libp2p node, which will give you one place to manage the libp2p dependencies for all your javascript projects. In that case, you should not depend on `libp2p` directly in your application. Instead you'd depend on your libp2p configuration module, which would in turn depend on `libp2p` and whatever modules (transports, etc) you might need.
 
 If you're new to libp2p, we recommend configuring your node in stages, as this can make troubleshooting configuration issues much easier. In this tutorial, we'll do just that. If you're more experienced with libp2p, you may wish to jump to the [Configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md).
 
@@ -733,6 +722,13 @@ You also have a panoply of examples on [js-libp2p repo](https://github.com/libp2
 
 {{% /tab %}}
 {{< /tabs >}}
+
+{{% notice "tip" %}}
+The [Protocol Labs Launchpad curriculum](https://curriculum.pl-launchpad.io/) also includes a tutorial on spinning up 
+a libp2p node using a go-libp2p bolierplate. Check it out [here](https://curriculum.pl-launchpad.io/curriculum/libp2p/creating-simple-node/).
+{{% /notice %}}
+
+## Examples 
 
 Here's where to find working examples illustrating some of libp2p's key features for each of its main implementations:
 
