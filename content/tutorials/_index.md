@@ -1,5 +1,5 @@
 ---
-title: "Tutorials"
+title: "Guides"
 weight: 3
 pre: '<i class="fas fa-fw fa-code"></i> '
 chapter: true
