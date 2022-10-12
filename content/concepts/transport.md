@@ -213,7 +213,8 @@ In this section, we offered an overview of QUIC and how QUIC works in libp2p.
 
 ## WebTransport
 
-While browsers perform HTTP request using HTTP/3, so far they don't offer an API to allow applications to gain access to the underlying QUIC stream.
+While browsers perform HTTP request using HTTP/3, so far they don't offer an API to allow applications 
+to gain access to the underlying QUIC stream.
 WebTransport is a new specification that uses QUIC to offer an alternative to
 WebSocket. Conceptually, it can be considered WebSocket over QUIC. 
 It allows browsers to establish a stream-multiplexed and bidirectional connection 
@@ -223,20 +224,16 @@ While WebSocket provides a single bidirectional, full-duplex communication betwe
 browser and a server over a TCP connection, WebTransport exposes allows the endpoints to use multiple
 streams in parallel.
 
-WebTransports allows us to connect to any libp2p browser node with any server node
-because the protocol supports certificate verification via certificate hash, whereas
-for WebSocket, it is necessary that the TLS certificate is signed by a trusted CA
-(certificate authority).
-
 When connecting to a WebSocket server, browsers require the server to present a
 TLS certificate signed by a trusted CA (certificate authority). Few nodes have such
 a certificate, which is the reason that WebSocket never saw widespread adoption in the
 libp2p network. libp2p WebTransport offers a browser API that includes a way to 
 accept the server's certificate by checking the (SHA-256) hash of the certificate 
-(using the [`serverCertificateHashes` option](https://www.w3.org/TR/webtransport/#dom-webtransportoptions-servercertificatehashes)), even if the certificate is "just" 
-a self-signed certificate. This allows us to connect any browser node to any server node, 
-as long as the browser knows the certificate hash in advance 
-(see [WebTransport in libp2p](#webtransport-in-libp2p) for how WebTransport addresses 
+(using the 
+[`serverCertificateHashes` option](https://www.w3.org/TR/webtransport/#dom-webtransportoptions-servercertificatehashes)), 
+even if the certificate is "just" a self-signed certificate. This allows us to connect 
+any browser node to any server node, as long as the browser knows the certificate hash in 
+advance (see [WebTransport in libp2p](#webtransport-in-libp2p) for how WebTransport addresses 
 achieve this).
 
 Therefore, WebTransport exhibits all the advantages of QUIC over TCP, that being 
@@ -280,7 +277,7 @@ WebTransport running over QUIC only requires 3 RTTs, as:
 
 In principle, the WebTransport protocol would even allow running the WebTransport 
 handshake and the Noise handshake in parallel. However, this is currently not 
-possible in since the [browser API doesn't allow](https://github.com/w3c/webtransport/issues/409) that yet.
+possible since the [browser API doesn't allow that yet](https://github.com/w3c/webtransport/issues/409).
 
 ### WebTransport in libp2p
 
@@ -292,11 +289,8 @@ a standard local QUIC connection is defined up until and including `/quic.`
 Then, `/webtransport/` runs over QUIC. The self-signed certificate hash that the 
 server will use to verify the connection.
 
-WebTransport requires an HTTPS URL to establish a WebTransport session - 
-e.g., `https://docs.libp2p.com/webtransport` and the multiaddresses use an HTTP URL
-instead. The HTTP endpoint of a libp2p WebTransport servers must be located at 
-`/.well-known/libp2p-webtransport`.
-
-For instance, the WebTransport URL of a WebTransport server advertising 
-`/ip4/1.2.3.4/udp/1234/quic/webtransport/` would be 
-`https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise` (the ?type=noise refers to the authentication scheme using Noise).
+WebTransport CONNECT is sent as an HTTPS endpoint. The HTTP endpoint of a libp2p WebTransport server 
+must be located at `/.well-known/libp2p-webtransport`. For instance, the WebTransport URL of a WebTransport 
+server advertising `/ip4/1.2.3.4/udp/1234/quic/webtransport/` would be 
+`https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise` 
+(the ?type=noise refers to the authentication scheme using Noise).
