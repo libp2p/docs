@@ -28,7 +28,7 @@ Here we'll cover how we can use libp2p to achieve the above goals.
   - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
     - [Example screen recording of fail2ban in action](#example-screen-recording-of-fail2ban-in-action)
     - [Setting Up fail2ban](#setting-up-fail2ban)
-  - [Leverage Resource Manager and a set of trusted peers to form an allow list (go-libp2p only)](#leverage-resource-manager-and-a-set-of-trusted-peers-to-form-an-allow-list-go-libp2p-only)
+  - [Deny specific peers or create an allow list of trusted peers](#deny-specific-peers-or-create-an-allow-list-of-trusted-peers)
 - [Summary](#summary)
 
 # What we mean by a DOS attack
@@ -381,15 +381,17 @@ Status for the jail: go-libp2p-weird-behavior-iptables
 
 Then you’re good to go! You’ve successfully set up a go-libp2p jail.
 
-## Leverage Resource Manager and a set of trusted peers to form an allow list (go-libp2p only)
+## Deny specific peers or create an allow list of trusted peers
 
-The [resource manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) can
+The go-libp2p [resource manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) can
 accept a list of trusted multiaddrs and can use a different set of limits in
 case the normal system limits are reached. This is useful if you're currently
 experiencing an attack since you can set low limits for general use, and
 higher limits for trusted peers. See the [allowlist
 section](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager#allowlisting-multiaddrs-to-mitigate-eclipse-attacks)
 for more details.
+
+js-libp2p provides a straightforward allow and deny list mechanishm with its [connection manager limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#allowdeny-lists).
 
 # Summary
 
