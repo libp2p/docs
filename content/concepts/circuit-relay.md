@@ -15,7 +15,7 @@ The circuit relay protocol is inspired by [TURN](https://tools.ietf.org/html/rfc
 Relay connections are end-to-end encrypted, which means that the peer acting as the relay is unable to read or tamper with any traffic that flows through the connection.
 {{% /notice %}}
 
-An important aspect of the relay protocol is that it is not "transparent". In other words, both the source and destination are aware that traffic is being relayed. This is useful, since the destination can see the relay address used to open the connection and can potentially use it to construct a path back to the source. It is also not anonymous - all participants are identified using their peer id, including the relay node.
+An important aspect of the relay protocol is that it is not "transparent". In other words, both the source and destination are aware that traffic is being relayed. This is useful, since the destination can see the relay address used to open the connection and can potentially use it to construct a path back to the source. It is also not anonymous - all participants are identified using their Peer ID, including the relay node.
 
 #### Protocol Versions
 
@@ -23,9 +23,9 @@ Today there are two versions of the circuit relay protocol, [v1](https://github.
 
 #### Relay addresses
 
-A relay circuit is identified using a [multiaddr][definition_muiltiaddress] that includes the [peer id](/concepts/peer-id/) of the peer whose traffic is being relayed (the listening peer or "relay target").
+A relay circuit is identified using a [multiaddr][definition_muiltiaddress] that includes the [Peer ID](/concepts/peers/) of the peer whose traffic is being relayed (the listening peer or "relay target").
 
-Let's say that I have a peer with the peer id `QmAlice`. I want to give out my address to my friend `QmBob`, but I'm behind a NAT that won't let anyone dial me directly.
+Let's say that I have a peer with the Peer ID `QmAlice`. I want to give out my address to my friend `QmBob`, but I'm behind a NAT that won't let anyone dial me directly.
 
 The most basic `p2p-circuit` address I can construct looks like this:
 
@@ -35,11 +35,11 @@ The address above is interesting, because it doesn't include any [transport](/co
 
 A better address would be something like `/p2p/QmRelay/p2p-circuit/p2p/QmAlice`. This includes the identity of a specific relay peer, `QmRelay`. If a peer already knows how to open a connection to `QmRelay`, they'll be able to reach us.
 
-Better still is to include the transport addresses for the relay peer in the address. Let's say that I've established a connection to a specific relay with the peer id `QmRelay`. They told me via the identify protocol that they're listening for TCP connections on port `55555` at IPv4 address `7.7.7.7`. I can construct an address that describes a path to me through that specific relay over that transport:
+Better still is to include the transport addresses for the relay peer in the address. Let's say that I've established a connection to a specific relay with the Peer ID `QmRelay`. They told me via the identify protocol that they're listening for TCP connections on port `55555` at IPv4 address `7.7.7.7`. I can construct an address that describes a path to me through that specific relay over that transport:
 
 `/ip4/7.7.7.7/tcp/55555/p2p/QmRelay/p2p-circuit/p2p/QmAlice`
 
-Everything prior to the `/p2p-circuit/` above is the address of the relay peer, which includes the transport address and their peer id `QmRelay`. After `/p2p-circuit/` is the peer id for my peer at the other end of the line, `QmAlice`.
+Everything prior to the `/p2p-circuit/` above is the address of the relay peer, which includes the transport address and their Peer ID `QmRelay`. After `/p2p-circuit/` is the Peer ID for my peer at the other end of the line, `QmAlice`.
 
 By giving the full relay path to my friend `QmBob`, they're able to quickly establish a relayed connection without having to "ask around" for a relay that has a route to `QmAlice`.
 
