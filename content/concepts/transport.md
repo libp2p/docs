@@ -296,8 +296,8 @@ a standard local QUIC connection is defined up until and including `/quic.`
 Then, `/webtransport/` runs over QUIC. The self-signed certificate hash that the 
 server will use to verify the connection.
 
-WebTransport CONNECT is sent as an HTTPS endpoint. The HTTP endpoint of a libp2p WebTransport server 
-must be located at `/.well-known/libp2p-webtransport`. For instance, the WebTransport URL of a WebTransport 
+The WebTransport CONNECT request is sent to an HTTPS endpoint. libp2p WebTransport server use
+`/.well-known/libp2p-webtransport`. For instance, the WebTransport URL of a WebTransport 
 server advertising `/ip4/1.2.3.4/udp/1234/quic/webtransport/` would be 
 `https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise` 
 (the ?type=noise refers to the authentication scheme using Noise).
