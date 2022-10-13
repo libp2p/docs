@@ -9,7 +9,7 @@ chapter: true
 
 # Key Components of libp2p
 
-{{% children description="true" %}}
+{{% children %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

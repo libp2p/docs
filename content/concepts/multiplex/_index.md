@@ -9,7 +9,7 @@ chapter: true
 
 # Stream bytes
 
-{{% children description="true" %}}
+{{% children %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

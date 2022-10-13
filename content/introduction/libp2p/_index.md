@@ -1,10 +1,13 @@
 ---
-title: Get Started with libp2p
+title: "Get Started with libp2p"
 weight: 2
 pre: '<i class="fas fa-fw fa-book"></i> <b>1.2. </b>'
+chapter: true
 ---
 
 ### Chapter 1.2
+
+# Get Started with libp2p
 
 ## What is libp2p?
 

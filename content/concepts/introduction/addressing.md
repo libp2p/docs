@@ -1,8 +1,13 @@
 ---
-title: Addressing
+title: "Addressing"
 weight: 1
-pre: '<i class="fas fa-fw fa-book"></i> <b>2.0.2. </b>'
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.0.1. </b>'
+chapter: true
 ---
+
+### Chapter 2.0.1
+
+# Addressing
 
 Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks, we need a way to work with a lot of different addressing schemes in a consistent way.
 

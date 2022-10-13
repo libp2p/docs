@@ -1,8 +1,13 @@
 ---
-title: 'Overview'
+title: "Overview"
 weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.9.1. </b>'
+chapter: true
 ---
+
+### Chapter 2.9.1
+
+# Overview
 
 libp2p makes it simple to establish [encrypted, authenticated communication
 channels](../secure-comms/) between two peers, but there are other important

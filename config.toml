@@ -26,4 +26,3 @@ weight = 2
 name = "<i class='fab fa-discourse'></i> Discussion Forums"
 url = "https://discuss.libp2p.io"
 weight = 3
-

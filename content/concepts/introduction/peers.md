@@ -2,7 +2,12 @@
 title: "Peers"
 weight: 3
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.0.3. </b>'
+chapter: true
 ---
+
+### Chapter 2.0.3
+
+# Peers
 
 Peers are what make up a libp2p network. We'll go over their key
 properties in this guide.

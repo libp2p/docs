@@ -1,8 +1,14 @@
 ---
-title: Protocols
+title: "Protocols"
 weight: 2
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.0.2. </b>'
+chapter: true
 ---
+
+### Chapter 2.0.2
+
+# Protocols
+
 
 There are protocols everywhere you look when you're writing network applications, and libp2p is
 especially thick with them.

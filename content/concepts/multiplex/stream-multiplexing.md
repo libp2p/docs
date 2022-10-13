@@ -2,7 +2,12 @@
 title: "Overview"
 weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.3.1. </b>'
+chapter: true
 ---
+
+### Chapter 2.3.1
+
+# Overview
 
 Stream Multiplexing (_stream muxing_) is a way of sending multiple streams of data over one communication link. It combines multiple signals into one unified signal so it can be transported 'over the wires', then it is demulitiplexed (_demuxed_) so it can be output and used by separate applications.
 

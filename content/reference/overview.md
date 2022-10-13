@@ -1,8 +1,13 @@
 ---
-title: Overview
+title: "Overview"
 weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b>4.1. </b>'
+chapter: true
 ---
+
+### Chapter 4.1
+
+# Overview
 
 This section contains in-depth reference material, including a [glossary](/reference/glossary/) with definitions of libp2p terminology.
 

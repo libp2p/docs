@@ -2,7 +2,12 @@
 title: "Monitoring and Observability"
 weight: 4
 pre: '<i class="fas fa-fw fa-book"></i> <b>4.4. </b>'
+chapter: true
 ---
+
+### Chapter 4.4
+
+# Monitoring and Observability
 
 Reference the [Monitoring your application](../dos-mitigation/#monitoring-your-application) section in [DOS
 Mitigation](../dos-mitigation/).

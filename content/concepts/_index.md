@@ -10,9 +10,9 @@ chapter: true
 # Explore libp2p
 
 libp2p covers a lot of ground, and may involve unfamiliar terminology and concepts.
-This section goes over the foundational concepts involved in libp2p.
+This chapter goes over the foundational concepts involved in libp2p.
 
-{{% children description="true" %}}
+{{% children %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in
