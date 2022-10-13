@@ -24,7 +24,7 @@ reasonably succeed.
 
 ## Identity and Trust
 
-Every libp2p peer is uniquely identified by their [peer id](../peer-id/), which
+Every libp2p peer is uniquely identified by their [Peer ID](../peers#peer-id/), which
 is derived from a private cryptographic key. Peer ids and their corresponding
 keys allow us to _authenticate_ remote peers, so that we can be sure we're
 talking to the correct peer and not an imposter.
@@ -41,7 +41,7 @@ hierarchy of roles, the requested resources or services, etc.
 
 To design an authorization system on libp2p, you can rely on the authentication
 of peer ids and build an association between peer ids and permissions, with the
-peer id serving the same function as the "username" in traditional authorization
+Peer ID serving the same function as the "username" in traditional authorization
 frameworks, and the peer's private key serving as the "password". Your [protocol
 handler](../protocols/) could then reject requests from untrusted peers.
 
