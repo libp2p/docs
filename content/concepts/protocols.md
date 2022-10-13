@@ -34,7 +34,7 @@ information about how version selection works during the dialing and listening.
 
 A libp2p application will define a stream handler that takes over the 
 stream after protocol negotiation. Everything sent and received after the
-negotiation phase is then defined by the application protocol.
+negotiation phase is then defined by the application protocol. 
 
 The handler function is invoked when an incoming stream is received with 
 the registered protocol ID. If you register a handler with a 
@@ -64,8 +64,9 @@ The protocol determines the binary data format and the transport mechanics.
 For inspiration, some [common patterns](#common-patterns) that are used in libp2p's 
 internal protocols are outlined below.
 
-## Protocol Negotiation
+## Life cycle of a stream
 
+Libp2p streams are an abstraction 
 Libp2p protocols can have sub-protocols or protocol-suites. It isn't easy 
 to select and route protocols, or even know which protocols are available.
 
@@ -94,44 +95,10 @@ which are solely responsible for the internal streams on a connection and aren't
 concerned with underlying protocol being used.
 {{% /notice %}}
 
-### Matching protocol IDs and versions
-
-There are different ways to register a protocol handler. For instance, a match function 
-is a flexible method for protocol registration. A match function
-takes three arguments: the protocol ID, a protocol match function, 
-and the handler function as arguments.
-
-### Dialing a specific protocol
-
-When opening a new stream on a connection, the initiating peer sends the protocol 
-ID it would like to use. The remote peer will use the matching logic described above to 
-accept or reject the protocol. If the protocol is rejected, the dialing peer can try again.
-
-When opening a new stream, the initiator can optionally provide a list of protocol IDs instead 
-of a single ID. When you provide multiple protocol IDs, they will each is tried in succession, 
-and the first successful match will be used if at least one of the protocols is supported by the 
-remote peer. This can be useful if you support a range of protocol versions since you can 
-propose the most recent version and fallback to older versions if the remote hasn't adopted 
-the latest version yet.
-
 ## Core libp2p protocols
 
 In addition to the protocols written when developing a libp2p application, libp2p defines 
 several foundational protocols used for core features.
-
-### Common patterns
-
-The protocols described below all use 
-[protocol buffers](https://developers.google.com/protocol-buffers/) 
-(aka protobuf) to define message schemas.
-
-Messages are exchanged over the wire using a straightforward convention that prefixes 
-binary message payloads with an integer representing the payload's length in bytes. The
-length is encoded as a 
-[protobuf varint](https://developers.google.com/protocol-buffers/docs/encoding#varints) 
-(variable-length integer).
-
-### Protocol list
 
 {{% notice "note" %}}
 Check out the [libp2p implementations page](https://libp2p.io/implementations/) for 
