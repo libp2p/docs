@@ -1,11 +1,11 @@
 ---
 title: "Glossary"
 weight: 1
-pre: '<i class="fas fa-fw fa-book"></i> <b>2.10.1 </b>'
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.11.1 </b>'
 chapter: true
 ---
 
-### Chapter 2.10.1
+### Chapter 2.11.1
 
 # Glossary
 

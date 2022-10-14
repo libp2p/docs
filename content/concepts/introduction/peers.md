@@ -3,6 +3,9 @@ title: "Peers"
 weight: 3
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.0.3. </b>'
 chapter: true
+aliases: 
+    - /concepts/peer-id/
+    - /concepts/peers/
 ---
 
 ### Chapter 2.0.3

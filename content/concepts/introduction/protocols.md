@@ -3,6 +3,7 @@ title: "Protocols"
 weight: 2
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.0.2. </b>'
 chapter: true
+aliases: /concepts/protocols/
 ---
 
 ### Chapter 2.0.2

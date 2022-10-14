@@ -3,6 +3,7 @@ title: "Addressing"
 weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.0.1. </b>'
 chapter: true
+aliases: /concepts/addressing/
 ---
 
 ### Chapter 2.0.1
