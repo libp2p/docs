@@ -3,6 +3,7 @@ title: "Overview"
 weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.4.1. </b>'
 chapter: true
+summary: The internet is composed of countless networks, bound together into shared address spaces by foundational transport protocols. As traffic moves between network boundaries, it's very common for a process called Network Address Translation to occur. Network Address Translation (NAT) maps an address from one address space to another.
 ---
 
 ### Chapter 2.4.1

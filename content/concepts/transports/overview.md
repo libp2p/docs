@@ -3,6 +3,7 @@ title: "Overview"
 weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.1.1. </b>'
 chapter: true
+summary: The foundational protocols that move bits around are called transports, and one of libp2p's core requirements is to be transport agnostic. This means that the decision of what transport protocol to use is up to the developer, and an application can support many different transports at the same time.
 ---
 
 ### Chapter 2.1.1
@@ -33,6 +34,7 @@ to use is up to the developer, and in fact one application can support many
 different transports at the same time.
 
 ## Listening and Dialing
+
 Transports are defined in terms of two core operations, **listening** and
 **dialing**.
 

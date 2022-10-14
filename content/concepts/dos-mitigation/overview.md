@@ -3,6 +3,7 @@ title: "Overview"
 weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.10.1 </b>'
 chapter: true
+summary: DOS mitigation is an essential part of any peer-to-peer application. We need to design our protocols to be resilient to malicious peers. We need to monitor our application for signs of suspicious activity or an attack. And we need to be able to respond to an attack.
 ---
 
 ### Chapter 2.10.1

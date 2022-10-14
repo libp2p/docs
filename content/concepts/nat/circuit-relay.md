@@ -3,6 +3,7 @@ title: "Circuit Relay"
 weight: 2
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.4.2. </b>'
 chapter: true
+summary: Circuit relay is a transport protocol that routes traffic between two peers over a third-party "relay" peer. In many cases, peers will be unable to traverse their NAT and/or firewall in a way that makes them publicly accessible. Or, they may not share common transport protocols that would allow them to communicate directly.
 ---
 
 ### Chapter 2.4.2

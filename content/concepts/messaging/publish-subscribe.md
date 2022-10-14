@@ -3,6 +3,7 @@ title: Publish/Subscribe
 weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b>2.7.1 </b>'
 chapter: true
+summary: Publish/Subscribe is a system where peers congregate around topics they are interested in. Peers interested in a topic are said to be subscribed to that topic.
 ---
 
 ### Chapter 2.7.1
