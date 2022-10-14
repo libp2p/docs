@@ -1,11 +1,11 @@
 ---
 title: "Content Routing"
-weight: 4
-pre: '<i class="fas fa-fw fa-book"></i> <b>2.6.4. </b>'
+weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.6.2. </b>'
 chapter: true
 ---
 
-### Chapter 2.6.4
+### Chapter 2.6.2
 
 # Content Routing
 

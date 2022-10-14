@@ -1,11 +1,11 @@
 ---
 title: Publish/Subscribe
-weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b>2.7.2 </b>'
+weight: 1
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.7.1 </b>'
 chapter: true
 ---
 
-### Chapter 2.7.2
+### Chapter 2.7.1
 
 # Publish/Subscribe
 
