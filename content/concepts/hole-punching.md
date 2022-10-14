@@ -206,5 +206,7 @@ a hole punching phase.
 - This guide is a byproduct of the 
   [Hole punching in libp2p - Overcoming Firewalls](https://blog.ipfs.tech/2022-01-20-libp2p-hole-punching/)
   blog post by Max Inden. 
+- Research paper on 
+  [decentralized hole punching by Protocol Labs Research](https://research.protocol.ai/publications/decentralized-hole-punching/)
 - Keep up with the [libp2p implementations page](https://libp2p.io/implementations/) for 
   the state on different hole punching implementations. 
