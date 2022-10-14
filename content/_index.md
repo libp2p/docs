@@ -2,8 +2,8 @@
 title: libp2p Documentation Portal
 menuTitle: libp2p
 weight: 1
-pre: "<b>1. </b>"
-chapter: false
+pre: "<b> </b>"
+chapter: true
 ---
 
 # Welcome to the Documentation Portal
@@ -12,4 +12,4 @@ Welcome to the libp2p Documentation Portal! Whether you’re just learning how t
 libp2p, want to dive into peer-to-peer concepts and solutions, or are looking for detailed reference 
 information, this is the place to start.
 
-{{% children depth="8" showhidden="true" %}}
+{{% children description="true" %}}

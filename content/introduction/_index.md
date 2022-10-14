@@ -1,14 +1,11 @@
 ---
-title: "Get Started with libp2p"
-menuTitle: "Basics"
+title: "Introduction"
 weight: 1
-pre: "<b>1. </b>"
+pre: "<b> </b>"
 chapter: true
 ---
 
-### Chapter 1
-
-# Get Started with libp2p
+# An Introduction to libp2p
 
 ## What is libp2p?
 
@@ -170,14 +167,14 @@ specific information and references:
 - [The Permissive License Stack](https://protocol.ai/blog/announcing-the-permissive-license-stack) 
   is a licensing strategy for software development that embraces open-source values.
 
-[glossary]: {{< ref "concepts/miscellaneous/glossary.md" >}}
-[definition_dht]: {{< ref "concepts/miscellaneous/glossary.md#dht" >}}
-[definition_p2p]: {{< ref "concepts/miscellaneous/glossary.md#p2p" >}}
-[definition_peer]: {{< ref "concepts/miscellaneous/glossary.md#peer" >}}
-[definition_peerid]: {{< ref "concepts/miscellaneous/glossary.md#peerid" >}}
-[definition_secio]: {{< ref "concepts/miscellaneous/glossary.md#secio" >}}
-[definition_muiltiaddress]: {{< ref "concepts/miscellaneous/glossary.md#multiaddr" >}}
-[definition_client_server]: {{< ref "concepts/miscellaneous/glossary.md#client-server" >}}
+[glossary]: {{< ref "concepts/glossary.md" >}}
+[definition_dht]: {{< ref "concepts/glossary.md#dht" >}}
+[definition_p2p]: {{< ref "concepts/glossary.md#p2p" >}}
+[definition_peer]: {{< ref "concepts/glossary.md#peer" >}}
+[definition_peerid]: {{< ref "concepts/glossary.md#peerid" >}}
+[definition_secio]: {{< ref "concepts/glossary.md#secio" >}}
+[definition_muiltiaddress]: {{< ref "concepts/glossary.md#multiaddr" >}}
+[definition_client_server]: {{< ref "concepts/glossary.md#client-server" >}}
 
 [spec_content_routing]: https://github.com/libp2p/specs/blob/master/kad-dht/README.md
 [spec_pubsub]: https://github.com/libp2p/specs/blob/master/pubsub/README.md

@@ -1,11 +1,9 @@
 ---
 title: "How to Contribute"
 weight: 1
-pre: '<i class="fas fa-fw fa-book"></i> <b>4.1 </b>'
+pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
 ---
-
-### Chapter 4.1
 
 # How to Contribute
 

@@ -1,13 +1,9 @@
 ---
 title: "Glossary"
-weight: 1
-pre: '<i class="fas fa-fw fa-book"></i> <b>2.11.1 </b>'
+weight: 12
+pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
-summary: A list of words, phrases, and abbreviations related to libp2p.
-aliases: /reference/glossary/
 ---
-
-### Chapter 2.11.1
 
 # Glossary
 
@@ -116,7 +112,6 @@ In the peer-to-peer model, accepting connections from other peers is often just 
 ### NAT Traversal
 <!-- TODO(yusef): much of this can be moved to the NAT concept doc and this definition can be trimmed -->
 
-
 NAT traversal refers to the process of establishing connections with other machines across a [NAT](#nat) boundary. When crossing the boundary between IP networks (e.g. from a local network to the global internet), a [Network Address Translation](#nat) process occurs which maps addresses from one space to another.
 
 For example, my home network has an internal range of IP addresses (10.0.1.x), which is part of a range of addresses that are reserved for private networks. If I start a program on my computer that listens for connections on its internal address, a user from the public internet has no way of reaching me, even if they know my public IP address. This is because I haven't made my router aware of my program yet. When a connection comes in from the internet to my public IP address, the router needs to figure out which internal IP to route the request to, and to which port.
@@ -124,7 +119,6 @@ For example, my home network has an internal range of IP addresses (10.0.1.x), w
 There are many ways to inform one's router about services you want to expose. For consumer routers, there's likely an admin interface that can setup mappings for any range of TCP or UDP ports. In many cases, routers will allow automatic registration of ports using a protocol called [upnp](https://en.wikipedia.org/wiki/Universal_Plug_and_Play), which libp2p supports. If enabled, libp2p will try to register your service with the router for automatic NAT traversal.
 
 In some cases, automatic NAT traversal is impossible, often because multiple layers of NAT are involved. In such cases, we still want to be able to communicate, and we especially want to be reachable and allow other peers to [dial in](#dial) and use our services. This is the one of the motivations for [Circuit Relay](#circuit-relay), which is a protocol involving a "relay" peer that is publicly reachable and can route traffic on behalf of others. Once a relay circuit is established, a peer behind an especially intractable NAT can advertise the relay circuit's [multiaddr](#multiaddr), and the relay will accept incoming connections on our behalf and send us traffic via the relay.
-
 
 ### Node
 
@@ -258,6 +252,5 @@ In a peer-to-peer context, usually refers to the shape or structure of the [over
 In libp2p, `transport` refers to the technology that lets us move bits from one machine to another. This may be a TCP network provided by the operating system, a websocket connection in a browser, or anything else capable of implementing the [transport interface](https://github.com/libp2p/interface-transport).
 
 Note that in some environments such as javascript running in the browser, not all transports will be available. In such cases, it may be possible to establish a [Circuit Relay](#circuit-relay) with the help of a peer that can support many common transports. Such a relay can act as a "transport adapter" of sorts, allowing peers that can't communicate with each other directly to interact. For example, a peer in the browser that can only make websocket connections could relay through a peer able to make TCP connections, which would enable communication with a wider variety of peers.
-
 
 [js-docs-home]: /reference/

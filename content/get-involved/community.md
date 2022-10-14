@@ -1,11 +1,9 @@
 ---
 title: "Community"
 weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b>4.2 </b>'
+pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
 ---
-
-### Chapter 4.2
 
 # Community
 

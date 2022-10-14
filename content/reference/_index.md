@@ -1,15 +1,15 @@
 ---
-title: "Get Involved"
-weight: 5
+title: "Reference"
+weight: 4
 pre: "<b> </b>"
 chapter: true
 ---
 
-# Get Involved with libp2p
+# Reference Documentation
 
 Find out how to get involved with libp2p and join the community.
 
-{{% children %}}
+{{% children description="true" %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

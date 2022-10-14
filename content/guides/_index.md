@@ -1,11 +1,9 @@
 ---
 title: "Guides"
 weight: 3
-pre: "<b>3. </b>"
+pre: "<b> </b>"
 chapter: true
 ---
-
-### Chapter 3
 
 # Get Started with libp2p
 

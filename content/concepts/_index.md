@@ -1,12 +1,10 @@
 ---
 title: Core Components
 weight: 2
-pre: "<b>2. </b>"
+pre: "<b> </b>"
 chapter: true
 aliases: /reference/specs/
 ---
-
-### Chapter 2
 
 # Explore libp2p
 
