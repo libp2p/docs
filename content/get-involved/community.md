@@ -1,8 +1,13 @@
 ---
 title: "Community"
 weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b>5.2 </b>'
+pre: '<i class="fas fa-fw fa-book"></i> <b>4.2 </b>'
+chapter: true
 ---
+
+### Chapter 4.2
+
+# Community
 
 We love talking about libp2p, and we'd be happy to have you in the mix.
 

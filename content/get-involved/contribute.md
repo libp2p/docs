@@ -1,8 +1,13 @@
 ---
 title: "How to Contribute"
 weight: 1
-pre: '<i class="fas fa-fw fa-book"></i> <b>5.1 </b>'
+pre: '<i class="fas fa-fw fa-book"></i> <b>4.1 </b>'
+chapter: true
 ---
+
+### Chapter 4.1
+
+# How to Contribute
 
 So you want to contribute to libp2p and the peer-to-peer ecosystem? Here is a quick listing
 of things we need help with and how you can get started. Even if what you want
@@ -10,17 +15,18 @@ to do is not listed here, we probably accept contributions for it! If you're
 unsure, please open a issue.
 
 ## Areas of contribution
-- [Areas of contribution](#areas-of-contribution)
-  - [Code](#code)
-  - [Documentation](#documentation)
-  - [Support](#support)
-  - [Testing](#testing)
-  - [Design](#design)
-  - [Issues / Triaging](#issues--triaging)
-  - [Community](#community)
-  - [Applications](#applications)
-  - [Protocol Design](#protocol-design)
-  - [Research](#research)
+- [How to Contribute](#how-to-contribute)
+  - [Areas of contribution](#areas-of-contribution)
+    - [Code](#code)
+    - [Documentation](#documentation)
+    - [Support](#support)
+    - [Testing](#testing)
+    - [Design](#design)
+    - [Issues / Triaging](#issues--triaging)
+    - [Community](#community)
+    - [Applications](#applications)
+    - [Protocol Design](#protocol-design)
+    - [Research](#research)
 
 ### Code
 

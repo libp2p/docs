@@ -5,6 +5,8 @@ pre: "<b>3. </b>"
 chapter: true
 ---
 
+### Chapter 3
+
 # Get Started with libp2p
 
 ## Examples using libp2p
