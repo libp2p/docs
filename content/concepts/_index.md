@@ -4,6 +4,7 @@ weight: 2
 pre: '<i class="fas fa-fw fa-clone"></i> '
 chapter: true
 aliases: /reference/specs/
+summary: libp2p covers a lot of ground, and may involve unfamiliar terminology and concepts. This section goes over the foundational concepts involved in libp2p.
 ---
 
 # Learn about libp2p

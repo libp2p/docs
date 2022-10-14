@@ -3,6 +3,7 @@ title: "Introduction"
 weight: 1
 pre: '<i class="fas fa-fw fa-window-maximize"></i> '
 chapter: true
+summary: libp2p is a modular system of protocols, specifications and libraries that enable the development of peer-to-peer network applications.
 ---
 
 # An Introduction to libp2p
