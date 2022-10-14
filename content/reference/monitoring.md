@@ -1,11 +1,11 @@
 ---
 title: "Monitoring and Observability"
 weight: 4
-pre: '<i class="fas fa-fw fa-book"></i> <b>4.4. </b>'
+pre: '<i class="fas fa-fw fa-book"></i> <b>4.3. </b>'
 chapter: true
 ---
 
-### Chapter 4.4
+### Chapter 4.3
 
 # Monitoring and Observability
 

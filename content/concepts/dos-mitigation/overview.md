@@ -1,13 +1,13 @@
 ---
-title: "DOS Mitigation"
-weight: 3
-pre: '<i class="fas fa-fw fa-book"></i> <b>4.3. </b>'
+title: "Overview"
+weight: 1
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.10.1 </b>'
 chapter: true
 ---
 
-### Chapter 4.3
+### Chapter 2.10.1
 
-# DOS Mitigation
+# Overview
 
 DOS mitigation is an essential part of any P2P application. We need to design
 our protocols to be resilient to malicious peers. We need to monitor our
@@ -18,7 +18,7 @@ Here we'll cover how we can use libp2p to achieve the above goals.
 
 ## Table of contents <!-- omit in toc -->
 
-- [DOS Mitigation](#dos-mitigation)
+- [Overview](#overview)
   - [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
   - [Incorporating DOS mitigation from the start](#incorporating-dos-mitigation-from-the-start)
     - [Limit the number of connections your application needs](#limit-the-number-of-connections-your-application-needs)

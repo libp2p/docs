@@ -1,13 +1,13 @@
 ---
-title: "Miscellaneous"
-weight: 12
-pre: '<i class="fas fa-fw fa-book"></i> <b>2.11. </b>'
+title: "DOS Mitigation"
+weight: 11
+pre: '<i class="fas fa-fw fa-book"></i> <b>2.10. </b>'
 chapter: true
 ---
 
-### Chapter 2.11
+### Chapter 2.10
 
-# Learn more
+# DOS Mitigation
 
 {{% children %}}
 
