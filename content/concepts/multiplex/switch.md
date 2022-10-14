@@ -3,7 +3,7 @@ title: "Switch"
 weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
-summary: Stream Multiplexing is a way of sending multiple streams of data over one communication link. It combines multiple signals into one unified signal so it can be transported 'over the wires', then it is demulitiplexed so it can be output and used by separate applications.
+summary: libp2p maintains some state about known peers and existing connections in a component known as the switch 
 ---
 
 # Switch

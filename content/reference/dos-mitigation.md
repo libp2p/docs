@@ -3,11 +3,12 @@ title: "DoS Mitigation"
 weight: 2
 pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
+summary: DoS mitigation is an essential part of any peer-to-peer application. Learn how to design protocols to be resilient to malicious peers.
 ---
 
 # DoS Mitigation
 
-DOS mitigation is an essential part of any P2P application. We need to design
+DoS mitigation is an essential part of any peer-to-peer application. We need to design
 our protocols to be resilient to malicious peers. We need to monitor our
 application for signs of suspicious activity or an attack. And we need to be
 able to respond to an attack.

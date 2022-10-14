@@ -1,7 +1,7 @@
 ---
 title: "Guides"
 weight: 3
-pre: "<b> </b>"
+pre: '<i class="fas fa-fw fa-code"></i> '
 chapter: true
 ---
 

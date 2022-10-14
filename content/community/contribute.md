@@ -1,8 +1,9 @@
 ---
 title: "How to Contribute"
-weight: 1
+weight: 2
 pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
+summary: Learn how you can contribute to libp2p.
 ---
 
 # How to Contribute

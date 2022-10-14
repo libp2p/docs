@@ -3,6 +3,7 @@ title: "Glossary"
 weight: 12
 pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
+summary: A compiled list of words, phrases, and abbreviations for libp2p.
 ---
 
 # Glossary

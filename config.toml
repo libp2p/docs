@@ -24,6 +24,14 @@ url = "https://github.com/libp2p/libp2p"
 weight = 2
 
 [[menu.shortcuts]]
+name = "<i class='fab fa-github'></i> libp2p Specs"
+url = "https://github.com/libp2p/specs"
+weight = 3
+
+[[menu.shortcuts]]
 name = "<i class='fab fa-discourse'></i> Discussion Forums"
 url = "https://discuss.libp2p.io"
-weight = 3
+weight = 4
+
+[markup.goldmark.renderer]
+  unsafe = true # Allow HTML in md files

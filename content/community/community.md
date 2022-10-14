@@ -1,11 +1,12 @@
 ---
-title: "Community"
-weight: 2
+title: "Get Involved"
+weight: 1
 pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
+summary: Get involved and participate in the libp2p community.
 ---
 
-# Community
+# Get Involved
 
 We love talking about libp2p, and we'd be happy to have you in the mix.
 

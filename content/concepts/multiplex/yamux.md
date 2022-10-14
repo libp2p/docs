@@ -3,7 +3,7 @@ title: "yamux"
 weight: 3
 pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
-summary: Stream Multiplexing is a way of sending multiple streams of data over one communication link. It combines multiple signals into one unified signal so it can be transported 'over the wires', then it is demulitiplexed so it can be output and used by separate applications.
+summary: yamux is a multiplexing protocol designed by Hashicorp.
 ---
 
 # yamux

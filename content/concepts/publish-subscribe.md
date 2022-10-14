@@ -3,6 +3,7 @@ title: "Publish/Subscribe"
 weight: 8
 pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
+summary: Publish/Subscribe is a system where peers congregate around topics they are interested in. Peers interested in a topic are said to be subscribed to that topic. Learn about how peers can message data in libp2p.
 ---
 
 # Message Data
@@ -13,7 +14,7 @@ topic:
 
 ![Diagram showing a shaded area with curved outline representing a topic.
 Scattered within the shaded area are twelve dots representing peers. A label
-points to the dots which reads “Peers subscribed to topic”.](subscribed_peers.png)
+points to the dots which reads “Peers subscribed to topic”.](../assets/publish-subscribe/subscribed_peers.png)
 
 Peers can send messages to topics. Each message gets delivered to all peers
 subscribed to the topic:
@@ -23,7 +24,7 @@ panel are scattered dots within a shaded area representing peers subscribed to a
 topic. From one of the dots comes a speech bubble labeled with “Message”. In the
 second panel all dots now have a copy of the speech bubble above them
 representing that the message has been transmitted to all peers subscribed to
-the topic.](message_delivered_to_all.png)
+the topic.](../assets/publish-subscribe/message_delivered_to_all.png)
 
 Example uses of pub/sub:
 
@@ -89,7 +90,7 @@ labelled “Full-message peering” connect all the dots in a loose mesh, formin
 many triangles and polygons. Between these lines runs a dense mesh of thinner,
 lighter lines labelled “Metadata-only peering”. These lines run from each dot to
 almost every other dot around it, criss-crossing over each other
-frequently.](types_of_peering.png)
+frequently.]../assets/publish-subscribe/types_of_peering.png)
 
 ### Full-message
 
@@ -115,7 +116,7 @@ different dot has only two lines running from it and is labelled “Peer reached
 lower bound”.  Beneath the diagram is a legend reading “Network peering degree = 3;
 Upper bound = 4; Lower bound = 2“ accompanied with small symbols showing dots
 with three, four and two lines running from them
-respectively.](full_message_network.png)
+respectively.](../assets/publish-subscribe/full_message_network.png)
 
 <div class="notices note" ><p>Throughout this guide, numbers
 <span class="configurable">highlighted in purple</span> can be configured
@@ -147,7 +148,7 @@ performs functions to help maintain the network of full-message peerings.
 ![Diagram showing a large shaded area with scattered dots inside connected by
 many thin, light lines representing metadata-only peerings between peers. The
 lines between the dots are labelled “Each peering is a network connection
-between two peers”.](metadata_only_network.png)
+between two peers”.](../assets/publish-subscribe/metadata_only_network.png)
 
 ## Grafting and pruning
 
@@ -168,7 +169,7 @@ on the right. In the following step, the line becomes thick, dark and is now
 labelled “Full-message peering”. The second process is the reverse of the first
 process; two dots are connected by a thick, dark line which becomes a thin,
 light line labelled “Metadata-only peering”. The speech bubble reads “I’m
-pruning our connection back to a metadata-only peering.”](graft_prune.png)
+pruning our connection back to a metadata-only peering.”](../assets/publish-subscribe/graft_prune.png)
 
 When a peer has too few full-message peerings it will randomly graft some of its
 metadata-only peerings to become full-message peerings:
@@ -187,7 +188,7 @@ now highlighted lines. Four circles in the series are also highlighted green, up
 to the circle labelled “Ideal”. The panel is titled “Select more peers to graft
 to get to the ideal number”. In the final panel the highlighted green lines and
 dots have become dark to indicate they have become full-content peerings. The
-title reads “Grafting complete”.](maintain_graft.png)
+title reads “Grafting complete”.](../assets/publish-subscribe/maintain_graft.png)
 
 Conversely, when a peer has too many full-message peerings it will randomly
 prune some of them back to metadata-only:
@@ -208,7 +209,7 @@ series are also highlighted pink, from the end down to the circle labelled
 “Ideal”. The panel is titled “Select peers to prune to get the ideal number”. In
 the final panel the highlighted pink lines and dots have become light to
 indicate they have become metadata-only peerings. The title reads “Pruning
-complete”.](maintain_prune.png)
+complete”.](../assets/publish-subscribe/maintain_prune.png)
 
 In libp2p’s implementation, each peer performs a series of checks every
 <span class="configurable">1</span> second. These checks are called the
@@ -229,7 +230,7 @@ from “Topic 1” to “Topic 5”. The shaded areas fade out with distance fro
 large, central dot indicating that the peer’s perspective has limited range.
 One of the smaller dots that does not share a shaded area with the large dot is
 labelled “Peers keep track of other’s subscriptions even if not subscribed to
-the same topics as them”.](subscriptions_local_view.png)
+the same topics as them”.](../assets/publish-subscribe/subscriptions_local_view.png)
 
 Keeping track of subscriptions happens by sending **subscribe** and
 **unsubscribe** messages. When a new connection is established between two peers
@@ -239,7 +240,7 @@ they start by sending each other the list of topics they are subscribed to:
 speech bubble emanating from it with an arrow showing it moving along the
 connecting line towards the other dot. The left dot’s speech bubble says “I am
 subscribed to: Topic 1, Topic 2, Topic 3”. The right dot’s speech bubble says “I
-am subscribed to: Topic 1, Topic 5”.](subscription_list_first_connect.png)
+am subscribed to: Topic 1, Topic 5”.](../assets/publish-subscribe/subscription_list_first_connect.png)
 
 Then over time, whenever a peer subscribes or unsubscribes from a topic, it will
 send each of its peers a subscribe or unsubscribe message. These messages are
@@ -249,7 +250,7 @@ subscribed to the topic in question:
 ![Diagram showing two dots connected by a thin, light line. The left dot has a
 speech bubble emanating from it with an arrow showing it moving along the
 connecting line towards the right dot. The speech bubble says “I am
-subscribed to: Topic 5. I am unsubscribed from: Topic 2, Topic 3.”](subscription_list_change.png)
+subscribed to: Topic 5. I am unsubscribed from: Topic 2, Topic 3.”](../assets/publish-subscribe/subscription_list_change.png)
 
 Subscribe and unsubscribe messages go hand-in-hand with graft and prune
 messages. When a peer subscribes to a topic it will pick some peers that will
@@ -266,7 +267,7 @@ subscribed to Topic 3. Also, I’m grafting our connection into a full-message
 peering.” The next panel shows the same three dots, however the central dot is
 now inside the shaded area labelled “Topic 3” and the line connecting the
 central and right dots has become thick and dark indicating a full-message
-peering.](subscribe_graft.png)
+peering.](../assets/publish-subscribe/subscribe_graft.png)
 
 When a peer unsubscribes from a topic it will notify its full-message peers that
 their connection has been pruned at the same time as sending their unsubscribe
@@ -285,7 +286,7 @@ pruning our connection back to a metadata-only peering.” The next panel shows
 the same three dots, however the central dot is no longer inside the area
 labelled “Topic 3” and the line connecting the central and right dots has become
 thin and light like the left line to indicate a metadata-only
-peering.](unsubscribe_prune.png)
+peering.](../assets/publish-subscribe/unsubscribe_prune.png)
 
 ## Sending messages
 
@@ -297,7 +298,7 @@ panel is titled “Peer creates new message of its own”. A small, unlabelled
 speech bubble emanates from a dot. The dot has four thick, dark lines radiating
 outward from it. The second panel is titled “Message sent to all other
 full-message peers”. It shows four copies of the speech bubble now moving away
-from the dot along each of the four lines.](full_message_send.png)
+from the dot along each of the four lines.](../assets/publish-subscribe/full_message_send.png)
 
 Similarly, when a peer receives a new message from another peer, it stores the
 message and forwards a copy to all other full-message peers it is connected to:
@@ -310,7 +311,7 @@ thick, dark lines radiating outward from the dot. The second panel is titled
 outward. The speech bubble is now centred above the dot. The final panel is
 titled “Message forwarded to all other full-message peers”. It shows three
 copies of the speech bubble now moving away from the dot along the three lines
-that the speech bubble has not appeared on yet.](full_message_forward.png)
+that the speech bubble has not appeared on yet.](../assets/publish-subscribe/full_message_forward.png)
 
 In the [gossipsub specification](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/README.md#controlling-the-flood),
 peers are also known as *routers* because of this function they have in routing
@@ -345,7 +346,7 @@ from the central dot. The six speech bubbles are identical and read “I have
 seen:” followed by three small speech bubble symbols inside the larger speech
 bubble, in different shades of purple to indicate three different messages.
 One of the small purple speech bubbles is labelled “Seen messages specify the
-sender and sequence number, but not the full message contents”.](gossip_deliver.png)
+sender and sequence number, but not the full message contents”.](../assets/publish-subscribe/gossip_deliver.png)
 
 Gossiping gives peers a chance to notice in case they missed a message on the
 full-message network. If a peer notices it is repeatedly missing messages then
@@ -382,7 +383,7 @@ now a purple speech bubble travelling along the line connecting the two dots
 from left to right. The final panel is titled “Newly received message is
 broadcast to full-content peers”. There are now three copies of the purple
 speech bubble travelling outwards from the right dot along the three thick, dark
-lines connected to it.](request_gossiped_message.png)
+lines connected to it.](../assets/publish-subscribe/request_gossiped_message.png)
 
 In the [gossipsub specification](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/README.md#control-messages),
 gossip announcing recently seen messages are called *IHAVE* messages and
@@ -412,7 +413,7 @@ connecting the outside dot to dots inside the shaded area have become blue and
 now have arrowheads at the end pointing towards the peer inside the shaded area
 they are connected to. These lines represent fan-out peerings. A dice symbol is
 present indicating random selection of which metadata-only peerings became
-fan-out peerings.](fanout_initial_pick.png)
+fan-out peerings.](../assets/publish-subscribe/fanout_initial_pick.png)
 
 Unlike the other types of peering, fan-out peerings are unidirectional; they
 always point from the peer outside the topic to a peer subscribed to the topic.
@@ -432,7 +433,7 @@ peers subscribed to the topic. The second panel is titled “Once inside the
 topic, the message is forwarded to all other subscribers as usual”. The purple
 speech bubbles have moved from outside the shaded area to inside out. Now there
 is a copy of the speech bubble above every dot in the shaded
-area.](fanout_message_send.png)
+area.](../assets/publish-subscribe/fanout_message_send.png)
 
 If the sender goes to send a message but notices some of their fan-out peers
 went away since last time, they will randomly select additional fan-out peers
@@ -455,7 +456,7 @@ peer that was previously outside the shaded area is now inside it, representing
 that it is now subscribed to the topic. The three previously-blue arrows have
 become thick, dark lines representing former fan-out peerings becoming
 full-message peerings. The other lines from the dot are still thin and light as
-before.](fanout_grafting_preference.png)
+before.](../assets/publish-subscribe/fanout_grafting_preference.png)
 
 After <span class="configurable">2</span> minutes of not sending any messages to
 a topic, all the fan-out peers for that topic are forgotten:
@@ -468,7 +469,7 @@ minutes…” There is a stopwatch above the single dot indicating the passage o
 time. The second panel is titled “All fan-out peerings revert to metadata-only
 peerings”. In this panel the three previously blue, arrowed lines connecting
 the single dot to dots inside the shaded area have become thin and light,
-representing the peer’s fan-out peerings becoming metadata-only peerings.](fanout_forget.png)
+representing the peer’s fan-out peerings becoming metadata-only peerings.](../assets/publish-subscribe/fanout_forget.png)
 
 ## Network packets
 
@@ -512,7 +513,7 @@ columns, similar to the previous table. The first column is titled “For this
 topic…”, however the second column is titled “You have been…” with the choice of
 grafted or pruned. There are three rows in this table. Two of the topics
 have been grafted and one has been pruned (no particular connection to the
-previous table).](network_packet_structure.png)
+previous table).](../assets/publish-subscribe/network_packet_structure.png)
 
 See the [specification](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/README.md#protobuf) for the exact [Protocol Buffers](https://developers.google.com/protocol-buffers)
 schema used to encode network packets.
@@ -565,7 +566,7 @@ the full message column is empty. These rows only have the sender (Peer ID),
 sequence number and time first seen columns populated. The table rows are
 listed in order of time first seen, from 1 second ago in the top row to 90
 seconds ago in the bottom row. Some of the sequence numbers are shared between
-messages, but only where the sender is different.](state.png)
+messages, but only where the sender is different.](../assets/publish-subscribe/state.png)
 
 ## More information
 

@@ -1,7 +1,7 @@
 ---
 title: "Introduction"
 weight: 1
-pre: "<b> </b>"
+pre: '<i class="fas fa-fw fa-window-maximize"></i> '
 chapter: true
 ---
 
