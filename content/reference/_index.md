@@ -9,9 +9,9 @@ chapter: true
 
 # Reference Documentation
 
-This chapter covers the reference documentation available for libp2p.
+This chapter includes the reference documentation available for libp2p.
 
-{{% children depth="10" showhidden="true" %}}
+{{% children %}}
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

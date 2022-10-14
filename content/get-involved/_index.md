@@ -9,6 +9,8 @@ chapter: true
 
 # Get Involved with libp2p
 
+Find out how to get involved with libp2p and join the community.
+
 {{% children %}}
 
 {{% notice "note" %}}
