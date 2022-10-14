@@ -19,7 +19,7 @@ url = "https://libp2p.io"
 weight = 1
 
 [[menu.shortcuts]]
-name = "<i class='fab fa-github'></i> libp2p Github"
+name = "<i class='fab fa-github'></i> libp2p GitHub"
 url = "https://github.com/libp2p/libp2p"
 weight = 2
 
