@@ -9,8 +9,8 @@ summary: yamux is a multiplexing protocol designed by Hashicorp.
 # yamux
 
 [yamux](https://github.com/hashicorp/yamux) is a multiplexing protocol designed by [Hashicorp](https://www.hashicorp.com/).
-
-yamux offers more sophisticated flow control than mplex, and can scale to thousands of multiplexed streams over a single connection.
+yamux offers more sophisticated flow control than mplex, and can scale to thousands of multiplexed streams over a single 
+connection.
 
 {{% notice "note" %}}
 This section is incomplete, and many of the articles are stubs. To help fill in

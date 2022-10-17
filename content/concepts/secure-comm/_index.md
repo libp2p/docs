@@ -12,11 +12,6 @@ Before two peers can transmit data, the communication channel they established
 with a transport protocol should be secure. A transport protocol like QUIC provides 
 security guarantees out-of-the-box, but other transports in libp2p do not provide the 
 logic to secure their channel. This requires an upgrade to the transport using an upgrader.
-Security is always established first over the raw connection. 
-
-{{% notice "info" %}}
-Several security protocols are supported in libp2p for encryption, the two primary 
-ones being Noise and TLS 1.3.
-{{% /notice %}}
+Security is always established first over the raw connection.
 
 {{% children description="true"%}}

@@ -1,8 +1,9 @@
 ---
 title: "DoS Mitigation"
-weight: 2
+weight: 11
 pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
+aliases: /reference/dos-mitigation/
 summary: DoS mitigation is an essential part of any peer-to-peer application. Learn how to design protocols to be resilient to malicious peers.
 ---
 
