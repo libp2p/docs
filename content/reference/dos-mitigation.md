@@ -206,7 +206,7 @@ accounting abstraction that you can make use of in your own application.
 
 ## Rate limiting incoming connections
 
-Depending on your use case, it can help to limit the number of inbound
+Depending on your use case, it can help to limit the rate of inbound
 connections. You can use go-libp2p's
 [ConnectionGater](https://pkg.go.dev/github.com/libp2p/go-libp2p-core/connmgr#ConnectionGater)
 and `InterceptAccept` for this. For a concrete example, take a look at how Prysm
