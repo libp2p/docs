@@ -15,17 +15,13 @@ interdisciplinary routing challenges:
 - Creating a resilient, scalable, and optimal routing protocol that is resistant to 
   Sybil attacks and node churn while being future-proof.
 
-Content requests are made in content addressing through the CID.
-If we want to retrieve a file, we send a general request to the network with the CID.
+When retrieving a file using content-addressing, the network identifies the file by its Content ID (CID).
 
 In libp2p, content routing is used for advertising content-addressed chunks of data.
 There exists a content routing interface with operations that allows 
 for content lookups.
 
-Peer routing schemes may be required to find the peers on the network based on the content 
-routing protocol; DHT-based routing is an example of this, where a DHT is used as a namespace 
-that contains peer information about how to contact different peers on the network. 
-See the peer routing guide for more details.
+DHTs are also commonly used for resolving Peer IDs to addresses, which is separate from Content Routing. See the Peer Routing Guide for more details.
 
 <!-- add when published -->
 
@@ -34,15 +30,11 @@ While there are different design approaches for a content routing protocol, such
 Kademlia DHT, DNS, and BitTorrent trackers, the libp2p 
 documentation will focus on a DHT-based approach that implements the content routing 
 interface: KadDHT-libp2p. Libp2p uses an adapation of the 
-[Kademila DHT algorithm](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) 
+[Kademlia DHT algorithm](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) 
 to route peers.
 {{% /notice %}}
 
-The DHT provides a key-value store that multiple peers maintain on the network. 
-A different peer stores each row. The network knows which peer is responsible 
-for which row by a distance metric: K-closest neighbor. 
-Learn more about DHT and Kademila on the 
-[IPFS documentation](https://docs.ipfs.tech/concepts/dht/). 
+For more information about DHTs and the Kademlia implementation, see the [IPFS documentation](https://docs.ipfs.tech/concepts/dht/). 
 
 <!-- to add add diagram -->
 
