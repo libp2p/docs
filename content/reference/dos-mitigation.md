@@ -20,7 +20,7 @@ Here we'll cover how we can use libp2p to achieve the above goals.
   - [Reduce blast radius](#reduce-blast-radius)
   - [Fail2ban](#fail2ban)
   - [Leverage the resource manager to limit resource usage (go-libp2p only)](#leverage-the-resource-manager-to-limit-resource-usage-go-libp2p-only)
-  - [Rate limiting incoming connections (go-libp2p only)](#rate-limiting-incoming-connections-go-libp2p-only)
+  - [Rate limiting incoming connections](#rate-limiting-incoming-connections)
 - [Monitoring your application](#monitoring-your-application)
 - [Responding to an attack](#responding-to-an-attack)
   - [Who’s misbehaving?](#whos-misbehaving)
@@ -28,7 +28,7 @@ Here we'll cover how we can use libp2p to achieve the above goals.
   - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
     - [Example screen recording of fail2ban in action](#example-screen-recording-of-fail2ban-in-action)
     - [Setting Up fail2ban](#setting-up-fail2ban)
-  - [Leverage Resource Manager and a set of trusted peers to form an allow list (go-libp2p only)](#leverage-resource-manager-and-a-set-of-trusted-peers-to-form-an-allow-list-go-libp2p-only)
+  - [Deny specific peers or create an allow list of trusted peers](#deny-specific-peers-or-create-an-allow-list-of-trusted-peers)
 - [Summary](#summary)
 
 # What we mean by a DOS attack
@@ -112,6 +112,8 @@ In rust-libp2p this is done by using
 and passing it to the
 [`SwarmBuilder`](https://docs.rs/libp2p/latest/libp2p/swarm/struct.SwarmBuilder.html#method.connection_limits).
 
+js-libp2p users should read the section on [connection limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#connection-limits) in the js-libp2p docs.
+
 ## Transient Connections
 
 When a connection is first established to libp2p but before that connection has
@@ -131,6 +133,8 @@ scope](https://github.com/libp2p/go-libp2p/blob/v0.22.0/p2p/host/resource-manage
 
 In rust-libp2p you can tune this with `ConnectionLimits` as explained above.
 
+Similarly js-libp2p users can adjust the `maxIncomingPendingConnections` value in the [connection limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#connection-limits) as explained in the js-libp2p docs.
+
 ## Limit the number of concurrent streams per connection your protocol needs
 
 Each stream has some resource cost associated with it. Depending on the
@@ -147,13 +151,17 @@ the number of _concurrent_ streams that you need to be careful of.
 
 The Identify protocol serves as an example of how a protocol can limit the
 number of concurrent streams it uses. For go-libp2p look at how `pushSemaphore`
-is 
+is
 [created](https://github.com/libp2p/go-libp2p/blob/v0.22.0/p2p/protocol/identify/id.go#L149)
 and
 [used](https://github.com/libp2p/go-libp2p/blob/v0.22.0/p2p/protocol/identify/peer_loop.go#L181).
 For rust-libp2p look at how
 [MAX_NUM_INBOUND_SUBSTREAMS](https://github.com/libp2p/rust-libp2p/blob/v0.47.0/protocols/kad/src/handler.rs#L562)
 is used to limit the number of concurrent inbound substreams.
+
+js-libp2p limits the total number of streams a connection can have on a per-multiplexer
+basis (see [mplex](https://github.com/libp2p/js-libp2p-mplex#api) for an example) and
+then applies further limits at the protocol level when [registering a protocol handler](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#handle).
 
 As another example, imagine we are building an RPC-style protocol where responses
 take minutes. Here are two ways we could implement it:
@@ -190,20 +198,22 @@ use case. More details below.
 ## Leverage the resource manager to limit resource usage (go-libp2p only)
 
 go-libp2p includes a powerful [resource
-manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) that keeps track 
+manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) that keeps track
 of resources used for each protocol, peer, connection, and more. You can use it
 within your protocol implementation to make sure you don't allocate more than
 some predetermined amount of memory per connection. It's basically a resource
 accounting abstraction that you can make use of in your own application.
 
-## Rate limiting incoming connections (go-libp2p only)
+## Rate limiting incoming connections
 
-Depending on your use case, it can help to limit the number of inbound
+Depending on your use case, it can help to limit the rate of inbound
 connections. You can use go-libp2p's
 [ConnectionGater](https://pkg.go.dev/github.com/libp2p/go-libp2p-core/connmgr#ConnectionGater)
 and `InterceptAccept` for this. For a concrete example, take a look at how Prysm
 implements their [Connection
 Gater](https://github.com/prysmaticlabs/prysm/blob/63a8690140c00ba6e3e4054cac3f38a5107b7fb2/beacon-chain/p2p/connection_gater.go#L43).
+
+js-libp2p has a similar [connection gater](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-gater) that can be configured on node start up and also allows you to [drop connections from peers that try to open too many connections too quickly](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#inbound-connection-threshold).
 
 # Monitoring your application
 
@@ -224,6 +234,9 @@ manager
 In general, go-libp2p wants to add more metrics across the stack.
 This work is being tracked in issue
 [go-libp2p#1356](https://github.com/libp2p/go-libp2p/issues/1356).
+
+js-libp2p collects various system metrics, please see the [metrics documentation](https://github.com/libp2p/js-libp2p/blob/master/doc/METRICS.md)
+for more information.
 
 # Responding to an attack
 
@@ -251,6 +264,16 @@ or by setting the environment variable `GOLOG_LOG_LEVEL="canonical-log=info"`.
 
 In rust-libp2p you can do something similar yourself by logging a sample of
 connection events from [SwarmEvent](https://docs.rs/libp2p/latest/libp2p/swarm/enum.SwarmEvent.html).
+
+js-libp2p logs to stdout based on the contents of the `DEBUG` environmental variable. This can be set
+to log everything with `DEBUG=*`, individual components `DEBUG=libp2p:connection-manager*,libp2p:upgrader*`.
+
+In the browser you can set `localStorage.debug = 'libp2p:connection-manager*,libp2p:upgrader*'` to achieve
+the same thing.
+
+If the logs are too verbose you can also exclude components trace logging `DEBUG=libp2p:*,-*:trace` and
+the value of the variable is consulted at runtime so you can alter the amount or type of logging while
+your application is running.
 
 ## How to block a misbehaving peer
 
@@ -288,13 +311,13 @@ like this:
 # Block an IP address if it fails a handshake or reconnects more than
 # 50 times a second over the course of 3 minutes. Since
 # we sample at 1% this means we block if we see more
-# than 90 failed handshakes over 3 minutes. (50 logs/s * 1% = 1 log every 
+# than 90 failed handshakes over 3 minutes. (50 logs/s * 1% = 1 log every
 # 2 seconds. for 60 * 3 seconds = 90 reqs in 3 minutes.)
 enabled  = true
 filter   = go-libp2p-peer-status # This is the filename of the filter above.
 action   = iptables-allports[name=go-libp2p-fail2ban]
 backend = systemd[journalflags=1]
-# This uses systemd for logging. 
+# This uses systemd for logging.
 # This assumes you have a systemd service named ipfs-daemon.
 journalmatch = _SYSTEMD_UNIT=ipfs-daemon.service
 findtime = 180 # 3 minutes
@@ -361,15 +384,17 @@ Status for the jail: go-libp2p-weird-behavior-iptables
 
 Then you’re good to go! You’ve successfully set up a go-libp2p jail.
 
-## Leverage Resource Manager and a set of trusted peers to form an allow list (go-libp2p only)
+## Deny specific peers or create an allow list of trusted peers
 
-The [resource manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) can
+The go-libp2p [resource manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) can
 accept a list of trusted multiaddrs and can use a different set of limits in
 case the normal system limits are reached. This is useful if you're currently
 experiencing an attack since you can set low limits for general use, and
 higher limits for trusted peers. See the [allowlist
 section](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager#allowlisting-multiaddrs-to-mitigate-eclipse-attacks)
 for more details.
+
+js-libp2p provides a straightforward allow and deny list mechanism with its [connection manager limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#allowdeny-lists).
 
 # Summary
 
