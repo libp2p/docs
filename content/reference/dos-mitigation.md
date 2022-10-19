@@ -133,7 +133,7 @@ scope](https://github.com/libp2p/go-libp2p/blob/v0.22.0/p2p/host/resource-manage
 
 In rust-libp2p you can tune this with `ConnectionLimits` as explained above.
 
-Similarly js-libp2p users can adjust the [connection limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#connection-limits) as explained in the js-libp2p docs.
+Similarly js-libp2p users can adjust the `maxIncomingPendingConnections` value in the [connection limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#connection-limits) as explained in the js-libp2p docs.
 
 ## Limit the number of concurrent streams per connection your protocol needs
 
@@ -213,7 +213,7 @@ and `InterceptAccept` for this. For a concrete example, take a look at how Prysm
 implements their [Connection
 Gater](https://github.com/prysmaticlabs/prysm/blob/63a8690140c00ba6e3e4054cac3f38a5107b7fb2/beacon-chain/p2p/connection_gater.go#L43).
 
-js-libp2p has a similar [connection gater](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-gater) that can be configured on node start up.
+js-libp2p has a similar [connection gater](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-gater) that can be configured on node start up and also allows you to [drop connections from peers that try to open too many connections too quickly](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#inbound-connection-threshold).
 
 # Monitoring your application
 
@@ -267,6 +267,9 @@ connection events from [SwarmEvent](https://docs.rs/libp2p/latest/libp2p/swarm/e
 
 js-libp2p logs to stdout based on the contents of the `DEBUG` environmental variable. This can be set
 to log everything with `DEBUG=*`, individual components `DEBUG=libp2p:connection-manager*,libp2p:upgrader*`.
+
+In the browser you can set `localStorage.debug = 'libp2p:connection-manager*,libp2p:upgrader*'` to achieve
+the same thing.
 
 If the logs are too verbose you can also exclude components trace logging `DEBUG=libp2p:*,-*:trace` and
 the value of the variable is consulted at runtime so you can alter the amount or type of logging while
@@ -391,7 +394,7 @@ higher limits for trusted peers. See the [allowlist
 section](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager#allowlisting-multiaddrs-to-mitigate-eclipse-attacks)
 for more details.
 
-js-libp2p provides a straightforward allow and deny list mechanishm with its [connection manager limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#allowdeny-lists).
+js-libp2p provides a straightforward allow and deny list mechanism with its [connection manager limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#allowdeny-lists).
 
 # Summary
 
