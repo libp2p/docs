@@ -114,7 +114,7 @@ guide on discovering un-{known, identified}. For now, please refer to the
 
 ### How do peers check if other peers are dialable?
 
-Peers can use the AutoNAT interface to check if a peer can be dialed.
+Nodes can use the AutoNAT protocol to check if they can be dialed by remote nodes.
 Learn about AutoNAT on the [NAT traversal guide](/concepts/nat/#autonat).
 
 ### What if a peer is not dialable?
