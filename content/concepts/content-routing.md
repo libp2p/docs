@@ -3,20 +3,9 @@ title: Content Routing
 weight: 5
 ---
 
-Peer-to-peer networks are inherently tricky to route because of the following 
-interdisciplinary routing challenges:
-
-- The lack of universal orchestration that a central server can provide when 
-  querying and retrieving content.
-- Not having a central directory that contains information about reaching every peer 
-  in the network.
-- The presence of high node churn.
-- Creating a resilient, scalable, and optimal routing protocol that is resistant to 
-- Resistance against Sybil attacks.
-- Forward compatibility
-
-libp2p offers a content routing interface that aims to overcomes these challenges.
-The abstract ContentRouting interface follows the following format:
+libp2p offers a content routing interface allows peers to implement a
+content router. The abstract `ContentRouting` interface follows the following 
+format:
 
 ```
 interface ContentRouting {
@@ -31,7 +20,22 @@ content-addressing, the network identifies the file by its content ID (CID). DHT
 also commonly used for resolving Peer IDs to addresses, which is separate from content 
 routing. See the peer routing guide for more details.
 
+Peer-to-peer networks are inherently tricky to route because of the following 
+interdisciplinary routing challenges:
+
+- The lack of universal orchestration that a central server can provide when 
+  querying and retrieving content.
+- Not having a central directory that contains information about reaching every peer 
+  in the network.
+- The presence of high node churn.
+- Creating a resilient, scalable, and optimal routing protocol that is resistant to 
+- Resistance against Sybil attacks.
+- Forward compatibility
+
+libp2p aims to overcome many of these challenges.
+
 <!-- add when published -->
+<!-- add resources and latest media on content routing in libp2p -->
 
 {{% notice "note" %}}
 While there are different design approaches for a content routing protocol, such as
