@@ -11,17 +11,25 @@ interdisciplinary routing challenges:
 - Not having a central directory that contains information about reaching every peer 
   in the network.
 - The presence of high node churn.
-- Data classification is communication-expensive.
 - Creating a resilient, scalable, and optimal routing protocol that is resistant to 
-  Sybil attacks and node churn while being future-proof.
+- Resistance against Sybil attacks.
+- Forward compatibility
 
-When retrieving a file using content-addressing, the network identifies the file by its Content ID (CID).
+libp2p offers a content routing interface that aims to overcomes these challenges.
+The abstract ContentRouting interface follows the following format:
 
-In libp2p, content routing is used for advertising content-addressed chunks of data.
-There exists a content routing interface with operations that allows 
-for content lookups.
+```
+interface ContentRouting {
+	Provide(CID, bool) error
+	FindProviders(CID) [Multiaddr]
+}
+```
 
-DHTs are also commonly used for resolving Peer IDs to addresses, which is separate from Content Routing. See the Peer Routing Guide for more details.
+The content router is simply an index of the peer serving the content of interest, 
+and a DHT is used to maintain a peer-to-peer index. When retrieving a file using 
+content-addressing, the network identifies the file by its content ID (CID). DHTs are 
+also commonly used for resolving Peer IDs to addresses, which is separate from content 
+routing. See the peer routing guide for more details.
 
 <!-- add when published -->
 
