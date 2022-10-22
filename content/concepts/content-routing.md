@@ -20,8 +20,7 @@ content-addressing, the network identifies the file by its content ID (CID). DHT
 also commonly used for resolving Peer IDs to addresses, which is separate from content 
 routing. See the peer routing guide for more details.
 
-Peer-to-peer networks are inherently tricky to route because of the following 
-interdisciplinary routing challenges:
+Some characteristics of peer-to-peer networks complicate this process, including:
 
 - The lack of universal orchestration that a central server can provide when 
   querying and retrieving content.
