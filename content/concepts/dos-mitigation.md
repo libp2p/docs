@@ -1,37 +1,45 @@
 ---
-title: "DOS Mitigation"
-weight: 3
+title: "DoS Mitigation"
+weight: 11
+pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
+chapter: true
+aliases: /reference/dos-mitigation/
+summary: DoS mitigation is an essential part of any peer-to-peer application. Learn how to design protocols to be resilient to malicious peers.
 ---
 
-DOS mitigation is an essential part of any P2P application. We need to design
+# DoS Mitigation
+
+DoS mitigation is an essential part of any P2P application. We need to design
 our protocols to be resilient to malicious peers. We need to monitor our
 application for signs of suspicious activity or an attack. And we need to be
 able to respond to an attack.
 
 Here we'll cover how we can use libp2p to achieve the above goals.
 
-# Table of contents <!-- omit in toc -->
+## Table of contents
 
-- [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
-- [Incorporating DOS mitigation from the start](#incorporating-dos-mitigation-from-the-start)
-  - [Limit the number of connections your application needs](#limit-the-number-of-connections-your-application-needs)
-  - [Transient Connections](#transient-connections)
-  - [Limit the number of concurrent streams per connection your protocol needs](#limit-the-number-of-concurrent-streams-per-connection-your-protocol-needs)
-  - [Reduce blast radius](#reduce-blast-radius)
-  - [Fail2ban](#fail2ban)
-  - [Leverage the resource manager to limit resource usage (go-libp2p only)](#leverage-the-resource-manager-to-limit-resource-usage-go-libp2p-only)
-  - [Rate limiting incoming connections](#rate-limiting-incoming-connections)
-- [Monitoring your application](#monitoring-your-application)
-- [Responding to an attack](#responding-to-an-attack)
-  - [Who’s misbehaving?](#whos-misbehaving)
-  - [How to block a misbehaving peer](#how-to-block-a-misbehaving-peer)
-  - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
-    - [Example screen recording of fail2ban in action](#example-screen-recording-of-fail2ban-in-action)
-    - [Setting Up fail2ban](#setting-up-fail2ban)
-  - [Deny specific peers or create an allow list of trusted peers](#deny-specific-peers-or-create-an-allow-list-of-trusted-peers)
-- [Summary](#summary)
+- [DoS Mitigation](#dos-mitigation)
+  - [Table of contents](#table-of-contents)
+  - [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
+  - [Incorporating DOS mitigation from the start](#incorporating-dos-mitigation-from-the-start)
+    - [Limit the number of connections your application needs](#limit-the-number-of-connections-your-application-needs)
+    - [Transient Connections](#transient-connections)
+    - [Limit the number of concurrent streams per connection your protocol needs](#limit-the-number-of-concurrent-streams-per-connection-your-protocol-needs)
+    - [Reduce blast radius](#reduce-blast-radius)
+    - [Fail2ban](#fail2ban)
+    - [Leverage the resource manager to limit resource usage (go-libp2p only)](#leverage-the-resource-manager-to-limit-resource-usage-go-libp2p-only)
+    - [Rate limiting incoming connections](#rate-limiting-incoming-connections)
+  - [Monitoring your application](#monitoring-your-application)
+  - [Responding to an attack](#responding-to-an-attack)
+    - [Who’s misbehaving?](#whos-misbehaving)
+    - [How to block a misbehaving peer](#how-to-block-a-misbehaving-peer)
+    - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
+      - [Example screen recording of fail2ban in action](#example-screen-recording-of-fail2ban-in-action)
+      - [Setting Up fail2ban](#setting-up-fail2ban)
+    - [Deny specific peers or create an allow list of trusted peers](#deny-specific-peers-or-create-an-allow-list-of-trusted-peers)
+  - [Summary](#summary)
 
-# What we mean by a DOS attack
+## What we mean by a DOS attack
 
 A DOS attack is any attack that can cause your application to crash, stall, or
 otherwise fail to respond normally. An attack is considered viable if it takes
@@ -63,7 +71,7 @@ stay up and healthy.
 In the next section we'll cover some design strategies you should incorporate
 into your protocol to make sure your application stays up and healthy.
 
-# Incorporating DOS mitigation from the start
+## Incorporating DOS mitigation from the start
 
 The general strategy is to use the minimum amount of resources as possible and
 make sure that there's no untrusted amplification mechanism (e.g. an untrusted
@@ -74,7 +82,7 @@ below).
 
 Below are some more specific recommendations
 
-## Limit the number of connections your application needs
+### Limit the number of connections your application needs
 
 Each connection has a resource cost associated with it. A connection will
 usually represent a peer and a set of protocols with each their own resource
@@ -96,7 +104,6 @@ multiple knobs here that do similar things, so take care to set these. We know
 this is not ideal and we are tracking this issue
 [here](https://github.com/libp2p/go-libp2p/issues/1640), contributions welcome.
 
-
 In rust-libp2p handlers should implement
 [`connection_keep_alive`](https://docs.rs/libp2p/latest/libp2p/swarm/trait.ConnectionHandler.html#tymethod.connection_keep_alive)
 to define when a connection can be closed. The swarm will close connections when
@@ -114,7 +121,7 @@ and passing it to the
 
 js-libp2p users should read the section on [connection limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#connection-limits) in the js-libp2p docs.
 
-## Transient Connections
+### Transient Connections
 
 When a connection is first established to libp2p but before that connection has
 been tied to a specific peer (before security and muxer have been negotiated),
@@ -135,7 +142,7 @@ In rust-libp2p you can tune this with `ConnectionLimits` as explained above.
 
 Similarly js-libp2p users can adjust the `maxIncomingPendingConnections` value in the [connection limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#connection-limits) as explained in the js-libp2p docs.
 
-## Limit the number of concurrent streams per connection your protocol needs
+### Limit the number of concurrent streams per connection your protocol needs
 
 Each stream has some resource cost associated with it. Depending on the
 transport and multiplexer, this can be bigger or smaller. Design your protocol
@@ -179,7 +186,7 @@ If we add a limit in this protocol of say 10 streams, then method 1 will mean
 we can only have 10 concurrent RPC calls, while method 2 would let us have a
 much larger number of concurrent RPC calls.
 
-## Reduce blast radius
+### Reduce blast radius
 
 If you can split up your libp2p application into multiple separate processes you
 can increase the resiliency of your overall system. For example, your node may
@@ -187,15 +194,14 @@ have to help achieve consensus and respond to user queries. By splitting this up
 into two processes you now rely on the OS’s guarantee that the user query
 process won’t take down the consensus process.
 
-## Fail2ban
+### Fail2ban
 
 If you can log when a peer is misbehaving or is malicious, you can then hook up
 those logs to fail2ban and have fail2ban manage your firewall to automatically
 block misbehaving nodes. go-libp2p includes some built-in support for this
 use case. More details below.
 
-
-## Leverage the resource manager to limit resource usage (go-libp2p only)
+### Leverage the resource manager to limit resource usage (go-libp2p only)
 
 go-libp2p includes a powerful [resource
 manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) that keeps track
@@ -204,7 +210,7 @@ within your protocol implementation to make sure you don't allocate more than
 some predetermined amount of memory per connection. It's basically a resource
 accounting abstraction that you can make use of in your own application.
 
-## Rate limiting incoming connections
+### Rate limiting incoming connections
 
 Depending on your use case, it can help to limit the rate of inbound
 connections. You can use go-libp2p's
@@ -215,16 +221,14 @@ Gater](https://github.com/prysmaticlabs/prysm/blob/63a8690140c00ba6e3e4054cac3f3
 
 js-libp2p has a similar [connection gater](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-gater) that can be configured on node start up and also allows you to [drop connections from peers that try to open too many connections too quickly](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#inbound-connection-threshold).
 
-# Monitoring your application
+## Monitoring your application
 
 Once we've designed our protocols to be resilient to DOS attacks and deployed
 them, we then need to monitor our application both to verify our mitigation works
 and to be alerted if a new attack vector is exploited.
 
-
 Monitoring is implementation specific, so consult the links below to see how
 your implementation does it.
-
 
 For rust-libp2p look at the [libp2p-metrics crate](https://github.com/libp2p/rust-libp2p/tree/master/misc/metrics).
 
@@ -238,12 +242,12 @@ This work is being tracked in issue
 js-libp2p collects various system metrics, please see the [metrics documentation](https://github.com/libp2p/js-libp2p/blob/master/doc/METRICS.md)
 for more information.
 
-# Responding to an attack
+## Responding to an attack
 
 When you see that your node is being attacked (e.g. crashing, stalling, high cpu
 usage), then the next step is responding to the attack.
 
-## Who’s misbehaving?
+### Who’s misbehaving?
 
 To answer the question of which peer is misbehaving and harming you, go-libp2p
 exposes a [canonical log
@@ -275,7 +279,7 @@ If the logs are too verbose you can also exclude components trace logging `DEBUG
 the value of the variable is consulted at runtime so you can alter the amount or type of logging while
 your application is running.
 
-## How to block a misbehaving peer
+### How to block a misbehaving peer
 
 Once you’ve identified the misbehaving peer, you can block them with `iptables`
 or `ufw`. Here we’ll outline how to block the peer with `ufw`. You can get the
@@ -286,7 +290,7 @@ ip address of the peer from the
 sudo ufw deny from 1.2.3.4
 ```
 
-## How to automate blocking with fail2ban
+### How to automate blocking with fail2ban
 
 You can hook up [fail2ban](https://www.fail2ban.org) to
 automatically block connections from these misbehaving peers if they emit this
@@ -349,14 +353,13 @@ RestartSec=1min
 User=ipfs
 ```
 
-### Example screen recording of fail2ban in action
+#### Example screen recording of fail2ban in action
 
 <!-- {{ <video library="1" src="fail2bango-libp2p.mp4"> }} -->
 
-
 [fail2ban+go-libp2p screen recording](/images/fail2bango-libp2p.mp4)
 
-### Setting Up fail2ban
+#### Setting Up fail2ban
 
 We’ll focus on the specifics around fail2ban and go-libp2p here.  The steps to
 take are:
@@ -384,7 +387,7 @@ Status for the jail: go-libp2p-weird-behavior-iptables
 
 Then you’re good to go! You’ve successfully set up a go-libp2p jail.
 
-## Deny specific peers or create an allow list of trusted peers
+### Deny specific peers or create an allow list of trusted peers
 
 The go-libp2p [resource manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manager) can
 accept a list of trusted multiaddrs and can use a different set of limits in
@@ -396,7 +399,7 @@ for more details.
 
 js-libp2p provides a straightforward allow and deny list mechanism with its [connection manager limits](https://github.com/libp2p/js-libp2p/blob/master/doc/LIMITS.md#allowdeny-lists).
 
-# Summary
+## Summary
 
 Mitigating DOS attacks is hard because an attacker needs only one flaw, while a
 protocol developer needs to cover _all_ their bases. Libp2p provides some tools

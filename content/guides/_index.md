@@ -3,6 +3,8 @@ title: "Guides"
 weight: 3
 pre: '<i class="fas fa-fw fa-code"></i> '
 chapter: true
+aliases: /examples/
+summary: Get Started with libp2p examples and learn how to spin up a libp2p node.
 ---
 
 # Get Started with libp2p

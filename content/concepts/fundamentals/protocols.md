@@ -1,7 +1,13 @@
 ---
-title: Protocols
-weight: 3
+title: "Protocols"
+weight: 2
+pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
+chapter: true
+aliases: /concepts/protocols/
+summary: There are protocols everywhere you look when you're writing network applications, and libp2p is especially thick with them.
 ---
+
+# Protocols
 
 There are protocols everywhere you look when you're writing network applications, and libp2p is
 especially thick with them.

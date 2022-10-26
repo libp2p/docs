@@ -1,8 +1,12 @@
 ---
-title: "Help & Discussion"
-weight: 100
-pre: "<i class='fas fa-fw fa-question-circle'></i> "
+title: "Get Involved"
+weight: 1
+pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
+chapter: true
+summary: Get involved and participate in the libp2p community.
 ---
+
+# Get Involved
 
 We love talking about libp2p, and we'd be happy to have you in the mix.
 

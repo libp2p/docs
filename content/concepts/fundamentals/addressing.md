@@ -1,7 +1,13 @@
 ---
-title: Addressing
-weight: 6
+title: "Addressing"
+weight: 1
+pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
+chapter: true
+aliases: /concepts/addressing/
+summary: Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks, we need a way to work with a lot of different addressing schemes in a consistent way.
 ---
+
+# Addressing
 
 Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks, we need a way to work with a lot of different addressing schemes in a consistent way.
 

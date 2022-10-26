@@ -435,7 +435,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
 #chapter p {
     text-align: left;
     font-size: 1.3rem;
-    padding: 2rem 1rem;
+    padding: 0.5rem 1rem;
 }
 #footer {
     padding: 3rem 1rem;
@@ -609,13 +609,12 @@ section.attachments.grey .attachments-files {
     font-style: normal;
     padding-bottom: 3px;
 
-
 }
 .children-h2 p, .children-h3 p {
     font-size: large;
     margin-top: 0px;
     padding-top: 0px;
-    margin-bottom:  0px;
+    margin-bottom: 0px;
     padding-bottom: 0px;
 }
 .children h3,.children h2 {
