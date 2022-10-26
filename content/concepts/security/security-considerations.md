@@ -8,8 +8,8 @@ summary: libp2p makes it simple to establish encrypted, authenticated communicat
 
 # Secure Data
 
-libp2p makes it simple to establish [encrypted, authenticated communication
-channels](../secure-comms/) between two peers, but there are other important
+libp2p makes it simple to establish encrypted, authenticated communication 
+channels between two peers, but there are other important
 security issues to consider when building robust peer-to-peer systems.
 
 Many of the issues described here have no known "perfect solution," and the

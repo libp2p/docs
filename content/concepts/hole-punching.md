@@ -1,11 +1,12 @@
 ---
-title: Hole Punching
-weight: 3
+title: "Hole Punching"
+weight: 8
+pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
+chapter: true
+summary: In most configurations, both public and non-public nodes can dial connections to other public nodes. However, it's not possible to establish a connection from the public internet to a non-public node.
 ---
 
-## Background
-
-### Types of nodes
+# Hole Punching
 
 Nodes on a peer-to-peer network can be categorized into two groups: 
 public and non-public. Public nodes are those nodes that have unobstructed 
@@ -15,7 +16,7 @@ as well as mobile phones. In most configurations, both public and non-public
 nodes can dial connections to other public nodes. However, it's not possible 
 to establish a connection from the public internet to a non-public node.
 
-### How can a node become dialable despite being behind a firewall and/or NAT?
+## Dialing a non-public node
 
 Here are a few methods that nodes can use to dial a non-public node:
 
