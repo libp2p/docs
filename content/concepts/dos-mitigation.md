@@ -7,6 +7,8 @@ aliases: /reference/dos-mitigation/
 summary: DoS mitigation is an essential part of any peer-to-peer application. Learn how to design protocols to be resilient to malicious peers.
 ---
 
+# DoS Mitigation
+
 DoS mitigation is an essential part of any P2P application. We need to design
 our protocols to be resilient to malicious peers. We need to monitor our
 application for signs of suspicious activity or an attack. And we need to be
@@ -16,25 +18,26 @@ Here we'll cover how we can use libp2p to achieve the above goals.
 
 ## Table of contents
 
-- [Table of contents](#table-of-contents)
-- [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
-- [Incorporating DOS mitigation from the start](#incorporating-dos-mitigation-from-the-start)
-  - [Limit the number of connections your application needs](#limit-the-number-of-connections-your-application-needs)
-  - [Transient Connections](#transient-connections)
-  - [Limit the number of concurrent streams per connection your protocol needs](#limit-the-number-of-concurrent-streams-per-connection-your-protocol-needs)
-  - [Reduce blast radius](#reduce-blast-radius)
-  - [Fail2ban](#fail2ban)
-  - [Leverage the resource manager to limit resource usage (go-libp2p only)](#leverage-the-resource-manager-to-limit-resource-usage-go-libp2p-only)
-  - [Rate limiting incoming connections](#rate-limiting-incoming-connections)
-- [Monitoring your application](#monitoring-your-application)
-- [Responding to an attack](#responding-to-an-attack)
-  - [Who’s misbehaving?](#whos-misbehaving)
-  - [How to block a misbehaving peer](#how-to-block-a-misbehaving-peer)
-  - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
-    - [Example screen recording of fail2ban in action](#example-screen-recording-of-fail2ban-in-action)
-    - [Setting Up fail2ban](#setting-up-fail2ban)
-  - [Deny specific peers or create an allow list of trusted peers](#deny-specific-peers-or-create-an-allow-list-of-trusted-peers)
-- [Summary](#summary)
+- [DoS Mitigation](#dos-mitigation)
+  - [Table of contents](#table-of-contents)
+  - [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
+  - [Incorporating DOS mitigation from the start](#incorporating-dos-mitigation-from-the-start)
+    - [Limit the number of connections your application needs](#limit-the-number-of-connections-your-application-needs)
+    - [Transient Connections](#transient-connections)
+    - [Limit the number of concurrent streams per connection your protocol needs](#limit-the-number-of-concurrent-streams-per-connection-your-protocol-needs)
+    - [Reduce blast radius](#reduce-blast-radius)
+    - [Fail2ban](#fail2ban)
+    - [Leverage the resource manager to limit resource usage (go-libp2p only)](#leverage-the-resource-manager-to-limit-resource-usage-go-libp2p-only)
+    - [Rate limiting incoming connections](#rate-limiting-incoming-connections)
+  - [Monitoring your application](#monitoring-your-application)
+  - [Responding to an attack](#responding-to-an-attack)
+    - [Who’s misbehaving?](#whos-misbehaving)
+    - [How to block a misbehaving peer](#how-to-block-a-misbehaving-peer)
+    - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
+      - [Example screen recording of fail2ban in action](#example-screen-recording-of-fail2ban-in-action)
+      - [Setting Up fail2ban](#setting-up-fail2ban)
+    - [Deny specific peers or create an allow list of trusted peers](#deny-specific-peers-or-create-an-allow-list-of-trusted-peers)
+  - [Summary](#summary)
 
 ## What we mean by a DOS attack
 
