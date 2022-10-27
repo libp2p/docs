@@ -33,5 +33,10 @@ name = "<i class='fab fa-discourse'></i> Discussion Forums"
 url = "https://discuss.libp2p.io"
 weight = 4
 
+[[menu.shortcuts]]
+name = "<i class='fab fa-discourse'></i> Connectivity"
+url = "https://connectivity.libp2p.io"
+weight = 5
+
 [markup.goldmark.renderer]
   unsafe = true # Allow HTML in md files
