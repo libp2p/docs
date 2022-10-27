@@ -1,9 +1,14 @@
 ---
-title: Reference
-weight: 5
-pre: '<i class="fas fa-fw fa-book"></i> '
+title: "Reference"
+weight: 4
+pre: '<i class="fas fa-fw fa-list-alt"></i> '
+chapter: true
+summary: This section contains in-depth reference material for libp2p.
 ---
 
-This section contains in-depth reference material, including a [glossary](/reference/glossary/) with definitions of libp2p terminology.
+# Reference Documentation
 
-Please help make this section more complete by [filing an issue](https://github.com/libp2p/docs/issues/new).
+This section contains reference material for libp2p.
+
+{{% children description="true" %}}
+
