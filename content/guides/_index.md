@@ -491,10 +491,21 @@ We will walk you through setting up a fully functional libp2p node with some bas
 TODO(yusef): put full example code on github and link to it here
  -->
 
-### Install node.js
+### Install Node.js
 
 Working with js-libp2p requires [node.js](https://nodejs.org) >= v16 for development. If you haven't already, install node using whatever package manager you prefer or [using the official installer](https://nodejs.org/en/download/).
 We recommend using the latest stable version of node, but anything fairly recent should work fine. If you want to see how low you can go, the current version requirements can always be found at the [js-libp2p project page](https://github.com/libp2p/js-libp2p).
+
+This tutorial uses the following js-libp2p package versions:
+
+```
+"@chainsafe/libp2p-noise": "^8.0.1",
+"@libp2p/mplex": "^5.1.0",
+"@libp2p/tcp": "^3.0.4",
+"@libp2p/websockets": "^3.0.2",
+"libp2p": "^0.38.0",
+"multiaddr": "^10.0.1"
+```
 
 ### Create an empty project
 
