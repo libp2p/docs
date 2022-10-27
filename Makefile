@@ -30,12 +30,11 @@ MACH:=$(shell uname -m)
 ifeq ('$(MACH)', 'x86_64')
 	MACH=64bit
 else ifeq ('$(MACH)', 'arm64')
-	MACH=ARM64
+  MACH=64bit
 else
 	MACH=32bit
 endif
 HUGO_URL="https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_$(HUGO_VERSION)_$(PLATFORM)-$(MACH).tar.gz"
-
 
 bin/hugo:
 	@echo "Installing Hugo to $(HUGO_LOCAL)..."

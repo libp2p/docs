@@ -1,22 +1,18 @@
 ---
 title: "Introduction"
 weight: 1
-pre: '<i class="fas fa-fw fa-comments"></i> '
+pre: '<i class="fas fa-fw fa-window-maximize"></i> '
+chapter: true
+aliases: /introduction/what-is-libp2p/
+summary: libp2p is a modular system of protocols, specifications and libraries that enable the development of peer-to-peer network applications.
 ---
 
-Welcome to the official libp2p documentation hub!
-
-Whether you’re just starting to dive into peer-to-peer concepts and 
-solutions, learning how to build peer-to-peer systems with libp2p, or 
-are looking for detailed reference information, this is the place to 
-start.
+# An Introduction to libp2p
 
 ## What is libp2p?
 
 libp2p is a modular system of *protocols*, *specifications* and *libraries* 
 that enable the development of peer-to-peer network applications. 
-
-**A p2p networking stack**
 
 Because of libp2p's peer-to-peer and distributed architecture, most of the 
 needs and considerations that the current web was built on no longer apply.
@@ -74,7 +70,7 @@ ways to send data across networks in use today, including TCP, QUIC, WebSocket,
 WebTransport and WebRTC, with some still in development and others still yet 
 to be designed. 
 
-libp2p also provides a list of [specifications](https://github.com/libp2p/specs) 
+libp2p also provides a list of specifications [specifcations](https://github.com/libp2p/specs) 
 that can be adapted to support existing and future protocols, allowing libp2p applications 
 to operate in many different runtime and networking environments.
 
@@ -173,14 +169,14 @@ specific information and references:
 - [The Permissive License Stack](https://protocol.ai/blog/announcing-the-permissive-license-stack) 
   is a licensing strategy for software development that embraces open-source values.
 
-[glossary]: {{< ref "/reference/glossary.md" >}}
-[definition_dht]: {{< ref "/reference/glossary.md#dht" >}}
-[definition_p2p]: {{< ref "/reference/glossary.md#p2p" >}}
-[definition_peer]: {{< ref "/reference/glossary.md#peer" >}}
-[definition_peerid]: {{< ref "/reference/glossary.md#peerid" >}}
-[definition_secio]: {{< ref "/reference/glossary.md#secio" >}}
-[definition_muiltiaddress]: {{< ref "/reference/glossary.md#multiaddr" >}}
-[definition_client_server]: {{< ref "/reference/glossary.md#client-server" >}}
+[glossary]: {{< ref "concepts/glossary.md" >}}
+[definition_dht]: {{< ref "concepts/glossary.md#dht" >}}
+[definition_p2p]: {{< ref "concepts/glossary.md#p2p" >}}
+[definition_peer]: {{< ref "concepts/glossary.md#peer" >}}
+[definition_peerid]: {{< ref "concepts/glossary.md#peerid" >}}
+[definition_secio]: {{< ref "concepts/glossary.md#secio" >}}
+[definition_muiltiaddress]: {{< ref "concepts/glossary.md#multiaddr" >}}
+[definition_client_server]: {{< ref "concepts/glossary.md#client-server" >}}
 
 [spec_content_routing]: https://github.com/libp2p/specs/blob/master/kad-dht/README.md
 [spec_pubsub]: https://github.com/libp2p/specs/blob/master/pubsub/README.md
