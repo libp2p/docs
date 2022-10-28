@@ -31,4 +31,8 @@ of what transport protocol to use is up to the developer, and an application can
 many different transports at the same time. Learn about the fundamentals of transport 
 protocols in libp2p.
 
+To better visualize the types of libp2p connections, check out the
+[connectivity site](https://connectivity.libp2p.io/) which outlines the different types 
+of connectivity in libp2p.
+
 {{% children description="true"%}}
