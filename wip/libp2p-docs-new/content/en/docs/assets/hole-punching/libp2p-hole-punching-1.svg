@@ -1,45 +1,50 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="316px" preserveAspectRatio="none" style="width:300px;height:316px;" version="1.1" viewBox="0 0 300 316" width="300px" zoomAndPan="magnify"><defs><filter height="300%" id="fxlf64pvjiqhu" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><path d="M106.5781,244.1923 C109.8566,239.0233 114.0121,239.212 117.694,243.7293 C120.6047,237.9772 125.0738,238.9779 128.3994,243.2879 C131.0455,238.1174 134.8185,237.5502 138.9478,241.5891 C142.8585,235.4556 146.9844,235.1664 152.0604,240.2236 C155.3838,235.8383 159.5727,236.832 161.6578,241.5317 C165.8498,236.4789 170.1478,236.3255 173.0869,242.7765 C176.9296,237.287 183.1949,237.7792 185.8079,244.101 C188.968,238.7866 192.7186,239.973 195.9525,244.0211 C202.1859,247.0945 203.844,251.7133 198.28,256.9161 C205.0646,260.4614 205.3237,265.4296 199.8691,270.4156 C205.8747,274.3404 204.7895,278.9427 199.0951,282.0919 C205.527,289.1555 203.7992,293.5244 195.5386,297.1083 C192.7559,301.4035 187.5459,302.5735 185.0638,296.7956 C182.3133,302.0395 179.0179,302.5929 174.6858,298.5662 C170.5101,304.3905 166.6296,303.2247 162.9536,298.034 C160.5143,303.3509 156.406,304.4016 152.0695,300.2044 C147.7873,304.7473 141.7937,304.8109 139.6378,297.8971 C136.6224,301.8574 131.834,302.6158 129.472,297.1896 C126.5655,303.6575 120.9854,303.7188 117.6706,297.5716 C114.0283,301.7877 109.1794,301.7741 106.5911,296.3591 C99.7839,293.1327 99.5939,288.6886 104.2158,283.3718 C96.5307,280.5488 95.9317,275.384 101.6009,269.9577 C97.2767,263.9752 98.5851,259.4536 105.2148,256.3884 C99.0775,252.4362 100.3252,246.7595 106.5781,244.1923 " fill="#FFFFFF" style="stroke: #000000; stroke-width: 1.5;"/><!--MD5=[f39890141988338390353905b1d30eb2]
-cluster Network_A--><polygon fill="#FFFFFF" filter="url(#fxlf64pvjiqhu)" points="22,24,113,24,120,46.2969,138,46.2969,138,207,22,207,22,24" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="22" x2="120" y1="46.2969" y2="46.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="85" x="26" y="38.9951">Network_A</text><!--MD5=[51f900c6e81d26066ce8c99d2c87b965]
-cluster Network_B--><polygon fill="#FFFFFF" filter="url(#fxlf64pvjiqhu)" points="162,24,252,24,259,46.2969,278,46.2969,278,207,162,207,162,24" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="162" x2="259" y1="46.2969" y2="46.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="84" x="166" y="38.9951">Network_B</text><!--MD5=[9eb86c2b3d925a16ba1bdada40016c70]
-entity Internet--><rect fill="#FEFECE" filter="url(#fxlf64pvjiqhu)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="74" x="113" y="251"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="108" y="256"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="108" y="277.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="54" x="123" y="273.9951">Internet</text><!--MD5=[770389ab9df153645bc6ef28055eb2b5]
-entity A--><rect fill="#FEFECE" filter="url(#fxlf64pvjiqhu)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="29" x="65.5" y="59"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="60.5" y="64"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="60.5" y="85.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="9" x="75.5" y="81.9951">A</text><!--MD5=[35b1b9b7af72344c6024657ab180ce0d]
-entity Router_A--><rect fill="#FEFECE" filter="url(#fxlf64pvjiqhu)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="83" x="38.5" y="155"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="33.5" y="160"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="33.5" y="181.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="63" x="48.5" y="177.9951">Router_A</text><!--MD5=[b2d39259b6aeabc16b394deeb0238426]
-entity B--><rect fill="#FEFECE" filter="url(#fxlf64pvjiqhu)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="30" x="205" y="59"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="200" y="64"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="200" y="85.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="10" x="215" y="81.9951">B</text><!--MD5=[d88bea1cab14fb4e3eb83a7382245343]
-entity Router_B--><rect fill="#FEFECE" filter="url(#fxlf64pvjiqhu)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="84" x="178" y="155"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="173" y="160"/><rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="173" y="181.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="64" x="188" y="177.9951">Router_B</text><!--MD5=[edf294db8fb0818c43742bd5b544cef1]
-link A to Router_A--><path d="M80,100.66 C80,115.52 80,134.85 80,149.64 " fill="none" id="A-Router_A" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="80,154.87,84,145.87,80,149.87,76,145.87,80,154.87" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="80,95.24,76,104.24,80,100.24,84,104.24,80,95.24" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[7875c5bd719619cf71905a493bc66052]
-link B to Router_B--><path d="M220,100.66 C220,115.52 220,134.85 220,149.64 " fill="none" id="B-Router_B" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="220,154.87,224,145.87,220,149.87,216,145.87,220,154.87" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="220,95.24,216,104.24,220,100.24,224,104.24,220,95.24" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[af04aa8adcb1872528373b0335e1557a]
-link Router_A to Internet--><path d="M95.91,195.37 C107.35,210.73 122.7,231.34 134.13,246.69 " fill="none" id="Router_A-Internet" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="137.24,250.87,135.0784,241.2613,134.256,246.858,128.6593,246.0357,137.24,250.87" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="92.84,191.24,95.0016,200.8487,95.824,195.252,101.4207,196.0743,92.84,191.24" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[abc34ab2357c2431246eabc75bb2dbe3]
-link Router_B to Internet--><path d="M204.09,195.37 C192.65,210.73 177.3,231.34 165.87,246.69 " fill="none" id="Router_B-Internet" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="162.76,250.87,171.3407,246.0357,165.744,246.858,164.9216,241.2613,162.76,250.87" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="207.16,191.24,198.5793,196.0743,204.176,195.252,204.9984,200.8487,207.16,191.24" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[90cd9f71dbb8689075f0adcda605408c]
-@startuml
-
-cloud {
-        [Internet]
-}
-
-package "Network_A" {
-        [A]
-        [Router_A]
-}
-
-package "Network_B" {
-        [B]
-        [Router_B]
-}
-
-[A] <- -> [Router_A]
-[B] <- -> [Router_B]
-[Router_A] <- -> [Internet]
-[Router_B] <- -> [Internet]
-
-@enduml
-
-PlantUML version 1.2020.02(Sun Mar 01 11:22:07 CET 2020)
-(GPL source distribution)
-Java Runtime: OpenJDK Runtime Environment
-JVM: OpenJDK 64-Bit Server VM
-Java Version: 11.0.14+9-post-Debian-1deb11u1
-Operating System: Linux
-Default Encoding: UTF-8
-Language: en
-Country: US
---></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg style="height:316px;width:300px" contentScriptType="application/ecmascript" contentStyleType="text/css" preserveAspectRatio="none" version="1.1" viewBox="0 0 300 316" xmlns="http://www.w3.org/2000/svg" zoomAndPan="magnify">
+<defs>
+<filter id="a" x="-1" y="-1" width="300%" height="300%">
+<feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+<feColorMatrix in="blurOut" result="blurOut2" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+<feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+<feBlend in="SourceGraphic" in2="blurOut3"/>
+</filter>
+</defs>
+<path d="m106.58 244.19c3.2785-5.169 7.434-4.9803 11.116-0.463 2.9107-5.7521 7.3798-4.7514 10.705-0.4414 2.6461-5.1705 6.4191-5.7377 10.548-1.6988 3.9107-6.1335 8.0366-6.4227 13.113-1.3655 3.3234-4.3853 7.5123-3.3916 9.5974 1.3081 4.192-5.0528 8.49-5.2062 11.429 1.2448 3.8427-5.4895 10.108-4.9973 12.721 1.3245 3.1601-5.3144 6.9107-4.128 10.145-0.0799 6.2334 3.0734 7.8915 7.6922 2.3275 12.895 6.7846 3.5453 7.0437 8.5135 1.5891 13.5 6.0056 3.9248 4.9204 8.5271-0.774 11.676 6.4319 7.0636 4.7041 11.432-3.5565 15.016-2.7827 4.2952-7.9927 5.4652-10.475-0.3127-2.7505 5.2439-6.0459 5.7973-10.378 1.7706-4.1757 5.8243-8.0562 4.6585-11.732-0.5322-2.4393 5.3169-6.5476 6.3676-10.884 2.1704-4.2822 4.5429-10.276 4.6065-12.432-2.3073-3.0154 3.9603-7.8038 4.7187-10.166-0.7075-2.9065 6.4679-8.4866 6.5292-11.801 0.382-3.6423 4.2161-8.4912 4.2025-11.08-1.2125-6.8072-3.2264-6.9972-7.6705-2.3753-12.987-7.6851-2.823-8.2841-7.9878-2.6149-13.414-4.3242-5.9825-3.0158-10.504 3.6139-13.569-6.1373-3.9522-4.8896-9.6289 1.3633-12.196" fill="#fff" stroke="#000" stroke-width="1.5"/>
+<polygon points="22 24 113 24 120 46.297 138 46.297 138 207 22 207" fill="#fff" filter="url(#a)" stroke="#000" stroke-width="1.5"/>
+<line x1="22" x2="120" y1="46.297" y2="46.297" stroke="#000" stroke-width="1.5"/>
+<text x="26" y="38.9951" fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="85">Network_A</text>
+<polygon points="162 24 252 24 259 46.297 278 46.297 278 207 162 207" fill="#fff" filter="url(#a)" stroke="#000" stroke-width="1.5"/>
+<line x1="162" x2="259" y1="46.297" y2="46.297" stroke="#000" stroke-width="1.5"/>
+<text x="166" y="38.9951" fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="84">Network_B</text>
+<rect x="113" y="251" width="74" height="36.297" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="1.5"/>
+<rect x="108" y="256" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<rect x="108" y="277.3" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<text x="123" y="273.9951" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="54">Internet</text>
+<rect x="65.5" y="59" width="29" height="36.297" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="1.5"/>
+<rect x="60.5" y="64" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<rect x="60.5" y="85.297" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<text x="75.5" y="81.9951" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="9">A</text>
+<rect x="38.5" y="155" width="83" height="36.297" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="1.5"/>
+<rect x="33.5" y="160" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<rect x="33.5" y="181.3" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<text x="48.5" y="177.9951" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="63">Router_A</text>
+<rect x="205" y="59" width="30" height="36.297" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="1.5"/>
+<rect x="200" y="64" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<rect x="200" y="85.297" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<text x="215" y="81.9951" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="10">B</text>
+<rect x="178" y="155" width="84" height="36.297" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="1.5"/>
+<rect x="173" y="160" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<rect x="173" y="181.3" width="10" height="5" fill="#FEFECE" stroke="#A80036" stroke-width="1.5"/>
+<text x="188" y="177.9951" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="64">Router_B</text>
+<path d="m80 100.66v48.98" fill="none" stroke="#A80036"/>
+<polygon points="80 154.87 84 145.87 80 149.87 76 145.87" fill="#A80036" stroke="#A80036"/>
+<polygon points="80 95.24 76 104.24 80 100.24 84 104.24" fill="#A80036" stroke="#A80036"/>
+<path d="m220 100.66v48.98" fill="none" stroke="#A80036"/>
+<polygon points="220 154.87 224 145.87 220 149.87 216 145.87" fill="#A80036" stroke="#A80036"/>
+<polygon points="220 95.24 216 104.24 220 100.24 224 104.24" fill="#A80036" stroke="#A80036"/>
+<path d="m95.91 195.37c11.44 15.36 26.79 35.97 38.22 51.32" fill="none" stroke="#A80036"/>
+<polygon points="137.24 250.87 135.08 241.26 134.26 246.86 128.66 246.04" fill="#A80036" stroke="#A80036"/>
+<polygon points="92.84 191.24 95.002 200.85 95.824 195.25 101.42 196.07" fill="#A80036" stroke="#A80036"/>
+<path d="m204.09 195.37c-11.44 15.36-26.79 35.97-38.22 51.32" fill="none" stroke="#A80036"/>
+<polygon points="162.76 250.87 171.34 246.04 165.74 246.86 164.92 241.26" fill="#A80036" stroke="#A80036"/>
+<polygon points="207.16 191.24 198.58 196.07 204.18 195.25 205 200.85" fill="#A80036" stroke="#A80036"/>
+</svg>
