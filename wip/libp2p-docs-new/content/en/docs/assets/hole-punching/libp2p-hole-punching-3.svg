@@ -1,30 +1,65 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="561px" preserveAspectRatio="none" style="width:291px;height:561px;" version="1.1" viewBox="0 0 291 561" width="291px" zoomAndPan="magnify"><defs><filter height="300%" id="fouzsgju6kqwb" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="23" x2="23" y1="86.2969" y2="474.1563"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="98.5" x2="98.5" y1="86.2969" y2="474.1563"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="190.5" x2="190.5" y1="86.2969" y2="474.1563"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="266.5" x2="266.5" y1="86.2969" y2="474.1563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="9" x="15.5" y="82.9951">A</text><ellipse cx="23" cy="13" fill="#FEFECE" filter="url(#fouzsgju6kqwb)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M23,21 L23,48 M10,29 L36,29 M23,48 L10,63 M23,48 L36,63 " fill="none" filter="url(#fouzsgju6kqwb)" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="9" x="15.5" y="486.1514">A</text><ellipse cx="23" cy="499.4531" fill="#FEFECE" filter="url(#fouzsgju6kqwb)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M23,507.4531 L23,534.4531 M10,515.4531 L36,515.4531 M23,534.4531 L10,549.4531 M23,534.4531 L36,549.4531 " fill="none" filter="url(#fouzsgju6kqwb)" style="stroke: #A80036; stroke-width: 2.0;"/><rect fill="#FEFECE" filter="url(#fouzsgju6kqwb)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="77" x="58.5" y="51"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="63" x="65.5" y="70.9951">Router_A</text><rect fill="#FEFECE" filter="url(#fouzsgju6kqwb)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="77" x="58.5" y="473.1563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="63" x="65.5" y="493.1514">Router_A</text><rect fill="#FEFECE" filter="url(#fouzsgju6kqwb)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="78" x="149.5" y="51"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="64" x="156.5" y="70.9951">Router_B</text><rect fill="#FEFECE" filter="url(#fouzsgju6kqwb)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="78" x="149.5" y="473.1563"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="64" x="156.5" y="493.1514">Router_B</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="10" x="258.5" y="82.9951">B</text><ellipse cx="266.5" cy="13" fill="#FEFECE" filter="url(#fouzsgju6kqwb)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M266.5,21 L266.5,48 M253.5,29 L279.5,29 M266.5,48 L253.5,63 M266.5,48 L279.5,63 " fill="none" filter="url(#fouzsgju6kqwb)" style="stroke: #A80036; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="10" x="258.5" y="486.1514">B</text><ellipse cx="266.5" cy="499.4531" fill="#FEFECE" filter="url(#fouzsgju6kqwb)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/><path d="M266.5,507.4531 L266.5,534.4531 M253.5,515.4531 L279.5,515.4531 M266.5,534.4531 L253.5,549.4531 M266.5,534.4531 L279.5,549.4531 " fill="none" filter="url(#fouzsgju6kqwb)" style="stroke: #A80036; stroke-width: 2.0;"/><polygon fill="#A80036" points="87,113.4297,97,117.4297,87,121.4297,91,117.4297" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="23" x2="93" y1="117.4297" y2="117.4297"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52" x="30" y="112.3638">PacketA</text><rect fill="#FBFB77" filter="url(#fouzsgju6kqwb)" height="38" style="stroke: #A80036; stroke-width: 1.0;" width="127" x="35" y="130.4297"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="74" x="39" y="146.4966">Add 5-tuple</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="119" x="39" y="161.6294">to local state table</text><polygon fill="#A80036" points="201.5,190.8281,191.5,194.8281,201.5,198.8281,197.5,194.8281" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="195.5" x2="265.5" y1="194.8281" y2="194.8281"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52" x="207.5" y="189.7622">PacketB</text><rect fill="#FBFB77" filter="url(#fouzsgju6kqwb)" height="38" style="stroke: #A80036; stroke-width: 1.0;" width="127" x="127" y="207.8281"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="74" x="131" y="223.895">Add 5-tuple</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="119" x="131" y="239.0278">to local state table</text><polygon fill="#A80036" points="178.5,268.2266,188.5,272.2266,178.5,276.2266,182.5,272.2266" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="99" x2="184.5" y1="272.2266" y2="272.2266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52" x="106" y="267.1606">PacketA</text><polygon fill="#A80036" points="110,297.3594,100,301.3594,110,305.3594,106,301.3594" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="104" x2="189.5" y1="301.3594" y2="301.3594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52" x="116" y="296.2935">PacketB</text><rect fill="#FBFB77" filter="url(#fouzsgju6kqwb)" height="38" style="stroke: #A80036; stroke-width: 1.0;" width="125" x="36" y="314.3594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="86" x="40" y="330.4263">5-tuple exists</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="117" x="40" y="345.5591">in local state table</text><polygon fill="#A80036" points="34,374.7578,24,378.7578,34,382.7578,30,378.7578" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="28" x2="98" y1="378.7578" y2="378.7578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52" x="40" y="373.6919">PacketB</text><rect fill="#FBFB77" filter="url(#fouzsgju6kqwb)" height="38" style="stroke: #A80036; stroke-width: 1.0;" width="125" x="128" y="391.7578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="86" x="132" y="407.8247">5-tuple exists</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="117" x="132" y="422.9575">in local state table</text><polygon fill="#A80036" points="254.5,452.1563,264.5,456.1563,254.5,460.1563,258.5,456.1563" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="190.5" x2="260.5" y1="456.1563" y2="456.1563"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52" x="197.5" y="451.0903">PacketA</text><!--MD5=[0e9010cc6736bbed503a0efecdc03d1c]
-@startuml
-actor A
-participant Router_A
-participant Router_B
-actor B
-
-A -> Router_A: PacketA
-rnote over Router_A: Add 5-tuple\nto local state table
-B -> Router_B: PacketB
-rnote over Router_B: Add 5-tuple\nto local state table
-Router_A -> Router_B: PacketA
-Router_B -> Router_A: PacketB
-rnote over Router_A: 5-tuple exists\nin local state table
-Router_A -> A: PacketB
-rnote over Router_B: 5-tuple exists\nin local state table
-Router_B -> B: PacketA
-
-@enduml
-
-PlantUML version 1.2020.02(Sun Mar 01 11:22:07 CET 2020)
-(GPL source distribution)
-Java Runtime: OpenJDK Runtime Environment
-JVM: OpenJDK 64-Bit Server VM
-Java Version: 11.0.14+9-post-Debian-1deb11u1
-Operating System: Linux
-Default Encoding: UTF-8
-Language: en
-Country: US
---></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg style="height:561px;width:291px" contentScriptType="application/ecmascript" contentStyleType="text/css" preserveAspectRatio="none" version="1.1" viewBox="0 0 291 561" xmlns="http://www.w3.org/2000/svg" zoomAndPan="magnify">
+<defs>
+<filter id="a" x="-1" y="-1" width="300%" height="300%">
+<feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+<feColorMatrix in="blurOut" result="blurOut2" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+<feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+<feBlend in="SourceGraphic" in2="blurOut3"/>
+</filter>
+</defs>
+<line x1="23" x2="23" y1="86.297" y2="474.16" stroke="#A80036" stroke-dasharray="5.0,5.0"/>
+<line x1="98.5" x2="98.5" y1="86.297" y2="474.16" stroke="#A80036" stroke-dasharray="5.0,5.0"/>
+<line x1="190.5" x2="190.5" y1="86.297" y2="474.16" stroke="#A80036" stroke-dasharray="5.0,5.0"/>
+<line x1="266.5" x2="266.5" y1="86.297" y2="474.16" stroke="#A80036" stroke-dasharray="5.0,5.0"/>
+<text x="15.5" y="82.9951" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="9">A</text>
+<ellipse cx="23" cy="13" rx="8" ry="8" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="2"/>
+<path d="m23 21v27m-13-19h26m-13 19-13 15m13-15 13 15" fill="none" filter="url(#a)" stroke="#A80036" stroke-width="2"/>
+<text x="15.5" y="486.1514" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="9">A</text>
+<ellipse cx="23" cy="499.45" rx="8" ry="8" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="2"/>
+<path d="m23 507.45v27m-13-19h26m-13 19-13 15m13-15 13 15" fill="none" filter="url(#a)" stroke="#A80036" stroke-width="2"/>
+<rect x="58.5" y="51" width="77" height="30.297" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="1.5"/>
+<text x="65.5" y="70.9951" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="63">Router_A</text>
+<rect x="58.5" y="473.16" width="77" height="30.297" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="1.5"/>
+<text x="65.5" y="493.1514" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="63">Router_A</text>
+<rect x="149.5" y="51" width="78" height="30.297" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="1.5"/>
+<text x="156.5" y="70.9951" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="64">Router_B</text>
+<rect x="149.5" y="473.16" width="78" height="30.297" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="1.5"/>
+<text x="156.5" y="493.1514" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="64">Router_B</text>
+<text x="258.5" y="82.9951" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="10">B</text>
+<ellipse cx="266.5" cy="13" rx="8" ry="8" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="2"/>
+<path d="m266.5 21v27m-13-19h26m-13 19-13 15m13-15 13 15" fill="none" filter="url(#a)" stroke="#A80036" stroke-width="2"/>
+<text x="258.5" y="486.1514" fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="10">B</text>
+<ellipse cx="266.5" cy="499.45" rx="8" ry="8" fill="#FEFECE" filter="url(#a)" stroke="#A80036" stroke-width="2"/>
+<path d="m266.5 507.45v27m-13-19h26m-13 19-13 15m13-15 13 15" fill="none" filter="url(#a)" stroke="#A80036" stroke-width="2"/>
+<polygon points="87 113.43 97 117.43 87 121.43 91 117.43" fill="#A80036" stroke="#A80036"/>
+<line x1="23" x2="93" y1="117.43" y2="117.43" stroke="#A80036"/>
+<text x="30" y="112.3638" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52">PacketA</text>
+<rect x="35" y="130.43" width="127" height="38" fill="#FBFB77" filter="url(#a)" stroke="#A80036"/>
+<text x="39" y="146.4966" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="74">Add 5-tuple</text>
+<text x="39" y="161.6294" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="119">to local state table</text>
+<polygon points="201.5 190.83 191.5 194.83 201.5 198.83 197.5 194.83" fill="#A80036" stroke="#A80036"/>
+<line x1="195.5" x2="265.5" y1="194.83" y2="194.83" stroke="#A80036"/>
+<text x="207.5" y="189.7622" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52">PacketB</text>
+<rect x="127" y="207.83" width="127" height="38" fill="#FBFB77" filter="url(#a)" stroke="#A80036"/>
+<text x="131" y="223.895" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="74">Add 5-tuple</text>
+<text x="131" y="239.0278" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="119">to local state table</text>
+<polygon points="178.5 268.23 188.5 272.23 178.5 276.23 182.5 272.23" fill="#A80036" stroke="#A80036"/>
+<line x1="99" x2="184.5" y1="272.23" y2="272.23" stroke="#A80036"/>
+<text x="106" y="267.1606" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52">PacketA</text>
+<polygon points="110 297.36 100 301.36 110 305.36 106 301.36" fill="#A80036" stroke="#A80036"/>
+<line x1="104" x2="189.5" y1="301.36" y2="301.36" stroke="#A80036"/>
+<text x="116" y="296.2935" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52">PacketB</text>
+<rect x="36" y="314.36" width="125" height="38" fill="#FBFB77" filter="url(#a)" stroke="#A80036"/>
+<text x="40" y="330.4263" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="86">5-tuple exists</text>
+<text x="40" y="345.5591" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="117">in local state table</text>
+<polygon points="34 374.76 24 378.76 34 382.76 30 378.76" fill="#A80036" stroke="#A80036"/>
+<line x1="28" x2="98" y1="378.76" y2="378.76" stroke="#A80036"/>
+<text x="40" y="373.6919" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52">PacketB</text>
+<rect x="128" y="391.76" width="125" height="38" fill="#FBFB77" filter="url(#a)" stroke="#A80036"/>
+<text x="132" y="407.8247" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="86">5-tuple exists</text>
+<text x="132" y="422.9575" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="117">in local state table</text>
+<polygon points="254.5 452.16 264.5 456.16 254.5 460.16 258.5 456.16" fill="#A80036" stroke="#A80036"/>
+<line x1="190.5" x2="260.5" y1="456.16" y2="456.16" stroke="#A80036"/>
+<text x="197.5" y="451.0903" fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52">PacketA</text>
+</svg>
