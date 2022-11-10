@@ -10,16 +10,15 @@
 </rdf:RDF>
 </metadata>
 <defs>
-<pattern id="e" xlink:href="#a" patternTransform="translate(25,147)"/>
-<pattern id="f" xlink:href="#a" patternTransform="translate(25,147)"/>
-<pattern id="g" xlink:href="#a" patternTransform="translate(25,147)"/>
-<pattern id="a" xlink:href="#c" patternTransform="translate(40,5)"/>
-<pattern id="c" xlink:href="#d" patternTransform="translate(-60,-70)"/>
-<linearGradient id="i">
+<pattern id="e" patternTransform="translate(25,147)" xlink:href="#a"/>
+<pattern id="f" patternTransform="translate(25,147)" xlink:href="#a"/>
+<pattern id="g" patternTransform="translate(25,147)" xlink:href="#a"/>
+<pattern id="a" patternTransform="translate(40,5)" xlink:href="#c"/>
+<pattern id="c" patternTransform="translate(-60,-70)" xlink:href="#d"/>
+<linearGradient id="b" x1="224.62" x2="240" y1="-220" y2="-220" gradientTransform="matrix(.975 0 0 1 1 0)" gradientUnits="userSpaceOnUse">
 <stop stop-color="#fff" offset="0"/>
 <stop stop-color="#fff" stop-opacity="0" offset="1"/>
 </linearGradient>
-<linearGradient id="b" x1="224.62" x2="240" y1="-220" y2="-220" gradientTransform="matrix(.975 0 0 1 1 0)" gradientUnits="userSpaceOnUse" xlink:href="#i"/>
 <pattern id="d" width="18" height="18" patternTransform="translate(-60,-110)" patternUnits="userSpaceOnUse">
 <g transform="matrix(1.5,0,0,1.5,42,76.5)" stroke-width=".66667">
 <rect x="-28" y="-51" width="12" height="12" color="#000000" fill="#fff" style="paint-order:normal"/>
