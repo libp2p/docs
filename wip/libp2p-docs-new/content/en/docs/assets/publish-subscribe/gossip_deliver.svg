@@ -157,13 +157,13 @@
 </g>
 </g>
 <circle cx="495" cy="345" r="2.5" color="#000000" enable-background="new" fill="#242651" style="paint-order:normal"/>
-<g transform="translate(-270 15)" fill="none" stroke="#f7b730">
-<path d="m510 330 45.224-22.125" color="#000000" enable-background="new" stroke-width="2" style="paint-order:normal"/>
-<path d="m510 330 29.88 50.425" color="#000000" enable-background="new" stroke-width="2" style="paint-order:normal"/>
-<path d="m510 330 4.8347 59.093" color="#000000" enable-background="new" stroke-width="2" style="paint-order:normal"/>
-<path d="m510 330-45.255 20.176" color="#000000" enable-background="new" stroke-width="2" style="paint-order:normal"/>
-<path d="m510 330-44.881-34.862" color="#000000" enable-background="new" stroke-width="2" style="paint-order:normal"/>
-<path d="m510 330h60" color="#000000" enable-background="new" stroke-width="2" style="paint-order:normal"/>
+<g transform="translate(-270 15)" fill="none" stroke="#f7b730" stroke-width="2">
+<path d="m510 330 45.224-22.125" color="#000000" enable-background="new" style="paint-order:normal"/>
+<path d="m510 330 29.88 50.425" color="#000000" enable-background="new" style="paint-order:normal"/>
+<path d="m510 330 4.8347 59.093" color="#000000" enable-background="new" style="paint-order:normal"/>
+<path d="m510 330-45.255 20.176" color="#000000" enable-background="new" style="paint-order:normal"/>
+<path d="m510 330-44.881-34.862" color="#000000" enable-background="new" style="paint-order:normal"/>
+<path d="m510 330h60" color="#000000" enable-background="new" style="paint-order:normal"/>
 </g>
 <circle cx="240" cy="345" r="2.5" color="#000000" enable-background="new" fill="#242651" style="paint-order:normal"/>
 </g>
