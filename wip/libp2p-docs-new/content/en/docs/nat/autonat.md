@@ -12,8 +12,6 @@ Once again, other peers can help us observe our situation, this time by attempti
 
 A libp2p protocol called AutoNAT lets peers request dial-backs from peers providing the AutoNAT service.
 
-<!-- ADD NOTICE -->
-AutoNAT is currently implemented in go-libp2p via [go-libp2p-autonat](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/autonat).
-
-
+> AutoNAT is currently implemented in go-libp2p via [go-libp2p-autonat](https://github.com/libp2p/go-libp2p/tree/master/p2p/> host/autonat).
+> 
 [spec_identify]: https://github.com/libp2p/specs/tree/master/identify

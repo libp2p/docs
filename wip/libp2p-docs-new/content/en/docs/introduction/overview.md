@@ -170,7 +170,7 @@ specific information and references:
 [definition_peerid]: {{< ref "../appendix/glossary.md#peerid" >}}
 [definition_secio]: {{< ref "../appendix/glossary.md#secio" >}}
 [definition_muiltiaddress]: {{< ref "../appendix/glossary.md#multiaddr" >}}
-[definition_client_server]: {{< ref "../appendix/glossary.md#client-server" >}}
+[definition_client_server]: {{< ref "../appendix/glossary.md#client--server" >}}
 
 [spec_content_routing]: https://github.com/libp2p/specs/blob/master/kad-dht/README.md
 [spec_pubsub]: https://github.com/libp2p/specs/blob/master/pubsub/README.md

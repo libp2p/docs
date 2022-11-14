@@ -18,12 +18,10 @@ services and Chrome in 2014, and was later standardized by the IETF in
 1. Head-of-line blocking (HoL blocking): TCP is a single byte stream exposed by the 
    kernel, so streams layered on top of TCP experience head-of-line (HoL) blocking.
 
-   <!-- ADD NOTICE -->
-   In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered 
-   after that need to wait in the kernel buffer until a retransmission for the lost packet 
-   is received.
+   > In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered 
+   > after that need to wait in the kernel buffer until a retransmission for the lost packet 
+   > is received.
    
-
 2. Ossification: Because the header of TCP packet is not encrypted, middleboxes can 
    inspect and modify TCP header fields and may break unexpectedly when they encounter 
    anything they don’t understand. This makes it practically impossible to deploy any 
@@ -65,7 +63,7 @@ A web browser connection typically entails the following **(TCP+TLS+HTTP/2)**:
    information and applies a stream muxer to serve multiple requests.
    - Application data starts to flow.
 
-In contrast, HTTP/3 runs over [QUIC](##what-is-quic), where QUIC is similar to 
+In contrast, HTTP/3 runs over [QUIC](#what-is-quic), where QUIC is similar to 
 TCP+TLS+HTTP/2 and runs over UDP. Building on UDP allows HTTP/3 to bypass the challenges 
 found in TCP and use all the advantages of HTTP/2 and HTTP over QUIC.
 

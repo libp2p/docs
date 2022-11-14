@@ -1,12 +1,10 @@
 ---
 title: "Peers"
+description: Peers are what make up a libp2p network. They include unique identifiers and storage methods to facilitate peer-to-peer connections in libp2p.
 weight: 4
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
 aliases: 
     - /concepts/peer-id/
     - /concepts/peers/
-summary: Peers are what make up a libp2p network. They include unique identifiers and storage methods to facilitate peer-to-peer connections in libp2p.
 ---
 
 Peers are what make up a libp2p network. We'll go over their key

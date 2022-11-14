@@ -1,9 +1,7 @@
 ---
 title: "Hole Punching"
+description: The internet is composed of countless networks, bound together into shared address spaces by foundational transport protocols. As traffic moves between network boundaries, it's very common for a process called Network Address Translation to occur. Network Address Translation (NAT) maps an address from one address space to another.
 weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: The internet is composed of countless networks, bound together into shared address spaces by foundational transport protocols. As traffic moves between network boundaries, it's very common for a process called Network Address Translation to occur. Network Address Translation (NAT) maps an address from one address space to another.
 ---
 
 Nodes on a peer-to-peer network can be categorized into two groups: 
@@ -61,12 +59,11 @@ Take two nodes, `A` and `B`, that would like the dial each other:
    passes through their respective routers.
 2. The routers add a 5-tuple to their router's state table.
 
-   <!-- ADD NOTICE -->
-   A router state table (routing table) is data store within a router that lists 
-   the routes to particular network destinations.
+   > A router state table (routing table) is data store within a router that lists 
+   > the routes to particular network destinations.
 
-   The 5-tuple structure includes the source IP address, source port, 
-   destination IP address, destination port, and transport protocol.
+   > The 5-tuple structure includes the source IP address, source port, 
+   > destination IP address, destination port, and transport protocol.
 
 3. `PacketA` and `PacketB` "punch holes" into their respective routers' 
    firewalls.
@@ -82,8 +79,7 @@ The following use case diagram illustrates the above process.
 
 <img src="../../assets/hole-punching/libp2p-hole-punching-2.svg/" alt="hp">
 
-<!-- ADD NOTICE -->
-This process assumes a mechanism to synchronize `A` and `B` simultaneously.
+> This process assumes a mechanism to synchronize `A` and `B` simultaneously.
 
 ## Hole punching in libp2p
 
@@ -102,7 +98,7 @@ a hole punching phase.
 
 ### Phase I: Preparation
 
-1. [AutoNAT](/concepts/nat/#autonat): Determine whether a node is dialable, 
+1. [AutoNAT](../autonat): Determine whether a node is dialable, 
    as in, discover if a node is behind a NAT or firewall.
    
    > This is equivalent to the 
@@ -136,7 +132,7 @@ a hole punching phase.
       for the closest peers to its Peer ID or choose a subset of the public nodes 
       it is already connected to.
    
-2. [Circuit Relay](/concepts/circuit-relay): Connect to and request 
+2. [Circuit Relay](../circuit-relay): Connect to and request 
    reservations with the discovered relay nodes. A node can advertise itself as 
    being reachable through a remote relay node. 
    
@@ -157,7 +153,7 @@ a hole punching phase.
 
 ### Phase II: Hole punching
 
-1. [Circuit Relay](/concepts/circuit-relay): Establish a secure relay connection 
+1. [Circuit Relay](../circuit-relay): Establish a secure relay connection 
    through the public relay node. Node `A` establishes a direct connection with 
    the relay node. Node `B` then requests a relayed connection to node `A` through 
    the relay node, creating a bi-directional channel and uses TLS to secure the 

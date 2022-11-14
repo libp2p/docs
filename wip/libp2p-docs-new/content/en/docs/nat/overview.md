@@ -4,7 +4,7 @@ description: "We want libp2p applications to run everywhere, not just in data ce
 weight: 1
 ---
 
-The internet is composed of countless networks, bound together into shared address spaces by foundational [transport protocols](/concepts/transport/).
+The internet is composed of countless networks, bound together into shared address spaces by foundational [transport protocols](../../transport/overview).
 
 As traffic moves between network boundaries, it's very common for a process called Network Address Translation to occur. Network Address Translation (NAT) maps an address from one address space to another.
 
