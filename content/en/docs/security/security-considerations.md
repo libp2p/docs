@@ -6,7 +6,7 @@ chapter: true
 summary: libp2p makes it simple to establish encrypted, authenticated communication channels between two peers, but there are other important security issues to consider when building robust peer-to-peer systems.
 ---
 
-libp2p makes it simple to establish encrypted, authenticated communication 
+libp2p makes it simple to establish encrypted, authenticated communication
 channels between two peers, but there are other important
 security issues to consider when building robust peer-to-peer systems.
 
@@ -44,8 +44,8 @@ hierarchy of roles, the requested resources or services, etc.
 To design an authorization system on libp2p, you can rely on the authentication
 of peer ids and build an association between peer ids and permissions, with the
 Peer ID serving the same function as the "username" in traditional authorization
-frameworks, and the peer's private key serving as the "password". 
-Your [protocol handler](../../fundamentals/protocols/#handler-functions) could then 
+frameworks, and the peer's private key serving as the "password".
+Your [protocol handler](../../fundamentals/protocols/#handler-functions) could then
 reject requests from untrusted peers.
 
 Of course, it's also possible to build other kinds of authorization systems on
@@ -87,7 +87,7 @@ possible in libp2p today.
 The Kad-DHT protocol is a [distributed hash table][glossary-dht] that provides a
 shared key/value storage system for all participants. In addition to key/value
 lookups, the DHT is the default implementation of libp2p's peer
-routing and content routing interfaces, and thus serves an important role in 
+routing and content routing interfaces, and thus serves an important role in
 discovering other peers and services on the network.
 
 #### Sybil Attacks
@@ -138,8 +138,8 @@ returning dishonest routing information.
 
 ### Publish / Subscribe
 
-libp2p's [publish/subscribe protocol](../../pubsub/overview) allows a peer to
-broadcast messages to other peers within a given "topic." 
+libp2p's [publish/subscribe protocol](../../pubsub/overview) allows a peer
+to broadcast messages to other peers within a given "topic."
 
 By default, the `gossipsub` implementation will sign all messages with the
 author's private key, and require a valid signature before accepting or
@@ -148,7 +148,7 @@ flight, and allows recipients to authenticate the sender.
 
 However, as a cooperative protocol, it may be possible for peers to interfere
 with the message routing algorithm in a way that disrupts the flow of messages
-through the network. 
+through the network.
 
 We are actively researching ways to mitigate the impact of malicious nodes on
 `gossipsub`'s routing algorithm, with a particular focus on preventing Sybil

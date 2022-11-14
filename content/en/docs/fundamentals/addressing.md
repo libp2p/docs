@@ -5,7 +5,8 @@ weight: 2
 aliases: /concepts/addressing/
 ---
 
-Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks, we need a way to work with a lot of different addressing schemes in a consistent way.
+Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks,
+we need a way to work with a lot of different addressing schemes in a consistent way.
 
 A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure. It [defines][spec_multiaddr] human-readable and machine-optimized encodings of common transport and overlay protocols and allows many layers of addressing to be combined and used together.
 
@@ -24,7 +25,7 @@ Now not only do my friends know where to find me, anyone they give that address 
 
 This can be extended to account for multiple layers of addressing and abstraction. For example, the [addresses used for circuit relay](/concepts/circuit-relay/#relay-addresses) combine transport addresses with multiple peer identities to form an address that describes a "relay circuit":
 
-```
+```shell
 /ip4/7.7.7.7/tcp/4242/p2p/QmRelay/p2p-circuit/p2p/QmRelayedPeer
 ```
 

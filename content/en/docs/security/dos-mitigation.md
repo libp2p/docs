@@ -1,11 +1,9 @@
 ---
 title : "DoS Mitigation"
 description: "DoS mitigation is an essential part of any peer-to-peer application. Learn how to design protocols to be resilient to malicious peers."
-aliases: /reference/dos-mitigation/
 weight: 2
+aliases: /reference/dos-mitigation/
 ---
-
-# DoS Mitigation
 
 DoS mitigation is an essential part of any P2P application. We need to design
 our protocols to be resilient to malicious peers. We need to monitor our
@@ -16,26 +14,25 @@ Here we'll cover how we can use libp2p to achieve the above goals.
 
 ## Table of contents
 
-- [DoS Mitigation](#dos-mitigation)
-  - [Table of contents](#table-of-contents)
-  - [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
-  - [Incorporating DOS mitigation from the start](#incorporating-dos-mitigation-from-the-start)
-    - [Limit the number of connections your application needs](#limit-the-number-of-connections-your-application-needs)
-    - [Transient Connections](#transient-connections)
-    - [Limit the number of concurrent streams per connection your protocol needs](#limit-the-number-of-concurrent-streams-per-connection-your-protocol-needs)
-    - [Reduce blast radius](#reduce-blast-radius)
-    - [Fail2ban](#fail2ban)
-    - [Leverage the resource manager to limit resource usage (go-libp2p only)](#leverage-the-resource-manager-to-limit-resource-usage-go-libp2p-only)
-    - [Rate limiting incoming connections](#rate-limiting-incoming-connections)
-  - [Monitoring your application](#monitoring-your-application)
-  - [Responding to an attack](#responding-to-an-attack)
-    - [Who’s misbehaving?](#whos-misbehaving)
-    - [How to block a misbehaving peer](#how-to-block-a-misbehaving-peer)
-    - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
-      - [Example screen recording of fail2ban in action](#example-screen-recording-of-fail2ban-in-action)
-      - [Setting Up fail2ban](#setting-up-fail2ban)
-    - [Deny specific peers or create an allow list of trusted peers](#deny-specific-peers-or-create-an-allow-list-of-trusted-peers)
-  - [Summary](#summary)
+- [Table of contents](#table-of-contents)
+- [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
+- [Incorporating DOS mitigation from the start](#incorporating-dos-mitigation-from-the-start)
+  - [Limit the number of connections your application needs](#limit-the-number-of-connections-your-application-needs)
+  - [Transient Connections](#transient-connections)
+  - [Limit the number of concurrent streams per connection your protocol needs](#limit-the-number-of-concurrent-streams-per-connection-your-protocol-needs)
+  - [Reduce blast radius](#reduce-blast-radius)
+  - [Fail2ban](#fail2ban)
+  - [Leverage the resource manager to limit resource usage (go-libp2p only)](#leverage-the-resource-manager-to-limit-resource-usage-go-libp2p-only)
+  - [Rate limiting incoming connections](#rate-limiting-incoming-connections)
+- [Monitoring your application](#monitoring-your-application)
+- [Responding to an attack](#responding-to-an-attack)
+  - [Who’s misbehaving?](#whos-misbehaving)
+  - [How to block a misbehaving peer](#how-to-block-a-misbehaving-peer)
+  - [How to automate blocking with fail2ban](#how-to-automate-blocking-with-fail2ban)
+    - [Example screen recording of fail2ban in action](#example-screen-recording-of-fail2ban-in-action)
+    - [Setting Up fail2ban](#setting-up-fail2ban)
+  - [Deny specific peers or create an allow list of trusted peers](#deny-specific-peers-or-create-an-allow-list-of-trusted-peers)
+- [Summary](#summary)
 
 ## What we mean by a DOS attack
 
@@ -255,7 +252,7 @@ with a special format. For example here’s a peer status log line that tells us
 peer established a connection with us, and that this log line was randomly
 sampled (1 out of 100).
 
-```
+```bash
 Jul 27 12:14:14 ipfsNode ipfs[46133]: 2022-07-27T12:14:14.674Z        INFO        canonical-log        swarm/swarm_listen.go:128        CANONICAL_PEER_STATUS: peer=12D3KooWSbNLGMYeUuMSXDiHwbhXHzTJaWZzH95MZzeAob9BeB51 addr=/ip4/147.75.74.239/udp/4001/quic sample_rate=100 connection_status="established" dir="inbound"
 ```
 
@@ -295,10 +292,11 @@ automatically block connections from these misbehaving peers if they emit this
 log line multiple times in some period of time. For example, a simple fail2ban
 filter for go-libp2p would look like this:
 
-```
+```bash
 [Definition]
 failregex = ^.*[\t\s]CANONICAL_PEER_STATUS: .* addr=\/ip[46]\/<HOST>[^\s]*
 ```
+
 `/etc/fail2ban/filter.d/go-libp2p-peer-status.conf`
 
 This matches any canonical peer status logs. If a peer shows up often in these
@@ -308,7 +306,7 @@ connections.
 A conservative fail2ban rule for go-libp2p using the above filter would look
 like this:
 
-```
+```bash
 [go-libp2p-weird-behavior-iptables]
 # Block an IP address if it fails a handshake or reconnects more than
 # 50 times a second over the course of 3 minutes. Since
@@ -326,6 +324,7 @@ findtime = 180 # 3 minutes
 bantime  = 600 # 10 minutes
 maxretry = 90
 ```
+
 `/etc/fail2ban/jail.d/go-libp2p-weird-behavior-iptables.conf`
 
 Note that the above configuration is relying on systemd to get the logs for
@@ -333,7 +332,7 @@ ipfs. This will be different depending on your go-libp2p process.
 
 For completeness here’s my systemd service definition for a [Kubo instance](https://github.com/ipfs/kubo):
 
-```
+```bash
 $ cat /etc/systemd/system/ipfs-daemon.service
 [Unit]
 After=network.target
@@ -371,7 +370,7 @@ take are:
 5. Restart fail2ban to reload the configuration with `systemctl restart fail2ban`.
 6. Verify our jail is active by running `fail2ban-client status go-libp2p-weird-behavior-iptables`. If you see something like:
 
-```
+```bash
 Status for the jail: go-libp2p-weird-behavior-iptables
 |- Filter
 |  |- Currently failed: 0

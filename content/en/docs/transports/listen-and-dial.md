@@ -1,9 +1,7 @@
 ---
 title: "Listening and Dialing"
+description: "Transports are defined in terms of two core operations, listening and dialing. Learn about how peers use both interfaces in libp2p."
 weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: Transports are defined in terms of two core operations, listening and dialing. Learn about how peers use both interfaces in libp2p.
 ---
 
 Transports are defined in terms of two core operations, **listening** and
@@ -26,13 +24,13 @@ reach them. Because each transport will likely require its own address scheme,
 libp2p uses a convention called a "multiaddress" or `multiaddr` to encode
 many different addressing schemes.
 
-The [addressing doc](../../fundamentals/addressing) goes into more detail, but an overview of
-how multiaddresses work is helpful for understanding the dial and listen
+The [addressing doc](../../fundamentals/addressing) goes into more detail, but an overview
+of how multiaddresses work is helpful for understanding the dial and listen
 interfaces.
 
 Here's an example of a multiaddr for a TCP/IP transport:
 
-```
+```shell
 /ip4/7.7.7.7/tcp/6543
 ```
 
@@ -54,7 +52,7 @@ and prevents impersonation.
 
 An example multiaddress that includes a `PeerId`:
 
-```
+```shell
 /ip4/1.2.3.4/tcp/4321/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6
 ```
 
@@ -62,7 +60,7 @@ The `/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6` component uniquely
 identifies the remote peer using the hash of its public key.
 For more, see the [peer identity content](../../fundamentals/peers#peer-id).
 
-When peer routing is enabled, you can dial peers using just their PeerId, 
+When peer routing is enabled, you can dial peers using just their PeerId,
 without needing to know their transport addresses before hand.
 
 ## Supporting multiple transports

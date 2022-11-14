@@ -22,7 +22,8 @@ We want libp2p applications to run everywhere, not just in data centers or on ma
 
 Many routers support automatic configuration protocols for port forwarding, most commonly [UPnP][wiki_upnp] or [nat-pmp.][wiki_nat-pmp]
 
-If your router supports one of those protocols, libp2p will attempt to automatically configure a port mapping that will allow it to listen for incoming traffic. This is usually the simplest option if supported by the network and libp2p implementation.
+If your router supports one of those protocols, libp2p will attempt to automatically configure a port mapping that will
+allow it to listen for incoming traffic. This is usually the simplest option if supported by the network and libp2p implementation.
 
 <!-- ADD NOTICE -->
 Support for automatic NAT configuration varies by libp2p implementation.

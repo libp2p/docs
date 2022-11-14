@@ -1,7 +1,7 @@
 ---
 title: "How to Contribute"
-weight: 2
 description: Learn how you can contribute to libp2p.
+weight: 2
 ---
 
 So you want to contribute to libp2p and the peer-to-peer ecosystem? Here is a quick listing
@@ -10,13 +10,16 @@ to do is not listed here, we probably accept contributions for it! If you're
 unsure, please open a issue.
 
 ## Areas of contribution
+
 - [Areas of contribution](#areas-of-contribution)
   - [Code](#code)
   - [Documentation](#documentation)
   - [Support](#support)
   - [Testing](#testing)
   - [Design](#design)
+    - [We currently don't have a single place for this. If you'd like to start it, please let us know](#we-currently-dont-have-a-single-place-for-this-if-youd-like-to-start-it-please-let-us-know)
   - [Issues / Triaging](#issues--triaging)
+    - [We currently don't have a single place for this. If you'd like to start it, please let us know](#we-currently-dont-have-a-single-place-for-this-if-youd-like-to-start-it-please-let-us-know-1)
   - [Community](#community)
   - [Applications](#applications)
   - [Protocol Design](#protocol-design)
@@ -89,8 +92,7 @@ reliable.
 Network stacks need designers too! There are many small places throughout all
 our projects that could use your design love.
 
-**We currently don't have a single place for this. If you'd like to start it, please let us know**
-
+#### We currently don't have a single place for this. If you'd like to start it, please let us know
 
 ### Issues / Triaging
 
@@ -99,8 +101,7 @@ organizing all of this in some manner. We don’t yet have any proper resources
 for getting started with this. Get in touch if you can contribute a sense of
 extreme organization!
 
-**We currently don't have a single place for this. If you'd like to start it, please let us know**
-
+#### We currently don't have a single place for this. If you'd like to start it, please let us know
 
 ### Community
 
@@ -112,13 +113,11 @@ We have a repository (https://github.com/libp2p/community) for organizing
 community events and would love your help to have meetups in more locations or
 make the existing ones more regular.
 
-
 ### Applications
 
 libp2p is designed for others to build applications with! Building
 applications and services using libp2p is an excellent way to find use cases
 where libp2p doesn’t yet do a perfect job or uncover bugs and inefficiencies.
-
 
 ### Protocol Design
 

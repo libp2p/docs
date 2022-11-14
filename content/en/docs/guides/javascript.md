@@ -3,14 +3,15 @@ title: "Run a js-libp2p node"
 weight: 2
 ---
 
-This is the first in a series of tutorials on working with libp2p's javascript implementation, 
+This is the first in a series of tutorials on working with libp2p's javascript implementation,
 [js-libp2p](https://github.com/libp2p/js-libp2p).
-We will walk you through setting up a fully functional libp2p node with some basic functionality, 
+We will walk you through setting up a fully functional libp2p node with some basic functionality,
 and finally we'll send ping messages back and forth between two peers.
 
 ### Install node.js
 
-Working with js-libp2p requires [node.js](https://nodejs.org) >= v16 for development. If you haven't already, install node using whatever package manager you prefer or [using the official installer](https://nodejs.org/en/download/).
+Working with js-libp2p requires [node.js](https://nodejs.org) >= v16 for development. If you haven't already, install
+node using whatever package manager you prefer or [using the official installer](https://nodejs.org/en/download/).
 We recommend using the latest stable version of node, but anything fairly recent should work fine. If you want to see how low you can go, the current version requirements can always be found at the [js-libp2p project page](https://github.com/libp2p/js-libp2p).
 
 ### Create an empty project
@@ -31,7 +32,7 @@ We need a place to put our work, so open a terminal to make a new directory for 
 > npm init
 ```
 
-Side note: throughout this tutorial, we use the `> ` character to indicate your terminal's shell prompt. When following along, don't type the `>` character, or you'll get some weird errors.
+Side note: throughout this tutorial, we use the `>` character to indicate your terminal's shell prompt. When following along, don't type the `>` character, or you'll get some weird errors.
 
 ### Configure libp2p
 
@@ -127,7 +128,6 @@ const node = await createLibp2p({
 
 Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexer** module, you can start your libp2p node. We can start and stop libp2p using the [`libp2p.start()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#start) and [`libp2p.stop()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#stop) methods.
 
-
 ```js
 import { createLibp2p } from 'libp2p'
 import { TCP } from '@libp2p/tcp'
@@ -166,7 +166,7 @@ main().then().catch(console.error)
 
 Try running the code with `node src/index.js`. You should see something like:
 
-```
+```shell
 libp2p has started
 listening on addresses:
 /ip4/127.0.0.1/tcp/50626/p2p/QmYoqzFj5rhzFy7thCPPGbDkDkLMbQzanxCNwefZd3qTkz
@@ -268,4 +268,3 @@ You also have a panoply of examples on [js-libp2p repo](https://github.com/libp2
 [definition_multiaddress]: /reference/glossary/#multiaddr
 [definition_multiplexer]: /reference/glossary/#multiplexer
 [definition_peerid]: /reference/glossary/#peerid
-

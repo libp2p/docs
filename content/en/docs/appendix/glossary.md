@@ -1,9 +1,7 @@
 ---
 title: "Glossary"
+description: A compiled list of words, phrases, and abbreviations for libp2p.
 weight: 1
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: A compiled list of words, phrases, and abbreviations for libp2p.
 ---
 
 ### Boot Node
@@ -52,7 +50,6 @@ The process of accepting incoming libp2p connections is known as "listening", an
 
 [Multicast DNS](https://en.wikipedia.org/wiki/Multicast_DNS) is a protocol for service discovery on a local network. One of libp2p's [peer routing](#peer-routing) implementations leverages mDNS to discover local peers quickly and efficiently.
 
-
 ### multiaddr
 
 A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure.
@@ -66,7 +63,6 @@ For more detail, see [Concepts > Addressing](/concepts/addressing/), or the [mul
 ### Multiaddress
 
 See [multiaddr](#multiaddr)
-
 
 ### Multihash
 
@@ -155,7 +151,6 @@ The most common form of `PeerId` is a [multihash](#multihash) of a peer's public
 
 An important property of cryptographic peer identities is that they are decoupled from [transport](#transport), allowing peers to verify the identity of other peers regardless of what underlying network they might use to communicate. This also gives them a much longer "shelf life" than location-based identifiers (for example, IP addresses), since identities remain stable across address changes.
 
-
 ### Peer store
 
 A data structure that stores [PeerIds](#peerid) for known peers, along with known [multiaddresses](#multiaddr) that can be used to communicate with them.
@@ -172,12 +167,9 @@ The primary peer routing mechanism in libp2p uses a
 [distributed hash table](#dht) to locate peers, taking advantage of the
 Kademlia routing algorithm to efficiently locate peers.
 
-
-
 ### Peer-to-peer (p2p)
 
 A peer-to-peer (p2p) network is one in which the participants (referred to as [peers](#peer) or [nodes](#node)) communicate with one another directly, on more or less "equal footing". This does not necessarily mean that all peers are identical; some may have different roles in the overall network. However, one of the defining characteristics of a peer-to-peer network is that they do not require a privileged set of "servers" which behave completely differently from their "clients", as is the case in the predominant [client / server model](#client-server).
-
 
 ### Pubsub
 

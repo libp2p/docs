@@ -107,7 +107,7 @@ make deploy
 
 > This requires hugo & ipfs on your PATH
 
-See the `Makefile` for the full list of `make` commands, or run `make help` in the project root. 
+See the `Makefile` for the full list of `make` commands, or run `make help` in the project root.
 
 > You can pass the environment variable `DEBUG=true` to increase the verbosity of your chosen command.
 
@@ -115,8 +115,8 @@ See the `Makefile` for the full list of `make` commands, or run `make help` in t
 
 ### Static site generator
 
-The libp2p documentation site uses [Hugo](https://gohugo.io/) as a static site generator, 
-making it easy to serve and host the static files on IPFS. In particular, the site uses 
+The libp2p documentation site uses [Hugo](https://gohugo.io/) as a static site generator,
+making it easy to serve and host the static files on IPFS. In particular, the site uses
 the [Hugo Learn theme](https://learn.netlify.app/en/) to present the libp2p documentation.
 
 ### Automated deployments
@@ -141,6 +141,6 @@ Please stay tuned for the steps to translate the documentation.
 
 ## License
 
-All software code is copyright (c) Protocol Labs, Inc. under the **MIT/Apache-2 dual license**. 
-Other written documentation and content are copyright (c) Protocol Labs, Inc. under the 
+All software code is copyright (c) Protocol Labs, Inc. under the **MIT/Apache-2 dual license**.
+Other written documentation and content are copyright (c) Protocol Labs, Inc. under the
 [**Creative Commons Attribution-Share-Alike License**](https://creativecommons.org/licenses/by/4.0/).

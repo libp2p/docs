@@ -17,7 +17,8 @@ The circuit relay protocol is inspired by [TURN](https://tools.ietf.org/html/rfc
 <!-- ADD NOTICE -->
 Relay connections are end-to-end encrypted, which means that the peer acting as the relay is unable to read or tamper with any traffic that flows through the connection.
 
-An important aspect of the relay protocol is that it is not "transparent". In other words, both the source and destination are aware that traffic is being relayed. This is useful, since the destination can see the relay address used to open the connection and can potentially use it to construct a path back to the source. It is also not anonymous - all participants are identified using their Peer ID, including the relay node.
+An important aspect of the relay protocol is that it is not "transparent". In other words, both the source and destination are aware that traffic is being relayed. This is useful, since the destination can see the relay address used to open the connection and can potentially use it to construct a path back to the source. It is also not anonymous - all participants
+are identified using their Peer ID, including the relay node.
 
 #### Protocol Versions
 

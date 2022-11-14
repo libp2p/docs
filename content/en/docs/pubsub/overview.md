@@ -4,8 +4,6 @@ weight: 8
 description: Publish/Subscribe is a system where peers congregate around topics they are interested in. Peers interested in a topic are said to be subscribed to that topic. Learn about how peers can message data in libp2p.
 ---
 
-# Message Data
-
 Publish/Subscribe is a system where peers congregate around topics they are
 interested in. Peers interested in a topic are said to be subscribed to that
 topic:
@@ -100,7 +98,8 @@ frequently.]-->
 
 Full-message peerings are used to transmit the full contents of messages
 throughout the network. This network is sparsely-connected with each peer only
-being connected to a few other peers. (In the [gossipsub specification](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/README.md)
+being connected to a few other peers. (In the
+[gossipsub specification](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/README.md)
 this sparsely-connected network is called a *mesh* and peers within it are
 called *mesh members*.)
 
@@ -291,7 +290,6 @@ peering.] -->
 
 <img src="../../assets/publish-subscribe/subscribe_graft.png" alt="hp">
 
-
 When a peer unsubscribes from a topic it will notify its full-message peers that
 their connection has been pruned at the same time as sending their unsubscribe
 messages:
@@ -312,7 +310,6 @@ thin and light like the left line to indicate a metadata-only
 peering.]-->
 
 <img src="../../assets/publish-subscribe/unsubscribe_prune.png" alt="hp">
-
 
 ## Sending messages
 
@@ -419,7 +416,6 @@ lines connected to it.] -->
 
 <img src="../../assets/publish-subscribe/request_gossiped_message.png" alt="hp">
 
-
 In the [gossipsub specification](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/README.md#control-messages),
 gossip announcing recently seen messages are called *IHAVE* messages and
 requests for specific messages are called *IWANT* messages.
@@ -499,7 +495,6 @@ before.]-->
 
 <img src="../../assets/publish-subscribe/fanout_grafting_preference.png" alt="hp">
 
-
 After <span class="configurable">2</span> minutes of not sending any messages to
 a topic, all the fan-out peers for that topic are forgotten:
 
@@ -557,7 +552,7 @@ columns, similar to the previous table. The first column is titled “For this
 topic…”, however the second column is titled “You have been…” with the choice of
 grafted or pruned. There are three rows in this table. Two of the topics
 have been grafted and one has been pruned (no particular connection to the
-previous table). --> 
+previous table). -->
 
 <img src="../../assets/publish-subscribe/network_packet_structure.png" alt="hp">
 

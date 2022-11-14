@@ -3,17 +3,17 @@ title: "Run a go-libp2p node"
 weight: 1
 ---
 
-The getting started tutorial covers setting up a development environment, getting familiar 
-with libp2p basics, and implementing a simple node that can send and receive "ping" messages 
+The getting started tutorial covers setting up a development environment, getting familiar
+with libp2p basics, and implementing a simple node that can send and receive "ping" messages
 in go-libp2p.
 
-The [Protocol Labs Launchpad curriculum](https://curriculum.pl-launchpad.io/) also includes 
-a tutorial on spinning up a libp2p node using a go-libp2p bolierplate. Check it out 
+The [Protocol Labs Launchpad curriculum](https://curriculum.pl-launchpad.io/) also includes
+a tutorial on spinning up a libp2p node using a go-libp2p bolierplate. Check it out
 [here](https://curriculum.pl-launchpad.io/curriculum/libp2p/creating-simple-node/).
 
 This is the first in a series of tutorials on working with libp2p’s Go implementation,
-[go-libp2p](https://github.com/libp2p/go-libp2p). We’ll cover installing Go, setting up a 
-new Go module, starting libp2p nodes, and sending ping messages between them.
+[go-libp2p](https://github.com/libp2p/go-libp2p). We’ll cover installing Go, setting up
+a new Go module, starting libp2p nodes, and sending ping messages between them.
 
 ### Install Go
 
@@ -37,11 +37,9 @@ corresponds to a repository name you have the rights to push to if you want to p
 of the code.
 
 ```sh
-$ mkdir -p /tmp/go-libp2p-tutorial
-
-$ cd /tmp/go-libp2p-tutorial
-
-$ go mod init github.com/user/go-libp2p-tutorial
+mkdir -p /tmp/go-libp2p-tutorial
+cd /tmp/go-libp2p-tutorial
+go mod init github.com/user/go-libp2p-tutorial
 ```
 
 You should now have a `go.mod` file in the current directory containing the name of the module you
@@ -64,31 +62,31 @@ prints the node's listening addresses, then shuts the node down:
 package main
 
 import (
-	"fmt"
-	"github.com/libp2p/go-libp2p"
+    "fmt"
+    "github.com/libp2p/go-libp2p"
 )
 
 func main() {
-	// start a libp2p node with default settings
-	node, err := libp2p.New()
-	if err != nil {
-		panic(err)
-	}
+    // start a libp2p node with default settings
+    node, err := libp2p.New()
+    if err != nil {
+        panic(err)
+    }
 
-	// print the node's listening addresses
-	fmt.Println("Listen addresses:", node.Addrs())
+    // print the node's listening addresses
+    fmt.Println("Listen addresses:", node.Addrs())
 
-	// shut the node down
-	if err := node.Close(); err != nil {
-		panic(err)
-	}
+    // shut the node down
+    if err := node.Close(); err != nil {
+        panic(err)
+    }
 }
 ```
 
 Import the `libp2p/go-libp2p` module:
 
 ```shell
-$ go get github.com/libp2p/go-libp2p
+go get github.com/libp2p/go-libp2p
 ```
 
 We can now compile this into an executable using `go build` and run it from the command line:
@@ -119,9 +117,9 @@ func main() {
         node, err := libp2p.New(
                 libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/2000"),
         )
-	if err != nil {
-		panic(err)
-	}
+    if err != nil {
+        panic(err)
+    }
 
         ...
 }
@@ -167,12 +165,12 @@ and `syscall` packages we're now using:
 
 ```go
 import (
-	"fmt"
-	"os"
-	"os/signal"
-	"syscall"
+    "fmt"
+    "os"
+    "os/signal"
+    "syscall"
 
-	"github.com/libp2p/go-libp2p"
+    "github.com/libp2p/go-libp2p"
 )
 ```
 
@@ -202,10 +200,10 @@ imported packages:
 
 ```go
 import (
-	...
+    ...
 
-	"github.com/libp2p/go-libp2p"
-	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
+    "github.com/libp2p/go-libp2p"
+    "github.com/libp2p/go-libp2p/p2p/protocol/ping"
 )
 ```
 
@@ -217,23 +215,23 @@ port):
 
 ```go
 func main() {
-	...
+    ...
 
-	// start a libp2p node that listens on a random local TCP port,
-	// but without running the built-in ping protocol
-	node, err := libp2p.New(
-		libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
-		libp2p.Ping(false),
-	)
-	if err != nil {
-		panic(err)
-	}
+    // start a libp2p node that listens on a random local TCP port,
+    // but without running the built-in ping protocol
+    node, err := libp2p.New(
+        libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
+        libp2p.Ping(false),
+    )
+    if err != nil {
+        panic(err)
+    }
 
-	// configure our own ping protocol
-	pingService := &ping.PingService{Host: node}
-	node.SetStreamHandler(ping.ID, pingService.PingHandler)
+    // configure our own ping protocol
+    pingService := &ping.PingService{Host: node}
+    node.SetStreamHandler(ping.ID, pingService.PingHandler)
 
-	...
+    ...
 }
 ```
 
@@ -249,25 +247,25 @@ message with something that prints both the listen address and the `PeerId` as a
 
 ```go
 import (
-	...
+    ...
 
-	"github.com/libp2p/go-libp2p"
+    "github.com/libp2p/go-libp2p"
     peerstore "github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
+    "github.com/libp2p/go-libp2p/p2p/protocol/ping"
 )
 
 func main() {
-	...
+    ...
 
-	// print the node's PeerInfo in multiaddr format
-	peerInfo := peerstore.AddrInfo{
-		ID:    node.ID(),
-		Addrs: node.Addrs(),
-	}
-	addrs, err := peerstore.AddrInfoToP2pAddrs(&peerInfo)
-	fmt.Println("libp2p node address:", addrs[0])
+    // print the node's PeerInfo in multiaddr format
+    peerInfo := peerstore.AddrInfo{
+        ID:    node.ID(),
+        Addrs: node.Addrs(),
+    }
+    addrs, err := peerstore.AddrInfoToP2pAddrs(&peerInfo)
+    fmt.Println("libp2p node address:", addrs[0])
 
-	...
+    ...
 }
 ```
 
@@ -285,50 +283,50 @@ package to parse the peer's address from the command line argument):
 
 ```go
 import (
-	...
+    ...
 
-	"github.com/libp2p/go-libp2p"
-	peerstore "github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
-	multiaddr "github.com/multiformats/go-multiaddr"
+    "github.com/libp2p/go-libp2p"
+    peerstore "github.com/libp2p/go-libp2p-core/peer"
+    "github.com/libp2p/go-libp2p/p2p/protocol/ping"
+    multiaddr "github.com/multiformats/go-multiaddr"
 )
 
 func main() {
-	...
-	fmt.Println("libp2p node address:", addrs[0])
+    ...
+    fmt.Println("libp2p node address:", addrs[0])
 
-	// if a remote peer has been passed on the command line, connect to it
-	// and send it 5 ping messages, otherwise wait for a signal to stop
-	if len(os.Args) > 1 {
-		addr, err := multiaddr.NewMultiaddr(os.Args[1])
-		if err != nil {
-			panic(err)
-		}
-		peer, err := peerstore.AddrInfoFromP2pAddr(addr)
-		if err != nil {
-			panic(err)
-		}
-		if err := node.Connect(context.Background(), *peer); err != nil {
-			panic(err)
-		}
-		fmt.Println("sending 5 ping messages to", addr)
-		ch := pingService.Ping(context.Background(), peer.ID)
-		for i := 0; i < 5; i++ {
-			res := <-ch
-			fmt.Println("got ping response!", "RTT:", res.RTT)
-		}
-	} else {
-		// wait for a SIGINT or SIGTERM signal
-		ch := make(chan os.Signal, 1)
-		signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
-		<-ch
-		fmt.Println("Received signal, shutting down...")
-	}
+    // if a remote peer has been passed on the command line, connect to it
+    // and send it 5 ping messages, otherwise wait for a signal to stop
+    if len(os.Args) > 1 {
+        addr, err := multiaddr.NewMultiaddr(os.Args[1])
+        if err != nil {
+            panic(err)
+        }
+        peer, err := peerstore.AddrInfoFromP2pAddr(addr)
+        if err != nil {
+            panic(err)
+        }
+        if err := node.Connect(context.Background(), *peer); err != nil {
+            panic(err)
+        }
+        fmt.Println("sending 5 ping messages to", addr)
+        ch := pingService.Ping(context.Background(), peer.ID)
+        for i := 0; i < 5; i++ {
+            res := <-ch
+            fmt.Println("got ping response!", "RTT:", res.RTT)
+        }
+    } else {
+        // wait for a SIGINT or SIGTERM signal
+        ch := make(chan os.Signal, 1)
+        signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
+        <-ch
+        fmt.Println("Received signal, shutting down...")
+    }
 
-	// shut the node down
-	if err := node.Close(); err != nil {
-		panic(err)
-	}
+    // shut the node down
+    if err := node.Close(); err != nil {
+        panic(err)
+    }
 }
 ```
 
@@ -344,75 +342,75 @@ package main
 
 import (
     "context"
-	"fmt"
-	"os"
-	"os/signal"
-	"syscall"
+    "fmt"
+    "os"
+    "os/signal"
+    "syscall"
 
-	"github.com/libp2p/go-libp2p"
-	peerstore "github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
-	multiaddr "github.com/multiformats/go-multiaddr"
+    "github.com/libp2p/go-libp2p"
+    peerstore "github.com/libp2p/go-libp2p-core/peer"
+    "github.com/libp2p/go-libp2p/p2p/protocol/ping"
+    multiaddr "github.com/multiformats/go-multiaddr"
 )
 
 func main() {
-	// start a libp2p node that listens on a random local TCP port,
-	// but without running the built-in ping protocol
-	node, err := libp2p.New(
-		libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
-		libp2p.Ping(false),
-	)
-	if err != nil {
-		panic(err)
-	}
+    // start a libp2p node that listens on a random local TCP port,
+    // but without running the built-in ping protocol
+    node, err := libp2p.New(
+        libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
+        libp2p.Ping(false),
+    )
+    if err != nil {
+        panic(err)
+    }
 
-	// configure our own ping protocol
-	pingService := &ping.PingService{Host: node}
-	node.SetStreamHandler(ping.ID, pingService.PingHandler)
+    // configure our own ping protocol
+    pingService := &ping.PingService{Host: node}
+    node.SetStreamHandler(ping.ID, pingService.PingHandler)
 
-	// print the node's PeerInfo in multiaddr format
-	peerInfo := peerstore.AddrInfo{
-		ID:    node.ID(),
-		Addrs: node.Addrs(),
-	}
-	addrs, err := peerstore.AddrInfoToP2pAddrs(&peerInfo)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("libp2p node address:", addrs[0])
+    // print the node's PeerInfo in multiaddr format
+    peerInfo := peerstore.AddrInfo{
+        ID:    node.ID(),
+        Addrs: node.Addrs(),
+    }
+    addrs, err := peerstore.AddrInfoToP2pAddrs(&peerInfo)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println("libp2p node address:", addrs[0])
 
-	// if a remote peer has been passed on the command line, connect to it
-	// and send it 5 ping messages, otherwise wait for a signal to stop
-	if len(os.Args) > 1 {
-		addr, err := multiaddr.NewMultiaddr(os.Args[1])
-		if err != nil {
-			panic(err)
-		}
-		peer, err := peerstore.AddrInfoFromP2pAddr(addr)
-		if err != nil {
-			panic(err)
-		}
-		if err := node.Connect(context.Background(), *peer); err != nil {
-			panic(err)
-		}
-		fmt.Println("sending 5 ping messages to", addr)
-		ch := pingService.Ping(context.Background(), peer.ID)
-		for i := 0; i < 5; i++ {
-			res := <-ch
-			fmt.Println("pinged", addr, "in", res.RTT)
-		}
-	} else {
-		// wait for a SIGINT or SIGTERM signal
-		ch := make(chan os.Signal, 1)
-		signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
-		<-ch
-		fmt.Println("Received signal, shutting down...")
-	}
+    // if a remote peer has been passed on the command line, connect to it
+    // and send it 5 ping messages, otherwise wait for a signal to stop
+    if len(os.Args) > 1 {
+        addr, err := multiaddr.NewMultiaddr(os.Args[1])
+        if err != nil {
+            panic(err)
+        }
+        peer, err := peerstore.AddrInfoFromP2pAddr(addr)
+        if err != nil {
+            panic(err)
+        }
+        if err := node.Connect(context.Background(), *peer); err != nil {
+            panic(err)
+        }
+        fmt.Println("sending 5 ping messages to", addr)
+        ch := pingService.Ping(context.Background(), peer.ID)
+        for i := 0; i < 5; i++ {
+            res := <-ch
+            fmt.Println("pinged", addr, "in", res.RTT)
+        }
+    } else {
+        // wait for a SIGINT or SIGTERM signal
+        ch := make(chan os.Signal, 1)
+        signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
+        <-ch
+        fmt.Println("Received signal, shutting down...")
+    }
 
-	// shut the node down
-	if err := node.Close(); err != nil {
-		panic(err)
-	}
+    // shut the node down
+    if err := node.Close(); err != nil {
+        panic(err)
+    }
 }
 ```
 
@@ -438,4 +436,3 @@ pinged /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPW
 ```
 
 Success! Our two peers are now communicating using go-libp2p! Sure, they can only say “ping”, but it’s a start!
-

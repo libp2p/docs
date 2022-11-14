@@ -5,5 +5,4 @@ weight: 2
 aliases: /concepts/addressing/
 ---
 
-Check out the following Launchpad guide on the 
-[DHT](https://curriculum.pl-launchpad.io/curriculum/libp2p/dht/).
+Check out the following Launchpad guide on the [DHT](https://curriculum.pl-launchpad.io/curriculum/libp2p/dht/).
