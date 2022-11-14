@@ -1,41 +1,34 @@
-name: CI
+name: Hyas CI
 
-# Controls when the action will run.
 on:
+  push:
+    branches: master
   pull_request:
-    branches: [ master ]
+    branches: master
 
 jobs:
-  cicheck:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [14.x, 16.x]
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # No shallow clone, we need all history!
-      - name: Setup Python
-        uses: actions/setup-python@v2.2.2
-      # Runs a set of commands using the runners shell
-      - name: Install dependencies
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y optipng jpegoptim jq
-          pip install bs4
-          pip install requests
-          pip install scour
-      - name: Run CI Checks
-        env:
-          GH_USERNAME: ${{ secrets.GH_USERNAME }}
-          GH_USER_EMAIL: ${{ secrets.GH_USER_EMAIL }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GH_USER_ID: ${{ secrets.GH_USER_ID }}
-          LANGUAGETOOLS_API_KEY: ${{ secrets.LANGUAGETOOLS_API_KEY }}
-          LANGUAGETOOLS_USERNAME: ${{ secrets.LANGUAGETOOLS_USERNAME }}
-          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
-          FIRST_COMMIT: ${{ github.event.pull_request.base.sha }}
-          LAST_COMMIT: ${{ github.event.after }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: bash ${{github.workspace}}/scripts/cicheck.sh
+    - name: Check out Hyas project
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node }}
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run Hyas test script
+      run: npm test
+
+    - name: Build production website
+      run: npm run build
