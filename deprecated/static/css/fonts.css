@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'NexaBold';
+    src: url('../fonts/NexaBold.eot');
+    src: url('../fonts/NexaBold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/NexaBold.woff') format('woff'),
+    url('../fonts/NexaBold.svg#montserratlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NexaLight';
+    src: url('../fonts/NexaLight.eot');
+    src: url('../fonts/NexaLight.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/NexaLight.woff') format('woff'),
+    url('../fonts/NexaLight.svg#montserratlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
