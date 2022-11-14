@@ -1,5 +1,5 @@
 <p align="center">
-<img align="center" src="static/images/libp2p-docs-logo.png" width="615">
+<img align="center" src="logos/libp2p-docs-logo.png" width="615">
 </p>
 
 <div align="center">
@@ -15,6 +15,8 @@
 - [Overview](#overview)
 - [Contributing content](#contributing-content)
 - [Running locally](#running-locally)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
 - [Configuration guide](#configuration-guide)
   - [Static site generator](#static-site-generator)
   - [Automated deployments](#automated-deployments)
@@ -35,11 +37,10 @@ libp2p enables interoperability between applications, resilient applications, an
 
 The documentation site contains several different kinds of content. We’d love ❤️ your help with any of it:
 
-1. **Introductory overviews**: this lives in `content/introduction`. If you spot a problem or have improvements, please post an issue or PR.
+1. **Introductory overviews**: If you spot a problem or have improvements, please post an issue or PR.
 
-2. **Guides, examples, and tutorials**: Most examples currently live in other repositories, like [js-libp2p examples](https://github.com/libp2p/js-libp2p/tree/master/examples). If you have thoughts on integrating them better, please file an issue. If you have feedback on individual examples or want to add a new one, please file an issue or pull request on the relevant repository. If you have ideas for guides or tutorials, they belong here! Please propose them in an issue here before creating a pull request.
-
-3. **Concept guides**: Concept guides are intended to present a brief overview of libp2p-related concepts. They live in the `content/concepts` folder and should strive to answer:
+2. **Concept guides**: Concept guides are intended to present a brief overview of libp2p-related concepts.
+   They strive to answer:
 
     - **What** is this?
     - How does it **relate** to the rest of libp2p?
@@ -49,9 +50,11 @@ The documentation site contains several different kinds of content. We’d love 
 
     See a list of concepts we need help with by [checking the issues](https://github.com/libp2p/docs/issues?utf8=✓&q=is%3Aissue+is%3Aopen+label%3Acontent+concept).
 
-4. **Reference documentation**: Please see the issues in this repository for current activity around reference/API documentation.
+3. **Guides**: Most examples currently live in other repositories, like [js-libp2p examples](https://github.com/libp2p/js-libp2p/tree/master/examples). If you have thoughts on integrating them better, please file an issue. If you have feedback on individual examples or want to add a new one, please file an issue or pull request on the relevant repository. If you have ideas for guides or tutorials, they belong here! Please propose them in an issue here before creating a pull request.
 
-5. **Community**: If there are missing community links, feel free to file an issue or pull request,
+3. **Reference material**: The navbar includes all the reference material available for libp2p. Please see the issues in this repository for current activity around reference/API documentation.
+
+4. **Community**: If there are missing community links, feel free to file an issue or pull request,
 
 This repository is also a website; we could use your help with design and technical features (interactive examples, better syntax highlighting, scripts to pull in content from other repositories, etc.) in addition to writing. To get a sense of what we could use help on, check the [issues](https://github.com/libp2p/docs/issues). If you decide to work on one, please post to the issue to let us know!
 
@@ -61,63 +64,55 @@ Finally, let’s work together to keep this a respectful and friendly space. Ple
 
 ## Running locally
 
-The site uses a `MakeFile` to handle the site building procedure.
+### Prerequisites
 
-Build the optimized site by running:
+To run the libp2p documentation site locally, you must have
+[NPM installed](https://www.npmjs.com/).
+If you already have NPM installed, make sure you are running the latest version:
 
-```bash
-make
+```shell
+npm install npm@latest -g
 ```
 
-To create a production build, run:
+### Installation
 
-```bash
-make build
-```
+Follow these steps to run a copy of this site on your local machine.
 
-> This requires hugo & ipfs on your PATH
+1. Clone this repository:
 
-You’ll find the final static site in the `public` directory.
+    ```shell
+    git clone https://github.com/filecoin-project/filecoin-docs
+    ```
 
-To serve the static files, run:
+1. Navigate into the new folder and download the dependencies by running:
 
-```bash
-make serve
-```
+    ```shell
+    cd docs
+    npm install
+    ```
 
-> This requires hugo & ipfs on your PATH
+2. Build the project and serve the static files to Hugo with:
 
-Preview the site at http://localhost:1313.
+    ```shell
+    npm run build
+    ```
 
-Run the following `make` command in the root directory to start a hot-reloading dev server:
+3. Start the local Hugo's development server with:
 
-```bash
-make dev
-```
+    ```shell
+    npm run build
+    ```
 
-> This requires hugo on your PATH
-
-Preview the site at http://localhost:1313.
-
-To add an preview the site on IPFS, build the site in the root directory by running:
-
-```
-make deploy
-```
-
-> This requires hugo & ipfs on your PATH
-
-See the `Makefile` for the full list of `make` commands, or run `make help` in the project root. 
-
-> You can pass the environment variable `DEBUG=true` to increase the verbosity of your chosen command.
+4. Visit [localhost:1313](http://localhost:1313) to view the site.
+5. Press `CTRL` + `c` in the terminal to stop the local server.
 
 ## Configuration guide
 
 ### Static site generator
 
-The libp2p documentation site uses [Hugo](https://gohugo.io/) as a static site generator, 
-making it easy to serve and host the static files on IPFS. In particular, the site uses 
-the [Hugo Learn theme](https://learn.netlify.app/en/) to present the libp2p documentation.
+The libp2p documentation site uses [Hugo](https://gohugo.io/) as a static site generator,
+making it easy to serve and host the static files on IPFS. In particular, the site uses
+the [Hugo Doks theme](https://github.com/h-enk/doks) to present the libp2p documentation.
 
 ### Automated deployments
 
@@ -141,6 +136,6 @@ Please stay tuned for the steps to translate the documentation.
 
 ## License
 
-All software code is copyright (c) Protocol Labs, Inc. under the **MIT/Apache-2 dual license**. 
-Other written documentation and content are copyright (c) Protocol Labs, Inc. under the 
+All software code is copyright (c) Protocol Labs, Inc. under the **MIT/Apache-2 dual license**.
+Other written documentation and content are copyright (c) Protocol Labs, Inc. under the
 [**Creative Commons Attribution-Share-Alike License**](https://creativecommons.org/licenses/by/4.0/).

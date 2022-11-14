@@ -2,6 +2,8 @@
 title: "How to Contribute"
 description: Learn how you can contribute to libp2p.
 weight: 2
+aliases:
+   - /community/contribute/
 ---
 
 So you want to contribute to libp2p and the peer-to-peer ecosystem? Here is a quick listing

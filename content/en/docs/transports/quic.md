@@ -1,9 +1,9 @@
 ---
 title: "QUIC"
+description: "QUIC is a new transport protocol that provides an always-encrypted, stream-multiplexed connection built on top of UDP. Learn about QUIC and how it is used in libp2p."
 weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: QUIC is a new transport protocol that provides an always-encrypted, stream-multiplexed connection built on top of UDP. Learn about QUIC and how it is used in libp2p.
+aliases:
+    - /concepts/transports/quic/
 ---
 
 QUIC is a new transport protocol that provides an always-encrypted, stream-multiplexed

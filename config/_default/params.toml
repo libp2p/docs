@@ -23,9 +23,7 @@ twitterCreator = "@henkverlinde"
 # schemaType = "Person"
 schemaType = "Organization"
 schemaName = "Doks"
-schemaAuthor = "Henk Verlinde"
-schemaAuthorTwitter = "https://twitter.com/henkverlinde"
-schemaAuthorLinkedIn = "https://www.linkedin.com/in/henkverlinde/"
+schemaAuthor = "EngRes Docs"
 schemaAuthorGitHub = "https://github.com/h-enk"
 schemaLocale = "en-US"
 schemaLogo = "logo-doks.png"
@@ -34,9 +32,9 @@ schemaLogoHeight = 512
 schemaImage = "doks.png"
 schemaImageWidth = 1280
 schemaImageHeight = 640
-schemaTwitter = "https://twitter.com/getdoks"
+schemaTwitter = "https://twitter.com/libp2p"
 schemaLinkedIn = ""
-schemaGitHub = "https://github.com/h-enk/doks"
+schemaGitHub = "https://github.com/libp2p"
 schemaSection = "blog"
 
 ## Sitelinks Search Box

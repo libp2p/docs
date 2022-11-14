@@ -2,6 +2,9 @@
 title: "Get Involved"
 description: Get involved and participate in the libp2p community.
 weight: 1
+aliases:
+   - /community/
+   - /community/community/
 ---
 
 We love talking about libp2p, and we'd be happy to have you in the mix.

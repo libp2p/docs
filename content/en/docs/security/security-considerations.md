@@ -1,9 +1,10 @@
 ---
 title: "Security Considerations"
+description: "libp2p makes it simple to establish encrypted, authenticated communication channels between two peers, but there are other important security issues to consider when building robust peer-to-peer systems."
 weight: 1
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: libp2p makes it simple to establish encrypted, authenticated communication channels between two peers, but there are other important security issues to consider when building robust peer-to-peer systems.
+aliases:
+   - /concepts/security-considerations/
+   - /concepts/security/security-considerations/
 ---
 
 libp2p makes it simple to establish encrypted, authenticated communication

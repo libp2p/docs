@@ -2,7 +2,9 @@
 title : "DoS Mitigation"
 description: "DoS mitigation is an essential part of any peer-to-peer application. Learn how to design protocols to be resilient to malicious peers."
 weight: 2
-aliases: /reference/dos-mitigation/
+aliases:
+   - /reference/dos-mitigation/
+   - /concepts/dos-mitigation/
 ---
 
 DoS mitigation is an essential part of any P2P application. We need to design

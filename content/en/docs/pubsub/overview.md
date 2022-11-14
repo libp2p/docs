@@ -1,7 +1,8 @@
 ---
-title: "Publish/Subscribe"
+title: "Overview"
 weight: 8
 description: Publish/Subscribe is a system where peers congregate around topics they are interested in. Peers interested in a topic are said to be subscribed to that topic. Learn about how peers can message data in libp2p.
+aliases: /concepts/publish-subscribe/
 ---
 
 Publish/Subscribe is a system where peers congregate around topics they are
@@ -610,7 +611,7 @@ seconds ago in the bottom row. Some of the sequence numbers are shared between
 messages, but only where the sender is different.]
 -->
 
-<img src="../../assets/publish-subscribe/publish-subscribe/state.png" alt="hp">
+<img src="../../assets/publish-subscribe/state.png" alt="hp">
 
 ## More information
 
