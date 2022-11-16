@@ -4,48 +4,57 @@
   weight = 10
 
 [[main]]
-  name = "Reference"
+  name = "Guides"
+  url = "/guides/"
   weight = 20
-  identifier = "reference"
-
-[[reference]]
-  name = "Specifications"
-  weight = 10
-  identifier = "specifications"
-  url = "https://github.com/libp2p/specs/"
-
-[[reference]]
-  name = "Connectivity"
-  weight = 20
-  identifier = "connectivity"
-  url = "https://connectivity.libp2p.io/"
-
-[[reference]]
-  name = "Implementations"
-  weight = 30
-  identifier = "implementations"
-  url = "https://libp2p.io/implementations/"
-
-[[main]]
-  name = "Community"
-  url = "/community/"
-  weight = 40
-  identifier = "community"
-
-[[community]]
-  name = "Get Involved"
-  url = "https://libp2p.io/#community"
-  weight = 10
-
-[[community]]
-  name = "Forum"
-  url = "https://discuss.libp2p.io/"
-  weight = 10
 
 [[main]]
   name = "Blog"
   url = "/blog/"
+  weight = 30
+
+[[main]]
+  name = "Reference"
+  weight = 40
+  identifier = "reference"
+
+[[main]]
+  name = "Specifications"
+  weight = 10
+  identifier = "specifications"
+  url = "https://github.com/libp2p/specs/"
+  parent = "reference"
+
+[[main]]
+  name = "Connectivity"
   weight = 20
+  identifier = "connectivity"
+  url = "https://connectivity.libp2p.io/"
+  parent = "reference"
+
+[[main]]
+  name = "Implementations"
+  weight = 30
+  identifier = "implementations"
+  url = "https://libp2p.io/implementations/"
+  parent = "reference"
+
+[[main]]
+  name = "Community"
+  weight = 50
+  identifier = "community"
+
+[[main]]
+  name = "Get Involved"
+  url = "https://libp2p.io/#community"
+  weight = 10
+  parent = "community"
+
+[[main]]
+  name = "Forum"
+  url = "https://discuss.libp2p.io/"
+  weight = 20
+  parent = "community"
 
 [[social]]
   name = "GitHub"
