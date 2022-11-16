@@ -10,7 +10,7 @@ description = "libp2p is a modular system of protocols, specifications and libra
 # docsVersion = "0.3"
 
 ## Open Graph
-images = ["doks.png"]
+images = ["libp2p_monochrome_horizontal.png"]
 ogLocale = "en_US"
 domainTLD = "docs.libp2p.io"
 titleHome = "libp2p Documentation Portal"
@@ -25,10 +25,10 @@ schemaName = "libp2p"
 schemaAuthor = "Protocol Labs"
 schemaAuthorGitHub = "https://github.com/protocol/"
 schemaLocale = "en-US"
-schemaLogo = "logo-doks.png"
+schemaLogo = "libp2p_monochrome_vertical.png"
 schemaLogoWidth = 512
 schemaLogoHeight = 512
-schemaImage = "doks.png"
+schemaImage = "libp2p_monochrome_horizontal.png"
 schemaImageWidth = 1280
 schemaImageHeight = 640
 schemaTwitter = "https://twitter.com/libp2p"
@@ -62,7 +62,7 @@ defaultImage = "default-image.png" # put in `./assets/images/`
 fillImage = "1270x740 Center" # normalize image size
 
 # Footer
-footer = "Built with ❤️ from [libp2p](https://libp2p.io/), <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
+footer = "Built with ❤️ from libp2p, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
 
 
 # Alert

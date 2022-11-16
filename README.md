@@ -1,5 +1,5 @@
 <p align="center">
-<img align="center" src="logos/libp2p-docs-logo.png" width="615">
+<img align="center" src="static/logos/libp2p-docs-logo.png" width="615">
 </p>
 
 <div align="center">
