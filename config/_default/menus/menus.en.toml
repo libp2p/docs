@@ -8,26 +8,23 @@
   weight = 20
   identifier = "reference"
 
-[[main]]
+[[reference]]
   name = "Specifications"
   weight = 10
-  identifier = "quick-start"
+  identifier = "specifications"
   url = "https://github.com/libp2p/specs/"
-  parent = "reference"
 
-[[main]]
+[[reference]]
   name = "Connectivity"
   weight = 20
-  identifier = "tutorial"
+  identifier = "connectivity"
   url = "https://connectivity.libp2p.io/"
-  parent = "reference"
 
-[[main]]
+[[reference]]
   name = "Implementations"
   weight = 30
   identifier = "implementations"
   url = "https://libp2p.io/implementations/"
-  parent = "reference"
 
 [[main]]
   name = "Community"
@@ -35,17 +32,20 @@
   weight = 40
   identifier = "community"
 
-[[main]]
+[[community]]
+  name = "Get Involved"
+  url = "https://libp2p.io/#community"
+  weight = 10
+
+[[community]]
   name = "Forum"
   url = "https://discuss.libp2p.io/"
   weight = 10
-  parent = "community"
 
 [[main]]
   name = "Blog"
   url = "/blog/"
   weight = 20
-  parent = "community"
 
 [[social]]
   name = "GitHub"
