@@ -25,7 +25,7 @@ a new Go module, starting libp2p nodes, and sending ping messages between them.
 - You can install a recent version of Go by following the [official installation instructions](https://golang.org/doc/install).
 - Once installed, you should be able to run `go version` and see a version >= 1.19, for example:
 
-```sh
+```bash
 $ go version
 go version go1.19 darwin/arm64
 ```
@@ -40,7 +40,7 @@ module name `github.com/user/go-libp2p-tutorial`, but you may want to replace th
 corresponds to a repository name you have the rights to push to if you want to publish your version
 of the code.
 
-```sh
+```bash
 mkdir -p /tmp/go-libp2p-tutorial
 cd /tmp/go-libp2p-tutorial
 go mod init github.com/user/go-libp2p-tutorial
@@ -49,7 +49,7 @@ go mod init github.com/user/go-libp2p-tutorial
 You should now have a `go.mod` file in the current directory containing the name of the module you
 initialized and the version of Go you're using, for example:
 
-```sh
+```bash
 $ cat go.mod
 module github.com/user/go-libp2p-tutorial
 
@@ -89,13 +89,13 @@ func main() {
 
 Import the `libp2p/go-libp2p` module:
 
-```shell
+```bash
 go get github.com/libp2p/go-libp2p
 ```
 
 We can now compile this into an executable using `go build` and run it from the command line:
 
-```sh
+```bash
 $ go build -o libp2p-node
 
 $ ./libp2p-node
@@ -131,7 +131,7 @@ func main() {
 
 Re-building and running the executable again now prints the explicit listen address we've configured:
 
-```sh
+```bash
 $ go build -o libp2p-node
 
 $ ./libp2p-node
@@ -181,7 +181,7 @@ import (
 Running the node now waits until it receives a SIGINT (i.e. a `ctrl-c` key press) or a SIGTERM signal
 before shutting down:
 
-```sh
+```bash
 $ ./libp2p-node
 Listening addresses: [/ip4/127.0.0.1/tcp/2000]
 ^CReceived signal, shutting down...
@@ -275,7 +275,7 @@ func main() {
 
 Running the node now prints the node's address that can be used to connect to it:
 
-```sh
+```bash
 $ ./libp2p-node
 libp2p node address: /ip4/127.0.0.1/tcp/62268/ipfs/QmfQzWnLu4UX1cW7upgyuFLyuBXqze7nrPB4qWYqQiTHwt
 ```
@@ -420,7 +420,7 @@ func main() {
 
 In one terminal window, let's start a listening node (i.e. don't pass any command line arguments):
 
-```sh
+```bash
 $ ./libp2p-node
 libp2p node address: /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
 ```
@@ -428,7 +428,7 @@ libp2p node address: /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJ
 In another terminal window, let's run a second node but pass the address of the first node, and we
 should see some ping responses logged:
 
-```sh
+```bash
 $ ./libp2p-node /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
 libp2p node address: /ip4/127.0.0.1/tcp/61846/ipfs/QmVyKLTLswap3VYbpBATsgNpi6JdwSwsZALPxEnEbEndup
 sending 5 ping messages to /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
