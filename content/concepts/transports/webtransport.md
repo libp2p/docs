@@ -38,10 +38,8 @@ faster handshakes, no HoL blocking, and being future-proof.
 > of the [v0.23 release](https://github.com/libp2p/go-libp2p/releases/tag/v0.23.0).
 > The implementation should be used experimentally and is not recommended for production
 > environments.
-
 > js-libp2p also plans to release
 > [WebTransport support](https://github.com/libp2p/js-libp2p-webtransport) very soon.
-
 > There are currently no concrete plans to support WebTransport beyond the Go and JS
 > implementations.
 
