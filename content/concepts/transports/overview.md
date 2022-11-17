@@ -1,12 +1,12 @@
 ---
-title : "Overview"
+title : "What are Transports"
 description: "The foundational protocols that move bits around are called transports, and one of libp2p's core requirements is to be transport agnostic. Learn about the transport protocols in libp2p."
 weight: 70
 aliases:
     - /concepts/transports/
 ---
 
-## What are transports?
+## Overview
 
 When you make a connection from your computer to a machine on the internet,
 chances are pretty good you're sending your bits and bytes using TCP/IP, the
