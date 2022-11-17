@@ -67,7 +67,7 @@ footer = "Built with ❤️ from <a class=\"text-muted\" href=\"https://libp2p.i
 # Alert
 alert = true
 alertDismissable = true
-alertText = "The libp2p docs have a new look! Help docs.libp2p.io continue to improve by <a class=\"alert-link stretched-link\" href=\"https://c8s7127jv3t.typeform.com/to/D5mGElMD\" target=\"_blank\" rel=\"noopener\">providing your feedback.</a>"
+alertText = "The libp2p docs have a new look! Help docs.libp2p.io continue to improve by <a class=\"alert-link stretched-link\" href=\"https://github.com/libp2p/docs\" target=\"_blank\" rel=\"noopener\">providing feedback and contributing.</a>"
 
 # Edit Page
 repoHost = "GitHub"
