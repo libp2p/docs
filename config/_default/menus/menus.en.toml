@@ -1,6 +1,6 @@
 [[main]]
-  name = "Docs"
-  url = "/docs/introduction/overview"
+  name = "About libp2p"
+  url = "/concepts/introduction/overview"
   weight = 10
 
 [[main]]

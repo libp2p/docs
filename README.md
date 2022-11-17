@@ -81,7 +81,7 @@ Follow these steps to run a copy of this site on your local machine.
 1. Clone this repository:
 
     ```shell
-    git clone https://github.com/filecoin-project/filecoin-docs
+    git clone https://github.com/libp2p/docs
     ```
 
 1. Navigate into the new folder and download the dependencies by running:
@@ -100,7 +100,7 @@ Follow these steps to run a copy of this site on your local machine.
 3. Start the local Hugo's development server with:
 
     ```shell
-    npm run build
+    npm start
     ```
 
 4. Visit [localhost:1313](http://localhost:1313) to view the site.
