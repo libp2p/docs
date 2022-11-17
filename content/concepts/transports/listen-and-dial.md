@@ -1,12 +1,10 @@
 ---
 title: "Listening and Dialing"
-weight: 1
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: Transports are defined in terms of two core operations, listening and dialing. Learn about how peers use both interfaces in libp2p.
+description: "Transports are defined in terms of two core operations, listening and dialing. Learn about how peers use both interfaces in libp2p."
+weight: 2
+aliases:
+    - /concepts/transports/listen-and-dial/
 ---
-
-# Listening and Dialing
 
 Transports are defined in terms of two core operations, **listening** and
 **dialing**.
@@ -28,13 +26,13 @@ reach them. Because each transport will likely require its own address scheme,
 libp2p uses a convention called a "multiaddress" or `multiaddr` to encode
 many different addressing schemes.
 
-The [addressing doc](/concepts/addressing/) goes into more detail, but an overview of
-how multiaddresses work is helpful for understanding the dial and listen
+The [addressing doc](../../fundamentals/addressing) goes into more detail, but an overview
+of how multiaddresses work is helpful for understanding the dial and listen
 interfaces.
 
 Here's an example of a multiaddr for a TCP/IP transport:
 
-```
+```shell
 /ip4/7.7.7.7/tcp/6543
 ```
 
@@ -43,34 +41,29 @@ has the advantage of being explicit about the protocols that are being
 described. With the multiaddr, you can see at a glance that the `7.7.7.7`
 address belongs to the IPv4 protocol, and the `6543` belongs to TCP.
 
-For more complex examples, see [Addressing](/concepts/addressing/).
+For more complex examples, see [addressing](../../fundamentals/addressing).
 
 Both dial and listen deal with multiaddresses. When listening, you give the
 transport the address you'd like to listen on, and when dialing you provide the
 address to dial to.
 
 When dialing a remote peer, the multiaddress should include the
-[PeerId](/concepts/peers/) of the peer you're trying to reach.
-This lets libp2p establish a [secure communication channel](/concepts/secure-comms/)
+[PeerId](../../fundamentals/peers#peer-id) of the peer you're trying to reach.
+This lets libp2p establish a [secure communication channel](../../secure-comm/overview)
 and prevents impersonation.
 
 An example multiaddress that includes a `PeerId`:
 
-```
+```shell
 /ip4/1.2.3.4/tcp/4321/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6
 ```
 
 The `/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6` component uniquely
 identifies the remote peer using the hash of its public key.
-For more, see [Peer Identity](/concepts/peers/).
+For more, see the [peer identity content](../../fundamentals/peers#peer-id).
 
-{{% notice "tip" %}}
-
-When [peer routing](/concepts/peer-routing/) is enabled, you can dial peers
-using just their PeerId, without needing to know their transport addresses
-before hand.
-
-{{% /notice %}}
+When peer routing is enabled, you can dial peers using just their PeerId,
+without needing to know their transport addresses before hand.
 
 ## Supporting multiple transports
 
@@ -81,18 +74,16 @@ in a web browser.
 
 The libp2p component responsible for managing the transports is called the
 [switch][definition_switch], which also coordinates
-[protocol negotiation](/concepts/protocols/#protocol-negotiation),
-[stream multiplexing](/concepts/stream-multiplexing),
-[establishing secure communication](/concepts/secure-comms/) and other forms of
+[protocol negotiation](../../fundamentals/protocols/#protocol-negotiation),
+[stream multiplexing](../../multiplex/overview),
+[establishing secure communication](../../secure-comm/overview) and other forms of
 "connection upgrading".
 
 The switch provides a single "entry point" for dialing and listening, and frees
 up your application code from having to worry about the specific transports
 and other pieces of the "connection stack" that are used under the hood.
 
-{{% notice "note" %}}
-The term "swarm" was previously used to refer to what is now called the "switch",
-and some places in the codebase still use the "swarm" terminology.
-{{% /notice %}}
+> The term "swarm" was previously used to refer to what is now called the "switch",
+> and some places in the codebase still use the "swarm" terminology.
 
-[definition_switch]: /reference/glossary/#switch
+[definition_switch]: ../../appendix/glossary/#switch

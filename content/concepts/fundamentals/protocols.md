@@ -1,13 +1,11 @@
 ---
 title: "Protocols"
-weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-aliases: /concepts/protocols/
-summary: There are protocols everywhere you look when you're writing network applications, and libp2p is especially thick with them.
+description: There are protocols everywhere you look when you're writing network applications, and libp2p is especially thick with them.
+weight: 3
+aliases:
+    - /concepts/protocols/
+    - /concepts/fundamentals/protocols/
 ---
-
-# Protocols
 
 There are protocols everywhere you look when you're writing network applications, and libp2p is
 especially thick with them.
@@ -22,18 +20,17 @@ These are the protocols that define your application and provide its core functi
 
 This article will walk through some of the key [defining features of a libp2p protocol](#what-is-a-libp2p-protocol), give an overview of the [protocol negotiation process](#protocol-negotiation), and outline some of the [core libp2p protocols](#core-libp2p-protocols) that are included with libp2p and provide key functionality.
 
-
 ## What is a libp2p protocol?
 
 A libp2p protocol has these key features:
 
-#### Protocol Ids
+### Protocol IDs
 
 libp2p protocols have unique string identifiers, which are used in the [protocol negotiation](#protocol-negotiation) process when connections are first opened.
 
 By convention, protocol ids have a path-like structure, with a version number as the final component:
 
-```
+```shell
 /my-app/amazing-protocol/1.0.1
 ```
 
@@ -41,13 +38,10 @@ Breaking changes to your protocol's wire format or semantics should result in a 
 number. See the [protocol negotiation section](#protocol-neotiation) for more information about
 how version selection works during the dialing and listening process.
 
-{{% notice "info" %}}
-
+<!-- ADD NOTICE -->
 While libp2p will technically accept any string as a valid protocol id,
 using the recommended path structure with a version component is both
 developer-friendly and enables [easier matching by version](#match-using-semver).
-
-{{% /notice %}}
 
 #### Handler functions
 
@@ -57,7 +51,6 @@ To accept connections, a libp2p application will register handler functions for 
 The handler function will be invoked when an incoming stream is tagged with the registered protocol id.
 If you register your handler with a [match function](#using-a-match-function), you can choose whether
 to accept non-exact string matches for protocol ids, for example, to match on [semantic major versions](#match-using-semver).
-
 
 #### Binary streams
 
@@ -77,7 +70,6 @@ unencrypted binary data over the stream.
 
 The format of the binary data and the mechanics of what to send when and by whom are all up to the protocol to determine. For inspiration, some [common patterns](#common-patterns) that are used in libp2p's internal protocols are outlined below.
 
-
 ## Protocol Negotiation
 
 When dialing out to initiate a new stream, libp2p will send the protocol id of the protocol you want to use.
@@ -92,7 +84,6 @@ use the agreed protocol semantics.
 
 This process of reaching agreement about what protocol to use for a given stream or connection is called
 **protocol negotiation**.
-
 
 ### Matching protocol ids and versions
 
@@ -131,9 +122,7 @@ The protocols described below all use [protocol buffers](https://developers.goog
 
 Messages are exchanged over the wire using a very simple convention which prefixes binary
 message payloads with an integer that represents the length of the payload in bytes. The
-length is encoded as a [protobuf varint](https://developers.google.com/protocol-buffers/docs/encoding#varints)  (variable-length integer).
-
-
+length is encoded as a [protobuf varint](https://developers.google.com/protocol-buffers/docs/encoding#varints) (variable-length integer).
 
 ### Ping
 
@@ -141,11 +130,9 @@ length is encoded as a [protobuf varint](https://developers.google.com/protocol-
 |--------------------|------|---------------|---------------|-------------------|
 | `/ipfs/ping/1.0.0` | N/A  | [go][ping_go] | [js][ping_js] | [rust][ping_rust] |
 
-
 [ping_go]: https://github.com/libp2p/go-libp2p/tree/master/p2p/protocol/ping
 [ping_js]: https://github.com/libp2p/js-libp2p-ping
 [ping_rust]: https://github.com/libp2p/rust-libp2p/blob/master/protocols/ping/src/lib.rs
-
 
 The ping protocol is a simple liveness check that peers can use to quickly see if another peer is online.
 
@@ -167,7 +154,6 @@ the latency between request and response.
 
 The `identify` protocol allows peers to exchange information about each other, most notably their public keys
 and known network addresses.
-
 
 The basic identify protocol works by establishing a new stream to a peer using the identify protocol id
 shown in the table above.
@@ -197,7 +183,7 @@ makes it more likely that other peers will discover the new address.
 
 ### kad-dht
 
-`kad-dht` is a [Distributed Hash Table][wiki_dht] based on the [Kademlia][wiki_kad] routing algorithm, with some modifications. 
+`kad-dht` is a [Distributed Hash Table][wiki_dht] based on the [Kademlia][wiki_kad] routing algorithm, with some modifications.
 
 libp2p uses the DHT as the foundation of its [peer routing](/concepts/peer-routing/) and [content routing](/concepts/content-routing/) functionality. To learn more about DHT and the Kademlia algorithm,
 check out the [Distributed Hash Tables guide][dht] on the IPFS documentation site. In addition, check out the [libp2p implementations page](https://libp2p.io/implementations/) for updates on all the kad-libp2p implementations.
@@ -224,8 +210,6 @@ As described in the [Circuit Relay article](/concepts/circuit-relay/), libp2p pr
 for tunneling traffic through relay peers when two peers are unable to connect to each other
 directly. See the article for more information on working with relays, including notes on relay
 addresses and how to enable automatic relay connection when behind an intractable NAT.
-
-<!-- links -->
 
 [definition_switch]: /reference/glossary/#switch
 [definition_multiaddr]: /reference/glossary/#multiaddr

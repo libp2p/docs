@@ -1,14 +1,13 @@
 ---
 title: "Security Considerations"
-weight: 10
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: libp2p makes it simple to establish encrypted, authenticated communication channels between two peers, but there are other important security issues to consider when building robust peer-to-peer systems.
+description: "libp2p makes it simple to establish encrypted, authenticated communication channels between two peers, but there are other important security issues to consider when building robust peer-to-peer systems."
+weight: 1
+aliases:
+   - /concepts/security-considerations/
+   - /concepts/security/security-considerations/
 ---
 
-# Secure Data
-
-libp2p makes it simple to establish encrypted, authenticated communication 
+libp2p makes it simple to establish encrypted, authenticated communication
 channels between two peers, but there are other important
 security issues to consider when building robust peer-to-peer systems.
 
@@ -28,7 +27,7 @@ reasonably succeed.
 
 ## Identity and Trust
 
-Every libp2p peer is uniquely identified by their [Peer ID](../peers#peer-id/), which
+Every libp2p peer is uniquely identified by their [Peer ID](../../fundamentals/peers#peer-id), which
 is derived from a private cryptographic key. Peer ids and their corresponding
 keys allow us to _authenticate_ remote peers, so that we can be sure we're
 talking to the correct peer and not an imposter.
@@ -46,8 +45,9 @@ hierarchy of roles, the requested resources or services, etc.
 To design an authorization system on libp2p, you can rely on the authentication
 of peer ids and build an association between peer ids and permissions, with the
 Peer ID serving the same function as the "username" in traditional authorization
-frameworks, and the peer's private key serving as the "password". Your [protocol
-handler](../protocols/) could then reject requests from untrusted peers.
+frameworks, and the peer's private key serving as the "password".
+Your [protocol handler](../../fundamentals/protocols/#handler-functions) could then
+reject requests from untrusted peers.
 
 Of course, it's also possible to build other kinds of authorization systems on
 libp2p that are not based on peer ids. For example, you may want a single libp2p
@@ -83,15 +83,13 @@ Cooperative systems are inherently susceptible to abuse by bad actors, and
 although we are researching ways to limit the impact of such attacks, they are
 possible in libp2p today.
 
-
 ### Kad-DHT
 
 The Kad-DHT protocol is a [distributed hash table][glossary-dht] that provides a
 shared key/value storage system for all participants. In addition to key/value
-lookups, the DHT is the default implementation of libp2p's [peer
-routing][concepts-peer-routing] and [content routing][concepts-content-routing]
-interfaces, and thus serves an important role in discovering other peers and
-services on the network.
+lookups, the DHT is the default implementation of libp2p's peer
+routing and content routing interfaces, and thus serves an important role in
+discovering other peers and services on the network.
 
 #### Sybil Attacks
 
@@ -141,8 +139,8 @@ returning dishonest routing information.
 
 ### Publish / Subscribe
 
-libp2p's [publish/subscribe protocol](../publish-subscribe/) allows a peer to
-broadcast messages to other peers within a given "topic." 
+libp2p's [publish/subscribe protocol](../../pubsub/overview) allows a peer
+to broadcast messages to other peers within a given "topic."
 
 By default, the `gossipsub` implementation will sign all messages with the
 author's private key, and require a valid signature before accepting or
@@ -151,7 +149,7 @@ flight, and allows recipients to authenticate the sender.
 
 However, as a cooperative protocol, it may be possible for peers to interfere
 with the message routing algorithm in a way that disrupts the flow of messages
-through the network. 
+through the network.
 
 We are actively researching ways to mitigate the impact of malicious nodes on
 `gossipsub`'s routing algorithm, with a particular focus on preventing Sybil
@@ -159,10 +157,6 @@ attacks. We expect this to lead to a more robust and attack-resistant pubsub
 protocol, but it is unlikely to prevent all classes of possible attack by
 determined bad actors.
 
-
-
-[glossary-dht]: ../reference/glossary/#dht
-[concepts-peer-routing]: ../peer-routing/
-[concepts-content-routing]: ../content-routing/
+[glossary-dht]: ../../appendix/glossary/#dht
 [wikipedia-sybil]: https://en.wikipedia.org/wiki/Sybil_attack
 [paper-s-kademlia]: https://telematics.tm.kit.edu/publications/Files/267/SKademlia_2007.pdf

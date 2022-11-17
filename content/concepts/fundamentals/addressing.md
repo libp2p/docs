@@ -1,15 +1,14 @@
 ---
 title: "Addressing"
-weight: 1
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-aliases: /concepts/addressing/
-summary: Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks, we need a way to work with a lot of different addressing schemes in a consistent way.
+description: Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks, we need a way to work with a lot of different addressing schemes in a consistent way.
+weight: 2
+aliases:
+    - /concepts/addressing/
+    - /concepts/fundamentals/addressing
 ---
 
-# Addressing
-
-Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks, we need a way to work with a lot of different addressing schemes in a consistent way.
+Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks,
+we need a way to work with a lot of different addressing schemes in a consistent way.
 
 A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure. It [defines][spec_multiaddr] human-readable and machine-optimized encodings of common transport and overlay protocols and allows many layers of addressing to be combined and used together.
 
@@ -17,9 +16,8 @@ For example: `/ip4/127.0.0.1/udp/1234` encodes two protocols along with their es
 
 Things get more interesting as we compose further. For example, the multiaddr `/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` uniquely identifies my local IPFS node, using libp2p's [registered protocol id](https://github.com/multiformats/multiaddr/blob/master/protocols.csv) `/p2p/` and the [multihash](/reference/glossary/#multihash) of my IPFS node's public key.
 
-{{% notice "tip" %}}
+<!-- ADD NOTICE -->
 For more on peer identity and its relation to public key cryptography, see [Peer Identity](../peers/#peer-id/).
-{{% /notice %}}
 
 Let's say that I have the Peer ID `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` as above, and my public ip is `7.7.7.7`. I start my libp2p application and listen for connections on TCP port `4242`.
 
@@ -29,7 +27,7 @@ Now not only do my friends know where to find me, anyone they give that address 
 
 This can be extended to account for multiple layers of addressing and abstraction. For example, the [addresses used for circuit relay](/concepts/circuit-relay/#relay-addresses) combine transport addresses with multiple peer identities to form an address that describes a "relay circuit":
 
-```
+```shell
 /ip4/7.7.7.7/tcp/4242/p2p/QmRelay/p2p-circuit/p2p/QmRelayedPeer
 ```
 
