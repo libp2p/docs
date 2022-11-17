@@ -1,7 +1,10 @@
 ---
 title: "Hole Punching"
-description: The internet is composed of countless networks, bound together into shared address spaces by foundational transport protocols. As traffic moves between network boundaries, it's very common for a process called Network Address Translation to occur. Network Address Translation (NAT) maps an address from one address space to another.
-weight: 2
+description: "The internet is composed of countless networks, bound together into shared address spaces by foundational transport protocols. As traffic moves between network boundaries, it's very common for a process called Network Address Translation to occur. Network Address Translation (NAT) maps an address from one address space to another."
+weight: 4
+aliases:
+    - /concepts/hole-punching
+    - /concepts/nat/hole-punching
 ---
 
 Nodes on a peer-to-peer network can be categorized into two groups:
@@ -76,7 +79,7 @@ Take two nodes, `A` and `B`, that would like the dial each other:
 
 The following use case diagram illustrates the above process.
 
-<img src="../../assets/hole-punching/libp2p-hole-punching-2.svg/" alt="hp">
+<img src="../../assets/hole-punching/libp2p-hole-punching-2.svg/" >
 
 > This process assumes a mechanism to synchronize `A` and `B` simultaneously.
 
@@ -90,7 +93,7 @@ for central coordination servers like STUN and TURN.
 
 The following sequence diagram illustrates the whole process.
 
-<img src="../../assets/hole-punching/libp2p-hole-punching-4.svg/" alt="hp">
+<img src="../../assets/hole-punching/libp2p-hole-punching-4.svg/" >
 
 libp2p hole punching can be divided into two phases, a preparation phase and
 a hole punching phase.
@@ -103,7 +106,7 @@ a hole punching phase.
    > This is equivalent to the
    > [STUN protocol](https://www.rfc-editor.org/rfc/rfc3489) in ICE.
 
-   <img src="../../assets/hole-punching/libp2p-hole-punching-5.svg/" alt="hp">
+   <img src="../../assets/hole-punching/libp2p-hole-punching-5.svg/" >
 
    - `B` reaches out to `Other_Peers` (e.g., boot nodes) on the network it
      is on and asks each node to dial it on a set of addresses it suspects
@@ -122,7 +125,7 @@ a hole punching phase.
    > IPFS discovers the k-closest public relay nodes using a lookup method
    > via Kademlia DHT): `/<RELAY_ADDR>/p2p-circuit/<PEER_ID_B>`
 
-    <img src="../../assets/hole-punching/libp2p-hole-punching-6.svg/" alt="hp">
+    <img src="../../assets/hole-punching/libp2p-hole-punching-6.svg/" >
 
     - `Other_Peers` outside `B`'s network can dial `B` indirectly through
       a public relay node. In the case of [IPFS](https://ipfs.tech/), each public
@@ -138,7 +141,7 @@ a hole punching phase.
    > This is equivalent to the
    > [TURN protocol](https://datatracker.ietf.org/doc/html/rfc5766) in ICE.
 
-    <img src="../../assets/hole-punching/libp2p-hole-punching-7.svg/" alt="hp">
+    <img src="../../assets/hole-punching/libp2p-hole-punching-7.svg/" >
 
    - `Relay` can limit the resources used to relay connections (e.g., by the number
      of connections, the time, and bytes) via Circuit Relay v2. In the case of IPFS,
@@ -158,7 +161,7 @@ a hole punching phase.
    the relay node, creating a bi-directional channel and uses TLS to secure the
    channel.
 
-    <img src="../../assets/hole-punching/libp2p-hole-punching-8.svg/" alt="hp">
+    <img src="../../assets/hole-punching/libp2p-hole-punching-8.svg/" >
 
     - `A` establishes a relayed connection to `B` via the `Relay` using the
       information contained in `B`'s advertised address.
@@ -176,7 +179,7 @@ a hole punching phase.
 2. [DCUtR](https://github.com/libp2p/specs/blob/master/relay/DCUtR.md): Use
    DCUtR as a synchronization mechanism to coordinate hole punching.
 
-    <img src="../../assets/hole-punching/libp2p-hole-punching-9.svg/" alt="hp">
+    <img src="../../assets/hole-punching/libp2p-hole-punching-9.svg/" >
 
     - `A` sends a `Connect` message to `B` through `Relay`.
         - `Connect` contains the addresses of A. libp2p offers multiple
