@@ -77,7 +77,7 @@ editPage = true
 lastMod = true
 
 [sections]
-  sectionNav = ["docs", "guides"]
+  sectionNav = ["concepts"]
 
 [options]
   lazySizes = true
@@ -97,7 +97,6 @@ lastMod = true
   navbarSticky = false
   toTopButton = true
   scrollSpy = false # experimental; needs Bootstrap >= 5.2.0-beta1
-  collapsibleSidebar = false
 
 [menu]
   [menu.section]

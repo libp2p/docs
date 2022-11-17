@@ -1,9 +1,7 @@
 ---
 title: "mplex"
-weight: 3
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: mplex is a protocol developed for libp2p.
+description: "mplex is a protocol developed for libp2p."
+weight: 170
 ---
 
 mplex is a protocol developed for libp2p. The [spec](https://github.com/libp2p/specs/tree/master/mplex) defines a

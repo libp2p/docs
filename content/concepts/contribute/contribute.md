@@ -1,7 +1,7 @@
 ---
 title: "How to Contribute"
-description: Learn how you can contribute to libp2p.
-weight: 2
+description: "Learn how you can contribute to libp2p."
+weight: 270
 aliases:
    - /community/contribute/
 ---

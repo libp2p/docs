@@ -4,7 +4,7 @@ description: "Stream Multiplexing is a way of sending multiple streams of data o
 aliases:
     - /concepts/stream-multiplexing/
     - /concepts/multiplex/
-weight: 1
+weight: 150
 ---
 
 ## What is stream multiplexing?

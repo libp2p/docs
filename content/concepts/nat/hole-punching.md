@@ -1,7 +1,7 @@
 ---
 title: "Hole Punching"
 description: "The internet is composed of countless networks, bound together into shared address spaces by foundational transport protocols. As traffic moves between network boundaries, it's very common for a process called Network Address Translation to occur. Network Address Translation (NAT) maps an address from one address space to another."
-weight: 4
+weight: 220
 aliases:
     - /concepts/hole-punching
     - /concepts/nat/hole-punching

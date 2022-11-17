@@ -1,6 +1,6 @@
 ---
 title: "QUIC"
-weight: 5
+weight: 181
 pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
 chapter: true
 summary: QUIC is a transport protocol that contains a native stream multiplexer.

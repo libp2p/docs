@@ -1,9 +1,7 @@
 ---
 title: "yamux"
-weight: 4
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: yamux is a multiplexing protocol designed by Hashicorp.
+description: "yamux is a multiplexing protocol designed by Hashicorp."
+weight: 180
 ---
 
 [yamux](https://github.com/hashicorp/yamux) is a multiplexing protocol designed by [Hashicorp](https://www.hashicorp.com/).

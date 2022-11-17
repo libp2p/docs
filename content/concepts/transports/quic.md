@@ -1,7 +1,7 @@
 ---
 title: "QUIC"
 description: "QUIC is a new transport protocol that provides an always-encrypted, stream-multiplexed connection built on top of UDP. Learn about QUIC and how it is used in libp2p."
-weight: 2
+weight: 90
 aliases:
     - /concepts/transports/quic/
 ---

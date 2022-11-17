@@ -1,7 +1,7 @@
 ---
 title: "Listening and Dialing"
 description: "Transports are defined in terms of two core operations, listening and dialing. Learn about how peers use both interfaces in libp2p."
-weight: 2
+weight: 80
 aliases:
     - /concepts/transports/listen-and-dial/
 ---

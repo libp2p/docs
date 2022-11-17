@@ -1,9 +1,7 @@
 ---
 title: "Switch"
-weight: 2
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: libp2p maintains some state about known peers and existing connections in a component known as the switch
+description: "libp2p maintains some state about known peers and existing connections in a component known as the switch."
+weight: 160
 ---
 
 libp2p maintains some state about known peers and existing connections in a component known as the switch (or "swarm", depending on the implementation). The switch provides a dialing and listening interface that abstracts the details of which stream multiplexer is used for a given connection.
