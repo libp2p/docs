@@ -62,7 +62,7 @@ defaultImage = "default-image.png" # put in `./assets/images/`
 fillImage = "1270x740 Center" # normalize image size
 
 # Footer
-footer = "Built with ❤️ from <a class=\"text-muted\" href=\"https://libp2p.io/\">libp2p</a> libp2p, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
+footer = "Built with ❤️ from <a class=\"text-muted\" href=\"https://libp2p.io/\">libp2p</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
 
 # Alert
 alert = true
