@@ -13,6 +13,6 @@ content/reference/pkg/*/
 src/styles/constants.less
 build
 
-# OS generated files 
+# OS generated files
 .DS_Store
 .DS_Store?
