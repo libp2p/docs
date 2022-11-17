@@ -97,6 +97,7 @@ lastMod = true
   navbarSticky = false
   toTopButton = true
   scrollSpy = false # experimental; needs Bootstrap >= 5.2.0-beta1
+  collapsibleSidebar = false
 
 [menu]
   [menu.section]

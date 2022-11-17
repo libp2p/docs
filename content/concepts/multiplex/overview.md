@@ -7,6 +7,8 @@ aliases:
 weight: 1
 ---
 
+## What is stream multiplexing?
+
 Stream Multiplexing (_stream muxing_) is a way of sending multiple streams of data over one
 communication link. It combines multiple signals into one unified signal so it can be transported
 'over the wires', then it is demulitiplexed (_demuxed_) so it can be output and used by separate

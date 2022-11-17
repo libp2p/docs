@@ -5,6 +5,8 @@ weight: 1
 aliases: /concepts/nat/
 ---
 
+## What are NATs?
+
 The internet is composed of countless networks, bound together into shared address spaces by foundational [transport protocols](../../transport/overview).
 
 As traffic moves between network boundaries, it's very common for a process called Network Address Translation to occur. Network Address Translation (NAT) maps an address from one address space to another.
@@ -19,7 +21,7 @@ While it's usually possible to manually configure routers, not everyone that wan
 
 We want libp2p applications to run everywhere, not just in data centers or on machines with stable public IP addresses. To enable this, here are the main approaches to NAT traversal available in libp2p today.
 
-### Automatic router configuration
+## Automatic router configuration
 
 Many routers support automatic configuration protocols for port forwarding, most commonly [UPnP][wiki_upnp] or [nat-pmp.][wiki_nat-pmp]
 

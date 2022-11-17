@@ -7,6 +7,8 @@ aliases:
    - /concepts/dos-mitigation/
 ---
 
+## What is DoS Mitigation?
+
 DoS mitigation is an essential part of any P2P application. We need to design
 our protocols to be resilient to malicious peers. We need to monitor our
 application for signs of suspicious activity or an attack. And we need to be
@@ -16,6 +18,7 @@ Here we'll cover how we can use libp2p to achieve the above goals.
 
 ## Table of contents
 
+- [What is DoS Mitigation?](#what-is-dos-mitigation)
 - [Table of contents](#table-of-contents)
 - [What we mean by a DOS attack](#what-we-mean-by-a-dos-attack)
 - [Incorporating DOS mitigation from the start](#incorporating-dos-mitigation-from-the-start)

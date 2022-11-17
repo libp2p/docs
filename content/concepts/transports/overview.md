@@ -6,6 +6,8 @@ aliases:
     - /concepts/transports/
 ---
 
+## What are transports?
+
 When you make a connection from your computer to a machine on the internet,
 chances are pretty good you're sending your bits and bytes using TCP/IP, the
 wildly successful combination of the Internet Protocol, which handles addressing
@@ -28,6 +30,8 @@ libp2p's core requirements is to be transport agnostic. This means that the deci
 of what transport protocol to use is up to the developer, and an application can support
 many different transports at the same time. Learn about the fundamentals of transport
 protocols in libp2p.
+
+## Transports and libp2p
 
 To better visualize the types of libp2p connections, check out the
 [connectivity site](https://connectivity.libp2p.io/) which outlines the different

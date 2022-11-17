@@ -6,6 +6,8 @@ aliases:
     - /concepts/transports/listen-and-dial/
 ---
 
+## Common transport interfaces
+
 Transports are defined in terms of two core operations, **listening** and
 **dialing**.
 
