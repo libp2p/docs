@@ -77,7 +77,7 @@ editPage = true
 lastMod = true
 
 [sections]
-  sectionNav = ["docs", "guides"]
+  sectionNav = ["concepts"]
 
 [options]
   lazySizes = true

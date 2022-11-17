@@ -1,9 +1,11 @@
 ---
-title : "Overview"
+title : "What are NATs"
 description: "We want libp2p applications to run everywhere, not just in data centers or on machines with stable public IP addresses. Learn about the main approaches to NAT traversal available in libp2p."
-weight: 1
+weight: 190
 aliases: /concepts/nat/
 ---
+
+## Overview
 
 The internet is composed of countless networks, bound together into shared address spaces by foundational [transport protocols](../../transport/overview).
 
@@ -19,7 +21,7 @@ While it's usually possible to manually configure routers, not everyone that wan
 
 We want libp2p applications to run everywhere, not just in data centers or on machines with stable public IP addresses. To enable this, here are the main approaches to NAT traversal available in libp2p today.
 
-### Automatic router configuration
+## Automatic router configuration
 
 Many routers support automatic configuration protocols for port forwarding, most commonly [UPnP][wiki_upnp] or [nat-pmp.][wiki_nat-pmp]
 

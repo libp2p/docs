@@ -1,11 +1,13 @@
 ---
 title: "Circuit Relay"
 description: "Circuit relay is a transport protocol that routes traffic between two peers over a third-party relay peer."
-weight: 3
+weight: 210
 aliases:
     - /concepts/circuit-relay
     - /concepts/nat/circuit-relay
 ---
+
+## What is Circuit Relay?
 
 Circuit relay is a [transport protocol](../../transports/overview) that routes traffic between two peers over a third-party "relay" peer.
 
@@ -21,11 +23,11 @@ Relay connections are end-to-end encrypted, which means that the peer acting as 
 An important aspect of the relay protocol is that it is not "transparent". In other words, both the source and destination are aware that traffic is being relayed. This is useful, since the destination can see the relay address used to open the connection and can potentially use it to construct a path back to the source. It is also not anonymous - all participants
 are identified using their Peer ID, including the relay node.
 
-#### Protocol Versions
+## Protocol Versions
 
 Today there are two versions of the circuit relay protocol, [v1](https://github.com/libp2p/specs/blob/master/relay/circuit-v1.md) and [v2](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md). We recommend using the latter over the former. See the [circuit relay v2 specification](https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md#introduction) for a detailed comparison of the two. If not explicitly noted, this document describes the circuit relay v2 protocol.
 
-#### Relay addresses
+## Relay addresses
 
 A relay circuit is identified using a [multiaddr][definition_muiltiaddress] that includes the [Peer ID](../../fundamentals/peers) of the peer whose traffic is being relayed (the listening peer or "relay target").
 
@@ -49,7 +51,7 @@ By giving the full relay path to my friend `QmBob`, they're able to quickly esta
 
 > When advertising your address, it's best to provide relay addresses that include the transport address of the relay peer. > If the relay has many transport addresses, you can advertise a `p2p-circuit` through each of them.
 
-#### Process
+## Process
 
 The below sequence diagram depicts a sample relay process:
 

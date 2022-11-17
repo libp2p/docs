@@ -1,10 +1,12 @@
 ---
 title: "QUIC"
 description: "QUIC is a new transport protocol that provides an always-encrypted, stream-multiplexed connection built on top of UDP. Learn about QUIC and how it is used in libp2p."
-weight: 2
+weight: 90
 aliases:
     - /concepts/transports/quic/
 ---
+
+## What is QUIC?
 
 QUIC is a new transport protocol that provides an always-encrypted, stream-multiplexed
 connection built on top of UDP. It started as an experiment by Google between Google
@@ -67,7 +69,7 @@ In contrast, HTTP/3 runs over [QUIC](#what-is-quic), where QUIC is similar to
 TCP+TLS+HTTP/2 and runs over UDP. Building on UDP allows HTTP/3 to bypass the challenges
 found in TCP and use all the advantages of HTTP/2 and HTTP over QUIC.
 
-### What is QUIC?
+### How does QUIC work?
 
 QUIC combines the functionality of these layers. Instead of TCP, it builds on UDP.
 When a UDP datagram is lost, it is not automatically retransmitted by the kernel.
@@ -82,7 +84,7 @@ In addition, a client can make use of QUIC's 0 RTT feature for subsequent connec
 when it has already communicated with a certain server. The client can then send
 (encrypted) application data even before the QUIC handshake has finished.
 
-### QUIC in libp2p
+## QUIC in libp2p
 
 libp2p only supports bidirectional streams and uses TLS 1.3 by default.
 Since QUIC already provides an encrypted, stream-multiplexed connection,

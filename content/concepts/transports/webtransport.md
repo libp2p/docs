@@ -1,10 +1,12 @@
 ---
 title: "WebTransport"
 description: "WebTransport is a new specification that uses QUIC to offer an alternative to WebSocket. Conceptually, it can be considered WebSocket over QUIC.Learn about WebTransport and how it is used in libp2p."
-weight: 4
+weight: 100
 aliases:
     - /concepts/transports/webtransport/
 ---
+
+## What is WebTransport?
 
 While browsers perform HTTP request using HTTP/3, so far they don't offer an API to allow
 applications to gain access to the underlying QUIC stream.
@@ -32,19 +34,14 @@ achieve this).
 Therefore, WebTransport exhibits all the advantages of QUIC over TCP, that being
 faster handshakes, no HoL blocking, and being future-proof.
 
-<!-- ADD NOTICE -->
-There is an experimental WebTransport transport in go-libp2p that is part
-of the [v0.23 release](https://github.com/libp2p/go-libp2p/releases/tag/v0.23.0).
-The implementation should be used experimentally and is not recommended for production
-environments.
-
-js-libp2p also plans to release
-[WebTransport support](https://github.com/libp2p/js-libp2p-webtransport) very soon.
-
-There are currently no concrete plans to support WebTransport beyond the Go and JS
-implementations.
-
-<!-- ends -->
+> There is an experimental WebTransport transport in go-libp2p that is part
+> of the [v0.23 release](https://github.com/libp2p/go-libp2p/releases/tag/v0.23.0).
+> The implementation should be used experimentally and is not recommended for production
+> environments.
+> js-libp2p also plans to release
+> [WebTransport support](https://github.com/libp2p/js-libp2p-webtransport) very soon.
+> There are currently no concrete plans to support WebTransport beyond the Go and JS
+> implementations.
 
 For network stacks like libp2p, WebTransport is a pluggable
 protocol that fits well with a modular network design.
@@ -71,7 +68,7 @@ In principle, the WebTransport protocol would even allow running the WebTranspor
 handshake and the Noise handshake in parallel. However, this is currently not
 possible since the [browser API doesn't allow that yet](https://github.com/w3c/webtransport/issues/409).
 
-### WebTransport in libp2p
+## WebTransport in libp2p
 
 WebTransport multiaddresses are composed of a QUIC multiaddr, followed
 by `/webtransport` and a list of multihashes of the node certificates that the server uses.

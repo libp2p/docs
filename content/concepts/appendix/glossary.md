@@ -1,7 +1,7 @@
 ---
 title: "Glossary"
 description: A compiled list of words, phrases, and abbreviations for libp2p.
-weight: 1
+weight: 280
 aliases:
    - /concepts/glossary/
    - /reference/glossary/

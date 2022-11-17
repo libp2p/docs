@@ -1,7 +1,7 @@
 ---
 title: "Get Involved"
-description: Get involved and participate in the libp2p community.
-weight: 1
+description: "Get involved and participate in the libp2p community."
+weight: 260
 aliases:
    - /community/
    - /community/community/
