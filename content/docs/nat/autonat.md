@@ -1,9 +1,10 @@
 ---
 title: "AutoNAT"
-weight: 3
-pre: '<i class="fas fa-fw fa-book"></i> <b> </b>'
-chapter: true
-summary: AutoNAT lets peers request dial-backs from peers providing the AutoNAT service.
+description: AutoNAT lets peers request dial-backs from peers providing the AutoNAT service.
+weight: 2
+aliases:
+    - /concepts/autonat
+    - /concepts/nat/autonat
 ---
 
 While the [identify protocol][spec_identify] described above lets peers inform each other about their observed network addresses, not all networks will allow incoming connections on the same port used for dialing out.
@@ -13,6 +14,6 @@ If this succeeds, we can rely on other peers being able to dial us as well and w
 
 A libp2p protocol called AutoNAT lets peers request dial-backs from peers providing the AutoNAT service.
 
-> AutoNAT is currently implemented in go-libp2p via [go-libp2p-autonat](https://github.com/libp2p/go-libp2p/tree/master/p2p/> host/autonat).
->
+> AutoNAT is currently implemented in go-libp2p via [go-libp2p-autonat](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/autonat).
+
 [spec_identify]: https://github.com/libp2p/specs/tree/master/identify
