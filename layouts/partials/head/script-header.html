@@ -6,3 +6,5 @@
   {{ $alertInit := resources.Get "js/alert-init.js" | js.Build | minify -}}
   <script>{{ $alertInit.Content | safeJS }}</script>
 {{- end -}}
+<!-- Plausible Analytics -->
+<script defer data-domain="docs.libp2p.io" src="https://plausible.io/js/script.js"></script>

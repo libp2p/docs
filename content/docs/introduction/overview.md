@@ -1,8 +1,8 @@
 ---
 title: "What is libp2p"
+description: libp2p is a modular system of protocols, specifications and libraries that enable the development of peer-to-peer network applications.
 weight: 1
 aliases: /introduction/what-is-libp2p/
-summary: libp2p is a modular system of protocols, specifications and libraries that enable the development of peer-to-peer network applications.
 ---
 
 libp2p is a modular system of *protocols*, *specifications* and *libraries*

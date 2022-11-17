@@ -26,6 +26,15 @@
 }
 */
 
+.navbar-logo {
+  background-image: url("/logos/libp2p_color_symbol.svg");
+  background-size: 90px;
+  width: 100px;
+  min-height: 103px;
+  background-repeat: no-repeat;
+  margin: 10px;
+}
+
 .navbar {
   z-index: 1000;
   background-color: rgba(255, 255, 255, 0.95);

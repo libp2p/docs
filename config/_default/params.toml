@@ -10,7 +10,7 @@ description = "libp2p is a modular system of protocols, specifications and libra
 # docsVersion = "0.3"
 
 ## Open Graph
-images = ["libp2p_monochrome_horizontal.png"]
+images = ["logos/libp2p_monochrome_hero"]
 ogLocale = "en_US"
 domainTLD = "docs.libp2p.io"
 titleHome = "libp2p Documentation Portal"
@@ -62,20 +62,19 @@ defaultImage = "default-image.png" # put in `./assets/images/`
 fillImage = "1270x740 Center" # normalize image size
 
 # Footer
-footer = "Built with ❤️ from libp2p, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
-
+footer = "Built with ❤️ from <a class=\"text-muted\" href=\"https://libp2p.io/\">libp2p</a> libp2p, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
 
 # Alert
-alert = false
+alert = true
 alertDismissable = true
+alertText = "The libp2p docs have a new look! Help docs.libp2p.io continue to improve by <a class=\"alert-link stretched-link\" href=\"https://c8s7127jv3t.typeform.com/to/D5mGElMD\" target=\"_blank\" rel=\"noopener\">providing your feedback.</a>"
 
 # Edit Page
 repoHost = "GitHub"
-#repoHost = "Gitea"
 docsRepo = "https://github.com/libp2p/docs"
 docsRepoBranch = "master"
-editPage = false
-lastMod = false
+editPage = true
+lastMod = true
 
 [sections]
   sectionNav = ["docs", "guides"]
@@ -89,17 +88,17 @@ lastMod = false
   searchSectionsIndex = []
   darkMode = true
   bootStrapJs = true
-  breadCrumb = false
+  breadCrumb = true
   highLight = true
   kaTex = false
   multilingualMode = false
   docsVersioning = false
   fullWidth = false
-  navbarSticky = true
-  toTopButton = false
+  navbarSticky = false
+  toTopButton = true
   scrollSpy = false # experimental; needs Bootstrap >= 5.2.0-beta1
 
 [menu]
   [menu.section]
     auto = true
-    collapsibleSidebar = true
+    collapsibleSidebar = false
