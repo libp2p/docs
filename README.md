@@ -1,8 +1,6 @@
-<p align="center">
-<img align="center" src="static/logos/libp2p-docs-logo.png" width="615">
-</p>
-
 <div align="center">
+<img align="center" src="static/logos/libp2p_monochrome_hero.png" width="215">
+<h1> libp2p Documentation Portal <h1>
 
 [![Made by icon.](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](https://protocol.ai/)
 [![Project icon.](https://img.shields.io/badge/project-libp2p-lightgrey)](https://libp2p.io/)
