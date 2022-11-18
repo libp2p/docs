@@ -131,7 +131,6 @@ Throughout this guide, numbers <mark style="background-color:lavender">highlight
 by the developer.
 {{< /alert >}}
 
-
 The peering degree (also called the *network degree* or *D*) controls the
 trade-off between speed, reliability, resilience and efficiency of the network.
 A higher peering degree helps messages get delivered faster, with a better

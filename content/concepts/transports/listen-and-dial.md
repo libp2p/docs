@@ -69,7 +69,6 @@ When peer routing is enabled, you can dial peers using just their PeerId,
 without needing to know their transport addresses before hand.
 {{< /alert >}}
 
-
 ## Supporting multiple transports
 
 libp2p applications often need to support multiple transports at once. For
