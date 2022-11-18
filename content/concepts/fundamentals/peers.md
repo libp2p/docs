@@ -106,7 +106,6 @@ Implementations may wish to persist a snapshot of the peer store on shutdown, so
 they don’t have to start with an empty peer store when they boot up the next time.
 {{< /alert >}}
 
-
 ### Peer Discovery
 
 A discovery method is likely needed if no information about a peer is available in the
