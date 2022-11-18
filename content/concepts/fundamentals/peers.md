@@ -80,11 +80,11 @@ produce the Peer ID embedded in the address.
 
 **For more on addresses in libp2p, see [Addressing](/concepts/addressing/)**
 
-> The multiaddr protocol for libp2p addresses was originally written `/ipfs`
-> and was later renamed to `/p2p`.
-> The two are equivalent and have the same binary
-> representation in multiaddrs. Which one is rendered in the string format
-> depends on the version of the multiaddr library in use.
+{{< alert icon="💡" context="note">}}
+The multiaddr protocol for libp2p addresses was originally written `/ipfs` and was later renamed to `/p2p`.
+The two are equivalent and have the same binary representation in multiaddrs.
+Which one is rendered in the string format depends on the version of the multiaddr library in use.
+{{< /alert >}}
 
 ## Peer Info
 
@@ -101,8 +101,11 @@ addresses and associated metadata. The peer store works like a phone or address
 book; think of it like a universal multiaddr book that maintains the source of truth
 for all known peers.
 
-> Implementations may wish to persist a snapshot of the peer store on shutdown, so that
-> they don’t have to start with an empty peer store when they boot up the next time.
+{{< alert icon="💡" context="info">}}
+Implementations may wish to persist a snapshot of the peer store on shutdown, so that
+they don’t have to start with an empty peer store when they boot up the next time.
+{{< /alert >}}
+
 
 ### Peer Discovery
 

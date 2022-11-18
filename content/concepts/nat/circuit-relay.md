@@ -17,8 +17,9 @@ To enable peer-to-peer architectures in the face of connectivity barriers like N
 
 The circuit relay protocol is inspired by [TURN](https://tools.ietf.org/html/rfc5766), which is part of the [Interactive Connectivity Establishment](https://tools.ietf.org/html/rfc8445) collection of NAT traversal techniques.
 
-<!-- ADD NOTICE -->
+{{< alert icon="💡" context="note">}}
 Relay connections are end-to-end encrypted, which means that the peer acting as the relay is unable to read or tamper with any traffic that flows through the connection.
+{{< /alert >}}
 
 An important aspect of the relay protocol is that it is not "transparent". In other words, both the source and destination are aware that traffic is being relayed. This is useful, since the destination can see the relay address used to open the connection and can potentially use it to construct a path back to the source. It is also not anonymous - all participants
 are identified using their Peer ID, including the relay node.
@@ -49,7 +50,9 @@ Everything prior to the `/p2p-circuit/` above is the address of the relay peer, 
 
 By giving the full relay path to my friend `QmBob`, they're able to quickly establish a relayed connection without having to "ask around" for a relay that has a route to `QmAlice`.
 
-> When advertising your address, it's best to provide relay addresses that include the transport address of the relay peer. > If the relay has many transport addresses, you can advertise a `p2p-circuit` through each of them.
+{{< alert icon="💡" context="tip">}}
+When advertising your address, it's best to provide relay addresses that include the transport address of the relay peer. > If the relay has many transport addresses, you can advertise a `p2p-circuit` through each of them.
+{{< /alert >}}
 
 ## Process
 

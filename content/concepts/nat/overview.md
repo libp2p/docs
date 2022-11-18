@@ -28,9 +28,10 @@ Many routers support automatic configuration protocols for port forwarding, most
 If your router supports one of those protocols, libp2p will attempt to automatically configure a port mapping that will
 allow it to listen for incoming traffic. This is usually the simplest option if supported by the network and libp2p implementation.
 
-<!-- ADD NOTICE -->
+{{< alert icon="💡" context="info">}}
 Support for automatic NAT configuration varies by libp2p implementation.
 Check the [current implementation status](https://libp2p.io/implementations/#nat-traversal) for details.
+{{< /alert >}}
 
 [wiki_upnp]: https://en.wikipedia.org/wiki/Universal_Plug_and_Play
 [wiki_nat-pmp]: https://en.wikipedia.org/wiki/NAT_Port_Mapping_Protocol

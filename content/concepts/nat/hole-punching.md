@@ -62,10 +62,7 @@ Take two nodes, `A` and `B`, that would like the dial each other:
    passes through their respective routers.
 2. The routers add a 5-tuple to their router's state table.
 
-   > A router state table (routing table) is data store within a router that lists
-   > the routes to particular network destinations.
-   > The 5-tuple structure includes the source IP address, source port,
-   > destination IP address, destination port, and transport protocol.
+  {{< alert icon="💡" context="info" text="A router state table (routing table) is data store within a router that lists the routes to particular network destinations. The 5-tuple structure includes the source IP address, source port, destination IP address, destination port, and transport protocol." />}}
 
 3. `PacketA` and `PacketB` "punch holes" into their respective routers'
    firewalls.
@@ -81,7 +78,9 @@ The following use case diagram illustrates the above process.
 
 <img src="../../assets/hole-punching/libp2p-hole-punching-2.svg/" >
 
-> This process assumes a mechanism to synchronize `A` and `B` simultaneously.
+{{< alert icon="💡" context="note">}}
+This process assumes a mechanism to synchronize `A` and `B` simultaneously.
+{{< /alert >}}
 
 ## Hole punching in libp2p
 
@@ -103,7 +102,7 @@ a hole punching phase.
 1. [AutoNAT](../autonat): Determine whether a node is dialable,
    as in, discover if a node is behind a NAT or firewall.
 
-   > This is equivalent to the
+  > This is equivalent to the
    > [STUN protocol](https://www.rfc-editor.org/rfc/rfc3489) in ICE.
 
    <img src="../../assets/hole-punching/libp2p-hole-punching-5.svg/" >

@@ -93,9 +93,7 @@ certificate, which they sign using their host's private key. This is the same wa
 IDs are authenticated in the
 [libp2p TLS handshake](https://github.com/libp2p/specs/blob/master/tls/tls.md).
 
-> To be clear, there is no additional security handshake and stream muxer needed as QUIC
-> provides all of this by default. This also means that establishing a libp2p connection
-> between two nodes using QUIC only takes a single RTT.
+{{< alert icon="💡" context="note" text="To be clear, there is no additional security handshake and stream muxer needed as QUIC provides all of this by default. This also means that establishing a libp2p connection between two nodes using QUIC only takes a single RTT." />}}
 
 Following the multiaddress format described earlier, a standard QUIC connection will
 look like: `/ip4/127.0.0.1/udp/65432/quic/`.

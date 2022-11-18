@@ -110,8 +110,8 @@ Limiting the number of full-message peerings is useful because it keeps the
 amount of network traffic under control; each peer only forwards messages to a
 few other peers, rather than all of them. Each peer has a target number of peers
 it wants to be connected to. In this example each peer would ideally like to be
-connected to <span class="configurable">3</span> other peers, but would settle
-for <span class="configurable">2</span>–<span class="configurable">4</span>
+connected to <mark style="background-color:lavender">3</mark> other peers, but would settle
+for <mark style="background-color:lavender">2</mark>–<mark style="background-color:lavender">4</mark>
 connections:
 
 <!--[Diagram showing a large shaded area with scattered dots inside connected by
@@ -126,9 +126,11 @@ respectively.]-->
 
 <img src="../../assets/publish-subscribe/full_message_network.png" width="650" height="2%">
 
-<div class="notices note" ><p>Throughout this guide, numbers
-<span class="configurable">highlighted in purple</span> can be configured
-by the developer.</p></div>
+{{< alert icon="💡" context="note">}}
+Throughout this guide, numbers <mark style="background-color:lavender">highlighted in purple</mark> can be configured
+by the developer.
+{{< /alert >}}
+
 
 The peering degree (also called the *network degree* or *D*) controls the
 trade-off between speed, reliability, resilience and efficiency of the network.
@@ -139,8 +141,8 @@ redundant copies of each message to be sent throughout the network, increasing
 the bandwidth required to participate in the network.
 
 In libp2p’s default implementation the ideal network peering degree is
-<span class="configurable">6</span> with anywhere from
-<span class="configurable">4</span>–<span class="configurable">12</span>
+<mark style="background-color:lavender">6</mark> with anywhere from
+<mark style="background-color:lavender">4</mark>–<mark style="background-color:lavender">12</mark>
 being acceptable.
 
 ### Metadata-only
@@ -228,7 +230,7 @@ complete”.]-->
 <img src="../../assets/publish-subscribe/maintain_prune.png" width="650" height="4%">
 
 In libp2p’s implementation, each peer performs a series of checks every
-<span class="configurable">1</span> second. These checks are called the
+<mark style="background-color:lavender">1</mark> second. These checks are called the
 *heartbeat*. Grafting and pruning happens during this time.
 
 ## Subscribing and unsubscribing
@@ -360,8 +362,8 @@ be dropped and not replicated further through the network.
 ## Gossip
 
 Peers gossip about messages they have recently seen. Every
-<span class="configurable">1</span> second each peer randomly selects
-<span class="configurable">6</span> metadata-only peers and sends them a list of
+<mark style="background-color:lavender">1</mark> second each peer randomly selects
+<mark style="background-color:lavender">6</mark> metadata-only peers and sends them a list of
 recently seen messages.
 
 <!--[Diagram with three panels showing progression from left to right. The first
@@ -430,8 +432,8 @@ There are some special rules about how to do this to help ensure these messages
 are delivered reliably.
 
 The first time a peer wants to publish a message to a topic it is not subscribed
-to, it randomly picks <span class="configurable">6</span> peers
-(<span class="configurable">3</span> shown below) that are
+to, it randomly picks <mark style="background-color:lavender">6</mark> peers
+(<mark style="background-color:lavender">3</mark> shown below) that are
 subscribed to that topic and remembers them as **fan-out** peers for that topic:
 
 <!--[Diagram with two panels showing progression from left to right. The first
@@ -475,7 +477,7 @@ area.]-->
 
 If the sender goes to send a message but notices some of their fan-out peers
 went away since last time, they will randomly select additional fan-out peers
-to top them back up to <span class="configurable">6</span>.
+to top them back up to <mark style="background-color:lavender">6</mark>.
 
 When a peer subscribes to a topic, if it already has some fan-out peers it will
 prefer them to become the full-message peers:
@@ -498,7 +500,7 @@ before.]-->
 
 <img src="../../assets/publish-subscribe/fanout_grafting_preference.png" width="650" height="2%">
 
-After <span class="configurable">2</span> minutes of not sending any messages to
+After <mark style="background-color:lavender">2</mark> minutes of not sending any messages to
 a topic, all the fan-out peers for that topic are forgotten:
 
 <!--[Diagram with two panels showing progression from left to right. Each panel

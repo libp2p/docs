@@ -34,14 +34,7 @@ achieve this).
 Therefore, WebTransport exhibits all the advantages of QUIC over TCP, that being
 faster handshakes, no HoL blocking, and being future-proof.
 
-> There is an experimental WebTransport transport in go-libp2p that is part
-> of the [v0.23 release](https://github.com/libp2p/go-libp2p/releases/tag/v0.23.0).
-> The implementation should be used experimentally and is not recommended for production
-> environments.
-> js-libp2p also plans to release
-> [WebTransport support](https://github.com/libp2p/js-libp2p-webtransport) very soon.
-> There are currently no concrete plans to support WebTransport beyond the Go and JS
-> implementations.
+{{< alert icon="💡" context="note" text="There is an experimental WebTransport transport in go-libp2p that is part of the <a href=\"https://github.com/libp2p/go-libp2p/releases/tag/v0.23.0\">v0.23 release</a>. The implementation should be used experimentally and is not recommended for production environments. js-libp2p also plans to release <a href=\"https://github.com/libp2p/js-libp2p-webtransport\">WebTransport support</a> very soon. There are currently no concrete plans to support WebTransport beyond the Go and JS implementations." />}}
 
 For network stacks like libp2p, WebTransport is a pluggable
 protocol that fits well with a modular network design.

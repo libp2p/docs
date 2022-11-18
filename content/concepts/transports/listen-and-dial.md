@@ -64,8 +64,11 @@ The `/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6` component uniquely
 identifies the remote peer using the hash of its public key.
 For more, see the [peer identity content](../../fundamentals/peers#peer-id).
 
+{{< alert icon="💡" context="tip">}}
 When peer routing is enabled, you can dial peers using just their PeerId,
 without needing to know their transport addresses before hand.
+{{< /alert >}}
+
 
 ## Supporting multiple transports
 
@@ -85,7 +88,6 @@ The switch provides a single "entry point" for dialing and listening, and frees
 up your application code from having to worry about the specific transports
 and other pieces of the "connection stack" that are used under the hood.
 
-> The term "swarm" was previously used to refer to what is now called the "switch",
-> and some places in the codebase still use the "swarm" terminology.
+{{< alert icon="💡" context="note" text="The term \"swarm\" was previously used to refer to what is now called the \"switch\", and some places in the codebase still use the \"swarm\" terminology." />}}
 
 [definition_switch]: ../../appendix/glossary/#switch

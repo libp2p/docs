@@ -38,10 +38,11 @@ Breaking changes to your protocol's wire format or semantics should result in a 
 number. See the [protocol negotiation section](#protocol-neotiation) for more information about
 how version selection works during the dialing and listening process.
 
-<!-- ADD NOTICE -->
+{{< alert icon="💡" context="info">}}
 While libp2p will technically accept any string as a valid protocol id,
 using the recommended path structure with a version component is both
 developer-friendly and enables [easier matching by version](#match-using-semver).
+{{< /alert >}}
 
 #### Handler functions
 

@@ -24,7 +24,11 @@ many streams as we need, since they will all share the same underlying transport
 support for multiple multiplexers, which will allow you to fall back to a widely-supported multiplexer if a preferred
 choice is not supported by a remote peer.
 
-> libp2p's multiplexing happens at the application layer, meaning it's not provided by the
-> operating system's network stack. However, developers writing libp2p applications rarely need to
-> interact with stream multiplexers directly, except during initial configuration to control which
-> modules are enabled.
+
+{{< alert icon="💡" context="info">}}
+libp2p's multiplexing happens at the application layer, meaning it's not provided by the
+operating system's network stack. However, developers writing libp2p applications rarely need to
+interact with stream multiplexers directly, except during initial configuration to control which
+modules are enabled.
+{{< /alert >}}
+
