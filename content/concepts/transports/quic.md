@@ -20,9 +20,7 @@ services and Chrome in 2014, and was later standardized by the IETF in
 1. Head-of-line blocking (HoL blocking): TCP is a single byte stream exposed by the
    kernel, so streams layered on top of TCP experience head-of-line (HoL) blocking.
 
-   > In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered
-   > after that need to wait in the kernel buffer until a retransmission for the lost packet
-   > is received.
+   {{< alert icon="💡" context="info" text="In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered after that need to wait in the kernel buffer until a retransmission for the lost packet is received." />}}
 
 2. Ossification: Because the header of TCP packet is not encrypted, middleboxes can
    inspect and modify TCP header fields and may break unexpectedly when they encounter
