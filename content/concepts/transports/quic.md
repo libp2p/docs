@@ -20,9 +20,7 @@ services and Chrome in 2014, and was later standardized by the IETF in
 1. Head-of-line blocking (HoL blocking): TCP is a single byte stream exposed by the
    kernel, so streams layered on top of TCP experience head-of-line (HoL) blocking.
 
-   > In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered
-   > after that need to wait in the kernel buffer until a retransmission for the lost packet
-   > is received.
+   {{< alert icon="💡" context="info" text="In TCP, head-of-line blocking occurs when a single packet is lost, and packets delivered after that need to wait in the kernel buffer until a retransmission for the lost packet is received." />}}
 
 2. Ossification: Because the header of TCP packet is not encrypted, middleboxes can
    inspect and modify TCP header fields and may break unexpectedly when they encounter
@@ -95,9 +93,7 @@ certificate, which they sign using their host's private key. This is the same wa
 IDs are authenticated in the
 [libp2p TLS handshake](https://github.com/libp2p/specs/blob/master/tls/tls.md).
 
-> To be clear, there is no additional security handshake and stream muxer needed as QUIC
-> provides all of this by default. This also means that establishing a libp2p connection
-> between two nodes using QUIC only takes a single RTT.
+{{< alert icon="💡" context="note" text="To be clear, there is no additional security handshake and stream muxer needed as QUIC provides all of this by default. This also means that establishing a libp2p connection between two nodes using QUIC only takes a single RTT." />}}
 
 Following the multiaddress format described earlier, a standard QUIC connection will
 look like: `/ip4/127.0.0.1/udp/65432/quic/`.

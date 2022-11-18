@@ -8,6 +8,8 @@ weight: 180
 yamux offers more sophisticated flow control than mplex, and can scale to thousands of multiplexed streams over a
 single connection.
 
-> This section is incomplete, and many of the articles are stubs. To help fill in
-> the gaps, please see the issues linked in each article to add your input and
-> help us prioritize the outstanding work.
+{{< alert icon="💡" context="note">}}
+This section is incomplete, and many of the articles are stubs. To help fill in
+the gaps, please see the issues linked in each article to add your input and
+help us prioritize the outstanding work.
+{{< /alert >}}

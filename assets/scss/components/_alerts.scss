@@ -1,6 +1,6 @@
 .alert {
-  font-family: $font-family-monospace;
-  font-size: $font-size-sm;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
 }
 
 .alert-icon {
@@ -70,33 +70,33 @@
   color: #34383c;
 }
 
-.alert-success {
+.alert-tip {
   color: #0f5132;
   background-color: #d1e7dd;
   border-color: #badbcc;
 }
 
-.alert-success .alert-link {
+.alert-tip .alert-link {
   color: #0c4128;
 }
 
-.alert-info {
+.alert-note {
   color: #055160;
   background-color: #cff4fc;
   border-color: #b6effb;
 }
 
-.alert-info .alert-link {
+.alert-note .alert-link {
   color: #04414d;
 }
 
-.alert-warning {
+.alert-info {
   color: #664d03;
   background-color: #fff3cd;
   border-color: #ffecb5;
 }
 
-.alert-warning .alert-link {
+.alert-info .alert-link {
   color: #523e02;
 }
 

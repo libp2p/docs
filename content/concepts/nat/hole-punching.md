@@ -61,12 +61,7 @@ Take two nodes, `A` and `B`, that would like the dial each other:
 1. The first packet of both nodes (e.g., in the case of TCP, an SYN)
    passes through their respective routers.
 2. The routers add a 5-tuple to their router's state table.
-
-   > A router state table (routing table) is data store within a router that lists
-   > the routes to particular network destinations.
-   > The 5-tuple structure includes the source IP address, source port,
-   > destination IP address, destination port, and transport protocol.
-
+  {{< alert icon="💡" context="info" text="A router state table (routing table) is data store within a router that lists the routes to particular network destinations. The 5-tuple structure includes the source IP address, source port, destination IP address, destination port, and transport protocol." />}}
 3. `PacketA` and `PacketB` "punch holes" into their respective routers'
    firewalls.
 4. Both packets arrive at the opposite router.
@@ -81,7 +76,9 @@ The following use case diagram illustrates the above process.
 
 <img src="../../assets/hole-punching/libp2p-hole-punching-2.svg/" >
 
-> This process assumes a mechanism to synchronize `A` and `B` simultaneously.
+{{< alert icon="💡" context="note">}}
+This process assumes a mechanism to synchronize `A` and `B` simultaneously.
+{{< /alert >}}
 
 ## Hole punching in libp2p
 
