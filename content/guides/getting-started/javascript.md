@@ -33,7 +33,7 @@ We need a place to put our work, so open a terminal to make a new directory for 
 
 # make it an npm project. fill in the prompts with info for your project
 # when asked for your project's entry point, enter "src/index.js"
-> npm init
+> npm init es6
 ```
 
 Side note: throughout this tutorial, we use the `>` character to indicate your terminal's shell prompt. When following along, don't type the `>` character, or you'll get some weird errors.
@@ -72,10 +72,10 @@ Now that we have the module installed, let's configure libp2p to use the Transpo
 
 ```js
 import { createLibp2p } from 'libp2p'
-import { TCP } from '@libp2p/tcp'
+import { tcp } from '@libp2p/tcp'
 
 const node = await createLibp2p({
-  transports: [new TCP()]
+  transports: [tcp()]
 })
 
 ```
@@ -94,12 +94,12 @@ npm install @chainsafe/libp2p-noise
 
 ```js
 import { createLibp2p } from 'libp2p'
-import { TCP } from '@libp2p/tcp'
-import { Noise } from '@chainsafe/libp2p-noise'
+import { tcp } from '@libp2p/tcp'
+import { noise } from '@chainsafe/libp2p-noise'
 
 const node = await createLibp2p({
-  transports: [new TCP()],
-  connectionEncryption: [new Noise()]
+  transports: [tcp()],
+  connectionEncryption: [noise()]
 })
 
 ```
@@ -116,14 +116,14 @@ npm install @libp2p/mplex
 
 ```js
 import { createLibp2p } from 'libp2p'
-import { TCP } from '@libp2p/tcp'
-import { Noise } from '@chainsafe/libp2p-noise'
-import { Mplex } from '@libp2p/mplex'
+import { tcp } from '@libp2p/tcp'
+import { noise } from '@chainsafe/libp2p-noise'
+import { mplex } from '@libp2p/mplex'
 
 const node = await createLibp2p({
-  transports: [new TCP()],
-  connectionEncryption: [new Noise()],
-  streamMuxers: [new Mplex()]
+  transports: [tcp()],
+  connectionEncryption: [noise()],
+  streamMuxers: [mplex()]
 })
 
 ```
@@ -134,9 +134,9 @@ Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexe
 
 ```js
 import { createLibp2p } from 'libp2p'
-import { TCP } from '@libp2p/tcp'
-import { Noise } from '@chainsafe/libp2p-noise'
-import { Mplex } from '@libp2p/mplex'
+import { tcp } from '@libp2p/tcp'
+import { noise } from '@chainsafe/libp2p-noise'
+import { mplex } from '@libp2p/mplex'
 
 const main = async () => {
   const node = await createLibp2p({
@@ -144,9 +144,9 @@ const main = async () => {
       // add a listen address (localhost) to accept TCP connections on a random port
       listen: ['/ip4/127.0.0.1/tcp/0']
     },
-    transports: [new TCP()],
-    connectionEncryption: [new Noise()],
-    streamMuxers: [new Mplex()]
+    transports: [tcp()],
+    connectionEncryption: [noise()],
+    streamMuxers: [mplex()]
   })
 
   // start libp2p
@@ -192,9 +192,9 @@ npm install multiaddr
 ```javascript
 import process from 'node:process'
 import { createLibp2p } from 'libp2p'
-import { TCP } from '@libp2p/tcp'
-import { Noise } from '@chainsafe/libp2p-noise'
-import { Mplex } from '@libp2p/mplex'
+import { tcp } from '@libp2p/tcp'
+import { noise } from '@chainsafe/libp2p-noise'
+import { mplex } from '@libp2p/mplex'
 import { multiaddr } from 'multiaddr'
 
 const node = await createLibp2p({
@@ -202,9 +202,9 @@ const node = await createLibp2p({
     // add a listen address (localhost) to accept TCP connections on a random port
     listen: ['/ip4/127.0.0.1/tcp/0']
   },
-  transports: [new TCP()],
-  connectionEncryption: [new Noise()],
-  streamMuxers: [new Mplex()]
+  transports: [tcp()],
+  connectionEncryption: [noise()],
+  streamMuxers: [mplex()]
 })
 
 // start libp2p
