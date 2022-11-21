@@ -3,8 +3,8 @@ title: "Circuit Relay"
 description: "Circuit relay is a transport protocol that routes traffic between two peers over a third-party relay peer."
 weight: 210
 aliases:
-    - /concepts/circuit-relay
-    - /concepts/nat/circuit-relay
+    - "/concepts/circuit-relay"
+    - "/concepts/nat/circuit-relay"
 ---
 
 ## What is Circuit Relay?

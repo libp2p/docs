@@ -3,8 +3,8 @@ title: "AutoNAT"
 description: AutoNAT lets peers request dial-backs from peers providing the AutoNAT service.
 weight: 200
 aliases:
-    - /concepts/autonat
-    - /concepts/nat/autonat
+    - "/concepts/autonat"
+    - "/concepts/nat/autonat"
 ---
 
 ## What is AutoNAT?

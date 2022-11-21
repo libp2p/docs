@@ -3,8 +3,8 @@ title: "Security Considerations"
 description: "libp2p makes it simple to establish encrypted, authenticated communication channels between two peers, but there are other important security issues to consider when building robust peer-to-peer systems."
 weight: 240
 aliases:
-   - /concepts/security-considerations/
-   - /concepts/security/security-considerations/
+   - "/concepts/security-considerations"
+   - "/concepts/security/security-considerations"
 ---
 
 ## Security in libp2p

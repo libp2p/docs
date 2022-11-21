@@ -2,9 +2,9 @@
 title: "Run a js-libp2p node"
 weight: 2
 aliases:
-    - /tutorials/javascript/
-    - /guides/
-    - /guides/javascript/
+    - "/tutorials/javascript"
+    - "/guides"
+    - "/guides/javascript"
 ---
 
 This is the first in a series of tutorials on working with libp2p's javascript implementation,

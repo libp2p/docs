@@ -2,7 +2,9 @@
 title: "What is Publish/Subscribe"
 description: "Publish/Subscribe is a system where peers congregate around topics they are interested in. Peers interested in a topic are said to be subscribed to that topic. Learn about how peers can message data in libp2p."
 weight: 230
-aliases: /concepts/publish-subscribe/
+aliases:
+    - "/concepts/publish-subscribe"
+    - "/concepts/pubsub"
 ---
 
 ## Overview
