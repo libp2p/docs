@@ -2,9 +2,9 @@
 title: "Run a go-libp2p node"
 weight: 1
 aliases:
-    - /tutorials/go/
-    - /guides/
-    - /guides/go/
+    - "/tutorials/go"
+    - "/guides"
+    - "/guides/go"
 ---
 
 The getting started tutorial covers setting up a development environment, getting familiar
