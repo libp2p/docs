@@ -5,7 +5,7 @@
 
 [[main]]
   name = "Guides"
-  url = "/guides/"
+  url = "/guides/getting-started/go/"
   weight = 20
 
 [[main]]
