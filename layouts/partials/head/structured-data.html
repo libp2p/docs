@@ -135,7 +135,7 @@
         }{{ end }}]
     },
 
-    {{ if and (eq .Kind "page") (or (eq .Section "blog") (eq .Section "docs") (eq .Section "tutorial") (eq .Section "showcase")) -}}
+    {{ if and (eq .Kind "page") (or (eq .Section "concepts") (eq .Section "guides") (eq .Section "reference")) -}}
     {
       "@context": "https://schema.org",
       "@graph": [
