@@ -5,17 +5,12 @@
 
 [[main]]
   name = "Guides"
-  url = "/guides/"
+  url = "/guides/getting-started/go/"
   weight = 20
 
 [[main]]
-  name = "Blog"
-  url = "/blog/"
-  weight = 30
-
-[[main]]
   name = "Reference"
-  weight = 40
+  weight = 30
   identifier = "reference"
 
 [[main]]
@@ -41,7 +36,7 @@
 
 [[main]]
   name = "Community"
-  weight = 50
+  weight = 40
   identifier = "community"
 
 [[main]]

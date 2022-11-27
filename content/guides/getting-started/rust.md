@@ -1,6 +1,7 @@
 ---
 title: "Run a rust-libp2p node"
-weight: 3
+weight: 4
+description: "Learn how to run a rust-libp2p node and use the ping protocol"
 aliases:
     - "/tutorials/rust"
     - "/guides"
