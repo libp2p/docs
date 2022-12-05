@@ -1,6 +1,6 @@
 ---
 title: "TLS"
-description: Learn about TLS 1.3 in libp2p.
+description: Learn about TLS 1.3 in LibP2P.
 weight: 130
 aliases:
     - "/concepts/secure-comm/tls"
@@ -72,7 +72,7 @@ such as SHA-1.
   > Over the years, there have been vulnerabilities identified in a variety of encryption
   > algorithms. To guarantee safe communication, TLS 1.3 only supports
   > 5 cipher suites, as opposed to the 37 supported in TLS 1.2. They are:
-
+  >
   > - TLS_CHACHA20_POLY1305_SHA256
   > - TLS_AES_128_GCM_SHA256
   > - TLS_AES_256_GCM_SHA384
@@ -88,9 +88,9 @@ As a result, TLS 1.3 uses a new handshake protocol that allows for faster and mo
 establishment of encrypted connections. TLS 1.3 also introduces new features, such as certificate
 compression and support for cryptographic keys larger than 4096 bits.
 
-## TLS 1.3 in libp2p
+## TLS 1.3 in LibP2P
 
-To use TLS 1.3 in libp2p, a peer must first establish a TLS 1.3 connection with another peer using the
+To use TLS 1.3 in LibP2P, a peer must first establish a TLS 1.3 connection with another peer using the
 handshake protocol. Once the handshake is complete, the peers can use the encrypted connection
 to exchange data securely and privately.
 
