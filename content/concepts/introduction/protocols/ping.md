@@ -7,19 +7,30 @@ weight: 20
 ## What is Ping?
 
 Ping is a network utility used to test a node's reachability.
-The ping protocol is a simple request-response protocol that measures the RTT
-for requests sent from an originating node to a destination node by echoing
-a request payload.
+The ping protocol is a simple request-response protocol that measures
+the RTT for requests sent from an originating node to a destination node
+by echoing a request payload. This operates using
+[ICMP (Internet Control Message Protocol)](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol),
+where a ping is an ICMP echo request to the target node, and the response
+is an ICMP echo reply.
 
-## Ping in LibP2P
+Ping can also be a simple liveness check that peers can use to quickly
+see if another peer is online and measure RTT.
 
-In LibP2P, a peer opens a stream, sends a request with a payload of 32 random bytes,
-and the destination peer responds with 32 bytes on the same stream.
+The difference is that ICMP ping uses an echo request (ICMP type 8) packet
+to ping a node and receive an echo reply (type 0) packet, whereas a non-ICMP ping
+sends a packet based on the connection (e.g., TCP) to a node to receive
+a response packet of some kind.
 
-An originating peer will only have one outbound stream at a time, and a destination peer
-accepts a maximum of two streams per peer. This is because the destination peer may view
-the originating peer as opening and closing the wrong stream as cross-stream behavior is
-non-linear.
+## Ping in libp2p
+
+The ping protocol in libp2p serves as a health or liveness check,
+and can only be used over a live libp2p connection.
+A peer opens a stream, sends a request with a payload of 32 random
+bytes, and the destination peer responds with 32 bytes on the same stream.
+Peers can reuse a strean for future pings.
+
+Typically, a ping is sent over a stream after the initial protocol negotiation.
 
 The ping protocol ID is `/ipfs/ping/1.0.0`.
 
