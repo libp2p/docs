@@ -10,24 +10,20 @@ aliases:
 
 Before two peers can transmit data, the communication channel they
 establish with a transport protocol should be secure. By design,
-LibP2P promotes modularity, meaning that different types of transports
+libp2p promotes modularity, meaning that different types of transports
 can be used as part of the networking stack to power communication across
-system or application. Some transports can include native channel encryption,
-like QUIC, while other transports that establish a raw connection, like TCP
-sockets, lack native security and require a channel upgrade.
+system or application. Some transports include native channel encryption,
+like [QUIC](../transports/quic), while other transports that establish a
+raw connection, like TCP sockets, lack native security and require a channel
+upgrade.
 
-## Secure channels in LibP2P
+## Secure channels in libp2p
 
 A channel is upgraded with a component that layers security (and
 [stream multiplexing](../multiplex/overview)) over "raw" connections, known
-as a transport upgrader. A transport upgrader uses a protocol called **multistream-select**
-to negotiate the security and multiplexing protocols to use between two peers. Security
-is always established first over the "raw" connection. More information on **multistream-select**
-is available
+as a transport upgrader. In libp2p, a transport upgrader uses a protocol
+called **multistream-select** to negotiate the security and multiplexing protocols
+to use between two peers. Security is always established first over the "raw"
+connection. More information on **multistream-select** is available
 [here](https://github.com/libp2p/specs/blob/master/connections/README.md#multistream-select).
-LibP2P supports two security protocols, both with the technical
-specifications: [Noise](https://github.com/libp2p/specs/blob/master/noise/README.md)
-and [TLS 1.3](https://github.com/libp2p/specs/blob/master/tls/tls.md).
-
-Get introduced to TLS 1.3 by viewing the [TLS document](tls).
-Get introduced to Noise by viewing the [Noise document](noise).
+Libp2p supports two security protocols, [TLS 1.3](tls) and [Noise](noise).
