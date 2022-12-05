@@ -36,15 +36,14 @@ protocol.
 - [Security](../secure-comm/overview): WebRTC includes built-in security features, and
   connections are always encrypted by using [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security) or [SRTP](https://en.wikipedia.org/wiki/Secure_Real-time_Transport_Protocol).
 
-WebRTC includes several APIs to help facilitate the creation of a secure connection
-over the web.
-
-The `RTCPeerConnection` API allows two applications on different
-endpoints to communicate using a peer-to-peer protocol. The `PeerConnection` API
-interacts closely with a `getUserMedia` API for accessing a node's media-based peripheral
-device and uses the `getDisplayMedia` API to capture screen content. WebRTC allows a node
+WebRTC includes several APIs to help create a secure connection
+over the web. The
+[`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection) API allows two applications on different
+endpoints to communicate using a peer-to-peer protocol. WebRTC enables a node
 to send and receive streams that include media content and arbitrary binary data
-through the `DataChannel`.
+through the `DataChannel`. The `PeerConnection` API
+interacts closely with a `getUserMedia` API for accessing a node's media-based peripheral
+device and uses the `getDisplayMedia` API to capture screen content.
 
 ### WebRTC and WebTransport
 
@@ -83,20 +82,56 @@ In libp2p:
 - the `RTCPeerConnection` API allows an application to establish peer-to-peer
   communications;
 - the `RTCDataChannel` API supports peer-to-peer data channels;
-- a WebRTC multiaddresses are composed of a standard UDP multiaddr,
+- WebRTC multiaddresses are composed of a standard UDP multiaddr,
   followed by `webrtc` and the `multihash` of the certificate that
   the node uses, as such:
-  `/ip4/1.2.3.4/udp/1234/webrtc/certhash/<hash>/p2p/<peer-id>`.
-- The TLS certificate fingerprint in `/certhash` is a multibase encoded multihash.
+  `/ip4/1.2.3.4/udp/1234/webrtc/certhash/<hash>/p2p/<peer-id>`;
+- WebRTC offers security via TLS 1.2. Peers still need to authenticate remote peers
+  by their libp2p identity.
+- the TLS certificate fingerprint in `/certhash` is a multibase encoded multihash;
 - WebRTC can support UDP and TCP, but implementations must always support UDP.
 
 ### Browser-to-Server
 
 A browser can connect to a server node without needing a trusted TLS
 certificate. View [this example](https://github.com/libp2p/specs/blob/master/webrtc/README.md#browser-to-public-server) on browser-to-server connection establishment in the technical
-specification for reference.
+specification.
 
-<!-- TO ADD: DIAGRAMS ONCE READY + CONTEXt -->
+In general, a server will act as an [ICE Lite](https://www.rfc-editor.org/rfc/rfc5245)
+agent and binds to a UDP port waiting for incoming STUN and SCTP packets and multiplexes
+based on source IP and source port. It multiplexes based on a source IP and source port.
+
+Once a browser discovers a server's multiaddr, it instantiates an `RTCPeerConnection`.
+The browser will construct the server's SDP answer locally based on the browser's multiaddr.
+The browser creates a local offer via `RTCPeerConnection.createOffer()`. A sets the same
+username and password on the local offer as in the remote SDP answer.
+
+{{< alert icon="💡" context="info" text="SDP (Session Description Protocol) is a protocol that is used to describe multimedia sessions. The SDP answer is a message sent by a server in response to an SDP offer from a client. The offer and answer are used to establish a session between a client and server, allowing them to exchange media." />}}
+
+Once the browser sets the SDP offer and answer, it will send STUN requests to
+the server. The browser and server then execute the DTLS handshake as part of the standard
+WebRTC connection establishment. It is similar to the TLS handshake described
+[here](../secure-comm/tls##comparing-tls-1.3-to-tls-1.2), with the differences being that DTLS is
+datagram-based and how the server generates session keys.
+
+1. The browser sends a `ClientHello` message to advertise its supported cipher suites
+   and other protocol options to the server.
+2. The server responds with a `ServerHello` message to indicate which cipher suite
+   and other options it has selected for communication.
+3. The server sends its certificate along with a `ServerKeyExchange` message to the client
+   that includes the necessary information for the client to generate a premaster secret.
+4. The browser verifies the server's certificate and sends a `ClientKeyExchange` message,
+   which contains the premaster secret encrypted using the server's public key.
+5. The server decrypts the premaster secret and uses it, along with its private key, to
+   generate the session keys.
+
+A successful DTLS handshake only provides confidentiality and integrity. Authenticity is
+achieved by succeeding a [Noise handshake](../secure-comm/noise) following
+the DTLS handshake. Messages on each `RTCDataChannel` are framed using a message-framing
+mechanism described
+[here](https://github.com/libp2p/specs/blob/master/webrtc/README.md#multiplexing).
+
+<!-- TO ADD: DIAGRAMS ONCE READY + CONTEXT -->
 
 ### Coming soon: Browser-to-Browser
 
