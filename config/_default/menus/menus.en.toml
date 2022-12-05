@@ -21,13 +21,6 @@
   parent = "reference"
 
 [[main]]
-  name = "Connectivity"
-  weight = 20
-  identifier = "connectivity"
-  url = "https://connectivity.libp2p.io/"
-  parent = "reference"
-
-[[main]]
   name = "Implementations"
   weight = 30
   identifier = "implementations"
@@ -50,6 +43,12 @@
   url = "https://discuss.libp2p.io/"
   weight = 20
   parent = "community"
+
+[[main]]
+  name = "Connectivity"
+  weight = 50
+  identifier = "connectivity"
+  url = "https://connectivity.libp2p.io/"
 
 [[social]]
   name = "GitHub"
