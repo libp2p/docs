@@ -1,6 +1,6 @@
 ---
 title: "TLS"
-description: Learn about TLS 1.3 in LibP2P.
+description: Learn about TLS 1.3 in libp2p.
 weight: 130
 aliases:
     - "/concepts/secure-comm/tls"
@@ -8,15 +8,15 @@ aliases:
 
 ## What is TLS?
 
-TLS (Transport Layer Security) is a cryptographic protocol that securely uses encryption
-to transfer data over a communication channel. It serves as the successor
-to SSL (Secure Sockets Layer). TLS guarantees encryption, authentication, and data integrity
-as a cryptographic protocol.
+TLS (Transport Layer Security) is a cryptographic protocol that securely uses
+encryption to transfer data over a communication channel. It serves as the
+successor to SSL (Secure Sockets Layer). TLS guarantees encryption, authentication,
+and data integrity as a cryptographic protocol.
 
 Like SSL, a handshake establishes a secure connection between a client
-and a server. A TLS handshake is responsible for negotiating cipher suites and the
-protocol version (TLS version), authenticating both server and client, and key
-sharing.
+and a server. A TLS handshake is responsible for negotiating cipher suites
+and the protocol version (TLS version), authenticating both server and client,
+and key sharing.
 
 ### What is TLS 1.3?
 
@@ -35,7 +35,7 @@ and private communication between nodes. Learn more about Noise [here](noise).
 The primary distinction between TLS 1.3 from TLS 1.2 is that a TLS 1.3 connection takes
 one less round trip.
 
-{{< alert icon="💡" context="info" text="The number of round trips required for a TLS 1.2 handshake can vary; when combined with TCP (SYN and SYN-ACK), the TLS 1.2 handshake takes 3 round trips." />}}
+{{< alert icon="💡" context="info" text="The number of round trips required for a TLS 1.2 handshake can vary; when combined with TCP (SYN and SYN-ACK), the TLS 1.2 handshake takes three round trips." />}}
 
 **A typical TLS 1.2 handshake is as follows:**
 
@@ -43,30 +43,36 @@ one less round trip.
    indicate to the server that it wants to connect using TLS 1.2.
 
 2. The server responds with a `ServerHello` message which is a result of the following:
-   - checking if the client's TLS version is valid (in this case, TLS 1.2);
+   - checking if the client's TLS version is valid;
    - choosing the preferred cipher suite from the list that the client provided and the
-     associated key share;
-     > The key is based on the cipher suite selected. TLS recommends ECDHE as the key exchange algorithm,
-     > but supports other key exchange algorithms like RSA.
+     associated key share using a `ServerKeyExchange`;
+     > The key is based on the cipher suite selected. TLS recommends ECDHE as the key exchange
+     > algorithm, but supports other key exchange algorithms like RSA.
      > If ECDHE is chosen:
      >
-     > - the associated algorithm parameters for ECDHE are used to generate a server signature;
+     > - the associated algorithm parameters for ECDHE would be used to generate a server signature;
      > - key shares are mixed with the Elliptic Curve Diffie Hellman algorithm.
-     > that can be used for authentication on the client side.
-     >
-   - providing a TLS certificate signed by a trusted CA (certificate authority);
+
+   - providing a TLS certificate signed by a trusted CA (certificate authority).
      > A browser typically requires a server to present a valid TLS certificate signed by a trusted CA.
 
-3. The client sends a `Finished` message once it verifies the server's TLS certificate and signature,
-   and then generates its key share and mixes it with the server key share using the cipher suite.
+3. The client verifies the server's certificate and generates a premaster secret key, which
+   is used to encrypt the data being transferred. The client encrypts the secret key with the
+   server's public key (using the cipher suite) and sends a `ClientKeyExchange` message to the
+   server.
 
-4. The server also sends a `Finished` message with its key share.
+4. The server decrypts the premaster secret key using its private key and uses it with its
+   private keys to generate sessions keys to establish an encrypted connection with the client.
+   The server also sends a `Finished` message to indicate that the key exchange was successful
+   and the session keys have been generated.
+
+5. The client sends a `Finished` message to confirm that the handshake is complete.
 
 #### Benefits of TLS 1.3
 
 TLS 1.3 uses more robust encryption algorithms, such as AES-GCM. They provide
-better security and faster performance than the algorithms used in TLS 1.2. TLS 1.3 also
-eliminates the use of less secure cryptographic techniques still used in TLS 1.2,
+better security and faster performance than the algorithms used in TLS 1.2. TLS 1.3
+also eliminates the use of less secure cryptographic techniques still used in TLS 1.2,
 such as SHA-1.
 
   > Over the years, there have been vulnerabilities identified in a variety of encryption
@@ -81,41 +87,48 @@ such as SHA-1.
 
 In TLS 1.3, a client can include all the necessary information, including the key share,
 in the first `ClientHello` message by assuming which key agreement algorithm the
-server will choose due to the limited cipher suites. This saves one round trip as the server can
-generate its key since it already has the client's key share.
+server will choose due to the limited cipher suites. This saves one round trip as the server
+can generate its key from the first message.
 
 As a result, TLS 1.3 uses a new handshake protocol that allows for faster and more efficient
-establishment of encrypted connections. TLS 1.3 also introduces new features, such as certificate
-compression and support for cryptographic keys larger than 4096 bits.
+establishment of encrypted connections. TLS 1.3 also introduces new features, such as
+certificate compression and support for cryptographic keys larger than 4096 bits.
 
-## TLS 1.3 in LibP2P
+## TLS 1.3 in libp2p
 
-To use TLS 1.3 in LibP2P, a peer must first establish a TLS 1.3 connection with another peer using the
-handshake protocol. Once the handshake is complete, the peers can use the encrypted connection
-to exchange data securely and privately.
+To use TLS 1.3 in libp2p, a peer must first establish a TLS 1.3 connection with another peer
+using the handshake protocol. Once the handshake is complete, the peers can use the encrypted
+connection to exchange data securely and privately.
 
 ### Handshake
 
-During the handshake, TLS 1.3 only takes 1 round-trip to complete.
-Peers must authenticate each other’s identity during the handshake.
-By extension, servers require client authentication during the TLS handshake
-and will abort if the client fails to authenticate.
+A TLS 1.3 handshake in libp2p conducts both key sharing and peer authentication
+in a single round trip. Peers must authenticate each other’s identity during the
+handshake. By extension, servers require client authentication during the TLS
+handshake and will abort if the client fails to authenticate.
 
-TLS 1.3 is identified during protocol negotiation with the following protocol ID: `/tls/1.0.0`.
+TLS 1.3 is identified during protocol negotiation with the following protocol
+ID: `/tls/1.0.0`.
 
-In LibP2P, endpoints authenticate peers by encoding their public key into an X.509 certificate
-extension, however, peers can use arbitrary key types and are not constrained to those for which
-the signing of an X.509 certificate is specified.
+In libp2p, endpoints authenticate peers by encoding their public key into an X.509
+certificate extension, however, peers can use arbitrary key types and are not constrained
+to those for which the signing of an X.509 certificate is specified.
 
-{{< alert icon="💡" context="note" text="X.509 is an <a class=\"text-muted\" href=\"https://www.itu.int/en/Pages/default.aspx\"> ITU (International Telecommunication Union)</a> standard defining the format of public key certificates that use asymmetric cryptography for authentication. Certificate extensions were introduced in version 3 of the X.509 standard, which is an additional field that offers a set of additional attributes that can be included in the certificate to provide more information about the certificate's subject, such as the certificate's intended purpose, the cryptographic algorithms that the certificate uses, and other relevant details."/>}}
+{{< alert icon="💡" context="note" text="X.509 is an <a class=\"text-muted\" href=\"https://www.itu.int/en/Pages/default.aspx\"> ITU</a> standard defining the format of public key certificates that use asymmetric cryptography for authentication. Certificate extensions were introduced in version 3 of the X.509 standard, which is a field that offers a set of additional attributes that can be included in the certificate to provide more information about the certificate's subject, such as the certificate's intended purpose, the cryptographic algorithms that the certificate uses, and other relevant details."/>}}
 
 For arbitrary key types, an endpoint needs to encode its host key using the
-[LibP2P public key extension](https://github.com/libp2p/specs/blob/master/tls/tls.md#libp2p-public-key-extension)
-which is carried in a self-signed certificate to prove ownership of its host key. It generates a signature using its private host key and shares it with the
-public host key for verification. The signature proves that the endpoint owned
+[libp2p public key extension](https://github.com/libp2p/specs/blob/master/tls/tls.md#libp2p-public-key-extension)
+which is carried in a self-signed certificate to prove ownership of its host key.
+The libp2p public key extension is an X.509 extension with the Object Identier
+`1.3.6.1.4.1.53594.1.1`. A certificate must include the libp2p public key extension
+to be marked valid.
+
+The endpoint generates a signature using its private host key and shares it along with
+its public host key for verification. The signature proves that the peer owned
 the private host key when signing the certificate.
 
-The public host allows the other peer to calculate the peer ID of the endpoint it connects to. Failed
-authentication will immediately terminate the secure connection establishment.
+The public host allows the other peer to calculate the peer ID of the endpoint it
+connects to. Failed authentication would immediately terminate the secure connection
+establishment.
 
 {{< alert icon="💡" context="note" text="See the TLS <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/tls/tls.md\">technical specification</a> for more details." />}}
