@@ -7,9 +7,9 @@ weight: 20
 ## What is Ping?
 
 Ping is a network utility used to test a node's reachability.
-The ping protocol is a simple request-response protocol that measures
-the RTT for requests sent from an originating node to a destination node
-by echoing a request payload. This operates using
+The ping protocol measures the RTT for requests sent from an
+originating node to a destination node by echoing a request payload.
+This operates using
 [ICMP (Internet Control Message Protocol)](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol),
 where a ping is an ICMP echo request to the target node, and the response
 is an ICMP echo reply.
@@ -24,8 +24,8 @@ a response packet of some kind.
 
 ## Ping in libp2p
 
-The ping protocol in libp2p serves as a health or liveness check,
-and can only be used over a live libp2p connection.
+The ping protocol in libp2p is non-ICMP and serves as a health or liveness check.
+Pinging is only possible over a live libp2p connection.
 A peer opens a stream, sends a request with a payload of 32 random
 bytes, and the destination peer responds with 32 bytes on the same stream.
 Peers can reuse a strean for future pings.
