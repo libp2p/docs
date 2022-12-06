@@ -8,8 +8,8 @@ aliases:
 
 ## What is WebRTC?
 
-WebRTC (Web Real-Time Communications) is a framework for real-time communication
-and is used to establish connections between browsers and other applications.
+[WebRTC (Web Real-Time Communications)](https://webrtc.org/) is a framework for real-time communication
+and is used to establish browser-to-server and browser-to-browser connections between applications.
 WebRTC serves as a good choice for applications that need built-in support for media
 communication and do not have specific requirements for the underlying transport
 protocol.
@@ -20,8 +20,9 @@ protocol.
   that controls the multimedia activities of a device over the data consumed. This
   allows applications to incorporate real-time audio and video streams easily.
 
-- Peer-to-peer communication: WebRTC enables direct communication between browsers
-  and other nodes without needing an intermediate server. This allows for faster
+- Peer connections: WebRTC enables [direct peer-to-peer connections](https://webrtc.org/getting-started/peer-connections) between browsers
+  and other nodes through a process called [signaling](https://webrtc.org/getting-started/peer-connections#signaling).
+  In non-decentralized WebRTC, this is facilitated by a [TURN server.](https://webrtc.org/getting-started/turn-server) This allows for faster
   and more efficient communication. Peers can also retrieve or consume the media and
   also produce it.
 
@@ -67,13 +68,12 @@ accept a server's certificate by checking the (SHA-256) hash of the certificate.
 However, a certificate is still needed, even if it is "just" self-signed.
 The browser must also know the certificate hash. WebRTC can overcome this and
 does not require a trusted certificate.
-> While WebRTC does not require the use of trusted certificates, it does not
-> eliminate their usage, as  WebRTC relies on TLS to establish secure connections
-> between peers and to protect the data being transferred.
+{{< alert icon="💡" context="note" text="While WebRTC does not require the use of trusted certificates, it does not eliminate their usage, as  WebRTC relies on TLS to establish secure connections between peers and to protect the data being transferred." />}}
+
 
 ## WebRTC in libp2p
 
-Libp2p WebRTC enables browsers to connect to public server nodes (and eventually,
+libp2p WebRTC enables browsers to connect to public server nodes (and eventually,
 browsers to connect to other browsers) without those endpoints providing a TLS
 certificate within the browser's trustchain.
 
