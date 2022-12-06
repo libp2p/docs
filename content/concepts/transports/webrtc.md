@@ -20,56 +20,37 @@ protocol.
   that controls the multimedia activities of a device over the data consumed. This
   allows applications to incorporate real-time audio and video streams easily.
 
-- Peer connections: WebRTC enables [direct peer-to-peer connections](https://webrtc.org/getting-started/peer-connections) between browsers
-  and other nodes through a process called [signaling](https://webrtc.org/getting-started/peer-connections#signaling).
-  In non-decentralized WebRTC, this is facilitated by a [TURN server.](https://webrtc.org/getting-started/turn-server) This allows for faster
-  and more efficient communication. Peers can also retrieve or consume the media and
+- Peer connections: WebRTC enables [direct peer-to-peer connections](https://webrtc.org/getting-started/peer-connections)
+  between browsers and other nodes through a process called [signaling](https://webrtc.org/getting-started/peer-connections#signaling).
+  In non-decentralized WebRTC, this is facilitated by a [TURN server.](https://webrtc.org/getting-started/turn-server)
+  This allows for faster and more efficient communication. Peers can also retrieve or consume the media and
   also produce it.
 
-- Data channel: WebRTC provides a data channel that allows applications to transfer
-  arbitrary data between peers. This works on
-  [SCTP (Stream Control Transmission Protocol)](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol) and reduces network congestion over UDP.
+- Data channel: WebRTC also provides peer-to-peer data channels called
+  [WebRTC data channels](https://developer.mozilla.org/en-US/docs/Games/Techniques/WebRTC_data_channels),
+  which works on
+  [SCTP (Stream Control Transmission Protocol)](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol).
+  A WebRTC data channel allows applications to send text or binary data over an active connection to a peer.
+  Data channels can be [ordered or unordered](https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel/ordered),
+  where ordered channels guarantee the message delivery order (like running on TCP), and unordered channels increase
+  speed but deliver messages out of order (like UDP.)
 
 - [NAT traversal](../nat/overview): WebRTC includes mechanisms (like
   [ICE](https://datatracker.ietf.org/doc/rfc5245/))to connect to nodes that live behind
   NATs and firewalls.
 
 - [Security](../secure-comm/overview): WebRTC includes built-in security features, and
-  connections are always encrypted by using [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security) or [SRTP](https://en.wikipedia.org/wiki/Secure_Real-time_Transport_Protocol).
+  connections are always encrypted by using [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security)
+  or [SRTP](https://en.wikipedia.org/wiki/Secure_Real-time_Transport_Protocol).
 
 WebRTC includes several APIs to help create a secure connection
 over the web. The
-[`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection) API allows two applications on different
-endpoints to communicate using a peer-to-peer protocol. WebRTC enables a node
-to send and receive streams that include media content and arbitrary binary data
+[`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection)
+API allows two applications on different endpoints to communicate using a peer-to-peer protocol. WebRTC enables
+a node to send and receive streams that include media content and arbitrary binary data
 through the `DataChannel`. The `PeerConnection` API
 interacts closely with a `getUserMedia` API for accessing a node's media-based peripheral
 device and uses the `getDisplayMedia` API to capture screen content.
-
-### WebRTC and WebTransport
-
-While WebRTC and WebTransport are both web-based approaches that enable real-time
-communication between nodes, there are key differences. WebRTC supports peer-to-peer
-connections, while WebTransport only supports client-server connections.
-
-The underlying protocols in WebRTC and WebTransport are different, although both
-protocols share many of the same properties. WebTransport is also an
-alternative to the data channels available in WebRTC.
-
-WebRTC is also more complex, as there are many underlying protocols involved in order
-to create an active transport, as opposed to WebTransport, that uses QUIC.
-
-When connecting to a WebSocket server or when using plain TCP or QUIC connections,
-browsers require the server to present a TLS certificate signed by a trusted CA
-(certificate authority). Few nodes have such a certificate. One method to overcome
-this is to use the [WebTransport](webtransport) browser API that offers a way to
-accept a server's certificate by checking the (SHA-256) hash of the certificate.
-
-However, a certificate is still needed, even if it is "just" self-signed.
-The browser must also know the certificate hash. WebRTC can overcome this and
-does not require a trusted certificate.
-{{< alert icon="💡" context="note" text="While WebRTC does not require the use of trusted certificates, it does not eliminate their usage, as  WebRTC relies on TLS to establish secure connections between peers and to protect the data being transferred." />}}
-
 
 ## WebRTC in libp2p
 
@@ -143,3 +124,27 @@ Browser-to-Browser connectivity is planned for release in early 2023.
 Track the progress [here](https://github.com/libp2p/specs/issues/475).
 
 {{< alert icon="💡" context="note" text="See the WebRTC <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/webrtc/README.md\">technical specification</a> for more details." />}}
+
+## Comparing WebRTC and WebTransport
+
+While WebRTC and WebTransport are both web-based approaches that enable real-time
+communication between nodes, there are key differences. WebRTC supports peer-to-peer
+connections, while WebTransport only supports client-server connections.
+
+The underlying protocols in WebRTC and WebTransport are different, although both
+protocols share many of the same properties. WebTransport is also an
+alternative to the data channels available in WebRTC.
+
+WebRTC is also more complex, as there are many underlying protocols involved in order
+to create an active transport, as opposed to WebTransport, that uses QUIC.
+
+When connecting to a WebSocket server or when using plain TCP or QUIC connections,
+browsers require the server to present a TLS certificate signed by a trusted CA
+(certificate authority). Few nodes have such a certificate. One method to overcome
+this is to use the [WebTransport](webtransport) browser API that offers a way to
+accept a server's certificate by checking the (SHA-256) hash of the certificate.
+
+However, a certificate is still needed, even if it is "just" self-signed.
+The browser must also know the certificate hash. WebRTC can overcome this and
+does not require a trusted certificate.
+{{< alert icon="💡" context="note" text="While WebRTC does not require the use of trusted certificates, it does not eliminate their usage, as WebRTC relies on TLS to establish secure connections between peers and to protect the data being transferred." />}}
