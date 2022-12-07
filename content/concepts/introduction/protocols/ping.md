@@ -10,17 +10,13 @@ Ping is a network utility used to test a node's reachability.
 The ping protocol measures the RTT for requests sent from an
 originating node to a destination node by echoing a request payload.
 This operates using
-[ICMP (Internet Control Message Protocol)](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol),
-where a ping is an ICMP echo request to the target node, and the response
-is an ICMP echo reply.
-
-Ping can also be a simple liveness check that peers can use to quickly
+[ICMP (Internet Control Message Protocol)](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol). Ping can also be a simple liveness check that peers can use to quickly
 see if another peer is online and measure RTT.
 
-The difference is that ICMP ping uses an echo request (ICMP type 8) packet
-to ping a node and receive an echo reply (type 0) packet, whereas a non-ICMP ping
-sends a packet based on the connection (e.g., TCP) to a node to receive
-a response packet of some kind.
+> The difference is that ICMP ping uses an echo request (ICMP type 8) packet
+> to ping a node and receive an echo reply (type 0) packet, whereas a non-ICMP ping
+> sends a packet based on the connection (e.g., TCP) to a node to receive
+> a response packet of some kind.
 
 ## Ping in libp2p
 
