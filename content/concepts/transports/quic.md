@@ -108,14 +108,12 @@ was yet to be finalized. Many nodes still use draft-29 as their deployed version
 is used to distinguish between the two versions.
 
 A standard QUIC connection will look like: `/ip4/127.0.0.1/udp/65432/quicv1/`, whereas the initial
-codepoint, `quic` (e.g. `/ip4/127.0.0.1/udp/65432/quic/`) defaults to draft-29.
+codepoint, `quic` (e.g. `/ip4/127.0.0.1/udp/65432/quic/`) implies to draft-29.
 
 Nodes that support multiple versions can offer them on the same port.
 Since QUIC packets contain the version number and any (multi-version)
 QUIC stack will be able to handle packets from different QUIC versions,
 
-Due to version negotiation, a 1 RTT penalty will incur when connecting a QUIC v1 node to a
-legacy node.
 
 {{< alert icon="💡" context="note" text="With the upcoming <a class=\"text-muted\" href=\"https://datatracker.ietf.org/doc/draft-ietf-quic-version-negotiation/\">Compatible Version Negotiation for QUIC</a> specification, it will become possible to do a version upgrade between two compatible versions without incurring any round-trip penalty." />}}
 
