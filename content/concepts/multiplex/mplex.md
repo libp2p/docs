@@ -1,14 +1,21 @@
 ---
-title: "mplex"
-description: "mplex is a protocol developed for libp2p."
+title: "Mplex"
+description: "mplex is a stream multiplexer developed for libp2p."
 weight: 170
 ---
 
-mplex is a protocol developed for libp2p. The [spec](https://github.com/libp2p/specs/tree/master/mplex) defines a
-simple protocol for multiplexing that is widely supported across libp2p language implementations:
+## What is Mplex?
 
-{{< alert icon="💡" context="note">}}
-This section is incomplete, and many of the articles are stubs. To help fill in
-the gaps, please see the issues linked in each article to add your input and
-help us prioritize the outstanding work.
-{{< /alert >}}
+Mplex is a stream multiplexer designed for libp2p.
+It is a simple protocol that does not provide many features offered by other
+stream multiplexers. Notably, mplex does not provide backpressure at the protocol
+level.
+
+Mplex runs over a reliable, ordered pipe between two peers, such as a TCP socket
+or a Unix pipe. Peers can open, write to, close, and reset a stream by sending messages
+with the appropriate [flag value](https://github.com/libp2p/specs/tree/master/mplex#flag-values).
+
+Every message (one byte) in mplex consists of a header and a length of prefixed data
+segment.
+
+{{< alert icon="💡" context="note" text="See the mplex <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/tree/master/mplex\">technical specification</a> for more details." />}}
