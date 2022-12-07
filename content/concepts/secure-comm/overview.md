@@ -9,13 +9,11 @@ aliases:
 ## Overview
 
 Before two peers can transmit data, the communication channel they
-establish with a transport protocol should be secure. By design,
-libp2p promotes modularity, meaning that different types of transports
-can be used as part of the networking stack to power communication across
-system or application. Some transports include native channel encryption,
-like [QUIC](../transports/quic), while other transports that establish a
-raw connection, like TCP sockets, lack native security and require a channel
-upgrade.
+establish needs to be secured. By design,
+libp2p supports many different transports (TCP, QUIC, WebSocket, WebTransport, etc.).
+Some transports have built-in encryption at the transport layer (e.g. QUIC)
+like [QUIC](../transports/quic), while other transports (e.g. TCP, WebSocket) lack native security 
+and require a security handshake after the connection has been established.
 
 ## Secure channels in libp2p
 
