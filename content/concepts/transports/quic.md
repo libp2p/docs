@@ -96,7 +96,7 @@ IDs are authenticated in the
 {{< alert icon="💡" context="note" text="To be clear, there is no additional security handshake and stream muxer needed as QUIC provides all of this by default. This also means that establishing a libp2p connection between two nodes using QUIC only takes a single RTT." />}}
 
 Following the multiaddress format, a standard QUIC connection will
-look like: `/ip4/127.0.0.1/udp/65432/quicv1/`.
+look like: `/ip4/127.0.0.1/udp/65432/quic-v1/`.
 
 ### QUIC v0
 
@@ -104,7 +104,7 @@ The initial implementation of QUIC for some implementations (e.g. go-libp2p),
 "QUIC v0", was based on
 [draft-ietf-quic-transport-29](https://datatracker.ietf.org/doc/html/draft-ietf-quic-transport-29)
 (or simply, **draft-29**) by the IETF as [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000)
-was yet to be deployed. Many nodes still use draft-29 as their deployed version. A codepoint, `quicv1`,
+was yet to be finalized. Many nodes still use draft-29 as their deployed version. A codepoint, `quicv1`,
 is used to distinguish between the two versions.
 
 A standard QUIC connection will look like: `/ip4/127.0.0.1/udp/65432/quicv1/`, whereas the initial
@@ -113,7 +113,6 @@ codepoint, `quic` (e.g. `/ip4/127.0.0.1/udp/65432/quic/`) defaults to draft-29.
 Nodes that support multiple versions can offer them on the same port.
 Since QUIC packets contain the version number and any (multi-version)
 QUIC stack will be able to handle packets from different QUIC versions,
-demultiplexing works as intended.
 
 Due to version negotiation, a 1 RTT penalty will incur when connecting a QUIC v1 node to a
 legacy node.
