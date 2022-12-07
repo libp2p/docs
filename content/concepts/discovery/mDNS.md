@@ -1,40 +1,36 @@
 ---
-title: "MDNS"
+title: "mDNS"
 description: "MDNS uses a multicast system of DNS records over a local network to enable peer discovery."
 weight: 224
 ---
 
 ## What is mDNS?
 
-MDNS, or multicast Domain Name System, uses a multicast system of DNS records over a
-local network. Nodes broadcast topics they're interested in into the network instead of
-querying a central name server. The discovery is limited to the peers in the local network.
+mDNS, or multicast Domain Name System, is a way for nodes to use a multicast system
+of DNS records over a local network to discover and communicate with nodes. Nodes
+broadcast topics they're interested in instead of querying a central name server.
+The discovery, however, is limited to the peers in the local network. mDNS is commonly
+used on home networks to allow devices such as computers, printers, and smart TVs to
+find each other and connect. It uses a protocol called multicast to broadcast messages
+on the network, allowing devices to discover each other and exchange information.
 
-MDNS uses UDP to enable hostname resolution on local networks, allowing it to be used
-on networks that support multicast, such as an office. In turn, it can also use DNS to
-resolve hostnames to IP addresses on the Internet. MDNS does not require a central DNS
-server to operate, as a node can resolve hostnames to IP addresses in a decentralized
-manner.
+## mDNS in libp2p
 
-## MDNS in libp2p
-
-In libp2p, mDNS can be used as part of the [rendezvous protocol](rendezvous) to enable peers
-to discover and connect. When a peer wants to connect to another peer in a libp2p network,
-it can use mDNS to resolve the hostname of the other peer to its multiaddress.
-
-MDNS follows a request-response model, where a peer broadcasts a query request to *find all peers*
-on a local network to receive DNS response messages from peers which contain the peer information
-of discovered peers. The response message is in the form of DNS record:
+In libp2p, mDNS is used for service discovery.
+When a peer wants to connect to another peer in a libp2p network,
+it can use mDNS to resolve the hostname of the other peer to its multiaddr.
+A peer can broadcast a query request to *find all peers* on a local network to
+receive DNS response messages from peers, which contain the peer information
+of discovered peers. The response message is in the form of a DNS record:
 
 `<service-name> PTR <peer-name>.<service-name>`,
 
-where `<service-name>` is the name of the service that is being advertised, and
-`<peer-name>` is the name of the peer [that is providing the service].
-The `<service-name>` part of the record indicates the domain in which the service
-and peer are located.
+where `<service-name>` is `_p2p._udp.local`, the name of the service that is being
+advertised.
+> `peer-name` is not used for anything and can be filled with a string with random characters.
 
-As responses are received, the peer adds the other peers' information into its local database of peers.
-A TXT record contains the multiaddresses that the peer is listening on. Each multiaddress is a TXT
+A TXT record contains the multiaddresses that the peer is listening on. A peer
+encodes the multiaddr of the other peer into the DNS record. Each multiaddress is a TXT
 attribute with the form `dnsaddr=/.../p2p/QmId`.
 > `dnsaddr` is a protocol that instructs the resolver to look up multiaddr(s) in DNS TXT records for the
 > domain name in its value section. To resolve a `dnsaddr` multiaddr, the domain name in the value section
