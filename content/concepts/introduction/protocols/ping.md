@@ -6,7 +6,7 @@ weight: 20
 
 ## What is Ping?
 
-Ping is a network utility that can be used as a simple liveness check
+ICMP Ping is a network utility that can be used as a simple liveness check
 for peers to quickly see if another peer is online and measure RTT.
 
 ## Ping in libp2p
@@ -16,7 +16,7 @@ The libp2p ping protocol is different from the ping command line utility
 as it requires an already established libp2p connection.
 
 A peer opens a stream, sends a request with a payload of 32 random
-bytes, and the destination peer responds with 32 bytes on the same stream.
+bytes, and the receiver responds with 32 bytes on the same stream.
 Peers can reuse a strean for future pings.
 
 Typically, a ping is sent over a stream after the initial protocol negotiation.
