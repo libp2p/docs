@@ -19,8 +19,15 @@ A peer opens a stream, sends a request with a payload of 32 random
 bytes, and the receiver responds with 32 bytes on the same stream.
 Peers can reuse a strean for future pings.
 
-Typically, a ping is sent over a stream after the initial protocol negotiation.
-
 The ping protocol ID is `/ipfs/ping/1.0.0`.
+
+### Example
+
+```shell
+ipfs ping /ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/ping
+
+PING /ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/ping (QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG)
+32 bytes from QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG: time=11.34ms
+```
 
 {{< alert icon="💡" context="note" text="See the ping <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/ping/ping.md\">technical specification</a> for more details." />}}
