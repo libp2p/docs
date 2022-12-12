@@ -6,11 +6,12 @@ weight: 162
 
 ## Typical connection upgrade process
 
-Once peers establish a raw connection, they can upgrade their connection by running the multistream-selection
+Once peers establish a raw connection, they can upgrade their connection by running the
+[multistream-selection](https://github.com/multiformats/multistream-select)
 protocol. To do so, the dialing and listening peers use the same multistream-select protocol to negotiate the security
-protocol that creates a secure channel over the raw connection, and the security protocol handshake is performed,
-either [Noise](../secure-comm/noise) or [TLS 1.3](../secure-comm/tls). Multistream-select will run again on top of the
-secure channel to negotiate a steam muxer, like [yamux](yamux).
+protocol that creates a secure channel over the raw connection, where the security protocol handshake is performed,
+either for [Noise](../secure-comm/noise) or [TLS 1.3](../secure-comm/tls). Multistream-select will run again on top of
+the secure channel to negotiate a steam muxer, like [yamux](yamux).
 
 <!-- ADD DIAGRAM -->
 
@@ -19,7 +20,7 @@ secure channel to negotiate a steam muxer, like [yamux](yamux).
 Early muxer negotiation is possible through the handshake of security protocols being able to negotiate higher-level
 protocols. The early negotiation takes place as a list of supported stream muxers is shared during the security protocol
 handshake, and a security protocol extension handles the stream muxer negotiation while it negotiates the secure channel
-establishment. This saves 1 RTT during the libp2p handshake.
+establishment. This saves 1 RTT during the libp2p handshake, and, as a result, reduces the TTFB (time to first byte).
 
 <!-- ADD DIAGRAM -->
 
