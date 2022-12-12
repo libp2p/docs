@@ -18,15 +18,15 @@ as it requires an already established libp2p connection.
 > to measure the round-trip time for messages sent from the originating host to a
 > destination host.
 
-A peer opens the stream, sends a request with a payload of 32 random
-bytes, and the receiver responds with 32 bytes on the same stream.
-Peers can reuse a strean for future pings.
+A peer opens a new stream on an existing libp2p connection and sends a ping request with a random 32 byte payload. The receiver echoes these 32 bytes back on the same stream. By measuring the time between the
+request and response, the initiator can calculate the round-trip time of the underlying libp2p connection.
+The stream can be reused for future pings from the initiator.
 
 The ping protocol ID is `/ipfs/ping/1.0.0`.
 
 ### Example
 
-The following example is done using [Kubo IPFS](https://github.com/ipfs/kubo).
+[Kubo](https://github.com/ipfs/kubo) exposes a command line interface to ping other peers, which uses the libp2p ping protocol.
 
 ```shell
 ipfs ping /ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/ping
