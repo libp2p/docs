@@ -42,7 +42,7 @@ Peers authenticate each other's libp2p peer ID during the handshake.
 TLS 1.3 is identified during protocol negotiation with the following protocol
 ID: `/tls/1.0.0`.
 
-In libp2p, peer authentication works by encoding the public key into the TLS certificate.
+Peer authentication works by encoding the public key into the TLS certificate.
 We designed the system to authenticate key types usually not
 supported by TLS stacks, such as sepc256k1 (a key type that can be used for
 libp2p keys).
@@ -50,7 +50,7 @@ libp2p keys).
 > X.509 is an [ITU](https://www.itu.int/en/Pages/default.aspx) standard defining the format of public key certificates that use asymmetric cryptography for authentication. Certificate extensions were introduced in version 3 of the X.509 standard, which is a field that offers a set of additional attributes that can be included in the certificate to provide more information about the certificate's subject, such as the certificate's intended purpose, the cryptographic algorithms that the certificate uses, and other relevant details."
 
 When processing the TLS certificate, nodes derive the peer ID from the public key that
-they received, and peers check that it matches the peer ID of the server they intend
+they received. The node initiating the connection checks that it matches the peer ID of the node it intended
 to connect to.
 
 {{< alert icon="💡" context="note" text="See the TLS <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/tls/tls.md\">technical specification</a> for more details." />}}
