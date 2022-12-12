@@ -23,6 +23,11 @@ and potentially causing the application to crash. This is especially important i
 applications where the receiver might be slower at processing the data, such as when the
 receiver is a low-powered device or when the data is complex and requires a lot of processing.
 
+{{< alert icon="💡" context="note">}}
+**Yamux should be used over mplex in libp2p**. It is well-suited for applications that require fast,
+reliable data transfer, such as real-time communication or streaming media as it is optimized for low-latency, high-bandwidth environments.
+{{< /alert >}}
+
 ### Resources
 
 - [Yamux overview and a list of features](https://github.com/hashicorp/yamux#yamux).
