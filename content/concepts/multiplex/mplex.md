@@ -11,7 +11,7 @@ It is a simple protocol that does not provide many features offered by other
 stream multiplexers. Notably, mplex does not provide backpressure at the protocol
 level.
 
-mplex runs over a reliable, ordered pipe between two peers, such as a TCP socket
+mplex runs over a reliable, ordered pipe between two peers, such as a TCP connection
 or a Unix pipe. Peers can open, write to, close, and reset a stream by sending messages
 with the appropriate [flag value](https://github.com/libp2p/specs/tree/master/mplex#flag-values).
 
@@ -42,7 +42,7 @@ Until recently, the reason mplex was still supported was compatibility with js-l
 which didn't have yamux support.
 Now that
 [js-libp2p has gained yamux support](https://github.com/ChainSafe/js-libp2p-yamux/releases/tag/v1.0.0),
-you should only support mplex if you need to deal with legacy nodes.
+mplex should only be used to provide backwards-compatibility with legacy nodes.
 {{< /alert >}}
 
 {{< alert icon="💡" context="note" text="See the mplex <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/tree/master/mplex\">technical specification</a> for more details." />}}
