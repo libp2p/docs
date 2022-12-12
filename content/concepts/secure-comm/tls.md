@@ -47,7 +47,7 @@ We designed the system to authenticate key types usually not
 supported by TLS stacks, such as sepc256k1 (a key type that can be used for
 libp2p keys).
 
-{{< alert icon=" 💡" context=" note" text=" X.509 is an <a class=\ "text-muted\" href=\" https://www.itu.int/en/Pages/default.aspx\"> ITU</a> standard defining the format of public key certificates that use asymmetric cryptography for authentication. Certificate extensions were introduced in version 3 of the X.509 standard, which is a field that offers a set of additional attributes that can be included in the certificate to provide more information about the certificate's subject, such as the certificate's intended purpose, the cryptographic algorithms that the certificate uses, and other relevant details." />}}
+> X.509 is an [ITU](https://www.itu.int/en/Pages/default.aspx) standard defining the format of public key certificates that use asymmetric cryptography for authentication. Certificate extensions were introduced in version 3 of the X.509 standard, which is a field that offers a set of additional attributes that can be included in the certificate to provide more information about the certificate's subject, such as the certificate's intended purpose, the cryptographic algorithms that the certificate uses, and other relevant details."
 
 When processing the TLS certificate, nodes derive the peer ID from the public key that
 they received, and peers check that it matches the peer ID of the server they intend
