@@ -6,20 +6,27 @@ weight: 20
 
 ## Ping in libp2p
 
-ICMP Ping is a network utility that can be used as a simple liveness check
-for peers to quickly see if another peer is online and measure RTT.
-
-The libp2p ping protocol is different from the ping command line utility
+The libp2p ping protocol is a simple liveness check that peers can use to test
+the connectivity and performance between two peers. The libp2p ping protocol 
+is different from the ping command line utility
 ([ICMP ping](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol)),
 as it requires an already established libp2p connection.
 
-A peer opens a stream, sends a request with a payload of 32 random
+> ICMP Ping is a network utility that uses ICMP packets to 
+> check the connectivity and latency between two networked devices.
+> It is typically used to check the reachability of a host on an IP network and 
+> to measure the round-trip time for messages sent from the originating host to a 
+> destination host.
+
+A peer opens the stream, sends a request with a payload of 32 random
 bytes, and the receiver responds with 32 bytes on the same stream.
 Peers can reuse a strean for future pings.
 
 The ping protocol ID is `/ipfs/ping/1.0.0`.
 
 ### Example
+
+The following example is done using [Kubo IPFS](https://github.com/ipfs/kubo). 
 
 ```shell
 ipfs ping /ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/ping
