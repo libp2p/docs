@@ -23,7 +23,7 @@ applications where the receiver might be slower at processing the data, such as 
 the receiver is a low-powered device or when the data is complex and requires a lot of
 processing.
 
-{{< alert icon="💡" context="note">}}
+{{< alert icon="" context="">}}
 **Yamux should be used over mplex in libp2p**. It is well-suited for applications that require
 fast, reliable data transfer as it is optimized for low-latency, high-bandwidth environments.
 {{< /alert >}}
