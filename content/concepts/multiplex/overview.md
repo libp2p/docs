@@ -20,10 +20,10 @@ used by applications (such as IPFS) to make connection and transmission more eff
 
 ## Muxers in libp2p
 
-Stream muxers are pluggable in libp2p. A given libp2p application can support several
-muxers simultaneously and choose one as the default, and allowing an application to
-fall back to a widely-supported multiplexer if a remote peer does not support a preferred
-choice.
+Stream muxers are pluggable in libp2p. A given libp2p host can support several
+muxers simultaneously. The stream muxer is negotiated between the two nodes during the handshake.
+Having such a negotiation protocol in place allows libp2p to adopt new muxers in the future, while at
+the same time keeping backwards-compatibility with currently deployed muxers.
 
 With muxing, libp2p applications can have separate communication streams between peers
 and multiple concurrent streams open simultaneously with a peer. Stream muxing
