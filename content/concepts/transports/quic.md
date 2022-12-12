@@ -100,8 +100,7 @@ look like: `/ip4/127.0.0.1/udp/65432/quic-v1/`.
 
 ### QUIC code point
 
-The initial implementation of QUIC of go-libp2p
-The original QUIC specification was based on
+The initial implementation of QUIC of go-libp2p was based on
 [draft-ietf-quic-transport-29](https://datatracker.ietf.org/doc/html/draft-ietf-quic-transport-29)
 (or simply, **draft-29**), because [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000)
 was yet to be finalized. Some legacy nodes on the IPFS network still use draft-29.
