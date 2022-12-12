@@ -8,22 +8,23 @@ aliases:
 
 ## What is TLS?
 
-TLS (Transport Layer Security) is a cryptographic protocol that securely uses
-encryption to transfer data over a communication channel. It serves as the
-successor to SSL (Secure Sockets Layer). TLS guarantees encryption, authentication,
-and data integrity as a cryptographic protocol.
+TLS (Transport Layer Security) is a cryptographic protocol that allows the establishment
+of a secure data channel.  TLS provides encryption, authentication,
+and data integrity.
 
-Like SSL, a handshake establishes a secure connection between a client
-and a server. A TLS handshake is responsible for negotiating cipher suites
-and the protocol version (TLS version), authenticating both server and client,
-and key sharing.
+During the TLS handshake, a secure context is established between a client
+and a server. After the handshake completes, both sides have derived a key
+(the TLS master secret) that's only known to the two parties, and is from then
+on used to encrypt application data sent over the channel.
 
 ### What is TLS 1.3?
 
-TLS 1.3 is a new encryption protocol, as defined in
-[RFC 8446](https://www.rfc-editor.org/rfc/rfc8446), in 2018. It has several
-improvements over TLS 1.2, including faster performance, more robust encryption,
-and better support for modern cryptographic algorithms.
+TLS 1.3 is a new version of the TLS protocol, published 2018 in
+[RFC 8446](https://www.rfc-editor.org/rfc/rfc8446). It brings several
+improvements over TLS 1.2: the latency of a handshake was brought
+down from 2 to 1 network round trips (in the common case), the privacy
+properties were improved by encrypting the certificates, and the protocol
+was made simplified to reduce implementation complexity.
 
 TLS 1.3 is also used as part of the Noise protocol framework to provide secure
 and private communication between nodes. Learn more about Noise [here](noise).
@@ -102,17 +103,16 @@ connection to exchange data securely and privately.
 
 ### Handshake
 
-A TLS 1.3 handshake in libp2p conducts both key sharing and peer authentication
-in a single round trip. Peers must authenticate each other’s identity during the
-handshake. By extension, servers require client authentication during the TLS
-handshake and will abort if the client fails to authenticate.
+libp2p uses TLS 1.3 handshake to establish a secure connection between two peers. 
+Peers authenticate each other’s libp2p peer ID during the handshake.
 
 TLS 1.3 is identified during protocol negotiation with the following protocol
 ID: `/tls/1.0.0`.
 
-In libp2p, endpoints authenticate peers by encoding their public key into an X.509
-certificate extension, however, peers can use arbitrary key types and are not constrained
-to those for which the signing of an X.509 certificate is specified.
+In libp2p, peer authentication works by encoding the public key into the TLS certificate.
+We designed the system such that we can authenticate key types that are usually not
+supported by TLS stacks, such as sepc256k1 (which is a key type that can be used for
+libp2p keys).
 
 {{< alert icon="💡" context="note" text="X.509 is an <a class=\"text-muted\" href=\"https://www.itu.int/en/Pages/default.aspx\"> ITU</a> standard defining the format of public key certificates that use asymmetric cryptography for authentication. Certificate extensions were introduced in version 3 of the X.509 standard, which is a field that offers a set of additional attributes that can be included in the certificate to provide more information about the certificate's subject, such as the certificate's intended purpose, the cryptographic algorithms that the certificate uses, and other relevant details."/>}}
 
