@@ -84,11 +84,6 @@ when it has already communicated with a certain server. The client can then send
 
 ### QUIC native multiplexing
 
-QUIC is a [transport](../../transport/overview) protocol that contains a "native"
-stream multiplexer. libp2p will automatically use the native multiplexer for streams
-using a QUIC transport. View the [QUIC document](../../transports/quic/) to learn
-about QUIC.
-
 QUIC interleaves frames from multiple streams into one or more QUIC packets at the
 transport layer. A single QUIC packet can include multiple frames from one or more
 streams. This solves the problem of HOL (head-of-line) blocking: If a packet contain
