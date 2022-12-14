@@ -31,7 +31,7 @@ was made simplified to reduce implementation complexity.
 
 ### Handshake
 
-libp2p uses TLS 1.3 handshake to establish a secure connection between two peers.
+libp2p uses the TLS 1.3 handshake to establish a secure connection between two peers.
 Peers authenticate each other's libp2p peer ID during the handshake.
 
 TLS 1.3 is identified during protocol negotiation with the following protocol
