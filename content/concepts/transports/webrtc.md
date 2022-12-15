@@ -88,16 +88,18 @@ A successful DTLS handshake only provides confidentiality and integrity. Authent
 is achieved by succeeding a [Noise handshake](../secure-comm/noise) following
 the DTLS handshake.
 
-<!-- TO ADD: DIAGRAMS ONCE READY + CONTEXT -->
+<!-- TO ADD DIAGRAM -->
 
 ### Coming soon: Browser-to-Browser
 
 Eventually, libp2p will have support for communication between two
-browsers in real-time.
+browsers.
 
 The technical specification and initial implementations of WebRTC
 Browser-to-Browser connectivity is planned for release in early 2023.
 Track the progress [here](https://github.com/libp2p/specs/issues/475).
+
+<!-- TO ADD DIAGRAM -->
 
 {{< alert icon="💡" context="note" text="See the WebRTC <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/webrtc/README.md\">technical specification</a> for more details." />}}
 
