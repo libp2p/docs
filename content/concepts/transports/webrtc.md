@@ -51,7 +51,7 @@ certificate within the browser's trustchain.
 
 When connecting to a WebSocket server, browsers require the server to present a
 TLS certificate signed by a trusted CA (certificate authority). Few nodes have such
-a certificate, which is the reason that WebSocket never saw widespread adoption in the
+a certificate, so WebSocket never saw widespread adoption in the
 libp2p network.
 
 In libp2p:
@@ -81,8 +81,8 @@ local offer as in the remote SDP answer.
 
 Once the browser sets the SDP offer and answer, it will send STUN requests to
 the server. The browser and server then execute the DTLS handshake as part of the
-standard WebRTC connection establishment. DTLS is similar to TLS, but run on top
-of an unreliable transport instead of on top of an ordered byte stream (like TCP).
+standard WebRTC connection establishment. DTLS is similar to TLS but runs on an
+unreliable transport instead of on top of an ordered byte stream (like TCP).
 
 A successful DTLS handshake only provides confidentiality and integrity. Authenticity
 is achieved by succeeding a [Noise handshake](../secure-comm/noise) following
@@ -103,14 +103,14 @@ Track the progress [here](https://github.com/libp2p/specs/issues/475).
 
 ## Comparing WebRTC and WebTransport
 
-While WebRTC and WebTransport are both web-based approaches that enable
-communication between nodes, there are key differences. WebRTC supports
-peer-to-peer connections, while WebTransport only supports client-server
-connections. WebRTC is also more complex, as there are many underlying
-protocols involved in order to create a connection, as opposed to WebTransport,
-that uses QUIC.
+In general, WebTransport is a lower-level technology that provides a
+standard interface for delivering data, whereas WebRTC is a higher-level technology
+that offers a set of APIs and protocols for building communication applications.
+WebTransport only supports client-server connections, while WebRTC supports peer-to-peer
+connections. WebRTC is also more complex, as many underlying protocols are involved in
+creating a connection, as opposed to WebTransport, which uses QUIC.
 
-For WebTransport, a certificate is still needed with both transports, even if
-it is "just" self-signed. The browser must also know the certificate hash.
-WebRTC can overcome this and does not require a trusted certificate.
-{{< alert icon="💡" context="note" text="While WebRTC does not require the use of trusted certificates, it does not eliminate their usage, as WebRTC relies on TLS to establish secure connections between peers and to protect the data being transferred." />}}
+Check out the
+[WebTransport](https://connectivity.libp2p.io/#webtransport) and
+[WebRTC](https://connectivity.libp2p.io/#webrtc) sections of the libp2p
+connectivity site on to learn more.
