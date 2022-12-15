@@ -1,6 +1,6 @@
 ---
 title: "WebRTC"
-description: "WebRTC is a protocol for real-time communication and is used to establish connections between browsers and other applications."
+description: "WebRTC is a protocol for real-time communication and is used to establish connections between browsers and other nodes."
 weight: 110
 aliases:
     - "/concepts/transports/webrtc"
@@ -14,11 +14,8 @@ WebRTC serves as a good choice for applications that need built-in support for m
 communication and do not have specific requirements for the underlying transport
 protocol.
 
-### Key features
+### Key features for libp2p
 
-- Audio and video support: WebRTC provides built-in support via a media stream API
-  that controls the multimedia activities of a device over the data consumed. This
-  allows applications to incorporate real-time audio and video streams easily.
 
 - Peer connections: WebRTC enables [direct peer-to-peer connections](https://webrtc.org/getting-started/peer-connections)
   between browsers and other nodes through a process called [signaling](https://webrtc.org/getting-started/peer-connections#signaling).
@@ -48,9 +45,7 @@ over the web. The
 [`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection)
 API allows two applications on different endpoints to communicate using a peer-to-peer protocol. WebRTC enables
 a node to send and receive streams that include media content and arbitrary binary data
-through the `DataChannel`. The `PeerConnection` API
-interacts closely with a `getUserMedia` API for accessing a node's media-based peripheral
-device and uses the `getDisplayMedia` API to capture screen content.
+through the `DataChannel`.
 
 ## WebRTC in libp2p
 
@@ -60,9 +55,6 @@ certificate within the browser's trustchain.
 
 In libp2p:
 
-- the `RTCPeerConnection` API allows an application to establish peer-to-peer
-  communications;
-- the `RTCDataChannel` API supports peer-to-peer data channels;
 - WebRTC multiaddresses are composed of a standard UDP multiaddr,
   followed by `webrtc` and the `multihash` of the certificate that
   the node uses, as such:
@@ -116,7 +108,7 @@ mechanism described
 
 ### Coming soon: Browser-to-Browser
 
-Eventually, libp2p will have support for two-way communication between two
+Eventually, libp2p will have support for communication between two
 browsers in real-time.
 
 The technical specification and initial implementations of WebRTC
@@ -136,7 +128,7 @@ protocols share many of the same properties. WebTransport is also an
 alternative to the data channels available in WebRTC.
 
 WebRTC is also more complex, as there are many underlying protocols involved in order
-to create an active transport, as opposed to WebTransport, that uses QUIC.
+to create a connection, as opposed to WebTransport, that uses QUIC.
 
 When connecting to a WebSocket server or when using plain TCP or QUIC connections,
 browsers require the server to present a TLS certificate signed by a trusted CA
