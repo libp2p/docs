@@ -12,8 +12,7 @@ as a common location (point) to route between two routes.
 
 Rendezvous points are typically nodes that are well-connected and stable in
 a network and can handle large amounts of traffic and data. They
-serve as a hub for nodes to discover and connect with the primary
-responsibility of relaying packets between other nodes.
+serve as a hub for nodes to discover.
 
 ## Rendezvous in libp2p
 
@@ -22,7 +21,7 @@ responsibility of relaying packets between other nodes.
 The libp2p rendezvous protocol can be used for different use cases. It is used
 during bootstrap to discover circuit relays that provide connectivity for browser
 nodes. Generally, a peer can use known rendezvous points to find peers that provide
-critical network services. Rendezvous is also used throughout the lifetime of
+network services. Rendezvous is also used throughout the lifetime of
 an application for real-time peer discovery by registering and polling rendezvous points
 in a decentralized manner. In an application-specific setting, rendezvous points are
 used to progressively discover peers that can answer specific queries or host shards of
