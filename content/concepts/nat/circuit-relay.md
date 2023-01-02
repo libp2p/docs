@@ -54,6 +54,40 @@ By giving the full relay path to my friend `QmBob`, they're able to quickly esta
 When advertising your address, it's best to provide relay addresses that include the transport address of the relay peer. > If the relay has many transport addresses, you can advertise a `p2p-circuit` through each of them.
 {{< /alert >}}
 
+### Security protocols
+
+The [security protocols](../secure-comm/overview.md) for the different parts of the connection can be negotiated using multiaddrs.
+Instead of negotiating the security protocols in-band, the security protocols are encapsulated in the multiaddr, with three
+steps involved in the negotiation process:
+
+> The target advertises the supported security protocols for relayed connections by including
+> `/p2p-circuit-security/<security-protocol>` in its relayed multiaddresses. The initiator can then include any set of
+> relayed multiaddrs in the peer field of a `HopMessage` with type `CONNECT`, as long as all addresses include the
+> same `/p2p-circuit-security/<security-protocol>`. This allows the initiator to signal to the target which security
+> protocol it has chosen for the relayed connection.
+
+1. Upgrading the connection from the source to the relay: The security protocol for the connection is specified in the relay
+   multiaddr, which appears before the p2p-circuit component.
+
+   Example: `/ip4/1.2.3.4/tcp/1234/tls/p2p/QmRelay/p2p-circuit/<destination-multiaddr>`
+
+1. Upgrading the connection from the relay to the destination: The security protocol for this connection is specified in the
+   destination multiaddr, which appears after the p2p-circuit component. This step is only necessary for active relaying, where
+   the relay initiates the connection to the destination.
+
+   Example: (active relaying):`<relay-multiaddr>/p2p-circuit/ip4/1.2.3.4/tcp/1234/tls/p2p/QmDestination`
+
+1. Upgrading the relayed connection from the source to the destination: The security protocol for the connection between the
+   source and destination is specified by appending
+   `/p2p-circuit-security/<relayed-connection-security-protocol>` to the full address. This step is necessary to ensure
+   compatibility between the security protocols used for the different parts of the relayed connection.
+
+   Example: `<relay-mulitaddr>/p2p-circuit/<destination-multiaddr>/p2p-circuit-security/tls`
+
+In this way, libp2p can optimize the latency of connection establishment by saving one round trip.
+
+<!-- ADD DIAGRAM -->
+
 ## Process
 
 The below sequence diagram depicts a sample relay process:
@@ -62,7 +96,8 @@ The below sequence diagram depicts a sample relay process:
 
 1. Node `A` is behind a NAT and/or firewall, e.g. detected via the [AutoNAT service](../autonat).
 2. Node `A` therefore requests a reservation with relay `R`. I.e. node `A` asks relay `R` to listen for incoming connections on its behalf.
-3. Node `B` wants to establish a connection to node `A`. Given that node `A` does not advertise any direct addresses but only a relay address, node `B` connects to relay `R`, asking relay `R` to relay a connection to `A`.
+3. Node `B` wants to establish a connection to node `A`. Given that node `A` does not advertise any direct addresses but only a relay address,
+   node `B` connects to relay `R`, asking relay `R` to relay a connection to `A`.
 4. Relay `R` forwards the connection request to node `A` and eventually relays all data send by `A` and `B`.
 
 [spec_relay]: https://github.com/libp2p/specs/tree/master/relay
