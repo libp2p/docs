@@ -2,9 +2,6 @@
 title: "DCUtR"
 description: "DCUtR is a protocol for establishing direct connections between nodes behind NATs."
 weight: 210
-aliases:
-    - "/concepts/circuit-relay"
-    - "/concepts/nat/circuit-relay"
 ---
 
 ## Background
