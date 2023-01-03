@@ -1,6 +1,6 @@
 ---
 title: "mDNS"
-description: "MDNS uses a multicast system of DNS records over a local network to enable peer discovery."
+description: "mDNS uses a multicast system of DNS records over a local network to enable peer discovery."
 weight: 224
 ---
 
@@ -16,32 +16,34 @@ on the network, allowing devices to discover each other and exchange information
 
 ## mDNS in libp2p
 
-In libp2p, mDNS is used for service discovery.
-When a peer wants to connect to another peer in a libp2p network,
-it can use mDNS to resolve the hostname of the other peer to its multiaddr.
-A peer can broadcast a query request to *find all peers* on a local network to
-receive DNS response messages from peers, which contain the peer information
-of discovered peers. The response message is in the form of a DNS record:
+In libp2p, mDNS is used for peer discovery, allowing peers to find and
+communicate with each other on the same local network without any prior configuration.
+This is achieved through multicast DNS (mDNS) records, which are sent to all nodes on the
+local network.
 
-`<service-name> PTR <peer-name>.<service-name>`,
+To initiate peer discovery, a peer sends a query to all other peers on the network using
+a DNS message with the question `_p2p._udp.local PTR`. In response, each peer will send a
+DNS message containing their discovery details. These details are stored in the additional
+records of the response and include the multiaddresses that the peer is listening on, as
+well as other information such as the peer's `<peer-name>` and `<host-name>`.
 
-where `<service-name>` is `_p2p._udp.local`, the name of the service that is being
-advertised.
-> `peer-name` is not used for anything and can be filled with a string with random characters.
+The response message (that is, the answer to the DNS message) is in the form of a
+DNS record: `<service-name> PTR <peer-name>.<service-name>`. Additional record in the
+response message contains a peer's discovery details in the following form:
+`<peer-name>.<service-name> TXT "dnsaddr=..."`
 
-A TXT record contains the multiaddresses that the peer is listening on. A peer
-encodes the multiaddr of the other peer into the DNS record. Each multiaddress is a TXT
-attribute with the form `dnsaddr=/.../p2p/QmId`.
-> `dnsaddr` is a protocol that instructs the resolver to look up multiaddr(s) in DNS TXT records for the
-> domain name in its value section. To resolve a `dnsaddr` multiaddr, the domain name in the value section
-> must first be prefixed with `_dnsaddr.`. Then the peer must make a DNS query to look up TXT records for the domain. Multiple dnsaddr attributes and/or TXT records are allowed.
-> Learn more about `dnsaddr`  [here](https://github.com/multiformats/multiaddr/blob/master/protocols/DNSADDR.md).
+- `<peer-name>` is a unique case-insensitive identifier for the peer, although it is not
+  used for any meaningful purpose in libp2p. Instead, it is simply a string of random ASCII
+  characters that are required to be sent in the wire format. On the other hand, the
+- `<host-name>` is the fully qualified name of the peer derived from the peer's name and
+  `p2p.local`.
+- `<service-name>`, meanwhile, is the DNS-SD (DNS Service Discovery) service name for all
+  peers and is defined as `_p2p._udp.local`.
+  > If a private network is being used, the `<service-name>` will contain the base-16 encoding of
+  > the network's fingerprint as in `_p2p-X._udp.local` to prevent public and private networks from
+  > discovering each other's peers.
 
-A peer sends a query for all peers when it first spawns or detects a network change.
-
-{{< alert icon="💡" context="info" text="A peer must respond to its own query. This allows other peers to passively discover it." />}}
-
-An *additional records* record in the response message contains a peer's discovery details
-in the following form: `<peer-name>.<service-name> TXT "dnsaddr=..."`.
+A peer sends a query for all *other* peers when it first spawns or detects a network change.
+A peer must respond to its own query. This allows other peers to passively discover it.
 
 {{< alert icon="💡" context="note" text="See the mDNS <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/discovery/mdns.md\">technical specification</a> for more details." />}}
