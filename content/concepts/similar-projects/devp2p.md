@@ -4,8 +4,6 @@ description: A brief comparison of devp2p and libp2p.
 weight: 280
 ---
 
-# devp2p
-
 [devp2p](https://github.com/ethereum/devp2p) is a dedicated networking stack and set of networking protocols, not unlike libp2p in some manners.
 It is used in [Ethereum](https://ethereum.org/en/), primarily in [execution clients](https://ethereum.org/en/developers/docs/nodes-and-clients/#execution-clients).
 
@@ -20,7 +18,7 @@ Until recently, the answer to the first question was no. The reason for that was
 Thus, prior to the Merge, Ethereum solely used devp2p.
 And though there were talks between the Ethereum and IPFS/libp2p communities to have one solution instead of two, the timing didn't work, and Ethereum shipped with devp2p as its solution.
 
-# Comparing devp2p and libp2p
+## Comparing devp2p and libp2p
 
 The [devp2p repo](https://github.com/ethereum/devp2p#relationship-with-libp2p) provides an apt contrast of each project's intended scope and design:
 
