@@ -19,19 +19,20 @@ to create a secure protocol.
 
 noise-libp2p is an implementation of the Noise Protocol Framework used to establish a
 secure channel between two peers in the libp2p network. The protocol ID is
-`/noise`, and future versions of the specification may define new protocol IDs using the "/noise"
-prefix (e.g., `/noise/2`).
+`/noise`, and future versions of the specification may define new protocol IDs using the
+"/noise" prefix (e.g., `/noise/2`).
 
 When two peers connect, the transport upgrader negotiates
-which security and multiplexing protocols to use using
+which security and [multiplexing](../multiplex/overview.md) protocols to use using
 [multistream-select](https://github.com/multiformats/multistream-select).
 > A successor to multistream-select, called multiselect 2, is in development, but noise-libp2p is
 > compatible with the current upgrade process and multiselect 2.
 
 ### Handshake
 
-Peers exchange public keys and perform a Diffie-Hellman exchange to generate a pair of symmetric
-keys that can be used to encrypt traffic during the handshake.
+Peers exchange public keys and perform a
+[Diffie-Hellman exchange](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
+to generate a pair of symmetric keys that can be used to encrypt traffic during the handshake.
 The static DH key used in the Noise protocol is authenticated using the libp2p identity keypair.
 
 The Noise Protocol Framework provides several different handshake patterns to choose from, each
@@ -46,8 +47,8 @@ additional handshake patterns may be added to noise-libp2p to support different 
 
 In addition to the standard Noise handshake, noise-libp2p also includes an extension registry, which
 allows for the exchange of additional data during the handshake process. This extension is used to
-exchange libp2p-specific data such as peer IDs and supported protocol versions that enable early
-stream muxer negotiation.
+exchange libp2p-specific data such as [peer IDs](../fundamentals/peers.md##peer-id) and supported
+protocol versions that enable [early stream muxer negotiation](../multiplex/early-negotiation).
 
 <!-- ADD DIAGRAM -->
 
