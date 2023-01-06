@@ -19,10 +19,12 @@ started with P2P networking, or you are an experienced developer looking to
 build the next generation of distributed applications, the libp2p documentation
 has something for you.
 
+{{< alert icon="" context="">}}
 If you have any questions or suggestions as you navigate the documentation,
 please don't hesitate to [reach out](../contribute/community.md), or help
 improve the documentation by
-[contributing to the site](https://github.com/libp2p/docs\).
+[contributing to the site](https://github.com/libp2p/docs).
+{{< /alert >}}
 
 To get started, let's begin with an overview of libp2p and its key features and
 capabilities.
@@ -63,11 +65,13 @@ a useful way to understand the functions and roles of different networking proto
 implementations of networking protocols on the internet are often more complex and do not follow these
 models exactly.
 
+{{< alert icon="" context="info">}}
 If we consider the TCP/IP model, for instance, the primary focus of libp2p is on the
 Transport layer and the Application layer. However, these conceptual models have shortcomings.
 For example, certain tasks may be unnecessarily repeated across multiple layers, leading to
 inefficiencies. Additionally, some information may be hidden between layers, which can hinder
 opportunities for improvement.
+{{< /alert >}}
 
 ## Why libp2p?
 
