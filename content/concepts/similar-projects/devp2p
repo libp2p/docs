@@ -1,3 +1,9 @@
+---
+title: "devp2p"
+description: A brief comparison of devp2p and libp2p.
+weight: 280
+---
+
 # devp2p
 
 [devp2p](https://github.com/ethereum/devp2p) is a dedicated networking stack and set of networking protocols, not unlike libp2p in some manners.
