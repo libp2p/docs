@@ -8,38 +8,40 @@ weight: 33
 
 A libp2p connection allows two peers to read and write data to each other.
 Peers connect over [transport protocols](../transports/overview.md), which are
-core abstractions of libp2p and offer extensibility. As a modular networking stack,
-libp2p is transport-agnostic and does not enforce the implementation of a specific
-transport protocol. Though the support of modern transport protocols is a primary
-focus for libp2p, implementers may support multiple types of transport. This document
-does not cover establishing "transport level" connections, for example, opening "raw"
-TCP sockets, as those semantics are specific to each transport. Rather, this document
-explains the process that occurs after making the initial transport-level connection,
-up to the point where "application level" streams are opened. Learn about transport
-protocols in libp2p in the [transport section](../transports/overview/).
+core abstractions of libp2p and offer extensibility.
+This document does not cover establishing "transport level" connections, for example,
+opening "raw" TCP sockets, as those semantics are specific to each transport. Rather,
+this document explains the process that occurs after making the initial transport-level
+connection, up to the point where "application level" streams are opened.
+Learn about transport protocols in libp2p in the [transport section](../transports/overview/).
 
 ## Life of a libp2p connection
 
-The following points present an overview for a standard libp2p connection:
+The following points present an overview for a standard libp2p connection; we'll then dive
+more into the various components later in the document.
 
 - A libp2p node (peer) initiates a connection with another node by sending
   a request over the underlying transport protocol (e.g., TCP). This request
-  is referred to as "dialing."
+  is referred to as "dialing", and the peer is referred to as the "dialer."
 - The receiving node, known as the "listener", accepts the incoming connection
   request and responds with a handshake message to initiate the protocol negotiation
   process.
 - Both nodes exchange protocol information and select the protocols to use for the
-  connection, including protocols for security and stream multiplexing if necessary.
-  The multistream-select protocol is used for this negotiation process.
+  connection, including protocols for [security](../secure-comm/overview.md) and
+  [stream multiplexing](../multiplex/overview.md) if necessary.
+  The [multistream-select](https://github.com/multiformats/multistream-select) is used
+  for this negotiation process.
 - If the underlying transport protocol does not natively support security and multiplexing,
   a connection upgrade is performed to add these capabilities to the raw transport connection.
-  The peers may use NAT traversal techniques such as UPnP or hole punching to allow nodes
-  behind NAT devices to establish connections.
+  The peers may use NAT traversal techniques such as
+  [UPnP](https://en.wikipedia.org/wiki/Universal_Plug_and_Play) or
+  [hole punching](../nat/hole-punching.md) to allow nodes behind NAT devices to establish
+  connections.
 - Once the connection is established, and protocols are selected, the nodes can open multiple
   streams over the connection for various interactions, each using its own protocol.
 - Data is exchanged over the streams using the negotiated protocols.
-- When a node wants to close the connection or a stream, it sends a close message to the other
-  node, which responds with an acknowledgment message.
+- When a node wants to close the connection or a stream, it sends a "close" message to the other
+  node, which responds with an "acknowledgment" message.
 - Once both nodes have sent and received the close message and acknowledgment, the connection
   or stream is closed.
 
@@ -98,8 +100,8 @@ important to consider compatibility with existing protocols, performance, and se
 
 libp2p is designed to support a variety of transport protocols, including those that do
 not natively support the core libp2p capabilities of security and stream multiplexing.
-The process of layering capabilities onto "raw" transport connections is called "upgrading"
-the connection.
+The process of layering capabilities onto "raw" transport connections is known as
+"upgrading" the connection.
 
 The listener's multiaddr determines the security protocol to be used on a connection
 (see [addressing specification]). The multiplexing protocol is determined using protocol
@@ -153,17 +155,16 @@ version, but they may also choose to support older versions for compatibility. M
 protocols is available on the [protocols document](protocols.md).
 
 Protocol negotiation works by one peer sending a message containing the protocol ID of the
-protocol it wishes to use, and the other either echoing back the same id if it supports
-the protocol or sending a different id if it does not. This process continues until both
+protocol it wishes to use, and the other either echoing back the same ID if it supports
+the protocol or sending a different ID if it does not. This process continues until both
 peers agree on a common protocol to use or determine that no common protocol is available.
 
 For example, consider a case where two libp2p nodes are attempting to upgrade a
 raw transport connection to a secure libp2p connection using the Noise protocol:
 
 - The dialing peer sends a message containing the protocol ID `/noise/1.0.0` to
-- indicate its desire to use the Noise protocol.
-- The listening peer supports the Noise protocol,
-which echoes the same protocol ID.
+  indicate its desire to use the Noise protocol.
+- The listening peer supports the Noise protocol, which echoes the same protocol ID.
 - Both peers perform the Noise handshake to establish a secure connection.
 
 > If the listening peer did not support the Noise protocol, it would have responded
