@@ -8,14 +8,15 @@ weight: 210
 
 Relays can be used to traverse NATs by acting as proxies, but this can be expensive to scale and
 maintain, and may result in low-bandwidth, high-latency connections. [Hole punching](hole-punching.md)
-is a technique that allows two nodes behind NATs to communicate directly, but it requires rendezvous
-and synchronization, which can be accomplished using signaling servers.
+is a technique that allows two nodes behind NATs to communicate directly, but it requires
+[rendezvous](../discovery/rendezvous.md) and synchronization, which can be accomplished using
+signaling servers.
 
 ## What is Direct Connection Upgrade through Relay?
 
 The libp2p DCUtR (Direct Connection Upgrade through Relay) is a protocol for establishing direct
-connections between nodes through hole punching, without a signaling server.
-DCUtR involves synchronizing and opening connections to each peer's predicted external addresses.
+connections between nodes through hole punching, without a signaling server. DCUtR involves synchronizing
+and opening connections to each peer's predicted external addresses.
 
 The DCUtR protocol uses the protocol ID `/libp2p/dcutr` and involves the exchange of `Connect` and
 `Sync` messages.
@@ -26,9 +27,8 @@ unilateral upgrade to A, then the two nodes can establish a direct connection. I
 connection upgrade fails or A is a NATed node without public addresses, then B initiates the DCUtR
 protocol.
 
-The DCUtR protocol involves the exchange of `Connect` and `Sync` messages between A and B. Node B also
-measures the RTT of the relay connection between the two nodes. If the connection is successful, A and B
-can upgrade to a direct connection and close the relay connection. If the connection is unsuccessful,
+Node B also measures the RTT of the relay connection between the two nodes. If the connection is successful,
+A and B can upgrade to a direct connection and close the relay connection. If the connection is unsuccessful,
 they can continue using the relay connection. Once the two nodes have synchronized, they can simultaneously
 open a connection to each other's addresses, allowing for successful hole punching.
 
