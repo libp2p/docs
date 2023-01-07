@@ -84,12 +84,12 @@ There are several reasons to consider using libp2p as a networking layer to crea
   to meet the needs of their particular application. This makes it easy to customize the networking stack
   to fit the specific requirements of any P2P application.
 
-  - **Transport agnosticism**: libp2p provides a set of specifications that can be adapted to support various
+- **Extensive transport configurability**: libp2p provides a set of specifications that can be adapted to support various
     [transport protocols](../transports/overview.md), allowing libp2p applications to operate in various runtime
     and networking environments. This makes it possible to use libp2p in a variety of scenarios, regardless of
-    the underlying transport protocol.
+    thanks to wealth of choices with regard to different transport protocols.
 
-  - **Versatility**: In addition to being transport agnostic, libp2p offers a range of discovery mechanisms,
+- **Versatility**: In addition to supporting a wide range of transports, libp2p offers a range of discovery mechanisms,
     data storage and retrieval patterns, and is also
     [implemented in many programming languages](https://libp2p.io/implementations/), providing developers
     with great flexibility when building P2P applications.
@@ -103,30 +103,29 @@ There are several reasons to consider using libp2p as a networking layer to crea
   and efficiently in a wide range of environments, and it is able to recover quickly from disruptions or
   failures.
 
-  - **Resiliency**: P2P networks are often more resilient than traditional client-server networks,
+- **Resiliency**: P2P networks are often more resilient than traditional client-server networks,
     as there is no single point of failure. libp2p includes features such as
     [peer discovery](../discovery/overview.md) and [content routing](../routing/overview.md) that help
     to ensure that the network remains available and accessible even if some peers are offline or unreachable.
 
-  - **Efficiency**: P2P networks can be more efficient in resource utilization, as data is
+- **Efficiency**: P2P networks can be more efficient in resource utilization, as data is
     distributed across multiple peers rather than stored on a central server. libp2p includes various storage
     and retrieval patterns that allow developers to distribute data efficiently across the network, making it
     possible to store and retrieve data in a cost-effective and scalable way.
 
-  - **Piercing NAT Barriers**: libp2p is equipped with capabilities for [NAT traversal](../nat/overview.md),
+- **Piercing NAT Barriers**: libp2p is equipped with capabilities for [NAT traversal](../nat/overview.md),
     which allows P2P communication between peers even when they are behind NAT devices or firewalls. This
     helps to maintain the connectivity of the network and ensure that it remains accessible despite the
     presence of these obstacles.
 
-  - **Message Distribution and Dissemination**: One such pattern libp2p uses is
+- **Message Distribution and Dissemination**: One such pattern libp2p uses is
     [publish/subscribe (pubsub)](../pubsub/overview.md), which allows a sender (publisher) to send a message
     to multiple recipients (subscribers) without the publisher having to know who the subscribers are.
     libp2p implements pubsub through the use of protocols like [gossipsub](../pubsub/gossipsub.md), providing
     developers with a flexible and efficient means of exchanging data and messages within their P2P
     applications.
 
-- **Interoperability**: libp2p is designed to be interoperable with different implementations and aims to
-  communicate with other P2P systems, allowing different libp2p-based applications to communicate
+- **Interoperability**: libp2p implementations in different programming languages and libp2p releases across versions are designed to be interoperable with one another. This enables applications /from different language ecosystems to communicate
   seamlessly. This helps to promote a healthy, interconnected ecosystem of P2P applications.
 
 - **Decentralization**: One of the main advantages of P2P networks is their decentralized nature, allowing
