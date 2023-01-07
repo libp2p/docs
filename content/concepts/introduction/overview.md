@@ -6,13 +6,13 @@ aliases:
   - "/introduction/what-is-libp2p"
 ---
 
-Welcome to the libp2p documentation portal!
+Welcome to the libp2p documentation site!
 
-The libp2p documentation portal aims to provide a comprehensive guide about libp2p.
-It covers the various components of libp2p, including supported transport
-protocols, nat traversal, peer discovery, and more.
+The libp2p documentation site aims to provide a comprehensive guide about libp2p.
+It covers the various modules of libp2p, including supported transport
+protocols,  secure channels, stream multiplexers, peer discovery, messaging, NAT traversal, and more.
 
-This portal is an essential resource for developers who want to learn about the
+This site is an essential resource for developers who want to learn about the
 capabilities and features of libp2p, as well as for those who are already familiar
 with libp2p and are looking for more advanced guidance. Whether you are just getting
 started with P2P networking, or you are an experienced developer looking to
@@ -31,20 +31,20 @@ capabilities.
 
 ## A modular networking stack
 
-libp2p, (short for "library peer-to-peer", always written in lowercase as "libp2p")
+libp2p, (short for "library peer-to-peer")
 is a peer-to-peer (P2P) networking framework that enables the development
 of P2P applications. It consists of a collection of protocols, specifications, and
 libraries that facilitate P2P communication between network participants, known as
 "[peers](../fundamentals/peers.md)."
 
-P2P networks are decentralized networks in which participants communicate directly with
+### Peer-to-peer basics
+
+P2P networks are decentralized, meaning participants communicate directly with
 one another on a relative "equal footing." No central server or
-authority controls the network, and all peers can communicate with one another
-directly. P2P networks do not require a privileged set of "servers" that behave differently
+authority controls the network.
+P2P networks do not require a privileged set of "servers" that behave differently
 from their "clients," as in the predominant
 [client-server model](https://en.wikipedia.org/wiki/Client%E2%80%93server_model).
-Instead, all peers in a P2P network are treated equally and can send and receive data
-to and from other peers.
 
 P2P networks can take many forms, including file-sharing systems like
 [BitTorrent](https://www.bittorrent.com/), blockchain networks like [Bitcoin](https://bitcoin.org/en/)
@@ -52,11 +52,12 @@ and [Ethereum](https://ethereum.org/en/), and decentralized communication standa
 [Matrix](https://matrix.org/). These systems all have different challenges and tradeoffs,
 but they share the goal of improving upon the traditional client-server networking model.
 
+### About libp2p
 libp2p was initially developed as part of the [InterPlanetary File System (IPFS)](https://ipfs.tech/)
 project as its wire protocol but has since phased out into a networking stack that has been adopted
 by a wide range of other projects as a networking layer. It provides a set of specifications that
 can be adapted to support various protocols, allowing libp2p applications to operate in diverse
-runtime and networking environments.
+runtimes and networking environments.
 
 In the context of the internet, the [OSI model](https://en.wikipedia.org/wiki/OSI_model) and the
 [TCP/IP model](https://en.wikipedia.org/wiki/Internet_protocol_suite) are conceptual models that provide
@@ -81,9 +82,7 @@ consider using libp2p as a networking layer to create a robust P2P application:
 
 - **Modularlity**: libp2p is designed to be modular, allowing developers to mix and match different components
   to meet the needs of their particular application. This makes it easy to customize the networking stack
-  to fit the specific requirements of any P2P application. libp2p also supports
-  [stream multiplexing](../multiplex/overview.md), which allows multiple streams of data to be transmitted
-  over a single connection, improving efficiency and enabling more advanced communication patterns.
+  to fit the specific requirements of any P2P application.
 
   - **Transport agnosticism**: libp2p provides a set of specifications that can be adapted to support various
     [transport protocols](../transports/overview.md), allowing libp2p applications to operate in various runtime
@@ -95,7 +94,7 @@ consider using libp2p as a networking layer to create a robust P2P application:
     [implemented in many programming languages](https://libp2p.io/implementations/), providing developers
     with great flexibility when building P2P applications.
 
-- **Security**: libp2p includes [several security features](../security/security-considerations.md), such
+  - **Security**: libp2p includes [several security features](../security/security-considerations.md), such
   as peer identity verification using public key cryptography, [encrypted communication](../secure-comm/overview.md) between peers using modern cryptographic algorithms, and protection against network attacks through the
   use of [mitigation techniques](../security/dos-mitigation.md).
 
