@@ -86,8 +86,8 @@ There are several reasons to consider using libp2p as a networking layer to crea
 
 - **Extensive transport configurability**: libp2p provides a set of specifications that can be adapted to
   support various [transport protocols](../transports/overview.md), allowing libp2p applications to operate
-  in various runtime and networking environments. This makes it possible to use libp2p in a variety of
-  scenarios, regardless of thanks to wealth of choices with regard to different transport protocols.
+  in various runtime and networking environments as the wealth of transport protocol choices makes it possible
+  to use libp2p in a variety of scenarios.
 
 - **Versatility**: In addition to supporting a wide range of transports, libp2p offers a range of discovery
   mechanisms, data storage and retrieval patterns, and is also
