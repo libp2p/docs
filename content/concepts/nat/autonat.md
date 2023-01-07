@@ -10,17 +10,26 @@ aliases:
 ## Background
 
 While the [identify protocol][spec_identify] lets peers inform each other about their observed network
-addresses, however, it is possible that some of these addresses are not accessible from outside the network, as the peer may be located in a private network that is behind a [NAT](overview.md) and therefore unreachable.
+addresses, however, it is possible that some of these addresses are not accessible from outside the network,
+as the peer may be located in a private network that is behind a [NAT](overview.md) and therefore unreachable.
 
-To prevent this problem of advertising undialable addresses, libp2p has implemented a protocol called AutoNAT, which allows nodes to determine
-whether or not they are behind a NAT.
-Furthermore, this lays the foundation for nodes to find a way to improve their connectivity to peers in public networks.
+To allow peers to determine their position on the network and act accordingly, libp2p has implemented a protocol
+called AutoNAT.
 
 ## What is AutoNAT?
 
-AutoNAT allows a node to request other peers to dial its presumed public addresses. If a few of these
-dial attempts are successful, the node can be reasonably ascertain that it is not behind a NAT. On the other
-hand, if a few of these dial attempts fail, it strongly indicates that a NAT is blocking incoming connections.
+AutoNAT allows a node to request other peers to dial its presumed public addresses. If most of these dial
+attempts are successful, the node can be reasonably ascertain that it is not behind a NAT. On the other hand,
+if most of these dial attempts fail, it strongly indicates that a NAT is blocking incoming connections.
+
+Nodes can then take appropriate action based on that information. For example, if a node determines that it
+is behind a NAT, it may switch to DHT server mode or try to get a reservation with a relay in order to improve
+its connectivity to public networks.
+
+{{< alert icon="" context="">}}
+Currently, AutoNAT is not able to test individual addresses, but a proposal for [AutoNAT v2]() aims to
+add this capability.
+{{< /alert >}}
 
 The AutoNAT protocol uses the protocol ID `/libp2p/autonat/1.0.0` and involves the exchange of `Dial` and
 `DialResponse` messages.
