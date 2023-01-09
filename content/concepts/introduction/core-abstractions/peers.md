@@ -1,7 +1,7 @@
 ---
 title: "Peers"
 description: Peers are what make up a libp2p network. They include unique identifiers and storage methods to facilitate peer-to-peer connections in libp2p.
-weight: 60
+weight: 32
 aliases:
     - "/concepts/peers"
     - "/concepts/fundamentals/peers"
