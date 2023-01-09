@@ -1,7 +1,7 @@
 ---
-title: "Protocols"
+title: "Overview"
 description: There are protocols everywhere you look when you're writing network applications, and libp2p is especially thick with them.
-weight: 50
+weight: 20
 aliases:
     - "/concepts/protocols"
     - "/concepts/fundamentals/protocols"
