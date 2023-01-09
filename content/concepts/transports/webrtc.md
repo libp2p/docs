@@ -39,7 +39,7 @@ protocol.
 Browsers expose an API to establish WebRTC connections. The
 [`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection)
 API allows two applications on different endpoints to communicate. WebRTC enables
-a node to send and receive streams through the `DataChannel`.
+a node to send and receive data through the `DataChannel`.
 
 ### Browser-to-Server
 
@@ -115,4 +115,4 @@ creating a connection, as opposed to WebTransport, which uses QUIC.
 Check out the
 [WebTransport](https://connectivity.libp2p.io/#webtransport) and
 [WebRTC](https://connectivity.libp2p.io/#webrtc) sections of the libp2p
-connectivity site on to learn more.
+connectivity site to learn more.
