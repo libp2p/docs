@@ -1,7 +1,7 @@
 ---
 title: "Ping"
 description: "The ping protocol is a simple request response protocol."
-weight: 20
+weight: 22
 ---
 
 ## Ping in libp2p
