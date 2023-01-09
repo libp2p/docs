@@ -49,11 +49,6 @@ certificate within the browser's trustchain.
 
 {{< alert icon="" context="info" text="When connecting to a WebSocket server, browsers require the server to present a TLS certificate signed by a trusted CA (certificate authority). Few nodes have such a certificate, which is the reason that WebSocket never saw widespread adoption in the libp2p network. WebRTC and WebTransport support encrypted communication without requiring a signed certificate from a trusted CA in the same way that WebSockets do." />}}
 
-When connecting to a WebSocket server, browsers require the server to present a
-TLS certificate signed by a trusted CA (certificate authority). Few nodes have such
-a certificate, so WebSocket never saw widespread adoption in the
-libp2p network.
-
 In libp2p:
 
 - WebRTC multiaddresses are composed of a standard UDP multiaddr,
