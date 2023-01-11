@@ -66,4 +66,4 @@ of the ALPN extension in TLS.
 More information is available in the
 [Noise specification](https://github.com/libp2p/specs/blob/master/noise/README.md#libp2p-data-in-handshake-messages).
 
-{{< alert icon="💡" context="note" text="See the inclined muxer negotiation<a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/connections/inlined-muxer-negotiation.md">specification</a> for more details." />}}
+{{< alert icon="💡" context="note" text="See the inclined muxer negotiation <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/connections/inlined-muxer-negotiation.md\">specification</a> for more details." />}}
