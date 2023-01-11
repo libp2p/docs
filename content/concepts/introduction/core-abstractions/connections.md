@@ -40,7 +40,8 @@ more into the various components later in the document.
 - Once the connection is established, and protocols are selected, the nodes can open multiple
   streams over the connection for various interactions, each using its own protocol.
 - Data is exchanged over the streams using the negotiated protocols.
-- When a node wants to close the connection or a stream, it sends a "close" message to the other
+- Based on the transport being used, when a node wants to close the connection or a stream,
+  it can send a "close" message to the other.
   node, which responds with an "acknowledgment" message.
 - Once both nodes have sent and received the close message and acknowledgment, the connection
   or stream is closed.
@@ -51,18 +52,31 @@ libp2p handles the management of connections and streams in a few ways:
 
 - **Tracking**: libp2p keeps track of which connections and streams are open and updates
   this information as connections and streams are opened or closed.
-- **Timeouts and retries**: If a connection or stream fails, libp2p will automatically retry
-  to establish the connection or stream up to a certain number of times before giving up.
+- **Timeouts and retries**: When a connection or stream fails, the application would be notified
+  and it is expected to handle the reconnection process. libp2p only reconnects if you attempt to
+  open a new stream It is possible to handle the reconnection logic by writing a custom reconnection
+  manager. This manager can listen for closed stream events, and when a stream is closed, it can
+  attempt to reconnect to the peer. Additionally, you can add your own retry and timeout logic.
 - **Opening and closing**: libp2p applications can specify when to open and close connections
   and streams based on their specific requirements. For example, an application may open a new
   stream for each file transfer rather than reusing a single stream.
+  > Implementations may include a connection manager (like in go-libp2p), which is is responsible
+  > for maintaining the number of connections to other peers within a specific range, known as the
+  > low and high watermark. The low watermark is the minimum number of connections that the connection
+  > manager tries to maintain, while the high watermark is the maximum number of connections that the
+  > connection manager allows.
+  > There is also functionality for connection protection, which is used to protect certain connections
+  > from being closed by the connection manager. When a connection is protected, the connection manager
+  > will not close it, even if the number of connections exceeds the high watermark. This allows for
+  > important connections, such as those used for critical communication or for relaying traffic, to be
+  > preserved.
 
 ### NAT traversal
 
 NAT traversal allows nodes behind NAT devices (e.g., routers) to establish connections with
-nodes on the public internet. Some transport protocols and connection upgrade protocols in
-libp2p have built-in NAT traversal capabilities, while others require additional mechanisms
-such as UPnP or hole punching. Learn more about NAT traversal in the
+nodes on the public internet or other nodes behind NATs. Some transport protocols and connection
+upgrade protocols in libp2p have built-in NAT traversal capabilities, while others require additional
+mechanisms such as UPnP or hole punching. Learn more about NAT traversal in the
 [NAT section](../nat/overview.md).
 
 ### Multiplexing and performance
@@ -80,15 +94,15 @@ connection.
 libp2p supports a variety of protocols for security and stream multiplexing, including:
 
 - Security protocols:
-  - noise: Provides encryption, authentication, and forward secrecy for libp2p connections.
-  - tls: Provides encryption, authentication, and forward secrecy for libp2p connections.
+  - [noise](../../secure-comm/noise.md): Provides encryption, authentication, and forward secrecy for libp2p connections.
+  - [tls](../../secure-comm/tls.md): Provides encryption, authentication, and forward secrecy for libp2p connections.
 
 Learn more about secure connections in the
 [secure communications section](../secure-comm/overview.md).
 
 - Stream multiplexing protocols:
-  - yamux: Provides multiplexing of streams over a single connection.
-  - mplex: Provides multiplexing of streams over a single connection.
+  - [yamux](../../multiplex/yamux.md): Provides multiplexing of streams over a single connection and backpressue.
+  - [mplex](../../multiplex/mplex.md): Provides multiplexing of streams over a single connection.
 
 Learn more about multiplexing in the
 [stream multiplexing section](../multiplex/overview.md).
@@ -103,19 +117,21 @@ not natively support the core libp2p capabilities of security and stream multipl
 The process of layering capabilities onto "raw" transport connections is known as
 "upgrading" the connection.
 
-The listener's multiaddr determines the security protocol to be used on a connection
-(see [addressing specification]). The multiplexing protocol is determined using protocol
-negotiation, with the multistream-select protocol used for this negotiation process
-(as described in the [Protocol Negotiation section](#protocol-negotiation)). When raw
-connections need both security and multiplexing, security is always established first,
-and the negotiation for stream multiplexing takes place over the encrypted channel.
+Eventually, the listener's multiaddr will determine the security protocol to be used on a
+connection ([see the specification](https://github.com/libp2p/specs/pull/353)). The
+multiplexing protocol is determined using protocol negotiation, with the multistream-select
+protocol used for this negotiation process (as described in the
+[Protocol Negotiation section](#protocol-negotiation)). When raw connections need both
+security and multiplexing, security is always established first, and the negotiation for
+stream multiplexing takes place over the encrypted channel.
 
 Here is an example of the connection upgrade process:
 
 - The dialing peer sends a request to initiate a connection to the listening
   peer over the underlying transport protocol (e.g., TCP).
 - The listening peer accepts the incoming connection request and sends the security
-  protocol ID (e.g., Noise) in its multiaddr to indicate the security protocol to use.
+  protocol ID (e.g., Noise) using multistream-select to indicate the security protocol
+  to use.
 - The dialing peer responds with the security handshake message to initiate the Noise
   protocol.
 - If the security handshake is successful, the peers exchange the multistream protocol
@@ -123,7 +139,9 @@ Here is an example of the connection upgrade process:
   connection upgrade.
 - The peers negotiate which stream multiplexer to use by proposing and responding with
   protocol IDs. If a proposed multiplexer is unsupported, the listening peer responds
-  with "na".
+  with "na". In some cases, the peer may include the stream muxer in the security handshake to
+  save this roundtrip. This is known as
+  [early multiplexer negotiation](../../multiplex/early-negotiation).
 - Once security and stream multiplexing are established, the connection upgrade process
   is complete, and both peers can use the resulting libp2p connection to open new secure
   multiplexed streams.
