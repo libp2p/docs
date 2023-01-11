@@ -1,19 +1,18 @@
 ---
 title: "Early Multiplexer Negotiation"
-description: "Peers can use security protocol extenstions for early muxer negotiation."
+description: "Early stream multiplexer negotiation is an optimization in libp2p where peers can negotiate which multiplexer to use during the security protocol handshake, saving one round trip."
 weight: 162
 ---
 
-## Typical connection upgrade process
+## Vanilla stream multiplexer selection process
 
 Peers upgrade raw transport connections by using the same
 [multistream-selection](https://github.com/multiformats/multistream-select)
 protocol to negotiate security and stream multiplexing.
 
-First, security is established, and a security handshake is performed
-either for [Noise](../secure-comm/noise) or [TLS 1.3](../secure-comm/tls).
-Multistream-select will run again on top of
-the secure channel to negotiate a steam muxer, like [yamux](yamux).
+First, the security protocol is negotiated, then this protocol is used to perform a cryptographic handshake. libp2p currently supports [Noise](../secure-comm/noise) and [TLS 1.3](../secure-comm/tls).
+Once the cryptographic handshake completes, multistream-select runs again on top of
+the secured connection to negotiate a steam multiplexer, like [yamux](yamux) or [mplex](mplex).
 
 <!-- ADD DIAGRAM -->
 
@@ -36,9 +35,7 @@ upgrading a raw connection.
 
 ### Extension registry in Noise
 
-Similar to ALPN, Noise in libp2p introduces an extension registry that includes a collection of defined extensions used
-to extend the functionality of Noise. This has additional features and capabilities during the Noise handshake, including
-negotiating a stream muxer.
+Since there's no commonly used extension mechanism in Noise, libp2p defines an extension registry. We then defined an extension to negotiate the stream multiplexer, that is conceptually the equivalent of the ALPN extension in TLS.
 
 > The extension registry is modeled after
 > [RFC 6066](https://www.rfc-editor.org/rfc/rfc6066) (for TLS) and
