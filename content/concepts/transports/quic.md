@@ -105,10 +105,10 @@ The initial implementation of QUIC in go-libp2p was based on
 (or simply, **draft-29**). At the time, draft-29 was implemented because [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000)
 was yet to be finalized.
 Eventually go-libp2p added support for RFC 9000 in addition to draft-29, supporting two QUIC versions.
-However, the multiaddresses for these versions used the same format and thus were indistinguishable.
+However, the multiaddresses for these versions used the same format and thus were indistinguishable in the past.
 
 By using different code points, `quic-v1` for RFC 9000 and `quic` for draft-29,
-libp2p can distinguish between the two versions.
+libp2p can now distinguish between the two versions.
 
 The multiaddress for a QUIC listener accepting RFC 9000 connections looks like this: `/ip4/1.2.3.4/udp/65432/quic-v1/`, whereas the for the draft version, the multiaddress would be `/ip4/1.2.3.4/udp/65432/quic/`.
 
