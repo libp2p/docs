@@ -33,7 +33,7 @@ more into the various components later in the document.
   for this negotiation process.
 - If the underlying transport protocol does not natively support security and multiplexing,
   a connection upgrade is performed to add these capabilities to the raw transport connection.
-  The peers may use NAT traversal techniques such as
+- The peers may use NAT traversal techniques such as
   [UPnP](https://en.wikipedia.org/wiki/Universal_Plug_and_Play) or
   [hole punching](../nat/hole-punching.md) to allow nodes behind NAT devices to establish
   connections.
@@ -147,7 +147,9 @@ Here is an example of the connection upgrade process:
   multiplexed streams.
 
 > In the case where both peers initially act as initiators, e.g., during NAT hole punching,
-> tie-breaking is done via the multistream-select simultaneous open protocol extension.
+> tie-breaking is done via the
+> [multistream-select](https://github.com/libp2p/specs/tree/master/connections#multistream-select)
+> simultaneous open protocol extension.
 
 ### Protocol negotiation
 
@@ -186,9 +188,9 @@ raw transport connection to a secure libp2p connection using the Noise protocol:
 - Both peers perform the Noise handshake to establish a secure connection.
 
 > If the listening peer did not support the Noise protocol, it would have responded
-> with a different protocol ID or with "na" to indicate that no common protocol
-> could be found. The dialing peer could then try a different protocol or terminate
-> the connection attempt.
+> with "na" to indicate that no common protocol could be found. The dialing peer could
+> then try a different protocol or terminate the connection attempt. More details are
+> available [here](https://github.com/libp2p/specs/tree/master/connections#multistream-select).
 
 ### Opening new streams over a connection
 
