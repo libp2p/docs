@@ -1,6 +1,6 @@
 ---
 title: "What is a libp2p Protocol"
-description: "libp2p protocols"
+description: "There are protocols everywhere you look when you're writing network applications, and libp2p is especially thick with them."
 weight: 20
 aliases:
     - "/concepts/protocols"
@@ -12,8 +12,7 @@ libp2p is composed of various core abstractions, such as
 and [addressing](../core-abstractions/addressing.md/), and
 relies on protocols to facilitate communication between peers.
 
-A libp2p protocol is a network protocol that operates within
-the libp2p network and follows certain conventions.
+A libp2p protocol is a network protocol that follows certain conventions.
 
 ### Protocol IDs
 
