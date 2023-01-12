@@ -4,8 +4,16 @@ description: "A way for nodes in libp2p to query and inform other nodes about th
 weight: 23
 ---
 
-The libp2p identify protocol is a way for nodes to query and inform other nodes
-about their metadata, such as their public key and the protocols they support.
+The libp2p identify protocol is a way for nodes in a peer-to-peer network to share
+and query information about each other. This information includes:
+
+- the user agent: a free-form string identifying the node's implementation, usually
+  in the format "agent-name/version".
+- the public IP address: the address of the node on the network, as seen by other nodes.
+- the list of multiaddresses that the node is listening on: the various network addresses
+  and ports that the node can be reached at.
+- the list of protocols that the node supports: the different communication methods that
+  the node can understand and use to communicate with other nodes.
 
 There are two variations of the protocol: `identify` and `identify/push`.
 
@@ -22,21 +30,5 @@ containing the updated metadata. Upon receiving the pushed `Identify` message, t
 remote node can update its local metadata repository with the information from the
 message, taking into account that missing fields should be ignored as the message may
 contain only partial updates.
-
-The `Identify` message contains several fields:
-
-- `protocolVersion`: (optional) identifies the family of protocols used by the node.
-  It is recommended for debugging and statistic purposes, but previous specification versions
-  required connections to be closed on version mismatch. This requirement has been revoked to
-  allow interoperability between different protocol families and networks.
-- `agentVersion`: a free-form string identifying the node's implementation, usually
-  in the format agent-name/version.
-- `publicKey`: the node's public key, marshaled in binary form.
-- `listenAddrs`: the addresses on which the node is listening, as multi-addresses.
-- `observedAddr`: (optional) the connection source address of the stream-initiating node
-  as observed by the node being identified. It can be used to infer the existence of NAT
-  and its public address.
-- `protocols`: a list of protocols supported by the node. A node should only advertise a
-  protocol if it is willing to receive inbound streams on that protocol.
 
 {{< alert icon="💡" context="note" text="See the Identify <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/tree/master/identify\">technical specification</a> for more details." />}}
