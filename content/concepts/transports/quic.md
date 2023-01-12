@@ -84,9 +84,8 @@ when it has already communicated with a certain server. The client can then send
 
 ### QUIC native multiplexing
 
-QUIC interleaves frames from multiple streams into one or more QUIC packets at the
-transport layer. A single QUIC packet can include multiple frames from one or more
-streams. This solves the problem of HOL (head-of-line) blocking: If a packet contain
+A single QUIC packet can include multiple frames from one or more
+streams. Since QUIC packets can be decrypted even when they're received out of order, this solves the problem of HOL (head-of-line) blocking: If a packet that contains
 stream data for one stream is lost, this only blocks progress on this one stream. All
 other streams can still make progress.
 
