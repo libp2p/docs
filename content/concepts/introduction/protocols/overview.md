@@ -11,8 +11,8 @@ libp2p is composed of various core abstractions, such as
 [peer identity](../core-abstractions/peers.md#peer-id),
 and [addressing](../core-abstractions/addressing.md/), and
 relies on protocols to facilitate communication between peers.
-
-A libp2p protocol is a network protocol that follows certain conventions.
+These protocols are networking protocol that follows certain conventions
+to allow for peer-to-peer networking.
 
 ### Protocol IDs
 
