@@ -53,10 +53,10 @@ libp2p handles the management of connections and streams in a few ways:
 - **Tracking**: libp2p keeps track of which connections and streams are open and updates
   this information as connections and streams are opened or closed.
 - **Timeouts and retries**: When a connection or stream fails, the application would be notified
-  and it is expected to handle the reconnection process. libp2p only reconnects if you attempt to
-  open a new stream It is possible to handle the reconnection logic by writing a custom reconnection
-  manager. This manager can listen for closed stream events, and when a stream is closed, it can
-  attempt to reconnect to the peer. Additionally, you can add your own retry and timeout logic.
+  and it is expected to handle the reconnection process. It is possible to handle the reconnection
+  logic by writing a custom reconnection manager. This manager can listen for closed stream events,
+  and when a stream is closed, it can attempt to reconnect to the peer. Additionally, you can add
+  your own retry and timeout logic.
 - **Opening and closing**: libp2p applications can specify when to open and close connections
   and streams based on their specific requirements. For example, an application may open a new
   stream for each file transfer rather than reusing a single stream.
