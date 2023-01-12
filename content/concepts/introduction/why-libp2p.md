@@ -1,6 +1,6 @@
 ---
 title: "Why libp2p"
-description: libp2p is a modular system of protocols, specifications, and libraries that enable the development of peer-to-peer network applications.
+description: "The reasons that make libp2p a uniquely powerful networking stack."
 weight: 3
 ---
 
@@ -61,16 +61,3 @@ There are several reasons to consider using libp2p as a networking layer to crea
   them to operate without a central authority. libp2p is designed to facilitate decentralized
   communication between peers, making it possible to build P2P applications resistant to censorship and more
   resilient in the face of network disruptions.
-
-## Related projects
-
-libp2p remains an integral component in IPFS and can be easily integrated with other projects in the
-IPFS "family". Check their sites for specific information and references:
-
-- [IPFS](https://libp2p.io) is the InterPlanetary File System, which uses libp2p as
-  its networking layer.
-- [Multiformats](https://multiformats.io) is a variety of *self-describing* data formats.
-- [IPLD](https://ipld.io) is a set of tools for describing links between content-addressed
-  data, like IPFS files, Git commits, or Ethereum blocks.
-- [The Permissive License Stack](https://protocol.ai/blog/announcing-the-permissive-license-stack)
-  is a licensing strategy for software development that embraces open-source values.
