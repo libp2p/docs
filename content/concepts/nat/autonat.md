@@ -27,7 +27,7 @@ is behind a NAT, it may switch to DHT server mode or try to get a reservation wi
 its connectivity to public networks.
 
 {{< alert icon="" context="">}}
-Currently, AutoNAT is not able to test individual addresses, but a proposal for AutoNAT v2 aims to
+Currently, AutoNAT is not able to test individual addresses, but a [proposal](https://github.com/libp2p/specs/issues/503) for AutoNAT v2 aims to
 add this capability.
 {{< /alert >}}
 
