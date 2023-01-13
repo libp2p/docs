@@ -9,7 +9,7 @@ and query information about each other. This information includes:
 
 - the user agent: a free-form string identifying the node's implementation, usually
   in the format "agent-name/version".
-- the public IP address: the address of the node on the network, as seen by other nodes.
+- the node's public IP address: the address of the node on the network, as seen by other nodes.
 - the list of multiaddresses that the node is listening on: the various network addresses
   and ports that the node can be reached at.
 - the list of protocols that the node supports: the different communication methods that
@@ -17,10 +17,12 @@ and query information about each other. This information includes:
 
 There are two variations of the protocol: `identify` and `identify/push`.
 
-The identify protocol, identified by the protocol ID `/ipfs/id/1.0.0`, is used
+The Identify protocol, identified by the protocol ID `/ipfs/id/1.0.0`, is used
 to query a remote node for its metadata. To do so, a node opens a stream to the
 remote node and the remote node responds with an `Identify` message containing
 its metadata and closes the stream.
+
+<!-- ADD Diagram -->
 
 The identify/push protocol, identified by the protocol ID `/ipfs/id/push/1.0.0`,
 is used to inform other nodes about changes in a node's metadata. When a
@@ -30,5 +32,7 @@ containing the updated metadata. Upon receiving the pushed `Identify` message, t
 remote node can update its local metadata repository with the information from the
 message, taking into account that missing fields should be ignored as the message may
 contain only partial updates.
+
+<!-- ADD Diagram -->
 
 {{< alert icon="💡" context="note" text="See the Identify <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/tree/master/identify\">technical specification</a> for more details." />}}
