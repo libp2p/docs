@@ -4,7 +4,7 @@ description: "A way for nodes in libp2p to query and inform other nodes about th
 weight: 23
 ---
 
-The libp2p identify protocol is a way for nodes in a peer-to-peer network to share
+The libp2p Identify protocol is a way for nodes in the libp2p network to share
 and query information about each other. This information includes:
 
 - the user agent: a free-form string identifying the node's implementation, usually
