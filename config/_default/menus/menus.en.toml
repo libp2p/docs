@@ -5,17 +5,12 @@
 
 [[main]]
   name = "Guides"
-  url = "/guides/"
+  url = "/guides/getting-started/go/"
   weight = 20
 
 [[main]]
-  name = "Blog"
-  url = "/blog/"
-  weight = 30
-
-[[main]]
   name = "Reference"
-  weight = 40
+  weight = 30
   identifier = "reference"
 
 [[main]]
@@ -23,13 +18,6 @@
   weight = 10
   identifier = "specifications"
   url = "https://github.com/libp2p/specs/"
-  parent = "reference"
-
-[[main]]
-  name = "Connectivity"
-  weight = 20
-  identifier = "connectivity"
-  url = "https://connectivity.libp2p.io/"
   parent = "reference"
 
 [[main]]
@@ -41,7 +29,7 @@
 
 [[main]]
   name = "Community"
-  weight = 50
+  weight = 40
   identifier = "community"
 
 [[main]]
@@ -55,6 +43,18 @@
   url = "https://discuss.libp2p.io/"
   weight = 20
   parent = "community"
+
+[[main]]
+  name = "Connectivity"
+  weight = 50
+  identifier = "connectivity"
+  url = "https://connectivity.libp2p.io/"
+
+[[main]]
+  name = "Blog"
+  weight = 60
+  identifier = "blog"
+  url = "https://blog.libp2p.io/"
 
 [[social]]
   name = "GitHub"

@@ -34,7 +34,7 @@ schemaImageHeight = 640
 schemaTwitter = "https://twitter.com/libp2p"
 schemaLinkedIn = "https://www.linkedin.com/company/protocollabs/"
 schemaGitHub = "https://github.com/libp2p/docs"
-schemaSection = "blog"
+# schemaSection = "blog"
 
 ## Sitelinks Search Box
 siteLinksSearchBox = false
@@ -84,8 +84,8 @@ lastMod = true
   clipBoard = true
   instantPage = true
   flexSearch = true
-  searchSectionsShow = []
-  searchSectionsIndex = []
+  searchSectionsShow = "ALL"
+  searchSectionsIndex = ["concepts", "guides", "reference", "community"]
   darkMode = true
   bootStrapJs = true
   breadCrumb = false
