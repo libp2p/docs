@@ -1,18 +1,38 @@
 ---
 title : "Rendezvous"
-description: "The rendezvous protocol can facilitate the routing and discovery of nodes in a peer-to-peer network using a common location."
+description: "The rendezvous protocol can facilitate the routing and discovery of nodes in a P2P network using a common location."
 weight: 223
 ---
 
 ## What is Rendezvous?
 
 A rendezvous protocol is a routing protocol that enables nodes and resources
-in a peer-to-peer network to discover each other. Rendezvous is used
+in a P2P network to discover each other. Rendezvous is used
 as a common location (point) to route between two routes.
 
 Rendezvous points are typically nodes that are well-connected and stable in
 a network and can handle large amounts of traffic and data. They
 serve as a hub for nodes to discover.
+
+<details>
+  <summary>Rendezvous is not decentralized</summary>
+
+  It is important to note that Rendezvous is not decentralized but rather
+  federated. While this has its use cases, it also introduces a single
+  point of failure into the network. This can be contrasted with fully decentralized
+  solutions like DHT and Gossipsub. DHT (Distributed Hash Table) and Gossipsub are
+  decentralized alternatives to Rendezvous.
+
+  [DHT](kaddht.md) is a distributed network protocol used to store and
+  retrieve data in a P2P network efficiently. It uses a hash table to map keys
+  to values, allowing for fast lookups and efficient data distribution across the network.
+
+  [Gossipsub](pubsub.md), on the other hand, is a pub-sub (publish-subscribe) protocol
+  that is used to distribute messages and data across a network. It uses a gossip-based
+  mechanism to propagate messages throughout the network, allowing fast and efficient
+  distribution without relying on a central control point.
+
+</details>
 
 ## Rendezvous in libp2p
 
