@@ -22,7 +22,7 @@ The libp2p rendezvous protocol can be used for different use cases. It is used
 during bootstrap to discover circuit relays that provide connectivity for browser
 nodes. Generally, a peer can use known rendezvous points to find peers that provide
 network services. Rendezvous is also used throughout the lifetime of
-an application for real-time peer discovery by registering and polling rendezvous points
+an application for peer discovery by registering and polling rendezvous points
 in a decentralized manner. In an application-specific setting, rendezvous points are
 used to progressively discover peers that can answer specific queries or host shards of
 content.
@@ -40,7 +40,7 @@ query the rendezvous point. The query may:
 - optionally provide a maximum number of peers to return;
 - can include a cookie that is obtained from the response to a previous query which would only
   contain registrations that weren't part of the previous response.
-  > This simplifies real-time discovery as it reduces the overhead of queried peers and allows for
+  > This simplifies discovery as it reduces the overhead of queried peers and allows for
   > the pagination of query responses.
 
 There is a default peer registration lifetime of 2 hours. Peers can optionally specify the
@@ -52,14 +52,14 @@ The rendezvous protocol runs over libp2p streams using the protocol ID `/rendezv
 
 ### Rendezvous and publish-subscribe
 
-For effective real-time discovery, rendezvous can be combined with [libp2p publish/subscribe](../messaging/pubsub/overview). At a basic level, rendezvous can bootstrap pubsub by discovering peers
-subscribed to a topic. The rendezvous would be responsible for publishing packets, subscribing,
-or unsubscribing from packet shapes.
+For effective discovery, rendezvous can be combined with [libp2p publish/subscribe](../messaging/pubsub/overview).
+At a basic level, rendezvous can bootstrap pubsub by discovering peers subscribed to a topic. The rendezvous would
+be responsible for publishing packets, subscribing, or unsubscribing from packet shapes.
 
 Pubsub can also be used as a mechanism for building rendezvous services, where a number
-of rendezvous points can federate using pubsub for internal real-time distribution while still
+of rendezvous points can federate using pubsub for internal distribution while still
 providing a simple interface to clients.
 
-<!-- TO ADD: Interaction diagrams and context -->
+<!-- DIAGRAMS COMING SOON -->
 
 {{< alert icon="💡" context="note" text="See the rendezvous <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/rendezvous/README.md\">technical specification</a> for more details." />}}
