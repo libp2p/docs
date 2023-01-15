@@ -6,25 +6,45 @@ weight: 221
 
 ## Overview
 
-Distributed networks require a way to discover peers. Peer discovery in distributed networks
-is the process of using a discovery protocol to discover and announce services to other
-available peers. Peer discovery requires each node in a network to be able to discover other
-nodes without the need for a central server.
+Peer discovery and routing are two essential aspects of P2P networking. In a distributed network,
+each node must be able to discover and communicate with other nodes without the need for a central
+server.
 
-## Peer discovery in libp2p
+### Peer Discovery
 
-Peers can discover other peers in libp2p using a variety of mechanisms, such as
-exchanging peer addresses over the network, querying a directory service, or using a
-[DHT (distributed hash table)](/concepts/fundamentals/dht) to store and retrieve information about
-available peers. The process of peer discovery varies on the composition of protocols being
-used to connect peers.
+Peer discovery is the process of finding and announcing services to other available peers in a
+distributed network. It allows a node to discover other nodes in the network and learn about their
+services. Peer discovery can be done using various protocols, such as broadcasting a
+message to all peers in the network or using a bootstrap node to provide a list of known peers.
 
-Generally, peer discovery is a function in respect to a topic that returns a list of
-peers, usually their multiaddr and port information.
+### Peer Routing
+
+Peer routing, on the other hand, refers to finding a specific peer's location
+in the network. This is typically done by maintaining a routing table or a similar data structure that
+keeps track of the network topology. Algorithms such as kbucket and "routing by gossip" can be used to find
+the closest peers to a given peer ID.
+
+A peer may use a routing algorithm to find the location of a specific peer and then use that
+information to discover new peers in the vicinity. Additionally, a peer may parallel use both peer routing
+and peer discovery mechanisms to find new peers and route data to them. In practice, the distinction between
+peer routing and peer discovery is not always clear-cut, and it's worth noting that in a real-world implementation,
+discovery and routing usually happen concurrently.
+
+## Discovery and Routing in libp2p
+
+libp2p is a peer-to-peer networking stack that provides a set of modules for different network-level
+functionality, including peer discovery and routing. Peers in a libp2p network can discover other
+peers using various mechanisms, such as exchanging peer addresses over the network, querying a directory
+service, or using a Distributed Hash Table (DHT) to store and retrieve information about available peers.
 
 The methods for peer discovery in libp2p are, but are not limited to:
 
-- [rendezvous](rendezvous);
-- [mDNS](mdns);
-- [publish/subscribe](/concepts/pubsub/overview.md)
-- and using a [DHT](/concepts/introduction/protocols/dht.md).
+- [Rendezvous](rendezvous.md): a protocol that allows peers to exchange peer addresses in a secure and
+  private manner
+- [mDNS](mdns.md): a multicast Domain Name System (DNS) protocol that allows peers to discover other
+  peers on the local network.
+- [Publish/Subscribe](pubsub.md): a protocol that allows peers to subscribe to specific topics and receive
+  updates from other peers that are publishing information on those topics.
+- [DHT](kaddht.md): Distributed Hash Table, libp2p uses a DHT called Kademlia, it assigns each piece of
+  content a unique identifier and stores the content on the peer whose identifier is closest to the
+  content's identifier.
