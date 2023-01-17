@@ -1,5 +1,5 @@
 ---
-title: "Gossipsub"
+title: "GossipSub"
 description: ""
 weight: 232
 ---
