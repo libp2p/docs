@@ -9,21 +9,21 @@ aliases:
 
 ## Overview
 
-Publish-subscribe (pub-sub) is a messaging pattern where senders, known as publishers,
+Publish/Subscribe (PubSub) is a messaging pattern where senders, known as publishers,
 of messages do not send them directly to specific receivers, known as subscribers.
 Instead, they send them to a topic or a channel. Subscribers, in turn, express interest
 in one or more topics and only receive messages that are of interest to them.
 This allows for a decoupling of senders and receivers and multiple subscribers to receive
 the same message.
 
-Pub-sub systems that are centralized rely on a centralized broker, known as a message
+PubSub systems that are centralized rely on a centralized broker, known as a message
 broker, who is responsible for filtering and forwarding messages. In P2P PubSub systems,
 there is no centralized broker. Instead, each node in the network is both a publisher and
 a subscriber and is responsible for forwarding messages to other nodes expressing interest
 in the topic.
 
-In a P2P pub-sub system, all peers participate in delivering messages throughout the network.
-There are different types of pub-sub models, like event-based, data-centric, content-based,
+In a P2P PubSub system, all peers participate in delivering messages throughout the network.
+There are different types of PubSub models, like event-based, data-centric, content-based,
 and topic-based, each with its use cases and advantages. The event-based model is useful for
 systems that react to specific events in real time, while the data-centric model is best suited
 for systems that share and synchronize data among multiple nodes. Content-based and topic-based
@@ -39,7 +39,7 @@ include:
 - **Simplicity**: The system is simple to understand and implement. Each peer only needs to
   remember a small amount of state.
 
-### Example uses of pub-sub
+### Example uses of PubSub
 
 - **Decentralized Social Networking**: Each user is a peer and can create and join different
   groups or topics, where they can post and receive updates, messages, and comments in real time.
@@ -51,7 +51,7 @@ include:
 - **IoT and Smart Home**: IoT devices can publish sensor data on specific topics, and other devices or
   applications can subscribe to these topics to receive the data and take appropriate actions.
 - **Decentralized Marketplaces**: Peers can publish and discover goods and services on specific topics
-  and communicate and transact with each other through the pub-sub system.
+  and communicate and transact with each other through the PubSub system.
 - **Decentralized Streaming**: Peers can broadcast live streams on specific topics, and others can subscribe
   to these topics to watch the streams in real time.
 - **Decentralized Chat and Video Conferencing**: Peers can create and join specific chat rooms or video
@@ -59,17 +59,17 @@ include:
 
 ## Publish-Subscribe in libp2p
 
-The Pub-Sub system in libp2p allows peers to congregate around topics of interest and communicate in
+The PubSub system in libp2p allows peers to congregate around topics of interest and communicate in
 real-time. Peers can express interest in one or more topics and send and receive messages on these topics.
 Messages are broadcasted to all the peers that have subscribed to the topic, ensuring that all interested
 parties receive the message. This allows for efficient communication and data sharing among peers without
 needing a central intermediary or broker.
 
-While the Pub-Sub system in libp2p is scalable and fault-tolerant, it P2P-based Pub-Sub system poses new
+While the PubSub system in libp2p is scalable and fault-tolerant, it P2P-based PubSub system poses new
 challenges. One of the main challenges is ensuring that messages are delivered to all interested parties
 promptly and efficiently. This is particularly challenging in large and dynamic networks, where the topology
 and the set of subscribers can change frequently.
 
-To address many of these challenges, libp2p uses a Pub-Sub protocol called [gossipsub](gossipsub.md),
+To address many of these challenges, libp2p uses a PubSub protocol called [GossipSub](gossipsub.md),
 a gossip-based protocol named after the fact that peers gossip to each other about which messages they
 have seen, and uses this information to maintain a message delivery network.
