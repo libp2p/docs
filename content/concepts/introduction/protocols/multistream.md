@@ -48,7 +48,7 @@ is explained further in the [connections document](../core-abstractions/connecti
 negotiation protocol that aims to improve and replace Multistream Select.
 Multistream Select is prone to downgrade attacks and censorship, which is why
 Protocol Select is being developed. Some other improvements include eliminating
-the need for negotiating security protocols and reducing the number of round-trips
+the need for negotiating security protocols and reducing the number of roundtrips
 needed for stream multiplexer negotiation. Protocol Select also uses a binary
 data format defined in a machine parseable schema language, making protocol
 evolution and implementation more manageable and efficient.
@@ -60,8 +60,7 @@ libp2p. Follow the official specification development
 {{< /alert >}}
 
 > Protocol Select will not be compatible with Multistream Select in its semantics
-> as well as on the wire. Live libp2p-based networks, currently using Multistream Select,
-> would need to follow a multiphased roll-out strategy detailed below to guarantee a
-> smooth transition.
+> as well as on the wire. Live libp2p-based networks currently using Multistream Select
+> would need to follow a multiphased roll-out strategy to guarantee a smooth transition.
 
 {{< alert icon="💡" context="note" text="See the multistream-select <a class=\"text-muted\" href=\"https://github.com/multiformats/multistream-select\">technical specification</a> for more details." />}}
