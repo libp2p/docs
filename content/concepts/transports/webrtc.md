@@ -105,7 +105,7 @@ standard interface for delivering data, whereas WebRTC is a higher-level technol
 that offers a set of APIs and protocols for building communication applications.
 WebTransport only supports client-server connections, while WebRTC supports peer-to-peer
 connections. WebRTC is also more complex, as many underlying protocols are involved in
-creating a connection, as opposed to WebTransport, which uses QUIC.
+creating a connection, as opposed to WebTransport, which only depends on QUIC.
 
 Check out the
 [WebTransport](https://connectivity.libp2p.io/#webtransport) and
