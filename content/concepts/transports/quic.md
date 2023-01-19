@@ -96,7 +96,7 @@ IDs are authenticated in the
 {{< alert icon="💡" context="note" text="To be clear, there is no additional security handshake and stream muxer needed as QUIC provides all of this by default. This also means that establishing a libp2p connection between two nodes using QUIC only takes a single RTT." />}}
 
 Following the multiaddress format, a standard QUIC connection will
-look like: `/ip4/127.0.0.1/udp/65432/quic-v1/`.
+look like: `/ip4/192.0.2.0/udp/65432/quic-v1/`.
 
 ### Distinguishing multiple QUIC versions in libp2p
 
@@ -110,7 +110,7 @@ However, the multiaddresses for these versions used the same format and thus wer
 By using different code points, `quic-v1` for RFC 9000 and `quic` for draft-29,
 libp2p can now distinguish between the two versions.
 
-The multiaddress for a QUIC listener accepting RFC 9000 connections looks like this: `/ip4/1.2.3.4/udp/65432/quic-v1/`, whereas the for the draft version, the multiaddress would be `/ip4/1.2.3.4/udp/65432/quic/`.
+The multiaddress for a QUIC listener accepting RFC 9000 connections looks like this: `/ip4/192.0.2.0/udp/65432/quic-v1/`, whereas the for the draft version, the multiaddress would be `/ip4/192.0.2.0/udp/65432/quic/`.
 
 Nodes that support multiple versions can offer them on the same port.
 QUIC long header packets contain the version number, which enables the QUIC stack to handle multiple versions.
