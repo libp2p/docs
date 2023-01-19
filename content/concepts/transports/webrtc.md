@@ -19,7 +19,7 @@ protocol.
 ### Key features
 
 - Peer connections: WebRTC enables [direct peer-to-peer connections](https://webrtc.org/getting-started/peer-connections)
-  between browsers and other nodes through a process called [signaling](https://webrtc.org/getting-started/peer-connections#signaling).
+  between browsers and other nodes.
   In non-decentralized WebRTC, this is facilitated by a [TURN server.](https://webrtc.org/getting-started/turn-server)
   This allows for faster and more efficient communication.
 
@@ -33,7 +33,7 @@ protocol.
   [ICE](https://datatracker.ietf.org/doc/rfc5245/))to connect to nodes that run behind
   NATs and firewalls.
 
-- [Security](../secure-comm/overview): WebRTC connections are encrypted using
+- Security: WebRTC connections are encrypted using
   [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security).
 
 Browsers expose an API to establish WebRTC connections. The
@@ -100,12 +100,14 @@ Track the progress [here](https://github.com/libp2p/specs/issues/475).
 
 ## Comparing WebRTC and WebTransport
 
-In general, WebTransport is a lower-level technology that provides a
-standard interface for delivering data, whereas WebRTC is a higher-level technology
-that offers a set of APIs and protocols for building communication applications.
-WebTransport only supports client-server connections, while WebRTC supports peer-to-peer
-connections. WebRTC is also more complex, as many underlying protocols are involved in
-creating a connection, as opposed to WebTransport, which only depends on QUIC.
+In general, WebRTC was primarily built for in-browser audio and video communication,
+whereas WebTransport aims to offer a general-purpose bidirectional byte-stream interface
+between a browser and a server.
+
+In terms of connectivity, WebTransport only supports client-server connections,
+while WebRTC supports peer-to-peer connections. WebRTC is also more complex, as many
+underlying protocols are involved in creating a connection, as opposed to WebTransport,
+which only depends on QUIC.
 
 Check out the
 [WebTransport](https://connectivity.libp2p.io/#webtransport) and
