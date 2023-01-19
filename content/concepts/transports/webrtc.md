@@ -20,8 +20,6 @@ protocol.
 
 - Peer connections: WebRTC enables [direct peer-to-peer connections](https://webrtc.org/getting-started/peer-connections)
   between browsers and other nodes.
-  In non-decentralized WebRTC, this is facilitated by a [TURN server.](https://webrtc.org/getting-started/turn-server)
-  This allows for faster and more efficient communication.
 
 - Data channel: WebRTC also provides peer-to-peer data channels called
   [WebRTC data channels](https://developer.mozilla.org/en-US/docs/Games/Techniques/WebRTC_data_channels),
@@ -31,7 +29,11 @@ protocol.
 
 - [NAT traversal](../nat/overview): WebRTC includes mechanisms (like
   [ICE](https://datatracker.ietf.org/doc/rfc5245/))to connect to nodes that run behind
-  NATs and firewalls.
+  NATs and firewalls. In non-decentralized WebRTC, this can be facilitated by a
+  [TURN server.](https://webrtc.org/getting-started/turn-server),
+  but other signaling channels, such as WebSocket running on a central server, can also be used.
+  It is also possible to use a custom signaling protocol or a different signaling service.
+  Overall, this allows for faster and more efficient communication.
 
 - Security: WebRTC connections are encrypted using
   [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security).
