@@ -10,15 +10,14 @@ Peer discovery and routing are two essential aspects of P2P networking. In a P2P
 each node must be able to discover and communicate with other nodes without the need for
 a central server.
 
-### Peer Discovery
+### Peer discovery
 
 Peer discovery is the process of finding and announcing services to other available
-peers in a P2P network. It allows a peer to discover other peers in the network and
-learn about their services. Peer discovery can be done using various protocols, such
+peers in a P2P network. Peer discovery can be done using various protocols, such
 as broadcasting a message to all peers in the network or using a bootstrap node to
 provide a list of known peers.
 
-### Peer Routing
+### Peer routing
 
 Peer routing, on the other hand, refers to finding a specific peer's location
 in the network. This is typically done by maintaining a routing table or a similar
@@ -27,22 +26,27 @@ and "routing by gossip" can be used to find the closest peers to a given peer ID
 
 A peer may use a routing algorithm to find the location of a specific peer and then
 use that information to discover new peers in the vicinity. Additionally, a peer may
-in parallel use both peer routing and peer discovery mechanisms to find new peers and
-route data to them. In practice, the distinction between peer routing and peer
+use both peer routing and peer discovery mechanisms in parallel to find new peers and
+route data to them.
+
+{{< alert icon="" context="note">}}
+In practice, the distinction between peer routing and peer
 discovery is not always clear-cut, and it's worth noting that in a real-world
 implementation, discovery and routing usually happen concurrently.
+{{< /alert >}}
 
-## Discovery and Routing in libp2p
+## Discovery and routing in libp2p
 
 libp2p provides a set of modules for different network-level functionality,
 including peer discovery and routing. Peers in libp2p can discover other
-peers using various mechanisms, such as exchanging peer addresses over the
-network, querying a directory service, or using a Distributed Hash Table (DHT)
+peers using various mechanisms, such as exchanging peer
+[multiaddresses](../introduction/core-abstractions/addressing.md) over the
+network, querying a directory service, or using a distributed hash table (DHT)
 to store and retrieve information about available peers.
 
 These methods include, but are not limited to:
 
-- [Rendezvous](rendezvous.md): a protocol that allows peers to exchange peer addresses
+- [Rendezvous](rendezvous.md): a protocol that allows peers to exchange peer multiaddresses
   in a secure and private manner.
 - [mDNS](mdns.md): a multicast Domain Name System (DNS) protocol that allows peers to
   discover other peers on the local network.
