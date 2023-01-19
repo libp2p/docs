@@ -27,7 +27,7 @@ and "routing by gossip" can be used to find the closest peers to a given peer ID
 
 A peer may use a routing algorithm to find the location of a specific peer and then
 use that information to discover new peers in the vicinity. Additionally, a peer may
-parallel use both peer routing and peer discovery mechanisms to find new peers and
+in parallel use both peer routing and peer discovery mechanisms to find new peers and
 route data to them. In practice, the distinction between peer routing and peer
 discovery is not always clear-cut, and it's worth noting that in a real-world
 implementation, discovery and routing usually happen concurrently.
