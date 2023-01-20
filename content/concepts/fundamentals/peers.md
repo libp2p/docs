@@ -67,10 +67,10 @@ libp2p multiaddress for me would be:
 As with other multiaddrs, a `/p2p` address can be encapsulated into
 another multiaddr to compose into a new multiaddr. For example, I can combine
 the above with a [transport](/concepts/transport/) address
-`/ip4/7.7.7.7/tcp/4242` to produce this very useful address:
+`/ip4/198.51.100.0/tcp/4242` to produce this very useful address:
 
 ```shell
-/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
+/ip4/198.51.100.0/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
 ```
 
 This provides enough information to dial a specific peer over a TCP/IP
