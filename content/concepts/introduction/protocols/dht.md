@@ -1,6 +1,6 @@
 ---
 title: "Kademlia DHT"
-description: "Kad-DHT is subsystem is an implementation of the Kademlia
+description: "Kad-DHT subsystem is an implementation of the Kademlia
 DHT, a distributed hash table that is designed for P2P networks."
 weight: 25
 ---
@@ -56,8 +56,8 @@ on how similar their keys are.
 The Kad-DHT uses a process called "peer routing" to discover new nodes in the network.
 This process starts by generating a random peer ID and looking it up via the routing
 table. The node then contacts the k closest nodes to the peer ID and repeats the process
-until it finds the peer or determines that it is not in the network. Nodes also adds any
-new nodes they discovers to their routing table to improve its awareness of the network.
+until it finds the peer or determines that it is not in the network. Nodes also add any
+new nodes they discover to their routing table to improve its awareness of the network.
 
 This process can also find nodes with a specific key prefix. Check out the Kad-DHT
 discovery document for more information.
