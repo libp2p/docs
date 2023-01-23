@@ -1,6 +1,6 @@
 ---
 title: "Kademlia DHT"
-description: "Kad-DHT subsystem is an implementation of the Kademlia
+description: "The libp2p Kad-DHT subsystem is an implementation of the Kademlia
 DHT, a distributed hash table that is designed for P2P networks."
 weight: 25
 ---
@@ -13,8 +13,7 @@ that is designed for P2P networks.
 Kad-DHT in libp2p is a subsystem based on the
 [Kademlia whitepaper](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
 and is augmented with other systems, such as
-[S/Kademlia](https://attachment.victorlampcdn.com/article/content/20220705/SKademlia_2007.pdf),
-[Coral](https://www.cs.princeton.edu/~mfreed/docs/coral-iptps03.pdf), and the
+[Coral](https://www.cs.princeton.edu/~mfreed/docs/coral-iptps03.pdf) and the
 [BitTorrent DHT](https://www.bittorrent.org/beps/bep_0005.html).
 
 Kad-DHT offers a way to find and manage nodes and data on the network by using a
@@ -22,7 +21,7 @@ Kad-DHT offers a way to find and manage nodes and data on the network by using a
 on how similar their keys are.
 
 <details>
-  <summary>A look deeper</summary>
+  <summary>A deeper look</summary>
 
   The routing table is organized based on a prefix length and a distance metric.
   The prefix length helps to group similar keys, and the distance metric helps to
@@ -46,8 +45,8 @@ on how similar their keys are.
   the keys are identical, and a distance of `1` means that only one bit is different,
   meaning the two keys are close to each other (i.e. their SHA-256 hashes are similar).
 
-  This allows for efficient and effective lookups in the routing table when trying
-  to find nodes or data that share similar prefixes.
+  This design allows for efficient and effective lookups in the routing table when
+  trying to find nodes or data that share similar prefixes.
 
 </details>
 
@@ -59,18 +58,13 @@ table. The node then contacts the k closest nodes to the peer ID and repeats the
 until it finds the peer or determines that it is not in the network. Nodes also add any
 new nodes they discover to their routing table to improve its awareness of the network.
 
-This process can also find nodes with a specific key prefix. Check out the Kad-DHT
-discovery document for more information.
-
-<!-- to add link -->
-
 ## Content provider discovery
 
 Kad-DHT also includes a feature for content provider discovery, where nodes can look up
-providers for a given key. This is done by sending an RPC message to the k closest nodes
-to the key and collecting the responses. The node then returns the list of providers it
-has discovered. Check out the [Kad-DHT content routing document](../../content-routing/kaddht.md)
-for more information.
+providers for a given key. This is done by sending an [RPC message](#rpc-messages) (which uses a
+key/value API) to the `k` closest nodes to the key and collecting the responses. The node then
+returns the list of providers it has discovered. Check out the
+[Kad-DHT content routing document](../../content-routing/kaddht.md) for more information.
 
 ## Bootstrap process
 
@@ -90,10 +84,8 @@ the DHT, i.e., query the DHT, without decreasing the quality of the distributed 
 
 ## RPC messages
 
-The Kad-DHT in libp2p also includes various RPC messages for performing operations on the DHT,
+There are various RPC messages for performing operations on the DHT,
 such as `PUT_VALUE`, `GET_VALUE`, `ADD_PROVIDER`, and `GET_PROVIDERS`. These messages are used
-for storing and retrieving key-value pairs and finding providers for a given key. These messages
-are sent over a stream, and all messages sent over a stream are prefixed with the message length
-in bytes.
+for storing and retrieving key-value pairs and finding providers for a given key.
 
 {{< alert icon="💡" context="note" text="See the Kademlia DHT <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/tree/master/kad-dht\">technical specification</a> for more details." />}}
