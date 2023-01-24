@@ -9,8 +9,8 @@ aliases:
 ## What is WebRTC?
 
 [WebRTC (Web Real-Time Communications)](https://webrtc.org/) is a framework for real-time
-communication and in libp2p is used to establish browser-to-server and browser-to-browser connections
-between applications.
+communication and in libp2p is used to establish browser-to-server and browser-to-browser
+connections between applications.
 
 WebRTC was originally designed to make audio, video, and data
 communication between browsers user-friendly and easy to implement.
@@ -36,9 +36,14 @@ The features employed in libp2p are:
 
 - Data channels: WebRTC provides peer-to-peer [data channels](https://developer.mozilla.org/en-US/docs/Games/Techniques/WebRTC_data_channels),
   which works on
-  [SCTP (Stream Control Transmission Protocol)](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol).
-  A WebRTC data channel allows applications to send a text or binary data over an active connection to a peer.
-  This means libp2p can utilize data channels as a transport to send raw data to peers and enables applications to build anything they like.
+  [SCTP (Stream Control Transmission Protocol)](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol) and use
+  [SDP (Session Description Protocol)](https://en.wikipedia.org/wiki/Session_Description_Protocol) to negotiate the parameters
+  of the data channel, such as the type of data that will be sent, the codecs that will be used to encode the data, and
+  other properties.
+
+  A WebRTC data channel allows applications to send a text or binary data over an active connection
+  to a peer. This means libp2p can utilize data channels as a transport to send raw data to peers and
+  enables applications to build anything they like.
 
 - [NAT traversal](../nat/overview): WebRTC includes mechanisms (like
   [ICE](https://datatracker.ietf.org/doc/rfc5245/)) to connect to nodes that run behind
@@ -49,20 +54,30 @@ The features employed in libp2p are:
   Overall, this allows for faster and more efficient communication.
 
 - Security: WebRTC connections are encrypted using
-  [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security).
+  [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security). DTLS is similar to TLS but is
+  designed to work on an unreliable transport instead of an ordered byte stream like TCP.
 
- - Web API: Browsers expose an API to establish WebRTC connections. The
-[`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection)
-API allows two applications on different endpoints to communicate.
+- Web API: Browsers expose an API to establish WebRTC connections. The
+  [`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection)
+  API allows two applications on different endpoints to communicate.
 
 ### Browser-to-Server
 
-The first use case supported by a native WebRTC transport in libp2p is browser-to-server (as described in the [specifications](https://github.com/libp2p/specs/tree/master/webrtc#browser-to-public-server)).
+The first use case supported by a native WebRTC transport in libp2p is browser-to-server
+(as described in the [specifications](https://github.com/libp2p/specs/tree/master/webrtc#browser-to-public-server)).
 
 libp2p WebRTC enables browsers nodes to connect to public server nodes without those
-endpoints providing a [TLS certificate](https://aws.amazon.com/what-is/ssl-certificate/) within the browser's trustchain.
+endpoints providing a [TLS certificate](https://aws.amazon.com/what-is/ssl-certificate/)
+within the browser's trustchain.
 
-{{< alert icon="" context="info" text="When connecting to a WebSocket server, browsers require the server to present a TLS certificate signed by a trusted certificate authority (CA). Few libp2p nodes meet this requirement, primarily because it's hard to get a certificate in a decentralized manner. This is the reason that WebSocket never saw widespread adoption in the libp2p network. WebRTC (and [WebTransport](#comparing-webrtc-and-webtransport)) supports encrypted communication without requiring a signed certificate from a trusted CA." />}}
+{{< alert icon="" context="info">}}
+"When connecting to a WebSocket server, browsers require the server to present a TLS certificate
+signed by a trusted certificate authority (CA). Few libp2p nodes meet this requirement, primarily
+because it's hard to get a certificate in a decentralized manner. This is the reason that WebSocket
+never saw widespread adoption in the libp2p network. WebRTC
+(and [WebTransport](#comparing-webrtc-and-webtransport)) supports encrypted communication without
+requiring a signed certificate from a trusted CA.
+{{< /alert >}}
 
 In libp2p:
 
@@ -72,10 +87,8 @@ In libp2p:
   `/ip4/1.2.3.4/udp/1234/webrtc/certhash/<hash>/p2p/<peer-id>`;
 - WebRTC encrypts connections using DTLS. However, an additional handshake is required to
   authenticate a peer's peer ID once the WebRTC connection has been established.
-
-A browser can connect to a server node without needing a trusted TLS
-certificate. View [this scenario](https://github.com/libp2p/specs/blob/master/webrtc/README.md#browser-to-public-server) on browser-to-server connection establishment
-in the technical specification.
+- A browser can connect to a server node without needing a trusted TLS
+  certificate.
 
 Contrary to the standard WebRTC handshake process, the browser and server do not
 exchange the SDP. Instead, they employ a technique known as
@@ -83,14 +96,13 @@ exchange the SDP. Instead, they employ a technique known as
 This technique allows the browser node to simulate the exchange of an SDP, but in reality,
 it constructs it locally using the information provided by the server node's multiaddress.
 
-
 When establishing a WebRTC connection, the browser and server perform a standard DTLS
 handshake as part of the connection setup. DTLS is similar to TLS but is designed to
 work on an unreliable transport instead of an ordered byte stream like TCP.
 
-Of the three primary focuses of information security, a successful DTLS handshake only provides two: confidentiality and integrity. Authenticity
-is achieved by succeeding a [Noise handshake](../secure-comm/noise) following
-the DTLS handshake.
+Of the three primary focuses of information security, a successful DTLS handshake only
+provides two: confidentiality and integrity. Authenticity is achieved by succeeding a
+[Noise handshake](../secure-comm/noise) following the DTLS handshake.
 
 <!-- TO ADD DIAGRAM -->
 
