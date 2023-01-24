@@ -1,6 +1,6 @@
 ---
 title: "mplex"
-description: "mplex is a stream multiplexer developed for libp2p."
+description: "mplex is a simple stream multiplexer that was developed for libp2p."
 weight: 170
 ---
 
@@ -11,13 +11,10 @@ It is a simple protocol that does not provide many features offered by other
 stream multiplexers. Notably, mplex does not provide backpressure at the protocol
 level.
 
-mplex runs over a reliable, ordered pipe between two peers, such as a TCP connection
-or a Unix pipe. Peers can open, write to, close, and reset a stream by sending messages
-with the appropriate [flag value](https://github.com/libp2p/specs/tree/master/mplex#flag-values).
-It uses a message-based framing layer like [yamux](yamux), enabling it to multiplex different
+mplex runs over a reliable, ordered pipe between two peers, such as a TCP connection.
+Peers can open, write to, close, and reset a stream. mplex uses a message-based framing
+layer like [yamux](yamux), enabling it to multiplex different
 data streams, including stream-oriented data and other types of messages.
-
-Every message in mplex consists of a header and the prefixed data segment length.
 
 ### Drawbacks
 
@@ -25,12 +22,11 @@ mplex does not have any flow control.
 > Backpressure is a mechanism to prevent one peer from overwhelming a slow time consuming the data.
 
 mplex has no limits on how many streams a peer can open. This allows mplex to support a wide
-range of applications and use cases, but it also means that mplex may not be as efficient as other
-multiplexing protocols that limit the number of streams that can be opened.
+range of applications and use cases.
 
 {{< alert icon="" context="">}}
 **Yamux should be used over mplex in libp2p**. It is well-suited for applications that
-require fast, reliable data transfer as it is optimized for low-latency, high-bandwidth environments.
+require fast, reliable data transfer.
 
 Until recently, the reason mplex was still supported was compatibility with js-libp2p,
 which didn't have yamux support.
