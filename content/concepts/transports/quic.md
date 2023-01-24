@@ -82,6 +82,13 @@ In addition, a client can make use of QUIC's 0 RTT feature for subsequent connec
 when it has already communicated with a certain server. The client can then send
 (encrypted) application data even before the QUIC handshake has finished.
 
+### QUIC native multiplexing
+
+A single QUIC packet can carry frames containing stream data from one or more
+streams. Since QUIC packets can be decrypted even when they're received out of order, this solves the problem of [HoL blocking](/#key-challenges-with-tcp) that multiplexers applied on top of a TCP connection suffer from: If a packet that contains
+stream data for one stream is lost, this only blocks progress on this one stream. All
+other streams can still make progress.
+
 ## QUIC in libp2p
 
 libp2p only supports bidirectional streams and uses TLS 1.3 by default.
