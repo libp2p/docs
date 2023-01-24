@@ -24,8 +24,9 @@ transport protocol.
 
 ## WebRTC in libp2p
 
-In libp2p, WebRTC is used to connect from browsers to other nodes. libp2p WebRTC only uses
-WebRTC data channels and does not make use of any of the multimedia features.
+In libp2p, WebRTC is used as a transport protocol to connect from browsers to other nodes.
+However, libp2p does not make use of any of WebRTC's multimedia features.
+The features employed in libp2p are:
 
 ### Key features
 
@@ -33,11 +34,11 @@ WebRTC data channels and does not make use of any of the multimedia features.
   [direct peer-to-peer connections](https://webrtc.org/getting-started/peer-connections)
   between browsers and other nodes.
 
-- Data channels: WebRTC provides peer-to-peer data channels called
-  [WebRTC data channels](https://developer.mozilla.org/en-US/docs/Games/Techniques/WebRTC_data_channels),
+- Data channels: WebRTC provides peer-to-peer [data channels](https://developer.mozilla.org/en-US/docs/Games/Techniques/WebRTC_data_channels),
   which works on
   [SCTP (Stream Control Transmission Protocol)](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol).
   A WebRTC data channel allows applications to send a text or binary data over an active connection to a peer.
+  This means libp2p can utilize data channels as a transport to send raw data to peers and enables applications to build anything they like.
 
 - [NAT traversal](../nat/overview): WebRTC includes mechanisms (like
   [ICE](https://datatracker.ietf.org/doc/rfc5245/)) to connect to nodes that run behind
@@ -50,16 +51,16 @@ WebRTC data channels and does not make use of any of the multimedia features.
 - Security: WebRTC connections are encrypted using
   [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security).
 
-Browsers expose an API to establish WebRTC connections. The
+ - Web API: Browsers expose an API to establish WebRTC connections. The
 [`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection)
 API allows two applications on different endpoints to communicate.
 
 ### Browser-to-Server
 
-libp2p WebRTC enables browsers to connect to public server nodes without those
-endpoints providing a TLS certificate within the browser's trustchain.
+libp2p WebRTC enables browsers nodes to connect to public server nodes without those
+endpoints providing a [TLS certificate](https://aws.amazon.com/what-is/ssl-certificate/) within the browser's trustchain.
 
-{{< alert icon="" context="info" text="When connecting to a WebSocket server, browsers require the server to present a TLS certificate signed by a trusted CA (certificate authority). Few nodes have such a certificate, which is the reason that WebSocket never saw widespread adoption in the libp2p network. WebRTC and WebTransport support encrypted communication without requiring a signed certificate from a trusted CA." />}}
+{{< alert icon="" context="info" text="When connecting to a WebSocket server, browsers require the server to present a TLS certificate signed by a trusted certificate authority (CA). Few libp2p nodes meet this requirement, primarily because it's hard to get a certificate in a decentralized manner. This is the reason that WebSocket never saw widespread adoption in the libp2p network. WebRTC (and [WebTransport](#comparing-webrtc-and-webtransport)) supports encrypted communication without requiring a signed certificate from a trusted CA." />}}
 
 In libp2p:
 
@@ -77,8 +78,8 @@ in the technical specification.
 Contrary to the standard WebRTC handshake process, the browser and server do not
 exchange the SDP. Instead, they employ a technique known as
 [SDP munging](https://webrtc.github.io/samples/src/content/peerconnection/munge-sdp/).
-This technique allows the browser to simulate the exchange of an SDP, but in reality,
-it constructs it locally using the information provided by the server's multiaddress.
+This technique allows the browser node to simulate the exchange of an SDP, but in reality,
+it constructs it locally using the information provided by the server node's multiaddress.
 
 {{< alert icon="" context="info" text="SDP (Session Description Protocol) is a protocol that is used to describe multimedia sessions. The SDP answer is a message sent by a server in response to an SDP offer from a client. The offer and answer are used to establish a session between a client and server, allowing them to exchange media." />}}
 
@@ -86,7 +87,7 @@ When establishing a WebRTC connection, the browser and server perform a standard
 handshake as part of the connection setup. DTLS is similar to TLS but is designed to
 work on an unreliable transport instead of an ordered byte stream like TCP.
 
-A successful DTLS handshake only provides confidentiality and integrity. Authenticity
+Of the three primary focuses of information security, a successful DTLS handshake only provides two: confidentiality and integrity. Authenticity
 is achieved by succeeding a [Noise handshake](../secure-comm/noise) following
 the DTLS handshake.
 
