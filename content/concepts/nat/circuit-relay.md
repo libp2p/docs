@@ -42,9 +42,9 @@ The address above is interesting, because it doesn't include any [transport](../
 
 A better address would be something like `/p2p/QmRelay/p2p-circuit/p2p/QmAlice`. This includes the identity of a specific relay peer, `QmRelay`. If a peer already knows how to open a connection to `QmRelay`, they'll be able to reach us.
 
-Better still is to include the transport addresses for the relay peer in the address. Let's say that I've established a connection to a specific relay with the Peer ID `QmRelay`. They told me via the identify protocol that they're listening for TCP connections on port `55555` at IPv4 address `7.7.7.7`. I can construct an address that describes a path to me through that specific relay over that transport:
+Better still is to include the transport addresses for the relay peer in the address. Let's say that I've established a connection to a specific relay with the Peer ID `QmRelay`. They told me via the identify protocol that they're listening for TCP connections on port `55555` at IPv4 address `198.51.100.0`. I can construct an address that describes a path to me through that specific relay over that transport:
 
-`/ip4/7.7.7.7/tcp/55555/p2p/QmRelay/p2p-circuit/p2p/QmAlice`
+`/ip4/198.51.100.0/tcp/55555/p2p/QmRelay/p2p-circuit/p2p/QmAlice`
 
 Everything prior to the `/p2p-circuit/` above is the address of the relay peer, which includes the transport address and their Peer ID `QmRelay`. After `/p2p-circuit/` is the Peer ID for my peer at the other end of the line, `QmAlice`.
 

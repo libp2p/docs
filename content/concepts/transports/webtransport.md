@@ -66,13 +66,13 @@ possible since the [browser API doesn't allow that yet](https://github.com/w3c/w
 WebTransport multiaddresses are composed of a QUIC multiaddr, followed
 by `/webtransport` and a list of multihashes of the node certificates that the server uses.
 
-For instance, for multiaddress `/ip4/127.0.0.1/udp/123/quic/webtransport/certhash/<hash1>`,
+For instance, for multiaddress `/ip4/192.0.2.0/udp/123/quic/webtransport/certhash/<hash1>`,
 a standard local QUIC connection is defined up until and including `/quic.`
 Then, `/webtransport/` runs over QUIC. The self-signed certificate hash that the
 server will use to verify the connection.
 
 The WebTransport CONNECT request is sent to an HTTPS endpoint. libp2p WebTransport server use
 `/.well-known/libp2p-webtransport`. For instance, the WebTransport URL of a WebTransport
-server advertising `/ip4/1.2.3.4/udp/1234/quic/webtransport/` would be
-`https://1.2.3.4:1234/.well-known/libp2p-webtransport?type=noise`
+server advertising `/ip4/192.0.2.0/udp/1234/quic/webtransport/` would be
+`https://192.0.2.0:1234/.well-known/libp2p-webtransport?type=noise`
 (the ?type=noise refers to the authentication scheme using Noise).

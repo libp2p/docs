@@ -143,7 +143,7 @@ const main = async () => {
   const node = await createLibp2p({
     addresses: {
       // add a listen address (localhost) to accept TCP connections on a random port
-      listen: ['/ip4/127.0.0.1/tcp/0']
+      listen: ['/ip4/192.0.2.0/tcp/0']
     },
     transports: [tcp()],
     connectionEncryption: [noise()],
@@ -174,7 +174,7 @@ Try running the code with `node src/index.js`. You should see something like:
 ```shell
 libp2p has started
 listening on addresses:
-/ip4/127.0.0.1/tcp/50626/p2p/QmYoqzFj5rhzFy7thCPPGbDkDkLMbQzanxCNwefZd3qTkz
+/ip4/192.0.2.0/tcp/50626/p2p/QmYoqzFj5rhzFy7thCPPGbDkDkLMbQzanxCNwefZd3qTkz
 libp2p has stopped
 ```
 
@@ -201,7 +201,7 @@ import { multiaddr } from 'multiaddr'
 const node = await createLibp2p({
   addresses: {
     // add a listen address (localhost) to accept TCP connections on a random port
-    listen: ['/ip4/127.0.0.1/tcp/0']
+    listen: ['/ip4/192.0.2.0/tcp/0']
   },
   transports: [tcp()],
   connectionEncryption: [noise()],
@@ -246,19 +246,19 @@ Now we can start one instance with no arguments:
 > node src/index.js
 libp2p has started
 listening on addresses:
-/ip4/127.0.0.1/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
+/ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
 no remote peer address given, skipping ping
 ```
 
 Grab the `/ip4/...` address printed above and use it as an argument to another instance.  In a new terminal:
 
 ```shell
-> node src/index.js /ip4/127.0.0.1/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
+> node src/index.js /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
 libp2p has started
 listening on addresses:
-/ip4/127.0.0.1/tcp/50777/p2p/QmYZirEPREz9vSRFznxhQbWNya2LXPz5VCahRCT7caTLGm
-pinging remote peer at /ip4/127.0.0.1/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
-pinged /ip4/127.0.0.1/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN in 3ms
+/ip4/192.0.2.0/tcp/50777/p2p/QmYZirEPREz9vSRFznxhQbWNya2LXPz5VCahRCT7caTLGm
+pinging remote peer at /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
+pinged /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN in 3ms
 libp2p has stopped
 ```
 

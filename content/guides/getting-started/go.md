@@ -14,7 +14,7 @@ in go-libp2p.
 
 The [Protocol Labs Launchpad curriculum](https://curriculum.pl-launchpad.io/) also includes
 a tutorial on spinning up a libp2p node using a go-libp2p bolierplate. Check it out
-[here](https://curriculum.pl-launchpad.io/curriculum/libp2p/creating-simple-node/).
+[here](https://curriculum.pl-launchpad.io/tutorials/libp2p/creating-simple-node/).
 
 This is the first in a series of tutorials on working with libp2p’s Go implementation,
 [go-libp2p](https://github.com/libp2p/go-libp2p). We’ll cover installing Go, setting up
@@ -100,7 +100,7 @@ We can now compile this into an executable using `go build` and run it from the 
 $ go build -o libp2p-node
 
 $ ./libp2p-node
-Listen addresses: [/ip6/::1/tcp/57666 /ip4/127.0.0.1/tcp/57665 /ip4/192.168.1.56/tcp/57665]
+Listen addresses: [/ip6/::1/tcp/57666 /ip4/192.0.2.0/tcp/57665 /ip4/198.51.100.0/tcp/57665]
 ```
 
 The listening addresses are formatted using the [multiaddr](https://github.com/multiformats/multiaddr)
@@ -120,7 +120,7 @@ func main() {
         // start a libp2p node that listens on TCP port 2000 on the IPv4
         // loopback interface
         node, err := libp2p.New(
-                libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/2000"),
+                libp2p.ListenAddrStrings("/ip4/192.0.2.0/tcp/2000"),
         )
     if err != nil {
         panic(err)
@@ -136,7 +136,7 @@ Re-building and running the executable again now prints the explicit listen addr
 $ go build -o libp2p-node
 
 $ ./libp2p-node
-Listening addresses: [/ip4/127.0.0.1/tcp/2000]
+Listening addresses: [/ip4/192.0.2.0/tcp/2000]
 ```
 
 `libp2p.New` accepts a variety of arguments to configure most aspects of the node. See
@@ -184,7 +184,7 @@ before shutting down:
 
 ```bash
 $ ./libp2p-node
-Listening addresses: [/ip4/127.0.0.1/tcp/2000]
+Listening addresses: [/ip4/192.0.2.0/tcp/2000]
 ^CReceived signal, shutting down...
 ```
 
@@ -225,7 +225,7 @@ func main() {
     // start a libp2p node that listens on a random local TCP port,
     // but without running the built-in ping protocol
     node, err := libp2p.New(
-        libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
+        libp2p.ListenAddrStrings("/ip4/192.0.2.0/tcp/0"),
         libp2p.Ping(false),
     )
     if err != nil {
@@ -278,7 +278,7 @@ Running the node now prints the node's address that can be used to connect to it
 
 ```bash
 $ ./libp2p-node
-libp2p node address: /ip4/127.0.0.1/tcp/62268/ipfs/QmfQzWnLu4UX1cW7upgyuFLyuBXqze7nrPB4qWYqQiTHwt
+libp2p node address: /ip4/192.0.2.0/tcp/62268/ipfs/QmfQzWnLu4UX1cW7upgyuFLyuBXqze7nrPB4qWYqQiTHwt
 ```
 
 Let's also accept a command line argument that is the address of a peer to send ping messages to,
@@ -362,7 +362,7 @@ func main() {
     // start a libp2p node that listens on a random local TCP port,
     // but without running the built-in ping protocol
     node, err := libp2p.New(
-        libp2p.ListenAddrStrings("/ip4/127.0.0.1/tcp/0"),
+        libp2p.ListenAddrStrings("/ip4/192.0.2.0/tcp/0"),
         libp2p.Ping(false),
     )
     if err != nil {
@@ -423,21 +423,21 @@ In one terminal window, let's start a listening node (i.e. don't pass any comman
 
 ```bash
 $ ./libp2p-node
-libp2p node address: /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
+libp2p node address: /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
 ```
 
 In another terminal window, let's run a second node but pass the address of the first node, and we
 should see some ping responses logged:
 
 ```bash
-$ ./libp2p-node /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
-libp2p node address: /ip4/127.0.0.1/tcp/61846/ipfs/QmVyKLTLswap3VYbpBATsgNpi6JdwSwsZALPxEnEbEndup
-sending 5 ping messages to /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
-pinged /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 431.231µs
-pinged /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 164.94µs
-pinged /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 220.544µs
-pinged /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 208.761µs
-pinged /ip4/127.0.0.1/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 201.37µs
+$ ./libp2p-node /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
+libp2p node address: /ip4/192.0.2.0/tcp/61846/ipfs/QmVyKLTLswap3VYbpBATsgNpi6JdwSwsZALPxEnEbEndup
+sending 5 ping messages to /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
+pinged /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 431.231µs
+pinged /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 164.94µs
+pinged /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 220.544µs
+pinged /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 208.761µs
+pinged /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL in 201.37µs
 ```
 
 Success! Our two peers are now communicating using go-libp2p! Sure, they can only say “ping”, but it’s a start!
