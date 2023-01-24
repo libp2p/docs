@@ -17,8 +17,7 @@ prevent data from being sent faster than it can be processed.
 One way to achieve backpressure is for the receiver to specify an offset
 to which the sender can send data. This offset increases as the receiver consumes
 the data, allowing the sender to send more data. This helps prevent the
-sender from sending more data than the receiver can handle, leading to buffering
-and potentially causing the application to crash. This is especially important in
+sender from sending data faster than the receiver process it. This is especially important in
 applications where the receiver might be slower at processing the data, such as when
 the receiver is a low-powered device or when the data is complex and requires a lot of
 processing.
