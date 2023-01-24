@@ -9,7 +9,7 @@ aliases:
 ## What is WebRTC?
 
 [WebRTC (Web Real-Time Communications)](https://webrtc.org/) is a framework for real-time
-communication and is used to establish browser-to-server and browser-to-browser connections
+communication and in libp2p is used to establish browser-to-server and browser-to-browser connections
 between applications.
 
 WebRTC was originally designed to make audio, video, and data
@@ -57,6 +57,8 @@ API allows two applications on different endpoints to communicate.
 
 ### Browser-to-Server
 
+The first use case supported by a native WebRTC transport in libp2p is browser-to-server (as described in the [specifications](https://github.com/libp2p/specs/tree/master/webrtc#browser-to-public-server)).
+
 libp2p WebRTC enables browsers nodes to connect to public server nodes without those
 endpoints providing a [TLS certificate](https://aws.amazon.com/what-is/ssl-certificate/) within the browser's trustchain.
 
@@ -81,7 +83,6 @@ exchange the SDP. Instead, they employ a technique known as
 This technique allows the browser node to simulate the exchange of an SDP, but in reality,
 it constructs it locally using the information provided by the server node's multiaddress.
 
-{{< alert icon="" context="info" text="SDP (Session Description Protocol) is a protocol that is used to describe multimedia sessions. The SDP answer is a message sent by a server in response to an SDP offer from a client. The offer and answer are used to establish a session between a client and server, allowing them to exchange media." />}}
 
 When establishing a WebRTC connection, the browser and server perform a standard DTLS
 handshake as part of the connection setup. DTLS is similar to TLS but is designed to
