@@ -33,6 +33,11 @@ remote node can update its local metadata repository with the information from t
 message, taking into account that missing fields should be ignored as the message may
 contain only partial updates.
 
+{{< alert icon="" context="note">}}
+It's worth noting that go-libp2p included a feature called 'Identify Delta' for some time,
+but it has since been deprecated due to its complexity outweighing its usefulness.
+{{< /alert >}}
+
 <!-- ADD Diagram -->
 
 {{< alert icon="💡" context="note" text="See the Identify <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/tree/master/identify\">technical specification</a> for more details." />}}
