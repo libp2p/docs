@@ -50,8 +50,8 @@ The features employed in libp2p are:
   NATs and firewalls. In non-decentralized WebRTC, this can be facilitated by a
   [TURN server.](https://webrtc.org/getting-started/turn-server),
   but other signaling channels, such as WebSocket running on a central server, can also be used.
-  Using a custom signaling protocol or a different signaling service is also possible.
-  Overall, this allows for faster and more efficient communication.
+  Using a custom [signaling protocol](https://en.wikipedia.org/wiki/Signaling_protocol) or a
+  different signaling service is also possible. Overall, this allows for faster and more efficient communication.
 
 - Security: WebRTC connections are encrypted using
   [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security). DTLS is similar to TLS but is
