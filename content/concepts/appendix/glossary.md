@@ -124,7 +124,7 @@ The word "node" is quite overloaded in general programming contexts, and this is
 
 One common usage is when "node" refers to a single instance of a peer-to-peer software system, running at some time and place in the universe. For example, `I'm running an orbit-db node in AWS. I think it's on version 3.2.0`. In this usage, "node" refers to the whole software program (the `daemon` in unix-speak) which participates in the network. In this documentation, we'll often use ["peer"](#peer) for this purpose instead, and the two terms are often used interchangeably in various p2p software discussions.
 
-Another quite different meaning is the [node.js](https://nodejs.org) javascript runtime environment, which is one of the supported runtimes for the [javscript libp2p implementation][js-docs-home]. In general it should be pretty clear from context when "node" is referring to node.js.
+Another quite different meaning is the [node.js](https://nodejs.org) javascript runtime environment, which is one of the supported runtimes for js-libp2p. In general it should be pretty clear from context when "node" is referring to node.js.
 
 Many members of our community are excited about graphs in many contexts, so the graph terminology of "nodes and edges" is often used when discussing various subjects. Some common contexts for graph-related discussions:
 
@@ -233,7 +233,7 @@ In addition to managing transports, the switch also coordinates the
 the transport layer into one that supports
 [protocol negotiation](/concepts/protocols/#protocol-negotiation),
 [stream multiplexing](#multiplexing), and
-[secure communications](/concepts/secure-comms).
+[secure communications](/concepts/secure-comms/overview).
 
 Sometimes called ["swarm"](#swarm) for historical reasons.
 
@@ -246,5 +246,3 @@ In a peer-to-peer context, usually refers to the shape or structure of the [over
 In libp2p, `transport` refers to the technology that lets us move bits from one machine to another. This may be a TCP network provided by the operating system, a websocket connection in a browser, or anything else capable of implementing the [transport interface](https://github.com/libp2p/interface-transport).
 
 Note that in some environments such as javascript running in the browser, not all transports will be available. In such cases, it may be possible to establish a [Circuit Relay](#circuit-relay) with the help of a peer that can support many common transports. Such a relay can act as a "transport adapter" of sorts, allowing peers that can't communicate with each other directly to interact. For example, a peer in the browser that can only make websocket connections could relay through a peer able to make TCP connections, which would enable communication with a wider variety of peers.
-
-[js-docs-home]: /reference/

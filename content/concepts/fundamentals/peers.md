@@ -25,7 +25,7 @@ peers. Every private key has a corresponding public key, which is shared with
 other peers.
 
 Together, the public and private key (or "key pair") allow peers to establish
-[secure communication](../../secure-comm/overview) channels with each other.
+[secure communication](/concepts/secure-comm/overview) channels with each other.
 
 Conceptually, a Peer ID is a [cryptographic hash][wiki_hash_function] of a peer's
 public key. When peers establish a secure channel, the hash can be used to
@@ -119,8 +119,8 @@ un-{known, identified} peers on the peer routing guide.
 [wiki_hash_function]: https://en.wikipedia.org/wiki/Cryptographic_hash_function
 [wiki_base58]: https://en.wikipedia.org/wiki/Base58
 
-[definition_multiaddr]: ../../appendix/glossary/#multiaddr
-[definition_multihash]: ../../appendix/glossary/#multihash
+[definition_multiaddr]: /concepts/appendix/glossary/#multiaddr
+[definition_multihash]: /concepts/appendix/glossary/#multihash
 
 [spec_peerid]: https://github.com/libp2p/specs/blob/master/peer-ids/peer-ids.md
 [identity]: https://github.com/libp2p/specs/blob/master/identify/README.md#identifypush
