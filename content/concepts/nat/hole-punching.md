@@ -74,7 +74,7 @@ Take two nodes, `A` and `B`, that would like the dial each other:
 
 The following use case diagram illustrates the above process.
 
-<img src="../../assets/hole-punching/libp2p-hole-punching-2.svg/" >
+<img src="/concepts/assets/hole-punching/libp2p-hole-punching-2.svg/" >
 
 {{< alert icon="💡" context="note">}}
 This process assumes a mechanism to synchronize `A` and `B` simultaneously.
@@ -90,20 +90,20 @@ for central coordination servers like STUN and TURN.
 
 The following sequence diagram illustrates the whole process.
 
-<img src="../../assets/hole-punching/libp2p-hole-punching-4.svg/" >
+<img src="/concepts/assets/hole-punching/libp2p-hole-punching-4.svg/" >
 
 libp2p hole punching can be divided into two phases, a preparation phase and
 a hole punching phase.
 
 ### Phase I: Preparation
 
-1. [AutoNAT](../autonat): Determine whether a node is dialable,
+1. [AutoNAT](/concepts/autonat): Determine whether a node is dialable,
    as in, discover if a node is behind a NAT or firewall.
 
    > This is equivalent to the
    > [STUN protocol](https://www.rfc-editor.org/rfc/rfc3489) in ICE.
 
-   <img src="../../assets/hole-punching/libp2p-hole-punching-5.svg/" >
+   <img src="/concepts/assets/hole-punching/libp2p-hole-punching-5.svg/" >
 
    - `B` reaches out to `Other_Peers` (e.g., boot nodes) on the network it
      is on and asks each node to dial it on a set of addresses it suspects
@@ -122,7 +122,7 @@ a hole punching phase.
    > IPFS discovers the k-closest public relay nodes using a lookup method
    > via Kademlia DHT): `/<RELAY_ADDR>/p2p-circuit/<PEER_ID_B>`
 
-    <img src="../../assets/hole-punching/libp2p-hole-punching-6.svg/" >
+    <img src="/concepts/assets/hole-punching/libp2p-hole-punching-6.svg/" >
 
     - `Other_Peers` outside `B`'s network can dial `B` indirectly through
       a public relay node. In the case of [IPFS](https://ipfs.tech/), each public
@@ -131,14 +131,14 @@ a hole punching phase.
       for the closest peers to its Peer ID or choose a subset of the public nodes
       it is already connected to.
 
-2. [Circuit Relay](../circuit-relay): Connect to and request
+2. [Circuit Relay](/concepts/circuit-relay): Connect to and request
    reservations with the discovered relay nodes. A node can advertise itself as
    being reachable through a remote relay node.
 
    > This is equivalent to the
    > [TURN protocol](https://datatracker.ietf.org/doc/html/rfc5766) in ICE.
 
-    <img src="../../assets/hole-punching/libp2p-hole-punching-7.svg/" >
+    <img src="/concepts/assets/hole-punching/libp2p-hole-punching-7.svg/" >
 
    - `Relay` can limit the resources used to relay connections (e.g., by the number
      of connections, the time, and bytes) via Circuit Relay v2. In the case of IPFS,
@@ -152,13 +152,13 @@ a hole punching phase.
 
 ### Phase II: Hole punching
 
-1. [Circuit Relay](../circuit-relay): Establish a secure relay connection
+1. [Circuit Relay](/concepts/circuit-relay): Establish a secure relay connection
    through the public relay node. Node `A` establishes a direct connection with
    the relay node. Node `B` then requests a relayed connection to node `A` through
    the relay node, creating a bi-directional channel and uses TLS to secure the
    channel.
 
-    <img src="../../assets/hole-punching/libp2p-hole-punching-8.svg/" >
+    <img src="/concepts/assets/hole-punching/libp2p-hole-punching-8.svg/" >
 
     - `A` establishes a relayed connection to `B` via the `Relay` using the
       information contained in `B`'s advertised address.
@@ -176,7 +176,7 @@ a hole punching phase.
 2. [DCUtR](https://github.com/libp2p/specs/blob/master/relay/DCUtR.md): Use
    DCUtR as a synchronization mechanism to coordinate hole punching.
 
-    <img src="../../assets/hole-punching/libp2p-hole-punching-9.svg/" >
+    <img src="/concepts/assets/hole-punching/libp2p-hole-punching-9.svg/" >
 
     - `A` sends a `Connect` message to `B` through `Relay`.
         - `Connect` contains the addresses of A. libp2p offers multiple

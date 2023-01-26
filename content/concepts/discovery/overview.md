@@ -15,7 +15,7 @@ nodes without the need for a central server.
 
 Peers can discover other peers in libp2p using a variety of mechanisms, such as
 exchanging peer addresses over the network, querying a directory service, or using a
-[DHT (distributed hash table)](../fundamentals/dht) to store and retrieve information about
+[DHT (distributed hash table)](/concepts/fundamentals/dht) to store and retrieve information about
 available peers. The process of peer discovery varies on the composition of protocols being
 used to connect peers.
 
@@ -26,5 +26,5 @@ The methods for peer discovery in libp2p are, but are not limited to:
 
 - [rendezvous](rendezvous);
 - [mDNS](mdns);
-- [publish/subscribe](../pubsub/overview.md)
-- and using a [DHT](../../concepts/introduction/protocols/dht.md).
+- [publish/subscribe](/concepts/pubsub/overview.md)
+- and using a [DHT](/concepts/introduction/protocols/dht.md).
