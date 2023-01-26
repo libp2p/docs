@@ -191,7 +191,6 @@ check out the [Distributed Hash Tables guide][dht] on the IPFS documentation sit
 
 <!-- Consider adding general kad matrix on implementations page, then link -->
 
-
 [wiki_dht]: https://en.wikipedia.org/wiki/Distributed_hash_table
 [wiki_kad]: https://en.wikipedia.org/wiki/Kademlia
 [dht]: https://docs.ipfs.tech/concepts/dht/
@@ -213,4 +212,3 @@ addresses and how to enable automatic relay connection when behind an intractabl
 
 [definition_switch]: /reference/glossary/#switch
 [definition_multiaddr]: /reference/glossary/#multiaddr
-
