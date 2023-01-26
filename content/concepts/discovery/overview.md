@@ -27,4 +27,4 @@ The methods for peer discovery in libp2p are, but are not limited to:
 - [rendezvous](rendezvous);
 - [mDNS](mdns);
 - [publish/subscribe](/concepts/pubsub/overview.md)
-- and using a [DHT](/concepts/concepts/introduction/protocols/dht.md).
+- and using a [DHT](/concepts/introduction/protocols/dht.md).
