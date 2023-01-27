@@ -9,26 +9,25 @@ aliases:
 
 ## Overview
 
-Publish/Subscribe (PubSub) is a messaging pattern where senders, known as publishers,
-of messages do not send them directly to specific receivers, known as subscribers.
-Instead, they send them to a topic or a channel. Subscribers, in turn, express interest
+Publish/Subscribe (PubSub) is a messaging pattern where senders of messages, known as
+publishers, do not send them directly to specific receivers; instead, they send them to
+a topic or a channel that contains subscribers. Subscribers can express interest
 in one or more topics and only receive messages that are of interest to them.
 This allows for a decoupling of senders and receivers and multiple subscribers to receive
 the same message.
 
 PubSub systems that are centralized rely on a centralized broker, known as a message
-broker, who is responsible for filtering and forwarding messages. In P2P PubSub systems,
-there is no centralized broker. Instead, each node in the network is both a publisher and
-a subscriber and is responsible for forwarding messages to other nodes expressing interest
-in the topic.
+broker, which is responsible for filtering and forwarding messages. In P2P PubSub systems,
+however, there is no centralized broker; instead, each node in the network is both a publisher
+and a subscriber and is responsible for forwarding messages to other nodes. In a P2P PubSub system,
+all peers participate in delivering messages throughout the network.
 
-In a P2P PubSub system, all peers participate in delivering messages throughout the network.
 There are different types of PubSub models, like event-based, data-centric, content-based,
 and topic-based, each with its use cases and advantages. The event-based model is useful for
 systems that react to specific events in real time, while the data-centric model is best suited
 for systems that share and synchronize data among multiple nodes. Content-based and topic-based
-models provide more fine-grained control over message filtering and routing. Desirable properties
-include:
+models provide more fine-grained control over message filtering and routing. In general, desirable
+model properties include:
 
 - **Reliability**: All messages get delivered to all peers subscribed to the topic.
 - **Speed**: Messages are delivered quickly.
@@ -39,7 +38,9 @@ include:
 - **Simplicity**: The system is simple to understand and implement. Each peer only needs to
   remember a small amount of state.
 
-### Example uses of PubSub
+### PubSub for the distributed web
+
+There are many P2P applications that can stem from using a decentralized PubSub system, including:
 
 - **Decentralized Social Networking**: Each user is a peer and can create and join different
   groups or topics, where they can post and receive updates, messages, and comments in real time.
