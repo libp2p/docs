@@ -19,8 +19,8 @@ the same message.
 PubSub systems that are centralized rely on a centralized broker, known as a message
 broker, which is responsible for filtering and forwarding messages. In P2P PubSub systems,
 however, there is no centralized broker; instead, each node in the network is both a publisher
-and a subscriber and is responsible for forwarding messages to other nodes. In a P2P PubSub system,
-all peers participate in delivering messages throughout the network.
+and a subscriber and is responsible for forwarding messages to other nodes. In a P2P PubSub
+system, all peers participate in delivering messages throughout the network.
 
 There are different types of PubSub models, like event-based, data-centric, content-based,
 and topic-based, each with its use cases and advantages. The event-based model is useful for
@@ -40,7 +40,7 @@ model properties include:
 
 ### PubSub for the distributed web
 
-There are many P2P applications that can stem from using a decentralized PubSub system, including:
+There are many P2P applications that can stem from using a P2P-based PubSub system, including:
 
 - **Decentralized Social Networking**: Each user is a peer and can create and join different
   groups or topics, where they can post and receive updates, messages, and comments in real time.
@@ -62,11 +62,10 @@ There are many P2P applications that can stem from using a decentralized PubSub 
 
 The PubSub system in libp2p allows peers to congregate around topics of interest and communicate in
 real-time. Peers can express interest in one or more topics and send and receive messages on these topics.
-Messages are broadcasted to all the peers that have subscribed to the topic, ensuring that all interested
-parties receive the message. This allows for efficient communication and data sharing among peers without
-needing a central intermediary or broker.
+Messages are broadcasted to all the peers that have subscribed to a specific topic, ensuring that all interested
+parties receive the message.
 
-While the PubSub system in libp2p is scalable and fault-tolerant, it P2P-based PubSub system poses new
+While the PubSub system in libp2p is scalable and fault-tolerant, P2P-based PubSub systems pose new
 challenges. One of the main challenges is ensuring that messages are delivered to all interested parties
 promptly and efficiently. This is particularly challenging in large and dynamic networks, where the topology
 and the set of subscribers can change frequently.
@@ -74,3 +73,5 @@ and the set of subscribers can change frequently.
 To address many of these challenges, libp2p uses a PubSub protocol called [GossipSub](gossipsub.md),
 a gossip-based protocol named after the fact that peers gossip to each other about which messages they
 have seen, and uses this information to maintain a message delivery network.
+
+Learn more about GossipSub [here](gossipsub.md).
