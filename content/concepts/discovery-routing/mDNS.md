@@ -21,34 +21,11 @@ communicate with each other on the same local network without any prior configur
 This is achieved through multicast DNS (mDNS) records, which are sent to all nodes on the
 local network.
 
-To initiate peer discovery, a peer sends a query to all other peers on the network using
-a DNS message with the question `_p2p._udp.local PTR`. In response, each peer will send a
-DNS message containing their discovery details. These details are stored in the additional
-records of the response and include the multiaddresses that the peer is listening on, as
-well as other information such as the peer's `<peer-name>` and `<host-name>`.
-
-The response message (that is, the answer to the DNS message) is in the form of a
-DNS record: `<service-name> PTR <peer-name>.<service-name>`. Additional record in the
-response message contains a peer's discovery details in the following form:
-`<peer-name>.<service-name> TXT "dnsaddr=..."`
-
-- `<peer-name>` is a unique case-insensitive identifier for the peer, although it is not
-  used for any meaningful purpose in libp2p. Instead, it is simply a string of random ASCII
-  characters that are required to be sent in the wire format. On the other hand, the
-- `<host-name>` is the fully qualified name of the peer derived from the peer's name and
-  `p2p.local`.
-- `<service-name>`, meanwhile, is the DNS-SD (DNS Service Discovery) service name for all
-  peers and is defined as `_p2p._udp.local`.
-  > If a private network is being used, the `<service-name>` will contain the base-16 encoding of
-  > the network's fingerprint as in `_p2p-X._udp.local` to prevent public and private networks from
-  > discovering each other's peers.
-
-A peer sends a query for all *other* peers when it first spawns or detects a network change.
-A peer must respond to its own query. This allows other peers to passively discover it.
+<!-- ADD DIAGRAM -->
 
 ### Example
 
-The sample Wireshark output shows the mDNS traffic that is being generated from an IPFS node.
+The following Wireshark output shows sample mDNS traffic that is being generated from an IPFS node.
 The table includes information about the query and response messages being exchanged via mDNS.
 
 | No. | Time       | Source IP                | Destination IP         | Protocol | Length | Info                      |
