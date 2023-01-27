@@ -12,7 +12,7 @@ The [Noise Protocol Framework](https://noiseprotocol.org/) is a widely-used encr
 scheme that allows for secure communication by combining cryptographic primitives into
 patterns with verifiable security properties.
 
-Learn more at https://noiseprotocol.org.
+Learn more at [https://noiseprotocol.org](https://noiseprotocol.org).
 
 ## Noise in libp2p
 
