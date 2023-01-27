@@ -18,16 +18,16 @@ the same message.
 
 PubSub systems that are centralized rely on a centralized broker, known as a message
 broker, which is responsible for filtering and forwarding messages. In P2P PubSub systems,
-however, there is no centralized broker; instead, each node in the network is both a publisher
-and a subscriber and is responsible for forwarding messages to other nodes. In a P2P PubSub
-system, all peers participate in delivering messages throughout the network.
+however, there is no centralized broker. Instead, each node in the network is both a
+publisher and a subscriber and is responsible for forwarding messages to other nodes.
+All peers participate in delivering messages throughout the network.
 
 There are different types of PubSub models, like event-based, data-centric, content-based,
-and topic-based, each with its use cases and advantages. The event-based model is useful for
-systems that react to specific events in real time, while the data-centric model is best suited
-for systems that share and synchronize data among multiple nodes. Content-based and topic-based
-models provide more fine-grained control over message filtering and routing. In general, desirable
-model properties include:
+and topic-based, each with its use cases and advantages. The event-based model is useful
+for systems that react to specific events in real time, while the data-centric model is best
+suited for systems that share and synchronize data among multiple nodes. Content-based and
+topic-based models provide more fine-grained control over message filtering and routing.
+In general, desirable model properties include:
 
 - **Reliability**: All messages get delivered to all peers subscribed to the topic.
 - **Speed**: Messages are delivered quickly.
@@ -58,20 +58,18 @@ There are many P2P applications that can stem from using a P2P-based PubSub syst
 - **Decentralized Chat and Video Conferencing**: Peers can create and join specific chat rooms or video
   conference rooms and publish and receive real-time messages and audio/video streams.
 
-## Publish-Subscribe in libp2p
+## Publish/Subscribe in libp2p
 
 The PubSub system in libp2p allows peers to congregate around topics of interest and communicate in
 real-time. Peers can express interest in one or more topics and send and receive messages on these topics.
-Messages are broadcasted to all the peers that have subscribed to a specific topic, ensuring that all interested
-parties receive the message.
 
 While the PubSub system in libp2p is scalable and fault-tolerant, P2P-based PubSub systems pose new
 challenges. One of the main challenges is ensuring that messages are delivered to all interested parties
 promptly and efficiently. This is particularly challenging in large and dynamic networks, where the topology
 and the set of subscribers can change frequently.
 
-To address many of these challenges, libp2p uses a PubSub protocol called [GossipSub](gossipsub.md),
-a gossip-based protocol named after the fact that peers gossip to each other about which messages they
-have seen, and uses this information to maintain a message delivery network.
+To address this challenge and many others (described here), libp2p uses a PubSub protocol called
+[GossipSub](gossipsub.md), a gossip-based protocol named after the fact that peers gossip to each other about
+which messages they have seen, and uses this information to maintain a message delivery network.
 
 Learn more about GossipSub [here](gossipsub.md).
