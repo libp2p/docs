@@ -18,14 +18,14 @@ Learn more at https://noiseprotocol.org.
 
 libp2p uses the Noise Protocol Framework to encrypt data between nodes and provide forward
 secrecy. noise-libp2p is an implementation of the Noise Protocol Framework used to establish
-a secure channel between two peers by securely exchanging keys and encrypting traffic during
-a libp2p handshake. After a successful Noise handshake, the resulting keys send ciphertext
-messages back and forth over the secure channel. The wire format for these messages and the
-cryptographic primitives used for encryption is specified in the
+a secure channel between two peers by exchanging keys and encrypting traffic during
+the libp2p handshake process. After a successful Noise handshake, the resulting keys send
+ciphertext messages back and forth over the secure channel. The wire format for these messages
+and the cryptographic primitives used for encryption is specified in the
 [libp2p-noise specification](https://github.com/libp2p/specs/tree/master/noise).
 
-The protocol ID is `/noise`, and future versions may define new protocol IDs using the
-"/noise" prefix (e.g., `/noise/2`).
+The noise-libp2p protocol ID is `/noise`, and future versions may define new protocol IDs
+using the "/noise" prefix (e.g., `/noise/2`).
 
 <!-- ADD DIAGRAM -->
 
