@@ -36,10 +36,7 @@ The features employed in libp2p are:
 
 - Data channels: WebRTC provides peer-to-peer [data channels](https://developer.mozilla.org/en-US/docs/Games/Techniques/WebRTC_data_channels),
   which works on
-  [SCTP (Stream Control Transmission Protocol)](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol) and use
-  [SDP (Session Description Protocol)](https://en.wikipedia.org/wiki/Session_Description_Protocol) to negotiate the parameters
-  of the data channel, such as the type of data that will be sent, the codecs that will be used to encode the data, and
-  other properties.
+  [SCTP (Stream Control Transmission Protocol)](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol) and use [SDP (Session Description Protocol)](https://en.wikipedia.org/wiki/Session_Description_Protocol) to negotiate the parameters of the data channel.
 
   A WebRTC data channel allows applications to send a text or binary data over an active connection
   to a peer. This means libp2p can utilize data channels as a transport to send raw data to peers and
@@ -51,13 +48,13 @@ The features employed in libp2p are:
   [TURN server.](https://webrtc.org/getting-started/turn-server),
   but other signaling channels, such as WebSocket running on a central server, can also be used.
   Using a custom [signaling protocol](https://en.wikipedia.org/wiki/Signaling_protocol) or a
-  different signaling service is also possible. Overall, this allows for faster and more efficient communication.
+  different signaling service is also possible.
 
 - Security: WebRTC connections are encrypted using
   [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security). DTLS is similar to TLS but is
   designed to work on an unreliable transport instead of an ordered byte stream like TCP.
 
-- Web API: Browsers expose an API to establish WebRTC connections. The
+- API: Browsers expose an API to establish WebRTC connections. The
   [`RTCPeerConnection`](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection)
   API allows two applications on different endpoints to communicate.
 
@@ -91,17 +88,15 @@ In libp2p:
   certificate.
 
 Contrary to the standard WebRTC handshake process, the browser and server do not
-exchange the SDP. Instead, they employ a technique known as
+exchange the SDP Offer and Answer. Instead, they employ a technique known as
 [SDP munging](https://webrtc.github.io/samples/src/content/peerconnection/munge-sdp/).
 This technique allows the browser node to simulate the exchange of an SDP, but in reality,
 it constructs it locally using the information provided by the server node's multiaddress.
 
 When establishing a WebRTC connection, the browser and server perform a standard DTLS
-handshake as part of the connection setup. DTLS is similar to TLS but is designed to
-work on an unreliable transport instead of an ordered byte stream like TCP.
-
-Of the three primary focuses of information security, a successful DTLS handshake only
-provides two: confidentiality and integrity. Authenticity is achieved by succeeding a
+handshake as part of the connection setup. Of the three primary focuses of information
+security, a successful DTLS handshake only provides two: confidentiality and integrity.
+Authenticity is achieved by succeeding the
 [Noise handshake](../secure-comm/noise) following the DTLS handshake.
 
 <!-- TO ADD DIAGRAM -->
