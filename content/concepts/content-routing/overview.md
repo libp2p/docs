@@ -6,8 +6,9 @@ weight: 218
 
 ## Overview
 
-Content routing refers to the process of directing data to its intended recipient within a
-P2P network. In a traditional client-server network, routing is a straightforward process
+Content routing refers to the process of identifying a specific peer that holds
+certain data and the means to connect to them within a P2P network.
+In a traditional client-server network, routing is a straightforward process
 because a central authority manages the flow of data. However, in a P2P network, there is
 no central authority, so routing becomes more complex as data only travels point-to-point
 (except when relayed).
@@ -43,10 +44,12 @@ interface ContentRouting {
 
 In libp2p, content routing is based on a
 [Distributed Hash Table (DHT) called Kademlia](../introduction/protocols/kaddht.md).
-Kademlia assigns each piece of content a unique identifier and stores the content on the
-peer whose identifier is closest to the content's identifier. This allows for efficient
-routing, reducing the number of possible routes. A content router is used to find peers
-that have requested content and tells the network that a peer can provide certain content.
+Kademlia assigns each piece of content a unique identifier and stores the information
+of the peer holding the content whose identifier is closest to the content's
+identifier. This allows for efficient routing, reducing the number of possible routes.
+A content router is used to find peers that have requested content and tells the network
+that a peer can provide certain content.
+
 More information can be found in the [Kad-DHT content routing document](kaddht.md).
 
 {{< alert icon="" context="note">}}
