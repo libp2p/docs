@@ -8,9 +8,9 @@ weight: 180
 
 [Yamux](https://github.com/hashicorp/yamux) (Yet another Multiplexer)
 is a powerful stream multiplexer used in libp2p. It was
-developed by Hashicorp for Go and built on top of TCP. Yamux
-enables multiple parallel streams on a single TCP connection
-and provides a high-level interface similar to SPDY, however
+initially developed by Hashicorp for Go, and is now implemented in Rust, JavaScript and other languages.
+enables multiple parallel streams on a single TCP connection.
+The design was inspired by SPDY (which later became the basis for HTTP/2), however
 it is not compatible with it.
 
 One of the key features of Yamux is its support for flow control
