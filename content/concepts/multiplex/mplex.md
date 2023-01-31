@@ -6,10 +6,10 @@ weight: 170
 
 ## What is mplex?
 
-mplex is a stream multiplexer designed for libp2p.
+mplex is a simple stream multiplexer that was designed in the early days of libp2p.
 It is a simple protocol that does not provide many features offered by other
-stream multiplexers. Notably, mplex does not provide backpressure at the protocol
-level.
+stream multiplexers. Notably, mplex does not provide flow control, a feature which
+is now considered critical for a stream multiplexer.
 
 mplex runs over a reliable, ordered pipe between two peers, such as a TCP connection.
 Peers can open, write to, close, and reset a stream. mplex uses a message-based framing
@@ -21,12 +21,10 @@ data streams, including stream-oriented data and other types of messages.
 mplex does not have any flow control.
 > Backpressure is a mechanism to prevent one peer from overwhelming a slow time consuming the data.
 
-mplex has no limits on how many streams a peer can open. This allows mplex to support a wide
-range of applications and use cases.
+mplex also doesn't limit how many streams a peer can open.
 
 {{< alert icon="" context="">}}
-**Yamux should be used over mplex in libp2p**. It is well-suited for applications that
-require fast, reliable data transfer.
+**Yamux should be used over mplex in libp2p**. As it natively supports flow control, it is better suited for applications that require the transfer of large amounts of data.
 
 Until recently, the reason mplex was still supported was compatibility with js-libp2p,
 which didn't have yamux support.
