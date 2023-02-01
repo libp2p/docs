@@ -8,7 +8,7 @@ weight: 218
 
 The most widely used method for accessing data today is via addressing,
 where the desired content can be located by its name on a specific server.
-This makes routing simple as the server information is readily available.
+This makes routing simple, as the server information is readily available.
 For example, the URL "example.com/cat.jpg" informs us that the server with
 the domain name "example.com" has a file named "cat.jpg".
 
@@ -22,7 +22,7 @@ Content routing refers to the process of identifying a specific peer that
 holds certain data and the means to connect to them within a P2P network.
 
 One of the main challenges of content routing in P2P networks is scalability.
-As the number of peers increase, it becomes more difficult to efficiently find
+As the number of peers increases, it becomes more difficult to efficiently find
 and retrieve the desired content due to the larger number of potential sources.
 
 In general, specific characteristics of P2P networks complicate this process, including:
