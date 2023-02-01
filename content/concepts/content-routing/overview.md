@@ -6,16 +6,24 @@ weight: 218
 
 ## Overview
 
-Content routing refers to the process of identifying a specific peer that holds
-certain data and the means to connect to them within a P2P network.
-In a traditional client-server network, routing is a straightforward process
-because a central authority manages the flow of data. However, in a P2P network, there is
-no central authority, so routing becomes more complex as data only travels point-to-point
-(except when relayed).
+The most widely used method for accessing data today is via addressing,
+where the desired content can be located by its name on a specific server.
+This makes routing simple as the server information is readily available.
+For example, the URL "example.com/cat.jpg" informs us that the server with
+the domain name "example.com" has a file named "cat.jpg".
 
-One of the main challenges of content routing in P2P networks is scalability. As the number
-of peers increase, it becomes more difficult to efficiently find and retrieve the desired
-content due to the larger number of potential sources.
+However, when accessing content-addressed data, where the content itself
+serves as the addressing mechanism, routing becomes a challenge when only
+the hash value of the content is known. This is where content routing comes
+into play, providing a solution to the problem of determining who has the
+content given only its hash value.
+
+Content routing refers to the process of identifying a specific peer that
+holds certain data and the means to connect to them within a P2P network.
+
+One of the main challenges of content routing in P2P networks is scalability.
+As the number of peers increase, it becomes more difficult to efficiently find
+and retrieve the desired content due to the larger number of potential sources.
 
 In general, specific characteristics of P2P networks complicate this process, including:
 
@@ -27,8 +35,8 @@ In general, specific characteristics of P2P networks complicate this process, in
 - Creating a resilient, scalable, and optimal routing protocol resistant to Sybil attacks.
 - Forward compatibility.
 
-Content routing protocols attempt to addresses these challenges by providing an effective way
-to identify a specific peer that holds the requested data.
+Content routing protocols have to deal with these problems while still providing a way to
+find out who has the requested data.
 
 ## Content Routing in libp2p
 
@@ -54,6 +62,6 @@ More information can be found in the [Kad-DHT content routing document](kaddht.m
 
 {{< alert icon="" context="note">}}
 While there are different design approaches for a content routing protocol, such as
-Kademlia DHT, DNS, and BitTorrent trackers, the
-documentation will focus on the DHT-based approach that libp2p takes.
+Kademlia DHT, DNS, and BitTorrent trackers, libp2p provides a Kademlia
+implementation that applications can use to find and provide content.
 {{< /alert >}}
