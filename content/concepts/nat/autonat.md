@@ -9,11 +9,11 @@ aliases:
 
 ## Background
 
-While the [identify protocol][spec_identify] lets peers inform each other about their observed network
+The [identify protocol][spec_identify] lets peers inform each other about their observed network
 addresses, however, it is possible that some of these addresses are not accessible from outside the network,
-as the peer may be located in a private network that is behind a [NAT](overview.md) and therefore unreachable.
+as the peer may be located in a private network that (behind a NAT or a firewall).
 
-To allow peers to determine their position on the network and act accordingly, libp2p has implemented a protocol
+To allow peers to determine their position on the network, libp2p uses a protocol
 called AutoNAT.
 
 ## What is AutoNAT?
