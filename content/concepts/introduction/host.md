@@ -5,19 +5,20 @@ weight: 4
 ---
 
 A libp2p host is a program or process that allows a peer to participate
-in the libp2p network and defines the peer's properties. In the context of
-libp2p, a host is a specific implementation of a node that has been configured
-to use the libp2p stack.
+in the libp2p network.
 
-A libp2p host can provide more control over a node's
-configuration through the use of options such as customizing the
-[host's identity](core-abstractions/peers.md#peer-id),
-[listen to addresses](core-abstractions/addressing.md),
-[transport protocols](../transports/overview.md) to use a transport
-like [QUIC](../transports/quic.md),
-[security protocols](../secure-comm/overview.md) to use
-[Noise](../secure-comm/noise.md) or [TLS](../secure-comm/tls.md),
-[connection manager](core-abstractions/connections.md##connection-and-stream-management),
-[NAT port mapping](../nat/overview.md##automatic-router-configuration),
-and [routing](../discovery-routing/overview.md) to use a routing protocol
-like [DHT](../discovery-and-routing/kaddht.md).
+{{< alert icon="" context="note">}}
+There are [several implementations](https://libp2p.io/implementations/) of the
+libp2p host, and not all of the implementations support the features mentioned below.
+{{< /alert >}}
+
+A libp2p host has a
+[unique identity](/concepts/introduction/core-abstractions/peers#peer-id)
+and can listen on different [transport protocols](/concepts/transports/overview),
+[dial connections to other hosts](/concepts/transports/listen-and-dial), and detect
+if it's a publicly reachable node or if it's behind a NAT/firewall with
+[AutoNAT](../nat/overview.md##automatic-router-configuration).
+The host can apply [hole punching techniques](/concepts/nat/hole-punching) to overcome
+NATs, find peers through a routing protocol like
+[DHT](/concepts/introduction/protocols/dht), and send messages across the network
+using [Gossipsub](/concepts/pubsub/gossipsub).
