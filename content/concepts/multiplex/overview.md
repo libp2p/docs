@@ -11,11 +11,11 @@ aliases:
 
 Stream multiplexing (or stream muxing) is a method to send multiple streams of
 data over a single communication link. It allows peers to use the same connection
-across the lifetime of their interaction with another peer.
+over the lifetime of their interaction with another peer.
 
 libp2p uses stream muxing to share a single connection between multiple
 libp2p and application protocols.
-This is especially useful when establishing the connection required a lot of effort, 
+This is especially useful when establishing the connection required a lot of effort,
 e.g. when NAT hole punching was necessary to establish a direct connection to a peer.
 libp2p, for example, HTTP/2 introduced streams into HTTP, allowing for many HTTP
 requests in parallel on the same connection.
