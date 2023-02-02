@@ -6,16 +6,16 @@ weight: 210
 
 ## Background
 
-Relays can be used to traverse NATs by acting as proxies, but this can be expensive to scale and
-maintain, and may result in low-bandwidth, high-latency connections. [Hole punching](hole-punching.md)
-is a technique that allows two nodes behind NATs to communicate directly, but it requires
-[rendezvous](../discovery/rendezvous.md) and synchronization, which can be accomplished using
-signaling servers.
+Relays are used to traverse NATs by acting as proxies, but this can be expensive to scale and
+maintain, and may result in low-bandwidth, high-latency connections. [Hole punching](/concepts/nat/hole-punching)
+is another technique that enables NAT traversal by enabling two nodes behind NATs to communicate directly.
+However, in addition to relay nodes, it requires another piece of infrastructure called signaling servers (for [rendezvous](/concepts/discovery-routing/rendezvous.md) and synchronization).
 > A signaling server is a server or service that facilitates communication between nodes in
 > a P2P network, specifically in context of setting up, maintaining and terminating a direct
 > communication channel between two peers which are behind NATs. It helps in discovering the
 > external IP address and port of the peers and also in NAT traversal by relaying messages
 > between the peers.
+The good news is that libp2p offers a hole punching solution which eliminates not only the need for signaling servers but also allows the use of relay nodes to scale (by only relying on relay nodes temporarily).
 
 ## What is Direct Connection Upgrade through Relay?
 
