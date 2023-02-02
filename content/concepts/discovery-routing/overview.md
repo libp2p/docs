@@ -50,9 +50,6 @@ These methods include, but are not limited to:
   in a secure and private manner.
 - [mDNS](mdns.md): a multicast Domain Name System (DNS) protocol that allows peers to
   discover other peers on the local network.
-- [Publish/Subscribe](pubsub.md): a protocol that allows peers to subscribe to specific
-  topics and receive updates from other peers that are publishing information on those
-  topics.
 - [DHT](kaddht.md): Distributed Hash Table, libp2p uses a DHT called Kademlia, it assigns
   each piece of content a unique identifier and stores the content on the peer whose
   identifier is closest to the content's identifier.
