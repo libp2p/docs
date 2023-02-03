@@ -16,10 +16,17 @@ private network (i.e., behind a NAT or a firewall).
 
 {{< alert icon="" context="info">}}
 Advertising addresses that are not reachable is detrimental for the health of a
-P2P network, as other nodes will unsuccessfully try to dial those addresses wasting compute and network resources.
+P2P network, as other nodes will unsuccessfully try to dial those addresses wasting
+compute and network resources.
 {{< /alert >}}
 
-To prevent this problem of advertising and dialing unreachable addresses, libp2p has implemented a protocol called AutoNAT, which allows nodes to determine whether or not they are behind a NAT.
+To prevent this problem of advertising and dialing unreachable addresses,
+libp2p has implemented a protocol called AutoNAT,
+which allows nodes to determine whether or not they are behind a NAT.
+
+## What is AutoNAT?
+
+AutoNAT allows a node to request other peers to dial its presumed public addresses.
 
 For private nodes located behind a NAT, it is strongly recommended:
 to:
@@ -34,10 +41,6 @@ For public nodes, it is suggested to:
 - Consider activating DHT server mode to improve connectivity to public
   networks.
 
-
-## What is AutoNAT?
-
-AutoNAT allows a node to request other peers to dial its presumed public addresses.
 If most of these dial attempts are successful, the node can be reasonably ascertained
 that it is not behind a NAT. On the other hand, if most of these dial attempts fail,
 it strongly indicates that a NAT is blocking incoming connections.
