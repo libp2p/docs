@@ -287,7 +287,7 @@ ip address of the peer from the
 [multiaddr](https://github.com/multiformats/multiaddr) in the log.
 
 ```bash
-sudo ufw deny from 1.2.3.4
+sudo ufw deny from 192.0.2.0
 ```
 
 ### How to automate blocking with fail2ban

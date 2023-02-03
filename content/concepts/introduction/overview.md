@@ -1,160 +1,145 @@
 ---
 title: "What is libp2p"
-description: libp2p is a modular system of protocols, specifications and libraries that enable the development of peer-to-peer network applications.
+description: libp2p is a modular system of protocols, specifications, and libraries that enable the development of peer-to-peer network applications.
 weight: 10
 aliases:
   - "/introduction/what-is-libp2p"
 ---
 
-libp2p is a modular system of *protocols*, *specifications* and *libraries*
-that enable the development of peer-to-peer network applications.
+Welcome to the libp2p documentation site!
 
-Because of libp2p's peer-to-peer and distributed architecture, most of the
-needs and considerations that the current web was built on no longer apply.
-The internet, such as it is, with firewalls and NATs, was designed to [securely]
-provide data by relying on trust assumptions. There are many distributed
-peer-to-peer network models with different challenges and tradeoffs that try
-to improve on the way we network. Libp2p aims to be a modular, general-purpose
-toolkit for any peer-to-peer application.
+The libp2p documentation site aims to provide a comprehensive guide about libp2p.
+It covers the various modules of libp2p, including supported transport
+protocols,  secure channels, stream multiplexers, peer discovery, messaging, NAT traversal,
+and more.
 
-## Peer-to-peer basics
+This site is an essential resource for developers who want to learn about the
+capabilities and features of libp2p, as well as for those who are already familiar
+with libp2p and are looking for more advanced guidance. Whether you are just getting
+started with P2P networking, or you are an experienced developer looking to
+build the next generation of distributed applications, the libp2p documentation
+has something for you.
 
-Let's start with what a peer-to-peer network application is:
+{{< alert icon="" context="">}}
+If you have any questions or suggestions as you navigate the documentation,
+please don't hesitate to [reach out](/concepts/contribute/community), or help
+improve the documentation by
+[contributing to the site](https://github.com/libp2p/docs).
+{{< /alert >}}
 
-A [peer-to-peer network][definition_p2p] is one in which the participants
-(referred to as [peers][definition_peer]) communicate directly with one another
-on a relative "equal footing". This does not mean that all peers are identical
-as some may have different roles in the overall network. However, one of the
-defining characteristics of a peer-to-peer network is that the network does not
-require a privileged set of "servers" which behave completely differently from
-their "clients", as is the case in the predominant
-[client / server model][definition_client_server].
+To get started, let's begin with an overview of libp2p and its key features and
+capabilities.
 
-Because the definition of peer-to-peer networking is quite broad, many different
-kinds of systems have been built that all fall under the umbrella of "peer-to-peer".
-The most culturally prominent examples are likely file-sharing networks like BitTorrent,
-and, more recently, the proliferation of blockchain networks that communicate in a
-peer-to-peer fashion.
+## A modular networking stack
 
-### What problems can libp2p solve?
+libp2p, (short for "library peer-to-peer")
+is a peer-to-peer (P2P) networking framework that enables the development
+of P2P applications. It consists of a collection of protocols, specifications, and
+libraries that facilitate P2P communication between network participants, known as
+"[peers](/concepts/introduction/fundamentals/peers)."
 
-While peer-to-peer networks have many advantages over the client-server model,
-there are unique challenges that require careful thought and practice to overcome.
+### Peer-to-peer basics
 
-libp2p lets all users preserve their network identity, overcome network censorship,
-and communicate over different transport protocols.
+P2P networks are decentralized, meaning participants communicate directly with
+one another on a relative "equal footing." No central server or
+authority controls the network.
+P2P networks do not require a privileged set of "servers" that behave differently
+from their "clients," as in the predominant
+[client-server model](https://en.wikipedia.org/wiki/Client%E2%80%93server_model).
 
-In overcoming these challenges while building [IPFS](https://ipfs.io),
-we took care to build our solutions in a modular, composable way into what is
-now libp2p. Although libp2p grew out of IPFS, it is not dependent on IPFS, and
-today, [many projects][built_with_libp2p] use libp2p as their networking layer.
+P2P networks can take many forms, including file-sharing systems like
+[BitTorrent](https://www.bittorrent.com/), blockchain networks like [Bitcoin](https://bitcoin.org/en/)
+and [Ethereum](https://ethereum.org/en/), and decentralized communication standards like
+[Matrix](https://matrix.org/). These systems all have different challenges and tradeoffs,
+but they share the goal of improving upon the traditional client-server networking model.
 
-Together, we can leverage our collective experience and solve these foundational
-problems in a way that benefits an entire ecosystem of developers and a world of users.
+### Background of libp2p
 
-Here, we'll briefly outline the main problem areas that libp2p attempts to address.
-This is an ever-growing space, so don't be surprised if things change over time.
-If you notice something missing or have other ideas for improving this documentation,
-please [reach out to let us know][help_improve_docs].
+libp2p was initially developed as part of the [InterPlanetary File System (IPFS)](https://ipfs.tech/)
+project as its wire protocol but has since phased out into a networking stack that has been adopted
+by a wide range of other projects as a networking layer. It provides a set of specifications that
+can be adapted to support various protocols, allowing libp2p applications to operate in diverse
+runtimes and networking environments.
 
-### Data transmission
+> Discovering and connecting with other peers is a key challenge in P2P networking. In the past,
+> each P2P application had to develop its own solution for this problem, leading to a lack of
+> reusable, well-documented P2P protocols. IPFS looked to existing research and networking
+> applications for inspiration, but found few code implementations that were usable and adaptable.
+> Many of the existing implementations had poor documentation, restrictive licensing, outdated code,
+> no point of contact, were closed source, deprecated, lacked specifications, had unfriendly APIs,
+> or were tightly coupled with specific use cases and not upgradeable. As a result, developers often
+> had to reinvent the wheel each time they needed P2P protocols, rather than being able to reuse
+> existing solutions.
 
-The transport layer is at the foundation of libp2p, which is responsible for
-transmitting and receiving bytes between two peers. There are many
-ways to send data across networks in use today, including TCP, QUIC, WebSocket,
-WebTransport and WebRTC, with some still in development and others still yet
-to be designed.
+{{< alert icon="" context="info">}}
+libp2p was designed to address the limitations of traditional P2P networking approaches and these
+existing network models, with the goal of enabling the distributed web.
+{{< /alert >}}
 
-libp2p also provides a list of [specifications](https://github.com/libp2p/specs)
-that can be adapted to support existing and future protocols, allowing libp2p applications
-to operate in many different runtime and networking environments.
+## Why libp2p?
 
-### Peer identity
+There are several reasons to consider using libp2p as a networking layer to create a robust P2P application:
 
-Knowing who you're talking to is key to secure and reliable communication in a world
-with billions of networked devices. libp2p uses
-[public key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography)
-as the basis of peer identity, which serves two complementary purposes.
+- **Modularlity**: libp2p is designed to be modular, allowing developers to mix and match different components
+  to meet the needs of their particular application. This makes it easy to customize the networking stack
+  to fit the specific requirements of any P2P application.
 
-1. It gives each peer a globally unique "name", in the form of a
-   [PeerId][definition_peerid].
-2. The `PeerId` allows anyone to retrieve the public key for the identified
-   peer, which enables secure communication between peers.
+- **Extensive transport configurability**: libp2p provides a set of specifications that can be adapted to
+  support various [transport protocols](/concepts/transports/overview), allowing libp2p applications to operate
+  in various runtime and networking environments as the wealth of transport protocol choices makes it possible
+  to use libp2p in a variety of scenarios.
 
-### Secure communication
+- **Versatility**: In addition to supporting a wide range of transports, libp2p offers a range of discovery
+  mechanisms, data storage and retrieval patterns, and is also
+  [implemented in many programming languages](https://libp2p.io/implementations/), providing
+  developers with great flexibility when building P2P applications.
 
-There needs to be a method to securely send and receive data between peers,
-where peers are able to trust the [identity](#peer-identity) of the peer they're
-communicating with while ensuring that no external entity can access or tamper with
-the communication.
+- **Security**: libp2p includes [several security features](/concepts/security/security-considerations),
+  such as peer identity verification using public key cryptography and
+  [encrypted communication](/concepts/secure-comm/overview) between peers using modern cryptographic algorithms.
 
-All libp2p connections are encrypted and authenticated. Some [transport protocol](#transport)
-protocols are encrypted at the transport layer (e.g. QUIC). For other protocols, libp2p runs
-a cryptographic handshake on top of an unencrypted connection (e.g. TCP).
+- **Robustness**: libp2p is a robust and reliable networking protocol that is designed to withstand stress,
+  disturbance, and change. Its features and design choices ensure that it is able to function effectively
+  and efficiently in a wide range of environments, and it is able to recover quickly from disruptions or
+  failures. It also offers protection against network attacks through the use of
+  [mitigation techniques](/concepts/security/dos-mitigation).
 
-For secure communication channels, libp2p currently supports
-[TLS 1.3](https://www.ietf.org/blog/tls13/) and [Noise](https://noiseprotocol.org/),
-though not every language implementation of libp2p supports both of these.
+- **Resiliency**: P2P networks are often more resilient than traditional client-server networks,
+  as there is no single point of failure. libp2p includes features such as
+  [peer discovery](/concepts/discovery/overview) and [content routing](/concepts/routing/overview) that help
+  to ensure that the network remains available and accessible even if some peers are offline or unreachable.
 
-> (Older versions of libp2p may support a
-> [deprecated](https://blog.ipfs.io/2020-08-07-deprecating-secio/) protocol called SECIO;
-> all projects should switch to TLS 1.3 or Noise instead.)
+- **Efficiency**: P2P networks can be more efficient in resource utilization, as data is
+  distributed across multiple peers rather than stored on a central server. libp2p includes various storage
+  and retrieval patterns that allow developers to distribute data efficiently across the network, making it
+  possible to store and retrieve data in a cost-effective and scalable way.
 
-### Peer routing
+- **Piercing NAT Barriers**: libp2p is equipped with capabilities for [NAT traversal](/concepts/nat/overview),
+  which allows P2P communication between peers even when they are behind NAT devices or firewalls. This
+  helps to maintain the connectivity of the network and ensure that it remains accessible despite the
+  presence of these obstacles.
 
-When you want to send a message to another peer, you need two key pieces
-of information: their [PeerId][definition_peerid], and a way to locate them
-on the network to open a connection.
+- **Message Distribution and Dissemination**: One such pattern libp2p uses is
+  [publish/subscribe (pubsub)](/concepts/pubsub/overview), which allows a sender (publisher) to send a message
+  to multiple recipients (subscribers) without the publisher having to know who the subscribers are.
+  libp2p implements pubsub through the use of protocols like [gossipsub](/concepts/pubsub/gossipsub), providing
+  developers with a flexible and efficient means of exchanging data and messages within their P2P
+  applications.
 
-There are many cases where we only have the `PeerId` for the peer we want to
-contact, and we need a way to discover their network address. Peer routing is
-the process of discovering peer addresses by leveraging the knowledge of other
-peers.
+- **Interoperability**: libp2p implementations in different programming languages and libp2p releases across
+  versions are designed to be interoperable with one another. This enables applications /from different
+  language ecosystems to communicate seamlessly. This helps to promote a healthy, interconnected ecosystem
+  of P2P applications.
 
-In a peer routing system, a peer can either give us the address we need if they
-have it, or else send our inquiry to another peer who's more likely to have the
-answer. As we contact more and more peers, we not only increase our chances of
-finding the peer we're looking for, we build a more complete view of the network
-in our own routing tables, which enables us to answer routing queries from others.
-
-The current stable implementation of peer routing in libp2p uses a
-[distributed hash table][definition_dht] to iteratively route requests closer
-to the desired `PeerId` using the [Kademlia][wiki_kademlia] routing algorithm.
-
-### Content discovery
-
-In some systems, we care less about who we're speaking with than what they can offer us.
-For example, we may want some specific piece of data, but we don't care who we get it from
-since we can verify its integrity.
-
-libp2p provides a [content routing specification][spec_content_routing] for this
-purpose, with the primary stable implementation using the same
-[Kademlia][wiki_kademlia]-based DHT as used in peer routing.
-
-### Peer messaging
-
-Sending messages to other peers is at the heart of most peer-to-peer systems,
-and pubsub (short for publish/subscribe) is an instrumental pattern for sending
-a message to groups of interested receivers.
-
-libp2p defines a [pubsub specification][spec_pubsub] for sending messages to all
-peers subscribed to a given "topic". The specification currently has two stable
-implementations; `floodsub` uses a very simple but inefficient  "network flooding"
-strategy, and [gossipsub](https://github.com/libp2p/specs/tree/master/pubsub/gossipsub)
-defines an extensible gossip protocol.  There is also active development in progress on
-[episub](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/episub.md), an
-extended `gossipsub` that is optimized for single source multicast and scenarios with a
-few fixed sources broadcasting to a large number of clients in a topic.
-
-Head over to [What is libp2p?](/introduction/what-is-libp2p/) for an introduction
-to the basics of libp2p and an overview of the problems it addresses.
+- **Decentralization**: One of the main advantages of P2P networks is their decentralized nature, allowing
+  them to operate without a central authority. libp2p is designed to facilitate decentralized
+  communication between peers, making it possible to build P2P applications resistant to censorship and more
+  resilient in the face of network disruptions.
 
 ## Related projects
 
-libp2p began as part of the [IPFS](https://ipfs.io) project and is still an
-essential component of IPFS. As such, libp2p composes well with the abstractions
-and tools provided by other projects in the IPFS "family". Check their sites for
-specific information and references:
+libp2p remains an integral component in IPFS and can be easily integrated with other projects in the
+IPFS "family". Check their sites for specific information and references:
 
 - [IPFS](https://libp2p.io) is the InterPlanetary File System, which uses libp2p as
   its networking layer.
@@ -163,18 +148,3 @@ specific information and references:
   data, like IPFS files, Git commits, or Ethereum blocks.
 - [The Permissive License Stack](https://protocol.ai/blog/announcing-the-permissive-license-stack)
   is a licensing strategy for software development that embraces open-source values.
-
-[glossary]: {{< ref "../appendix/glossary.md" >}}
-[definition_dht]: {{< ref "../appendix/glossary.md#dht" >}}
-[definition_p2p]: {{< ref "../appendix/glossary.md#p2p" >}}
-[definition_peer]: {{< ref "../appendix/glossary.md#peer" >}}
-[definition_peerid]: {{< ref "../appendix/glossary.md#peerid" >}}
-[definition_secio]: {{< ref "../appendix/glossary.md#secio" >}}
-[definition_muiltiaddress]: {{< ref "../appendix/glossary.md#multiaddr" >}}
-[definition_client_server]: {{< ref "../appendix/glossary.md#client--server" >}}
-
-[spec_content_routing]: https://github.com/libp2p/specs/blob/master/kad-dht/README.md
-[spec_pubsub]: https://github.com/libp2p/specs/blob/master/pubsub/README.md
-[built_with_libp2p]: https://discuss.libp2p.io/c/ecosystem-community
-[help_improve_docs]: https://github.com/libp2p/docs/issues
-[wiki_kademlia]: https://en.wikipedia.org/wiki/Kademlia

@@ -28,41 +28,41 @@ reach them. Because each transport will likely require its own address scheme,
 libp2p uses a convention called a "multiaddress" or `multiaddr` to encode
 many different addressing schemes.
 
-The [addressing doc](../../fundamentals/addressing) goes into more detail, but an overview
+The [addressing doc](/concepts/fundamentals/addressing) goes into more detail, but an overview
 of how multiaddresses work is helpful for understanding the dial and listen
 interfaces.
 
 Here's an example of a multiaddr for a TCP/IP transport:
 
 ```shell
-/ip4/7.7.7.7/tcp/6543
+/ip4/198.51.100.0/tcp/6543
 ```
 
-This is equivalent to the more familiar `7.7.7.7:6543` construction, but it
+This is equivalent to the more familiar `198.51.100.0:6543` construction, but it
 has the advantage of being explicit about the protocols that are being
-described. With the multiaddr, you can see at a glance that the `7.7.7.7`
+described. With the multiaddr, you can see at a glance that the `198.51.100.0`
 address belongs to the IPv4 protocol, and the `6543` belongs to TCP.
 
-For more complex examples, see [addressing](../../fundamentals/addressing).
+For more complex examples, see [addressing](/concepts/fundamentals/addressing).
 
 Both dial and listen deal with multiaddresses. When listening, you give the
 transport the address you'd like to listen on, and when dialing you provide the
 address to dial to.
 
 When dialing a remote peer, the multiaddress should include the
-[PeerId](../../fundamentals/peers#peer-id) of the peer you're trying to reach.
-This lets libp2p establish a [secure communication channel](../../secure-comm/overview)
+[PeerId](/concepts/fundamentals/peers#peer-id) of the peer you're trying to reach.
+This lets libp2p establish a [secure communication channel](/concepts/secure-comm/overview)
 and prevents impersonation.
 
 An example multiaddress that includes a `PeerId`:
 
 ```shell
-/ip4/1.2.3.4/tcp/4321/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6
+/ip4/192.0.2.0/tcp/4321/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6
 ```
 
 The `/p2p/QmcEPrat8ShnCph8WjkREzt5CPXF2RwhYxYBALDcLC1iV6` component uniquely
 identifies the remote peer using the hash of its public key.
-For more, see the [peer identity content](../../fundamentals/peers#peer-id).
+For more, see the [peer identity content](/concepts/fundamentals/peers#peer-id).
 
 {{< alert icon="💡" context="tip">}}
 When peer routing is enabled, you can dial peers using just their PeerId,
@@ -78,9 +78,9 @@ in a web browser.
 
 The libp2p component responsible for managing the transports is called the
 [switch][definition_switch], which also coordinates
-[protocol negotiation](../../fundamentals/protocols/#protocol-negotiation),
-[stream multiplexing](../../multiplex/overview),
-[establishing secure communication](../../secure-comm/overview) and other forms of
+[protocol negotiation](/concepts/fundamentals/protocols/#protocol-negotiation),
+[stream multiplexing](/concepts/multiplex/overview),
+[establishing secure communication](/concepts/secure-comm/overview) and other forms of
 "connection upgrading".
 
 The switch provides a single "entry point" for dialing and listening, and frees
@@ -89,4 +89,4 @@ and other pieces of the "connection stack" that are used under the hood.
 
 {{< alert icon="💡" context="note" text="The term \"swarm\" was previously used to refer to what is now called the \"switch\", and some places in the codebase still use the \"swarm\" terminology." />}}
 
-[definition_switch]: ../../appendix/glossary/#switch
+[definition_switch]: /concepts/appendix/glossary/#switch

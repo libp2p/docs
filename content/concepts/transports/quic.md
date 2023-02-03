@@ -82,6 +82,13 @@ In addition, a client can make use of QUIC's 0 RTT feature for subsequent connec
 when it has already communicated with a certain server. The client can then send
 (encrypted) application data even before the QUIC handshake has finished.
 
+### QUIC native multiplexing
+
+A single QUIC packet can carry frames containing stream data from one or more
+streams. Since QUIC packets can be decrypted even when they're received out of order, this solves the problem of [HoL blocking](/#key-challenges-with-tcp) that multiplexers applied on top of a TCP connection suffer from: If a packet that contains
+stream data for one stream is lost, this only blocks progress on this one stream. All
+other streams can still make progress.
+
 ## QUIC in libp2p
 
 libp2p only supports bidirectional streams and uses TLS 1.3 by default.
@@ -95,8 +102,27 @@ IDs are authenticated in the
 
 {{< alert icon="💡" context="note" text="To be clear, there is no additional security handshake and stream muxer needed as QUIC provides all of this by default. This also means that establishing a libp2p connection between two nodes using QUIC only takes a single RTT." />}}
 
-Following the multiaddress format described earlier, a standard QUIC connection will
-look like: `/ip4/127.0.0.1/udp/65432/quic/`.
+Following the multiaddress format, a standard QUIC connection will
+look like: `/ip4/192.0.2.0/udp/65432/quic-v1/`.
+
+### Distinguishing multiple QUIC versions in libp2p
+
+The initial implementation of QUIC in go-libp2p was based on
+[draft-ietf-quic-transport-29](https://datatracker.ietf.org/doc/html/draft-ietf-quic-transport-29)
+(or simply, **draft-29**). At the time, draft-29 was implemented because [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000)
+was yet to be finalized.
+Eventually go-libp2p added support for RFC 9000 in addition to draft-29, supporting two QUIC versions.
+However, the multiaddresses for these versions used the same format and thus were indistinguishable in the past.
+
+By using different code points, `quic-v1` for RFC 9000 and `quic` for draft-29,
+libp2p can now distinguish between the two versions.
+
+The multiaddress for a QUIC listener accepting RFC 9000 connections looks like this: `/ip4/192.0.2.0/udp/65432/quic-v1/`, whereas the for the draft version, the multiaddress would be `/ip4/192.0.2.0/udp/65432/quic/`.
+
+Nodes that support multiple versions can offer them on the same port.
+QUIC long header packets contain the version number, which enables the QUIC stack to handle multiple versions.
+
+{{< alert icon="💡" context="note" text="With the upcoming <a class=\"text-muted\" href=\"https://datatracker.ietf.org/doc/draft-ietf-quic-version-negotiation/\">Compatible Version Negotiation for QUIC</a> specification, it will become possible to do a version upgrade between two compatible versions without incurring any round-trip penalty." />}}
 
 ## References
 
