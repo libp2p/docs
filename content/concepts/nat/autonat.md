@@ -34,11 +34,6 @@ For public nodes, it is suggested to:
 - Consider activating DHT server mode to improve connectivity to public
   networks.
 
-{{< alert icon="" context="note">}}
-Application protocols may also adjust their behavior.
-[DHT](/concepts/introduction/protocols/dht) Server mode
-should only be activated for public nodes, not private nodes.
-{{< /alert >}}
 
 ## What is AutoNAT?
 
