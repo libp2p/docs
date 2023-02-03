@@ -11,16 +11,17 @@ aliases:
 
 While the [identify protocol](/concepts/introduction/protocols/identify)
 allows peers to inform each other about their observed network addresses,
-sometimes these addresses are unaccessible as the peer may be located in a
-private neatwork (i.e., behind a NAT or a firewall).
+sometimes these addresses are inaccessible as the peer may be located in a
+private network (i.e., behind a NAT or a firewall).
 
 {{< alert icon="" context="info">}}
 Advertising addresses that are not reachable is detrimental for the health of a
-P2P network, as other nodes will unsuccessfully try to dial those addresses.
+P2P network, as other nodes will unsuccessfully try to dial those addresses wasting compute and network resources.
 {{< /alert >}}
 
-Nodes can use the AutoNAT protocol in libp2p to determine their network status and
-take appropriate action. For private nodes located behind a NAT, it is recommended
+To prevent this problem of advertising and dialing unreachable addresses, libp2p has implemented a protocol called AutoNAT, which allows nodes to determine whether or not they are behind a NAT.
+
+For private nodes located behind a NAT, it is strongly recommended:
 to:
 
 - Not advertise private addresses
