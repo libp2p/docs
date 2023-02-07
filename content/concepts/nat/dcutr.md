@@ -15,6 +15,7 @@ However, in addition to relay nodes, it requires another piece of infrastructure
 > communication channel between two peers which are behind NATs. It helps in discovering the
 > external IP address and port of the peers and also in NAT traversal by relaying messages
 > between the peers.
+
 The good news is that libp2p offers a hole punching solution which eliminates not only the need for signaling servers but also allows the use of relay nodes to scale (by only relying on relay nodes temporarily).
 
 ## What is Direct Connection Upgrade through Relay?
