@@ -1,7 +1,7 @@
 ---
 title: "Kademlia DHT"
 description: "The libp2p Kad-DHT subsystem is an implementation of the Kademlia
-DHT, a distributed hash table that is designed for P2P networks."
+DHT, a distributed hash table."
 weight: 25
 ---
 
