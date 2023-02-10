@@ -39,11 +39,12 @@ on how similar their keys are.
   that are the same, the shorter the prefix length and the closer the proximity of the
   two keys are considered to be.
 
-  The distance metric is a way to calculate the distance between two keys by taking
-  the bitwise exclusive-or (XOR) of the SHA-256 hash of the two keys. The resulting
-  hash is a measure of the distance between the two keys, where a distance of `0` means
-  the keys are identical, and a distance of `1` means that only one bit is different,
-  meaning the two keys are close to each other (i.e. their SHA-256 hashes are similar).
+  The distance metric is a way to calculate the distance between two keys by
+  taking the bitwise exclusive-or (XOR) of the SHA-256 hash of the two keys. The
+  result is a measure of the distance between the two keys, where a distance of
+  `0` means the keys are identical, and a distance of `1` means that only one
+  bit is different, meaning the two keys are close to each other (i.e. their
+  SHA-256 hashes are similar).
 
   This design allows for efficient and effective lookups in the routing table when
   trying to find nodes or data that share similar prefixes.
