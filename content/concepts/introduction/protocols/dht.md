@@ -11,10 +11,7 @@ The Kademlia Distributed Hash Table (DHT), or Kad-DHT, is a distributed hash tab
 that is designed for P2P networks.
 
 Kad-DHT in libp2p is a subsystem based on the
-[Kademlia whitepaper](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
-and is augmented with other systems, such as
-[Coral](https://www.cs.princeton.edu/~mfreed/docs/coral-iptps03.pdf) and the
-[BitTorrent DHT](https://www.bittorrent.org/beps/bep_0005.html).
+[Kademlia whitepaper](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf).
 
 Kad-DHT offers a way to find and manage nodes and data on the network by using a
 [routing table](https://en.wikipedia.org/wiki/Routing_table) that organizes peers based
