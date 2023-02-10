@@ -25,7 +25,7 @@ on how similar their keys are.
   find the closest peers to a specific key in the routing table. The table maintains
   a list of `k` closest peers for each possible prefix length between `0` and `L-1`,
   where `L` is the length of the keyspace, determined by the length of the hash
-  function used. **Kad-DHT uses SHA-256**, with a keyspace of 256 bits, maintaining
+  function used. **Kad-DHT uses SHA-256**, with a keyspace of 256 bits, trying to maintain
   `k` peers with a shared key prefix for every prefix length between `0` and `255` in
   its routing table.
 
