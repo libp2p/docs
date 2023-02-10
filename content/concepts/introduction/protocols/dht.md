@@ -13,7 +13,7 @@ that is designed for P2P networks.
 Kad-DHT in libp2p is a subsystem based on the
 [Kademlia whitepaper](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf).
 
-Kad-DHT offers a way to find and manage nodes and data on the network by using a
+Kad-DHT offers a way to find nodes and data on the network by using a
 [routing table](https://en.wikipedia.org/wiki/Routing_table) that organizes peers based
 on how similar their keys are.
 
