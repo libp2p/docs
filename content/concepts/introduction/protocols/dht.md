@@ -48,37 +48,28 @@ on how similar their keys are.
 
 </details>
 
-## Peer discovery
+## Peer routing
 
-The Kad-DHT uses a process called "peer routing" to discover new nodes in the network.
-This process starts by generating a random peer ID and looking it up via the routing
-table. The node then contacts the k closest nodes to the peer ID and repeats the process
-until it finds the peer or determines that it is not in the network. Nodes also add any
-new nodes they discover to their routing table to improve its awareness of the network.
+The Kad-DHT uses a process called "peer routing" to discover nodes in the
+network. When looking for a peer, the local node contacts the `k` closest nodes to
+the remote peer's ID asking them for closer nodes. The local node repeats the
+process until it finds the peer or determines that it is not in the network.
 
-## Content provider discovery
+## Content provider routing
 
-Kad-DHT also includes a feature for content provider discovery, where nodes can look up
-providers for a given key. This is done by sending an [RPC message](#rpc-messages) (which uses a
-key/value API) to the `k` closest nodes to the key and collecting the responses. The node then
-returns the list of providers it has discovered. Check out the
-[Kad-DHT content routing document](../../content-routing/kaddht.md) for more information.
+Kad-DHT also includes a feature for content provider discovery, where nodes can
+look up providers for a given key. The local node again contacts the `k` closest
+nodes to the key asking them for either providers of the key and/or closer nodes
+to the key. The local node repeats the process until it finds providers for the
+key or determines that it is not in the network.
 
 ## Bootstrap process
 
-To maintain a healthy routing table and discover new network nodes, the Kad-DHT includes
+To maintain a healthy routing table and discover new nodes, the Kad-DHT includes
 a bootstrap process that runs periodically. The process starts by generating a random peer
 ID and looking it up via the peer routing process. The node then adds the closest peers it
 discovers to its routing table and repeats the process multiple times. This process also
-includes a mechanism to look up its peer ID to improve its awareness of nodes close to itself.
-
-## Client and server mode
-
-The Kad-DHT in libp2p has a concept of a "client" and "server" mode. A node can operate in
-one of the modes, depending on the characteristics of the network topology and the properties
-of the DHT. For example, publicly routable nodes can operate in server mode, while non-publicly
-routable nodes can operate in client mode. The distinction allows restricted nodes to utilize
-the DHT, i.e., query the DHT, without decreasing the quality of the distributed hash table.
+includes looking up its own peer ID to improve awareness of nodes close to itself.
 
 ## RPC messages
 
