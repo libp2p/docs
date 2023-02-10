@@ -33,7 +33,7 @@ on how similar their keys are.
   divides the keyspace into smaller subspaces, called "buckets", each containing nodes
   that share a common prefix of bits in their SHA-256 hash. The prefix length is the
   number of bits that are the same in the two keys' SHA-256 hash. The more leading bits
-  that are the same, the shorter the prefix length and the closer the proximity of the
+  that are the same, the longer the prefix length and the closer the proximity of the
   two keys are considered to be.
 
   The distance metric is a way to calculate the distance between two keys by
