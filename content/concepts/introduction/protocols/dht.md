@@ -71,10 +71,4 @@ ID and looking it up via the peer routing process. The node then adds the closes
 discovers to its routing table and repeats the process multiple times. This process also
 includes looking up its own peer ID to improve awareness of nodes close to itself.
 
-## RPC messages
-
-There are various RPC messages for performing operations on the DHT,
-such as `PUT_VALUE`, `GET_VALUE`, `ADD_PROVIDER`, and `GET_PROVIDERS`. These messages are used
-for storing and retrieving key-value pairs and finding providers for a given key.
-
 {{< alert icon="💡" context="note" text="See the Kademlia DHT <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/tree/master/kad-dht\">technical specification</a> for more details." />}}
