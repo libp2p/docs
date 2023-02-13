@@ -44,8 +44,8 @@ There are many P2P applications that can stem from using a P2P-based PubSub syst
 
 - **Decentralized Social Networking**: Each user is a peer and can create and join different
   groups or topics, where they can post and receive updates, messages, and comments in real time.
-- **Decentralized File Sharing**: Peers can publish files on a specific topic, and others can subscribe
-  to  that topic to download the file. The peers can also share information about the availability
+- **Decentralized File Sharing**: Peers can advertise files on a specific topic, and others can subscribe
+  to  that topic to later on download the file. The peers can also share information about the availability
   of different parts of the file, allowing for faster and more efficient downloads.
 - **Distributed Gaming**: Each game room is a topic, and players can publish and receive updates,
   messages, and events in real time as they play.
@@ -53,10 +53,8 @@ There are many P2P applications that can stem from using a P2P-based PubSub syst
   applications can subscribe to these topics to receive the data and take appropriate actions.
 - **Decentralized Marketplaces**: Peers can publish and discover goods and services on specific topics
   and communicate and transact with each other through the PubSub system.
-- **Decentralized Streaming**: Peers can broadcast live streams on specific topics, and others can subscribe
-  to these topics to watch the streams in real time.
 - **Decentralized Chat and Video Conferencing**: Peers can create and join specific chat rooms or video
-  conference rooms and publish and receive real-time messages and audio/video streams.
+  conference rooms and publish and receive real-time messages and advertise audio/video streams.
 
 ## Publish/Subscribe in libp2p
 
