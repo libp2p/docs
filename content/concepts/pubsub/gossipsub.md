@@ -63,11 +63,6 @@ the network by leaving. However, a high peering degree also causes additional
 redundant copies of each message to be sent throughout the network, increasing
 the bandwidth required to participate.
 
-In libp2p's default implementation, the ideal network peering degree is
-<mark style="background-color:lavender">6</mark> with anywhere from
-<mark style="background-color:lavender">4</mark>–<mark style="background-color:lavender">12</mark>
-being acceptable.
-
 ### Metadata-only
 
 In addition to the sparsely-connected network of full-message peerings, there is
@@ -303,7 +298,6 @@ prefer them to become full-message peers:
 After <mark style="background-color:lavender">2</mark> minutes of not sending any messages to
 a topic, all the fan-out peers for that topic are forgotten:
 
-
 <img src="../../assets/publish-subscribe/fanout_forget.png">
 
 ### Extended Validators
@@ -315,9 +309,10 @@ without triggering the penalty for invalid messages.
 
 ## Network packets
 
-The packets that peers send each other over the network combine all the different message types in this guide (application
-messages, have/want, subscribe/unsubscribe, graft/prune). This structure allows
-several requests to be batched and sent in a single network packet.
+The packets that peers send each other over the network combine all the
+different message types in this guide (application messages, have/want,
+subscribe/unsubscribe, graft/prune). This structure allows several requests to
+be batched and sent in a single network packet.
 
 Here is a graphical representation of the overall network packet structure:
 
