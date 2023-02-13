@@ -47,11 +47,11 @@ rendezvous points. In an application-specific setting, rendezvous points can be
 used to progressively discover peers that can answer specific queries or host
 shards of content.
 
-The libp2p rendezvous protocol allows peers to connect to a rendezvous point and register
-their presence by sending a `REGISTER` message containing their serialized peer record in
-one or more namespaces. Any node implementing the rendezvous protocol can act as a rendezvous
-point, and any peer can connect to a rendezvous point. However, only peers initiating a
-registration can register themselves at a rendezvous point.
+The libp2p rendezvous protocol allows peers to connect to a rendezvous point and
+register their presence by sending a `REGISTER` message in one or more
+namespaces. Any node implementing the rendezvous protocol can act as a
+rendezvous point, and any peer can connect to a rendezvous point. However, only
+peers initiating a registration can register themselves at a rendezvous point.
 
 By registering with a rendezvous point, peers allow for their discovery by other peers who
 query the rendezvous point. The query may:
