@@ -24,7 +24,7 @@ serve as a hub for nodes to discover.
   decentralized alternatives to Rendezvous.
 
   [DHT](kaddht.md) is a distributed network protocol used to store and
-  retrieve data in a P2P network efficiently. It uses a hash table to map keys
+  retrieve data in a P2P network efficiently. It is like a hash table mapping keys
   to values, allowing for fast lookups and efficient data distribution across the network.
 
   [Gossipsub](pubsub.md), on the other hand, is a pub-sub (publish-subscribe) protocol
