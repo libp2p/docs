@@ -39,12 +39,12 @@ serve as a hub for nodes to discover.
 {{< alert icon="💡" context="info" text="The current rendezvous implementation replaces the initial ws-star-rendezvous implementation with rendezvous daemons and a fleet of p2p-circuit relays." />}}
 
 The libp2p rendezvous protocol can be used for different use cases. It is used
-during bootstrap to discover circuit relays that provide connectivity for browser
-nodes. Generally, a peer can use known rendezvous points to find peers that provide
-network services. Rendezvous is also used throughout the lifetime of
-an application for peer discovery by registering and polling rendezvous points
-in a decentralized manner. In an application-specific setting, rendezvous points are
-used to progressively discover peers that can answer specific queries or host shards of
+during bootstrap to discover circuit relays that provide connectivity for
+browser nodes. Generally, a peer can use known rendezvous points to find peers
+that provide network services. Rendezvous is also used throughout the lifetime
+of an application for peer discovery by registering and polling rendezvous
+points. In an application-specific setting, rendezvous points are used to
+progressively discover peers that can answer specific queries or host shards of
 content.
 
 The libp2p rendezvous protocol allows peers to connect to a rendezvous point and register
