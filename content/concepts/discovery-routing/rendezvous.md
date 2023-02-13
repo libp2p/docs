@@ -58,8 +58,9 @@ query the rendezvous point. The query may:
 
 - provide namespace(s), such as `test-app`;
 - optionally provide a maximum number of peers to return;
-- can include a cookie that is obtained from the response to a previous query which would only
-  contain registrations that weren't part of the previous response.
+- can include a cookie that is obtained from the response to a previous query,
+  thus the current query only contain registrations that weren't part of the
+  previous response.
   > This simplifies discovery as it reduces the overhead of queried peers and allows for
   > the pagination of query responses.
 
