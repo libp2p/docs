@@ -18,8 +18,6 @@ on the network, allowing devices to discover each other and exchange information
 
 In libp2p, mDNS is used for peer discovery, allowing peers to find and
 communicate with each other on the same local network without any prior configuration.
-This is achieved through multicast DNS (mDNS) records, which are sent to all nodes on the
-local network.
 
 <!-- ADD DIAGRAM -->
 
