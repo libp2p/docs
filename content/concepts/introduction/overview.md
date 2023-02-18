@@ -80,7 +80,7 @@ existing network models, with the goal of enabling the distributed web.
 
 There are several reasons to consider using libp2p as a networking layer to create a robust P2P application:
 
-- **Modularlity**: libp2p is designed to be modular, allowing developers to mix and match different components
+- **Modularity**: libp2p is designed to be modular, allowing developers to mix and match different components
   to meet the needs of their particular application. This makes it easy to customize the networking stack
   to fit the specific requirements of any P2P application.
 
