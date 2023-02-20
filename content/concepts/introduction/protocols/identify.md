@@ -14,6 +14,7 @@ The information exchanged includes:
 - the protocol version: a network identifier, e.g. `/my-network/0.1.0`.
 - the user agent: a free-form string identifying the local node's implementation, usually
   in the format "agent-name/version".
+- the public key: cryptographic identifier of the local node in the format of a peer ID.
 - the observed address: the remote node's public IP address as observed by the local node.
 - the listen addresses: the multiaddresses at which the local node can be reached.
 - the list of [protocols](/concepts/introduction/protocols/overview) that the
