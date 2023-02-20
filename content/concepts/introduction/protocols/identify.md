@@ -28,8 +28,6 @@ without querying. This is used whenever changes to the data sent in Identify hap
 e.g., when the node starts listening on a new address and adds or removes support
 for a protocol.
 
-<!-- ADD Diagram -->
-
 {{< alert icon="" context="note">}}
 It's worth noting that go-libp2p used to include a feature called 'Identify Delta'
 (<insert protocol ID>) for some time. This protocol was used to reduce the size of
