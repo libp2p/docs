@@ -11,6 +11,7 @@ connection.
 
 The information exchanged includes:
 
+- the protocol version: a network identifier, e.g. `/my-network/0.1.0`.
 - the user agent: a free-form string identifying the node's implementation, usually
   in the format "agent-name/version".
 - the node's public IP address: the node's address on the network, as seen by other nodes.
