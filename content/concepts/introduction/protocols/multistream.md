@@ -6,9 +6,9 @@ weight: 26
 
 ## Overview
 
-[Multistream Select](https://github.com/multiformats/multistream-select) is a protocol for
-protocol multiplexing that allows for the negotiation of different protocols between two
-peers.
+[Multistream Select](https://github.com/multiformats/multistream-select) is a
+protocol negotiation protocol. It allows two peers to negotiate the next spoken
+protocol on a connection or stream.
 
 Peers use Multistream Select at various places to select the protocols to use for a
 libp2p connection, including 
