@@ -1,6 +1,6 @@
 ---
 title: "Multistream Select"
-description: "Multistream Select is used to negotiate the protocol of a connection between two peers in libp2p."
+description: "Multistream Select is used to negotiate the protocol to be spoken on a connection or stream."
 weight: 26
 ---
 
