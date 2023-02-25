@@ -41,7 +41,7 @@ For public nodes, it is suggested to:
 - Consider activating DHT server mode to improve connectivity to public
   networks.
 
-If most of these dial attempts are successful, the node can be reasonably ascertained
+If most of these dial attempts are successful, the node can be reasonably sure
 that it is not behind a NAT. On the other hand, if most of these dial attempts fail,
 it strongly indicates that a NAT is blocking incoming connections.
 
