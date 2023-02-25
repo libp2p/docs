@@ -9,8 +9,8 @@ weight: 218
 The most widely used method for accessing data today is via location addressing,
 where the desired content can be located by its name on a specific server.
 This makes routing simple, as the server information is readily available.
-For example, the URL "example.com/cat.jpg" informs us that the server with
-the domain name "example.com" has a file named "cat.jpg".
+For example, the URL `example.com/cat.jpg` informs us that the server with
+the domain name `example.com` has a file named `cat.jpg`.
 
 However, with content-addressed data the content itself serves as the address.
 Routing becomes a challenge since we only know what the data looks like, not who
