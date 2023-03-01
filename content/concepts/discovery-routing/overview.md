@@ -48,7 +48,7 @@ These methods include, but are not limited to:
 
 - [Rendezvous](rendezvous.md): a protocol that allows peers to exchange peer multiaddresses
   in a secure and private manner.
-- [mDNS](mdns.md): a multicast Domain Name System (DNS) protocol that allows peers to
+- [mDNS](mDNS.md): a multicast Domain Name System (DNS) protocol that allows peers to
   discover other peers on the local network.
 - [DHT](kaddht.md): Distributed Hash Table, libp2p uses a DHT called Kademlia, it assigns
   each piece of content a unique identifier and stores the content on the peer whose
