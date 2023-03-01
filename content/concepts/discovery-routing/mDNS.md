@@ -6,14 +6,12 @@ weight: 224
 
 ## What is mDNS?
 
-mDNS, or multicast Domain Name System, is a way for nodes to use the multicast
-system of DNS records [RFC 6762](https://www.rfc-editor.org/rfc/rfc6762) over a
-local network to discover and communicate with nodes. Nodes broadcast topics
-they're interested in. The discovery, however, is limited to the peers in the
-local network. mDNS is commonly used on home networks to allow devices such as
-computers, printers, and smart TVs to find each other and connect. It uses a
-protocol called multicast to broadcast messages on the network, allowing devices
-to discover each other and exchange information.
+mDNS, or multicast Domain Name System, is a way for nodes to use IP multicast to
+publish and receive DNS records [RFC
+6762](https://www.rfc-editor.org/rfc/rfc6762) within a local network. Nodes
+broadcast topics they're interested in. mDNS is commonly used on home networks
+to allow devices such as computers, printers, and smart TVs to discover each
+other and connect.
 
 ## mDNS in libp2p
 
