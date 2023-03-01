@@ -21,9 +21,9 @@ provide a list of known peers.
 
 Peer routing, on the other hand, refers to finding a specific peer's location
 in the network. This is typically done by maintaining a routing table or a similar
-data structure that keeps track of the network topology. Algorithms such as kbucket
-and "routing by gossip" can be used to find the closest peers to a given peer ID.
+data structure that keeps track of the network topology.
 
+Different algorithms can be used to find the "closest" neighboring peers to a given peer ID.
 A peer may use a routing algorithm to find the location of a specific peer and then
 use that information to discover new peers in the vicinity. Additionally, a peer may
 use both peer routing and peer discovery mechanisms in parallel to find new peers and
