@@ -15,11 +15,10 @@ other and connect.
 
 ## mDNS in libp2p
 
-In libp2p, mDNS is used for peer discovery, allowing peers to find and
-communicate with each other on the same local network without any configuration.
-The basic mDNS node discovery flow begins when a peer starts or detects a
-network change and then sends a query message to all peers. The node adds the
-response it receives from other peers into a local database.
+In libp2p, mDNS is used for peer discovery, allowing peers to find each other on
+the same local network without any configuration. In the basic mDNS node
+discovery flow a node broadcasts a request which is consecutively replied to by
+other nodes within the network with their multiaddresses.
 
 To learn more about
 definitions, specific fields, and peer discovery, [visit the mDNS libp2p
