@@ -1,7 +1,7 @@
 ---
-title: "Protocols"
+title: "Overview"
 description: There are protocols everywhere you look when you're writing network applications, and libp2p is especially thick with them.
-weight: 50
+weight: 20
 aliases:
     - "/concepts/protocols"
     - "/concepts/fundamentals/protocols"
@@ -35,13 +35,13 @@ By convention, protocol ids have a path-like structure, with a version number as
 ```
 
 Breaking changes to your protocol's wire format or semantics should result in a new version
-number. See the [protocol negotiation section](#protocol-neotiation) for more information about
+number. See the [protocol negotiation section](#protocol-negotiation) for more information about
 how version selection works during the dialing and listening process.
 
 {{< alert icon="💡" context="info">}}
 While libp2p will technically accept any string as a valid protocol id,
 using the recommended path structure with a version component is both
-developer-friendly and enables [easier matching by version](#match-using-semver).
+developer-friendly and enables easier matching by version.
 {{< /alert >}}
 
 #### Handler functions
@@ -50,8 +50,8 @@ To accept connections, a libp2p application will register handler functions for 
 [switch][definition_switch] (aka "swarm"), or a higher level interface such as [go's Host interface](https://github.com/libp2p/go-libp2p-core/blob/master/host/host.go).
 
 The handler function will be invoked when an incoming stream is tagged with the registered protocol id.
-If you register your handler with a [match function](#using-a-match-function), you can choose whether
-to accept non-exact string matches for protocol ids, for example, to match on [semantic major versions](#match-using-semver).
+If you register your handler with a match function, you can choose whether
+to accept non-exact string matches for protocol ids, for example, to match on semantic major versions.
 
 #### Binary streams
 
@@ -131,10 +131,6 @@ length is encoded as a [protobuf varint](https://developers.google.com/protocol-
 |--------------------|------|---------------|---------------|-------------------|
 | `/ipfs/ping/1.0.0` | N/A  | [go][ping_go] | [js][ping_js] | [rust][ping_rust] |
 
-[ping_go]: https://github.com/libp2p/go-libp2p/tree/master/p2p/protocol/ping
-[ping_js]: https://github.com/libp2p/js-libp2p-ping
-[ping_rust]: https://github.com/libp2p/rust-libp2p/blob/master/protocols/ping/src/lib.rs
-
 The ping protocol is a simple liveness check that peers can use to quickly see if another peer is online.
 
 After the initial protocol negotiation, the dialing peer sends 32 bytes of random binary data. The listening
@@ -146,12 +142,6 @@ the latency between request and response.
 | **Protocol id**  | spec                           |                   |                   | implementations       |
 |------------------|--------------------------------|-------------------|-------------------|-----------------------|
 | `/ipfs/id/1.0.0` | [identify spec][spec_identify] | [go][identify_go] | [js][identify_js] | [rust][identify_rust] |
-
-<!-- TODO(yusef): update spec link on PR merge -->
-[spec_identify]: https://github.com/libp2p/specs/pull/97/files
-[identify_go]: https://github.com/libp2p/go-libp2p/tree/master/p2p/protocol/identify
-[identify_js]: https://github.com/libp2p/js-libp2p-identify
-[identify_rust]: https://github.com/libp2p/rust-libp2p/tree/master/protocols/identify/src
 
 The `identify` protocol allows peers to exchange information about each other, most notably their public keys
 and known network addresses.
@@ -165,8 +155,6 @@ information about themselves, such as their public key, which is used to derive 
 Importantly, the `Identify` message includes an `observedAddr` field that contains the [multiaddr][definition_multiaddr] that
 the peer observed the request coming in on. This helps peers determine their NAT status, since it allows them to
 see what other peers observe as their public address and compare it to their own view of the network.
-
-[identify_proto]: https://github.com/libp2p/go-libp2p/blob/master/p2p/protocol/identify/pb/identify.proto
 
 #### identify/push
 
@@ -189,26 +177,30 @@ makes it more likely that other peers will discover the new address.
 libp2p uses the DHT as the foundation of its [peer routing](/concepts/peer-routing/) and [content routing](/concepts/content-routing/) functionality. To learn more about DHT and the Kademlia algorithm,
 check out the [Distributed Hash Tables guide][dht] on the IPFS documentation site. In addition, check out the [libp2p implementations page](https://libp2p.io/implementations/) for updates on all the kad-libp2p implementations.
 
-<!-- Consider adding general kad matrix on implementations page, then link -->
-
-[wiki_dht]: https://en.wikipedia.org/wiki/Distributed_hash_table
-[wiki_kad]: https://en.wikipedia.org/wiki/Kademlia
-[dht]: https://docs.ipfs.tech/concepts/dht/
-
 ### Circuit Relay
 
 | **Protocol id**               | spec                             |                | implementations |
 |-------------------------------|----------------------------------|----------------|-----------------|
 | `/libp2p/circuit/relay/0.1.0` | [circuit relay spec][spec_relay] | [go][relay_go] | [js][relay_js]  |
 
-[spec_relay]: https://github.com/libp2p/specs/tree/master/relay
-[relay_js]: https://github.com/libp2p/js-libp2p-circuit
-[relay_go]: https://github.com/libp2p/go-libp2p-circuit
-
 As described in the [Circuit Relay article](/concepts/circuit-relay/), libp2p provides a protocol
 for tunneling traffic through relay peers when two peers are unable to connect to each other
 directly. See the article for more information on working with relays, including notes on relay
 addresses and how to enable automatic relay connection when behind an intractable NAT.
 
+[ping_go]: https://github.com/libp2p/go-libp2p/tree/master/p2p/protocol/ping
+[ping_js]: https://github.com/libp2p/js-libp2p-ping
+[ping_rust]: https://github.com/libp2p/rust-libp2p/blob/master/protocols/ping/src/lib.rs
+[spec_identify]: https://github.com/libp2p/specs/pull/97/files
+[identify_go]: https://github.com/libp2p/go-libp2p/tree/master/p2p/protocol/identify
+[identify_js]: https://github.com/libp2p/js-libp2p-identify
+[identify_rust]: https://github.com/libp2p/rust-libp2p/tree/master/protocols/identify/src
+[identify_proto]: https://github.com/libp2p/go-libp2p/blob/master/p2p/protocol/identify/pb/identify.proto
+[spec_relay]: https://github.com/libp2p/specs/tree/master/relay
+[relay_js]: https://github.com/libp2p/js-libp2p-circuit
+[relay_go]: https://github.com/libp2p/go-libp2p-circuit
 [definition_switch]: /reference/glossary/#switch
 [definition_multiaddr]: /reference/glossary/#multiaddr
+[wiki_dht]: https://en.wikipedia.org/wiki/Distributed_hash_table
+[wiki_kad]: https://en.wikipedia.org/wiki/Kademlia
+[dht]: https://docs.ipfs.tech/concepts/dht/
