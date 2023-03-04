@@ -214,7 +214,7 @@ accounting abstraction that you can make use of in your own application.
 
 Depending on your use case, it can help to limit the rate of inbound
 connections. You can use go-libp2p's
-[ConnectionGater](https://pkg.go.dev/github.com/libp2p/go-libp2p-core/connmgr#ConnectionGater)
+[ConnectionGater](https://pkg.go.dev/github.com/libp2p/go-libp2p/core/connmgr#ConnectionGater)
 and `InterceptAccept` for this. For a concrete example, take a look at how Prysm
 implements their [Connection
 Gater](https://github.com/prysmaticlabs/prysm/blob/63a8690140c00ba6e3e4054cac3f38a5107b7fb2/beacon-chain/p2p/connection_gater.go#L43).
