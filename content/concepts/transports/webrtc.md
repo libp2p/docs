@@ -137,33 +137,35 @@ For this transport, libp2p supports its own signaling protocol which has the pro
 <!-- TO ADD DIAGRAM -->
 
 Suppose we have three network entities:
-* _Node A_ - a libp2p node running in the browser
-* _Node B_ - another browser libp2p node running on a different browser instance
-* _Relay R_ - a libp2p relay node
+
+- _Node A_ - a libp2p node running in the browser
+- _Node B_ - another browser libp2p node running on a different browser instance
+- _Relay R_ - a libp2p relay node
 
 In this connectivity scenario, _A_ wants to connect to _B_.
 This roughly works as follows:
-* _A_ and _B_ are both connected to _R_
-* _B_ appends `webrtc-w3c` to its multiaddress and that multiaddress is relayed by _R_.
-* _A_ will discover _B_'s multiaddress via _R_
-* _A_ sees that _B_ supports `webrtc-w3c` and establishes a relayed connection to _B_
-* Over the relayed connection, _A_ will:
-  * Create an _outbound_ `RTCPeerConnection`
-  * Send a SDP offer via the WebRTC API
-  * Initiate the `webrtc-w3c-signaling` signaling protocol via a stream
-* On _B_'s end (over the same relayed connection), _B_ will
-  * Receive _A_'s SDP offer sent via the signaling protocol stream
-  * Create an _inbound_ `RTCPeerConnection` and provide the offer to its peer connection via the WebRTC API
-  * Send an answer back to _A_ over the signaling protocol stream
-* Once _A_ gets the answer from _B_, _A_ sets the session description with answer
-* Via the signaling protocol stream, _A_ and _B_ now both exchange information about the network connection (in WebRTC parlance this is called [exchanging ICE candidates](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#ice_candidates))
-* After this whole process is done, there can be one of two results:
-  * A successful direct connection is established between _A_ and _B_
-    * In this case, both browser nodes will close the signaling protocol stream
-    * The relayed connection is closed
-  * A failed direction connection
-   * In this case, the signaling stream is reset
-   * It's important to note that libp2p does not specify transferring data over the relayed connection if the direct connection fails
+
+- _A_ and _B_ are both connected to _R_
+- _B_ appends `webrtc-w3c` to its multiaddress and that multiaddress is relayed by _R_.
+- _A_ will discover _B_'s multiaddress via _R_
+- _A_ sees that _B_ supports `webrtc-w3c` and establishes a relayed connection to _B_
+- Over the relayed connection, _A_ will:
+  - Create an _outbound_ `RTCPeerConnection`
+  - Send a SDP offer via the WebRTC API
+  - Initiate the `webrtc-w3c-signaling` signaling protocol via a stream
+- On _B_'s end (over the same relayed connection), _B_ will
+  - Receive _A_'s SDP offer sent via the signaling protocol stream
+  - Create an _inbound_ `RTCPeerConnection` and provide the offer to its peer connection via the WebRTC API
+  - Send an answer back to _A_ over the signaling protocol stream
+- Once _A_ gets the answer from _B_, _A_ sets the session description with answer
+- Via the signaling protocol stream, _A_ and _B_ now both exchange information about the network connection (in WebRTC parlance this is called [exchanging ICE candidates](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#ice_candidates))
+- After this whole process is done, there can be one of two results:
+  - A successful direct connection is established between _A_ and _B_
+    - In this case, both browser nodes will close the signaling protocol stream
+    - The relayed connection is closed
+  - A failed direction connection
+    - In this case, the signaling stream is reset
+    - It's important to note that libp2p does not specify transferring data over the relayed connection if the direct connection fails
 
 {{< alert icon="" context="info">}}
 As mentioned, a browser node is private and behind a NAT/firewall.
