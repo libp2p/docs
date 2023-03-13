@@ -116,7 +116,7 @@ Thankfully, libp2p solves this problem and enables browser node to browser node 
 {{< alert icon="" context="info">}}
 Due to the restrictions mentioned above, libp2p browser nodes are private nodes (meaning they cannot be dialed from outside of their local network).
 However, in principle, this use case can be thought of not just as browser-to-browser but private node to private node.
-This WebRTC solution enables connectivity between two non browser nodes behind a NAT/firewall as well
+This WebRTC solution enables connectivity between two non-browser nodes behind a NAT / firewall as well
 {{< /alert >}}
 
 #### Transport Internals
@@ -125,7 +125,7 @@ The libp2p WebRTC W3C transport is enabled by supporting the [W3C defined](https
 This core API enables p2p connectivity and provides methods for establishing connections and transferring streams of data between peers.
 Running instances of libp2p that support this transport will have `/webrtc-w3c` in their multiaddr.
 
-However, there's more to p2p connections that what `RTCPeerConnection` provides. Crucially, signaling isn't built into the WebRTC API.
+However, there's more to p2p connections than what `RTCPeerConnection` provides. Crucially, signaling isn't built into the WebRTC API.
 {{< alert icon="" context="info">}}
 Signaling is the process of coordinating communication and exchanging metadata about the communication (i.e. initializing, closing, or reporting errors about connections).
 {{< /alert >}}
@@ -145,10 +145,10 @@ Suppose we have three network entities:
 In this connectivity scenario, _A_ wants to connect to _B_.
 This roughly works as follows:
 
-- _A_ and _B_ are both connected to _R_
-- _B_ appends `webrtc-w3c` to its multiaddress and that multiaddress is relayed by _R_.
-- _A_ will discover _B_'s multiaddress via _R_
-- _A_ sees that _B_ supports `webrtc-w3c` and establishes a relayed connection to _B_
+- _B_ connects to _R_ and makes a relay reservation. (See circuit relay v2 docs.)
+- _B_ appends `webrtc-w3c` to its relayed multiaddress and advertises it to the network.
+- _A_ will discover _B_'s relayed multiaddr.
+- _A_ sees that _B_ supports `webrtc-w3c` and establishes a relayed connection to _B_ via _R_.
 - Over the relayed connection, _A_ will:
   - Create an _outbound_ `RTCPeerConnection`
   - Send a SDP offer via the WebRTC API
