@@ -1,3 +1,4 @@
+[//]: # (https://github.com/libp2p/rust-libp2p/blob/master/libp2p/src/tutorials/ping.rs)
 ---
 title: "Run a rust-libp2p node"
 weight: 3
@@ -136,75 +137,7 @@ Ok(())
 ```
 
 ## WORK IN PROGRESS
-[//]: # (use std::error::Error;)
 
-[//]: # (use libp2p::{identity, PeerId, tcp};)
-
-[//]: # ()
-[//]: # (#[tokio::main])
-
-[//]: # (async fn main&#40;&#41; -> Result<&#40;&#41;, Box<dyn Error>> {)
-
-[//]: # ()
-[//]: # (    // create a random peerid.)
-
-[//]: # (    let local_key = identity::Keypair::generate_ed25519&#40;&#41;;)
-
-[//]: # (    let local_peer_id = PeerId::from&#40;local_key.public&#40;&#41;&#41;;)
-
-[//]: # (    println!&#40;"Local peer id: {:?}", local_peer_id&#41;;)
-
-[//]: # ()
-[//]: # (    // create a transport.)
-
-[//]: # (    let transport = libp2p::development_transport&#40;local_key&#41;.await?;)
-
-[//]: # ()
-[//]: # (    Ok&#40;&#40;&#41;&#41;)
-
-[//]: # (})
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (You can add as many transports as you like to `transports` in order to establish connections with as many peers as possible.)
-
-[//]: # ()
-[//]: # (#### Connection Encryption)
-
-[//]: # ()
-[//]: # (Every connection must be encrypted to help ensure security for everyone. As such, Connection Encryption &#40;Crypto&#41; is a required component of libp2p.)
-
-[//]: # ()
-[//]: # (There are a growing number of Crypto modules being developed for libp2p. As those are released they will be tracked in the [Connection Encryption section of the configuration readme]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption&#41;. For now, we are going to configure our node to use the `@chainsafe/libp2p-noise` module.)
-
-[//]: # ()
-[//]: # (```sh)
-
-[//]: # (npm install @chainsafe/libp2p-noise)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (```js)
-
-[//]: # (import { createLibp2p } from 'libp2p')
-
-[//]: # (import { tcp } from '@libp2p/tcp')
-
-[//]: # (import { noise } from '@chainsafe/libp2p-noise')
-
-[//]: # ()
-[//]: # (const node = await createLibp2p&#40;{)
-
-[//]: # (  transports: [tcp&#40;&#41;],)
-
-[//]: # (  connectionEncryption: [noise&#40;&#41;])
-
-[//]: # (}&#41;)
-
-[//]: # ()
-[//]: # (```)
 
 [//]: # ()
 [//]: # (#### Multiplexing)
