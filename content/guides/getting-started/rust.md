@@ -60,35 +60,72 @@ As an initial step, you should install libp2p module.
 ```shell
 # Add the following lines to your Cargo.toml file, located in the root of the project directory.
 # [dependencies]
-libp2p = {version="0.51.1", features = ["noise","tcp", "yamux"]}
+libp2p = {version="0.51.1", features = ["noise","tcp", "yamux","mplex", "websocket", "async-std", "dns"]}
+tokio = { version="1.26.0", features=["full"] }
 
 
 ```
 
 #### Basic setup
 
-Now that we have libp2p installed, let's configure the minimum needed to get your node running. Libp2p requires at minimum a **Transport** module, 'tcp', and a **Crypto** module, 'noise'. However, we recommend that a basic setup should also have a **Stream Multiplexer** configured, which we will explain shortly. Let's start by setting up a Transport.
+Now that we have libp2p installed, let's configure the minimum needed to get your node running. Libp2p requires at minimum a **Transport** module, 'tcp', and a **Crypto** module, 'noise'. However, we recommend that a basic setup should also have a **Stream Multiplexer**, 'yamux', configured. Which we will explain shortly. Let's start by setting up a Transport.
+
+#### PeerID for Crypto
+
+[Peers](https://docs.libp2p.io/concepts/fundamentals/peers/) are what make up a libp2p network.
+As well as serving as a unique identifier for each peer, a Peer ID is a verifiable link between a peer and its public cryptographic key.
+
+Each libp2p peer controls a private key, which it keeps secret from all other peers. Every private key has a corresponding public key, which is shared with other peers.
+
+Together, the public and private key (or “key pair”) allow peers to establish secure communication channels with each other.
+
+Lets create a peer ID for our node so that we can then setup a Transport and Crypto.
+```rust
+use std::error::Error;
+use libp2p::{identity, PeerId, tcp};
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+
+    // create a keypair for our peer to use.
+    let local_key = identity::Keypair::generate_ed25519();
+
+    // create a peerid from our keypair.
+    let local_peer_id = PeerId::from(local_key.public());
+
+    // print the Peer ID cryptographic hash
+    println!("Local peer id: {:?}", local_peer_id);
+
+    Ok(())
+}
+```
+
 
 #### Transports
 
 Libp2p uses Transports to establish connections between peers over the network. You can configure any number of Transports, but you only need 1 to start with.
 
-You should select Transports according to the runtime target of your application. You can see a list of some of the available Transports in the [configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#transport). For this guide let's install `@libp2p/tcp`.
+You should select Transports according to the runtime target of your application. You can see a list of some of the available Transports in the [rust-libp2p readme](https://github.com/libp2p/rust-libp2p/blob/master/README.md). For this guide let's use the `tcp` feature, which we have already added to our Cargo.toml file.
 
-```sh
-npm install @libp2p/tcp
-```
+Let's configure libp2p to use the Transport. We'll use the `createLibp2pNode` method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `transports` array. Create a `src/index.js` file and have the following code in it:
 
-Now that we have the module installed, let's configure libp2p to use the Transport. We'll use the `createLibp2pNode` method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `transports` array. Create a `src/index.js` file and have the following code in it:
+```rust
+use std::error::Error;
+use libp2p::{identity, PeerId, tcp};
 
-```js
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
 
-const node = await createLibp2p({
-  transports: [tcp()]
-})
+    // create a random peerid.
+    let local_key = identity::Keypair::generate_ed25519();
+    let local_peer_id = PeerId::from(local_key.public());
+    println!("Local peer id: {:?}", local_peer_id);
 
+    // create a transport.
+    let transport = libp2p::development_transport(local_key).await?;
+
+    Ok(())
+}
 ```
 
 You can add as many transports as you like to `transports` in order to establish connections with as many peers as possible.
