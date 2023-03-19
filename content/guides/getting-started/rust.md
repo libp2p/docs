@@ -164,7 +164,15 @@ With the above in mind, let's extend our example, creating a [`ping::Behaviour`]
 ```rust
 use std::error::Error;
 use libp2p::{identity, PeerId, tcp};
-use libp2p::ping::Behaviour; // add ping::Behaviour import
+use libp2p::ping;
+use libp2p::swarm::keep_alive; // add ping::Behaviour import
+
+#[derive(NetworkBehaviour, Default)]
+struct Behaviour {
+    keep_alive: keep_alive::Behaviour,
+    ping: ping::Behaviour,
+}
+
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
@@ -185,19 +193,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let behaviour = Behaviour::default();
 
     Ok(())
-}
 
+}
+```
 /// Our network behaviour.
 ///
 /// For illustrative purposes, this includes the [`KeepAlive`](behaviour::KeepAlive) behaviour so a continuous sequence of
 /// pings can be observed.
-#[derive(NetworkBehaviour, Default)]
-struct Behaviour {
-keep_alive: keep_alive::Behaviour,
-ping: ping::Behaviour,
-}
-```
-
 
 ## WORK IN PROGRESS
 
