@@ -198,303 +198,322 @@ async fn main() -> Result<(), Box<dyn Error>> {
 For illustrative purposes, this includes the [`KeepAlive`](behaviour::KeepAlive) behaviour so a continuous sequence of
 pings can be observed.
 
+
+## Swarm
+
+Now that we have a [`Transport`] and a [`NetworkBehaviour`], we need something that connects the two, allowing both to make progress.
+
+This job is carried out by a [`Swarm`]. Put simply, a [`Swarm`] drives both a [`Transport`] and a [`NetworkBehaviour`] forward, passing commands from the [`NetworkBehaviour`] to the [`Transport`] as well as events from the [`Transport`] to the [`NetworkBehaviour`].
+
+```rust
+use std::error::Error;
+use libp2p::{identity, PeerId, tcp};
+use libp2p::ping;
+use libp2p::swarm::keep_alive; // add ping::Behaviour import
+
+#[derive(NetworkBehaviour, Default)]
+struct Behaviour {
+    keep_alive: keep_alive::Behaviour,
+    ping: ping::Behaviour,
+}
+
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+
+    // create a keypair for our peer to use.
+    let local_key = identity::Keypair::generate_ed25519();
+
+    // create a peerid from our keypair.
+    let local_peer_id = PeerId::from(local_key.public());
+
+    // print the Peer ID cryptographic hash
+    println!("Local peer id: {:?}", local_peer_id);
+
+    // create TCP transport with [`noise`](crate::noise) for authenticated encryption.
+    let transport = libp2p::development_transport(local_key).await?;
+
+    // create ping behaviour
+    let behaviour = Behaviour::default();
+
+    // create swarm
+    let mut swarm = Swarm::with_async_std_executor(transport, behaviour, local_peer_id);
+
+    Ok(())
+
+}
+
+
+```
+
+[//]: # (## Multiaddr)
+
+[//]: # (With the [`Swarm`] in place, we are all set to listen for incoming)
+
+[//]: # (connections. We only need to pass an address to the [`Swarm`], just like for)
+
+[//]: # ([`std::net::TcpListener::bind`]. But instead of passing an IP address, we)
+
+[//]: # (pass a [`Multiaddr`] which is yet another core concept of libp2p worth)
+
+[//]: # (taking a look at.)
+
+[//]: # (A [`Multiaddr`] is a self-describing network address and protocol stack that)
+
+[//]: # (is used to establish connections to peers. A good introduction to)
+
+[//]: # ([`Multiaddr`] can be found at)
+
+[//]: # ([docs.libp2p.io/concepts/addressing]&#40;https://docs.libp2p.io/concepts/addressing/&#41;)
+
+[//]: # (and its specification repository)
+
+[//]: # ([github.com/multiformats/multiaddr]&#40;https://github.com/multiformats/multiaddr/&#41;.)
+
+[//]: # (Let's make our local node listen on a new socket.)
+
+[//]: # (This socket is listening on multiple network interfaces at the same time. For)
+
+[//]: # (each network interface, a new listening address is created. These may change)
+
+[//]: # (over time as interfaces become available or unavailable.)
+
+[//]: # (For example, in case of our TCP transport it may &#40;among others&#41; listen on the)
+
+[//]: # (loopback interface &#40;localhost&#41; `/ip4/127.0.0.1/tcp/24915` as well as the local)
+
+[//]: # (network `/ip4/192.168.178.25/tcp/24915`.)
+
+[//]: # (In addition, if provided on the CLI, let's instruct our local node to dial a)
+
+[//]: # (remote peer.)
+
+[//]: # (```rust)
+
+[//]: # (use libp2p::swarm::{keep_alive, NetworkBehaviour, Swarm};)
+
+[//]: # (use libp2p::{identity, ping, Multiaddr, PeerId};)
+
+[//]: # (use std::error::Error;)
+
+[//]: # (#[async_std::main])
+
+[//]: # (async fn main&#40;&#41; -> Result<&#40;&#41;, Box<dyn Error>> {)
+
+[//]: # (let local_key = identity::Keypair::generate_ed25519&#40;&#41;;)
+
+[//]: # (let local_peer_id = PeerId::from&#40;local_key.public&#40;&#41;&#41;;)
+
+[//]: # (println!&#40;"Local peer id: {local_peer_id:?}"&#41;;)
+
+[//]: # (let transport = libp2p::development_transport&#40;local_key&#41;.await?;)
+
+[//]: # (let behaviour = Behaviour::default&#40;&#41;;)
+
+[//]: # (let mut swarm = Swarm::with_async_std_executor&#40;transport, behaviour, local_peer_id&#41;;)
+
+[//]: # (// Tell the swarm to listen on all interfaces and a random, OS-assigned)
+
+[//]: # (// port.)
+
+[//]: # (swarm.listen_on&#40;"/ip4/0.0.0.0/tcp/0".parse&#40;&#41;?&#41;?;)
+
+[//]: # (// Dial the peer identified by the multi-address given as the second)
+
+[//]: # (// command-line argument, if any.)
+
+[//]: # (if let Some&#40;addr&#41; = std::env::args&#40;&#41;.nth&#40;1&#41; {)
+
+[//]: # (let remote: Multiaddr = addr.parse&#40;&#41;?;)
+
+[//]: # (swarm.dial&#40;remote&#41;?;)
+
+[//]: # (println!&#40;"Dialed {addr}"&#41;)
+
+[//]: # (})
+
+[//]: # (Ok&#40;&#40;&#41;&#41;)
+
+[//]: # (})
+
+[//]: # (/// Our network behaviour.)
+
+[//]: # (///)
+
+[//]: # (/// For illustrative purposes, this includes the [`KeepAlive`]&#40;behaviour::KeepAlive&#41; behaviour so a continuous sequence of)
+
+[//]: # (/// pings can be observed.)
+
+[//]: # (#[derive&#40;NetworkBehaviour, Default&#41;])
+
+[//]: # (struct Behaviour {)
+
+[//]: # (keep_alive: keep_alive::Behaviour,)
+
+[//]: # (ping: ping::Behaviour,)
+
+[//]: # (})
+
+[//]: # (```)
+
+[//]: # (## Continuously polling the Swarm)
+
+[//]: # (We have everything in place now. The last step is to drive the [`Swarm`] in)
+
+[//]: # (a loop, allowing it to listen for incoming connections and establish an)
+
+[//]: # (outgoing connection in case we specify an address on the CLI.)
+
+[//]: # (```no_run)
+
+[//]: # (use futures::prelude::*;)
+
+[//]: # (use libp2p::swarm::{keep_alive, NetworkBehaviour, Swarm, SwarmEvent};)
+
+[//]: # (use libp2p::{identity, ping, Multiaddr, PeerId};)
+
+[//]: # (use std::error::Error;)
+
+[//]: # (#[async_std::main])
+
+[//]: # (async fn main&#40;&#41; -> Result<&#40;&#41;, Box<dyn Error>> {)
+
+[//]: # (let local_key = identity::Keypair::generate_ed25519&#40;&#41;;)
+
+[//]: # (let local_peer_id = PeerId::from&#40;local_key.public&#40;&#41;&#41;;)
+
+[//]: # (println!&#40;"Local peer id: {local_peer_id:?}"&#41;;)
+
+[//]: # (let transport = libp2p::development_transport&#40;local_key&#41;.await?;)
+
+[//]: # (let behaviour = Behaviour::default&#40;&#41;;)
+
+[//]: # (let mut swarm = Swarm::with_async_std_executor&#40;transport, behaviour, local_peer_id&#41;;)
+
+[//]: # (// Tell the swarm to listen on all interfaces and a random, OS-assigned)
+
+[//]: # (// port.)
+
+[//]: # (swarm.listen_on&#40;"/ip4/0.0.0.0/tcp/0".parse&#40;&#41;?&#41;?;)
+
+[//]: # (// Dial the peer identified by the multi-address given as the second)
+
+[//]: # (// command-line argument, if any.)
+
+[//]: # (if let Some&#40;addr&#41; = std::env::args&#40;&#41;.nth&#40;1&#41; {)
+
+[//]: # (let remote: Multiaddr = addr.parse&#40;&#41;?;)
+
+[//]: # (swarm.dial&#40;remote&#41;?;)
+
+[//]: # (println!&#40;"Dialed {addr}"&#41;)
+
+[//]: # (})
+
+[//]: # (loop {)
+
+[//]: # (match swarm.select_next_some&#40;&#41;.await {)
+
+[//]: # (SwarmEvent::NewListenAddr { address, .. } => println!&#40;"Listening on {address:?}"&#41;,)
+
+[//]: # (SwarmEvent::Behaviour&#40;event&#41; => println!&#40;"{event:?}"&#41;,)
+
+[//]: # (_ => {})
+
+[//]: # (})
+
+[//]: # (})
+
+[//]: # (})
+
+[//]: # (/// Our network behaviour.)
+
+[//]: # (///)
+
+[//]: # (/// For illustrative purposes, this includes the [`KeepAlive`]&#40;behaviour::KeepAlive&#41; behaviour so a continuous sequence of)
+
+[//]: # (/// pings can be observed.)
+
+[//]: # (#[derive&#40;NetworkBehaviour, Default&#41;])
+
+[//]: # (struct Behaviour {)
+
+[//]: # (keep_alive: keep_alive::Behaviour,)
+
+[//]: # (ping: ping::Behaviour,)
+
+[//]: # (})
+
+[//]: # (```)
+
+[//]: # (## Running two nodes)
+
+[//]: # (For convenience the example created above is also implemented in full in)
+
+[//]: # (`examples/ping.rs`. Thus, you can either run the commands below from your)
+
+[//]: # (own project created during the tutorial, or from the root of the rust-libp2p)
+
+[//]: # (repository. Note that in the former case you need to ignore the `--example)
+
+[//]: # (ping` argument.)
+
+[//]: # (You need two terminals. In the first terminal window run:)
+
+[//]: # (```sh)
+
+[//]: # (cargo run --example ping)
+
+[//]: # (```)
+
+[//]: # (It will print the PeerId and the new listening addresses, e.g.)
+
+[//]: # (```sh)
+
+[//]: # (Local peer id: PeerId&#40;"12D3KooWT1As4mwh3KYBnNTw9bSrRbYQGJTm9SSte82JSumqgCQG"&#41;)
+
+[//]: # (Listening on "/ip4/127.0.0.1/tcp/24915")
+
+[//]: # (Listening on "/ip4/192.168.178.25/tcp/24915")
+
+[//]: # (Listening on "/ip4/172.17.0.1/tcp/24915")
+
+[//]: # (Listening on "/ip6/::1/tcp/24915")
+
+[//]: # (```)
+
+[//]: # (In the second terminal window, start a new instance of the example with:)
+
+[//]: # (```sh)
+
+[//]: # (cargo run --example ping -- /ip4/127.0.0.1/tcp/24915)
+
+[//]: # (```)
+
+[//]: # (Note: The [`Multiaddr`] at the end being one of the [`Multiaddr`] printed)
+
+[//]: # (earlier in terminal window one.)
+
+[//]: # (Both peers have to be in the same network with which the address is associated.)
+
+[//]: # (In our case any printed addresses can be used, as both peers run on the same)
+
+[//]: # (device.)
+
+[//]: # (The two nodes will establish a connection and send each other ping and pong)
+
+[//]: # (messages every 15 seconds.)
+
+[//]: # ([`Multiaddr`]: crate::core::Multiaddr)
+
+[//]: # ([`NetworkBehaviour`]: crate::swarm::NetworkBehaviour)
+
+[//]: # ([`Transport`]: crate::core::Transport)
+
+[//]: # ([`PeerId`]: crate::core::PeerId)
+
+[//]: # ([`Swarm`]: crate::swarm::Swarm)
+
+[//]: # ([`development_transport`]: crate::development_transport)
+
 ## WORK IN PROGRESS
-
-
-[//]: # ()
-[//]: # (#### Multiplexing)
-
-[//]: # ()
-[//]: # (While multiplexers are not strictly required, they are highly recommended as they improve the effectiveness and efficiency of connections for the various protocols libp2p runs.)
-
-[//]: # ()
-[//]: # (Looking at the [available stream multiplexing]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing&#41; modules, js-libp2p currently only supports `@libp2p/mplex`, so we will use that here. You can install `@libp2p/mplex` and add it to your libp2p node as follows in the next example.)
-
-[//]: # ()
-[//]: # (```sh)
-
-[//]: # (npm install @libp2p/mplex)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (```js)
-
-[//]: # (import { createLibp2p } from 'libp2p')
-
-[//]: # (import { tcp } from '@libp2p/tcp')
-
-[//]: # (import { noise } from '@chainsafe/libp2p-noise')
-
-[//]: # (import { mplex } from '@libp2p/mplex')
-
-[//]: # ()
-[//]: # (const node = await createLibp2p&#40;{)
-
-[//]: # (  transports: [tcp&#40;&#41;],)
-
-[//]: # (  connectionEncryption: [noise&#40;&#41;],)
-
-[//]: # (  streamMuxers: [mplex&#40;&#41;])
-
-[//]: # (}&#41;)
-
-[//]: # ()
-[//]: # (```)
-
-[//]: # ()
-[//]: # (#### Running libp2p)
-
-[//]: # ()
-[//]: # (Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexer** module, you can start your libp2p node. We can start and stop libp2p using the [`libp2p.start&#40;&#41;`]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#start&#41; and [`libp2p.stop&#40;&#41;`]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#stop&#41; methods.)
-
-[//]: # ()
-[//]: # (```js)
-
-[//]: # (import { createLibp2p } from 'libp2p')
-
-[//]: # (import { tcp } from '@libp2p/tcp')
-
-[//]: # (import { noise } from '@chainsafe/libp2p-noise')
-
-[//]: # (import { mplex } from '@libp2p/mplex')
-
-[//]: # ()
-[//]: # (const main = async &#40;&#41; => {)
-
-[//]: # (  const node = await createLibp2p&#40;{)
-
-[//]: # (    addresses: {)
-
-[//]: # (      // add a listen address &#40;localhost&#41; to accept TCP connections on a random port)
-
-[//]: # (      listen: ['/ip4/192.0.2.0/tcp/0'])
-
-[//]: # (    },)
-
-[//]: # (    transports: [tcp&#40;&#41;],)
-
-[//]: # (    connectionEncryption: [noise&#40;&#41;],)
-
-[//]: # (    streamMuxers: [mplex&#40;&#41;])
-
-[//]: # (  }&#41;)
-
-[//]: # ()
-[//]: # (  // start libp2p)
-
-[//]: # (  await node.start&#40;&#41;)
-
-[//]: # (  console.log&#40;'libp2p has started'&#41;)
-
-[//]: # ()
-[//]: # (  // print out listening addresses)
-
-[//]: # (  console.log&#40;'listening on addresses:'&#41;)
-
-[//]: # (  node.getMultiaddrs&#40;&#41;.forEach&#40;&#40;addr&#41; => {)
-
-[//]: # (    console.log&#40;addr.toString&#40;&#41;&#41;)
-
-[//]: # (  }&#41;)
-
-[//]: # ()
-[//]: # (  // stop libp2p)
-
-[//]: # (  await node.stop&#40;&#41;)
-
-[//]: # (  console.log&#40;'libp2p has stopped'&#41;)
-
-[//]: # (})
-
-[//]: # ()
-[//]: # (main&#40;&#41;.then&#40;&#41;.catch&#40;console.error&#41;)
-
-[//]: # ()
-[//]: # (```)
-
-[//]: # ()
-[//]: # (Try running the code with `node src/index.js`. You should see something like:)
-
-[//]: # ()
-[//]: # (```shell)
-
-[//]: # (libp2p has started)
-
-[//]: # (listening on addresses:)
-
-[//]: # (/ip4/192.0.2.0/tcp/50626/p2p/QmYoqzFj5rhzFy7thCPPGbDkDkLMbQzanxCNwefZd3qTkz)
-
-[//]: # (libp2p has stopped)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (### Lets play ping pong!)
-
-[//]: # ()
-[//]: # (Now that we have the basic building blocks of transport, multiplexing, and security in place, we can start communicating!)
-
-[//]: # ()
-[//]: # (We can use [`libp2p.ping&#40;&#41;`]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#ping&#41; to dial and send ping messages to another peer. That peer will send back a "pong" message, so that we know that it is still alive. This also enables us to measure the latency between peers.)
-
-[//]: # ()
-[//]: # (We can have our application accepting a peer multiaddress via command line argument and try to ping it. To do so, we'll need to add a couple things. First, require the `process` module so that we can get the command line arguments. Then we'll need to parse the multiaddress from the command line and try to ping it:)
-
-[//]: # ()
-[//]: # (```sh)
-
-[//]: # (npm install multiaddr)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (```javascript)
-
-[//]: # (import process from 'node:process')
-
-[//]: # (import { createLibp2p } from 'libp2p')
-
-[//]: # (import { tcp } from '@libp2p/tcp')
-
-[//]: # (import { noise } from '@chainsafe/libp2p-noise')
-
-[//]: # (import { mplex } from '@libp2p/mplex')
-
-[//]: # (import { multiaddr } from 'multiaddr')
-
-[//]: # ()
-[//]: # (const node = await createLibp2p&#40;{)
-
-[//]: # (  addresses: {)
-
-[//]: # (    // add a listen address &#40;localhost&#41; to accept TCP connections on a random port)
-
-[//]: # (    listen: ['/ip4/192.0.2.0/tcp/0'])
-
-[//]: # (  },)
-
-[//]: # (  transports: [tcp&#40;&#41;],)
-
-[//]: # (  connectionEncryption: [noise&#40;&#41;],)
-
-[//]: # (  streamMuxers: [mplex&#40;&#41;])
-
-[//]: # (}&#41;)
-
-[//]: # ()
-[//]: # (// start libp2p)
-
-[//]: # (await node.start&#40;&#41;)
-
-[//]: # (console.log&#40;'libp2p has started'&#41;)
-
-[//]: # ()
-[//]: # (// print out listening addresses)
-
-[//]: # (console.log&#40;'listening on addresses:'&#41;)
-
-[//]: # (node.getMultiaddrs&#40;&#41;.forEach&#40;&#40;addr&#41; => {)
-
-[//]: # (  console.log&#40;addr.toString&#40;&#41;&#41;)
-
-[//]: # (}&#41;)
-
-[//]: # ()
-[//]: # (// ping peer if received multiaddr)
-
-[//]: # (if &#40;process.argv.length >= 3&#41; {)
-
-[//]: # (  const ma = multiaddr&#40;process.argv[2]&#41;)
-
-[//]: # (  console.log&#40;`pinging remote peer at ${process.argv[2]}`&#41;)
-
-[//]: # (  const latency = await node.ping&#40;ma&#41;)
-
-[//]: # (  console.log&#40;`pinged ${process.argv[2]} in ${latency}ms`&#41;)
-
-[//]: # (} else {)
-
-[//]: # (  console.log&#40;'no remote peer address given, skipping ping'&#41;)
-
-[//]: # (})
-
-[//]: # ()
-[//]: # (const stop = async &#40;&#41; => {)
-
-[//]: # (  // stop libp2p)
-
-[//]: # (  await node.stop&#40;&#41;)
-
-[//]: # (  console.log&#40;'libp2p has stopped'&#41;)
-
-[//]: # (  process.exit&#40;0&#41;)
-
-[//]: # (})
-
-[//]: # ()
-[//]: # (process.on&#40;'SIGTERM', stop&#41;)
-
-[//]: # (process.on&#40;'SIGINT', stop&#41;)
-
-[//]: # ()
-[//]: # (```)
-
-[//]: # ()
-[//]: # (Now we can start one instance with no arguments:)
-
-[//]: # ()
-[//]: # (```shell)
-
-[//]: # (> node src/index.js)
-
-[//]: # (libp2p has started)
-
-[//]: # (listening on addresses:)
-
-[//]: # (/ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN)
-
-[//]: # (no remote peer address given, skipping ping)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (Grab the `/ip4/...` address printed above and use it as an argument to another instance.  In a new terminal:)
-
-[//]: # ()
-[//]: # (```shell)
-
-[//]: # (> node src/index.js /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN)
-
-[//]: # (libp2p has started)
-
-[//]: # (listening on addresses:)
-
-[//]: # (/ip4/192.0.2.0/tcp/50777/p2p/QmYZirEPREz9vSRFznxhQbWNya2LXPz5VCahRCT7caTLGm)
-
-[//]: # (pinging remote peer at /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN)
-
-[//]: # (pinged /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN in 3ms)
-
-[//]: # (libp2p has stopped)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (Success! Our two peers are now communicating over a multiplexed, secure channel.  Sure, they can only say "ping", but it's a start!)
-
-[//]: # ()
-[//]: # (### What's next?)
-
-[//]: # ()
-[//]: # (After finishing this tutorial, you should have a look into the [js-libp2p getting started]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md&#41; document, which goes from a base configuration like this one, to more custom ones.)
-
-[//]: # ()
-[//]: # (You also have a panoply of examples on [js-libp2p repo]&#40;https://github.com/libp2p/js-libp2p/tree/master/examples&#41; that you can leverage to learn how to use `js-libp2p` for several different use cases and runtimes.)
-
-[//]: # ()
-[//]: # ([definition_multiaddress]: /reference/glossary/#multiaddr)
-
-[//]: # ([definition_multiplexer]: /reference/glossary/#multiplexer)
-
-[//]: # ([definition_peerid]: /reference/glossary/#peerid)
