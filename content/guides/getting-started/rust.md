@@ -60,14 +60,14 @@ As an initial step, you should install libp2p module.
 ```shell
 # Add the following lines to your Cargo.toml file, located in the root of the project directory.
 # [dependencies]
-libp2p = {version="0.51.1", features = ["async-std", "dns", "macros", "mplex", "noise", "ping", "tcp", "websocket", "yamux"]}
+libp2p = {version="0.51.1", features = ["noise","tcp", "yamux"]}
 
 
 ```
 
 #### Basic setup
 
-Now that we have libp2p installed, let's configure the minimum needed to get your node running. The only modules libp2p requires are a **Transport** and **Crypto** module. However, we recommend that a basic setup should also have a **Stream Multiplexer** configured, which we will explain shortly. Let's start by setting up a Transport.
+Now that we have libp2p installed, let's configure the minimum needed to get your node running. Libp2p requires at minimum a **Transport** module, 'tcp', and a **Crypto** module, 'noise'. However, we recommend that a basic setup should also have a **Stream Multiplexer** configured, which we will explain shortly. Let's start by setting up a Transport.
 
 #### Transports
 
