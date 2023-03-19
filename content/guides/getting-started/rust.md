@@ -316,95 +316,72 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-[//]: # (## Continuously polling the Swarm)
+## Continuously polling the Swarm
 
-[//]: # (We have everything in place now. The last step is to drive the [`Swarm`] in)
+We have everything in place now. The last step is to drive the [`Swarm`] in a loop, allowing it to listen for incoming connections and establish an outgoing connection in case we specify an address on the CLI.
 
-[//]: # (a loop, allowing it to listen for incoming connections and establish an)
+```no_run
+use std::error::Error;
+use libp2p::{identity, Multiaddr, PeerId, Swarm, tcp};
+use libp2p::futures::StreamExt;
+use libp2p::ping;
+use libp2p::swarm::{keep_alive, NetworkBehaviour, SwarmEvent};
 
-[//]: # (outgoing connection in case we specify an address on the CLI.)
+#[derive(NetworkBehaviour, Default)]
+struct Behaviour {
+    keep_alive: keep_alive::Behaviour,
+    ping: ping::Behaviour,
+}
 
-[//]: # (```no_run)
 
-[//]: # (use futures::prelude::*;)
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
 
-[//]: # (use libp2p::swarm::{keep_alive, NetworkBehaviour, Swarm, SwarmEvent};)
+    // create a keypair for our peer to use.
+    let local_key = identity::Keypair::generate_ed25519();
 
-[//]: # (use libp2p::{identity, ping, Multiaddr, PeerId};)
+    // create a peerid from our keypair.
+    let local_peer_id = PeerId::from(local_key.public());
 
-[//]: # (use std::error::Error;)
+    // print the Peer ID cryptographic hash
+    println!("Local peer id: {:?}", local_peer_id);
 
-[//]: # (#[async_std::main])
+    // create TCP transport with [`noise`](crate::noise) for authenticated encryption.
+    let transport = libp2p::development_transport(local_key).await?;
 
-[//]: # (async fn main&#40;&#41; -> Result<&#40;&#41;, Box<dyn Error>> {)
+    // create ping behaviour
+    let behaviour = Behaviour::default();
 
-[//]: # (let local_key = identity::Keypair::generate_ed25519&#40;&#41;;)
+    // create swarm
+    let mut swarm = Swarm::with_async_std_executor(transport, behaviour, local_peer_id);
 
-[//]: # (let local_peer_id = PeerId::from&#40;local_key.public&#40;&#41;&#41;;)
 
-[//]: # (println!&#40;"Local peer id: {local_peer_id:?}"&#41;;)
+    // Tell the swarm to listen on all interfaces and a random, OS-assigned port.
 
-[//]: # (let transport = libp2p::development_transport&#40;local_key&#41;.await?;)
+    swarm.listen_on("/ip4/0.0.0.0/tcp/0".parse()?)?;
 
-[//]: # (let behaviour = Behaviour::default&#40;&#41;;)
+    // Dial the peer identified by the multi-address given as the second command-line argument, if any.
 
-[//]: # (let mut swarm = Swarm::with_async_std_executor&#40;transport, behaviour, local_peer_id&#41;;)
+    if let Some(addr) = std::env::args().nth(1) {
+        let remote: Multiaddr = addr.parse()?;
 
-[//]: # (// Tell the swarm to listen on all interfaces and a random, OS-assigned)
+        swarm.dial(remote)?;
 
-[//]: # (// port.)
+        println!("Dialed {addr}")
+    }
 
-[//]: # (swarm.listen_on&#40;"/ip4/0.0.0.0/tcp/0".parse&#40;&#41;?&#41;?;)
 
-[//]: # (// Dial the peer identified by the multi-address given as the second)
+    loop {
+        match swarm.select_next_some().await {
+            SwarmEvent::NewListenAddr { address, .. } => println!("Listening on {address:?}"),
 
-[//]: # (// command-line argument, if any.)
+            SwarmEvent::Behaviour(event) => println!("{event:?}"),
 
-[//]: # (if let Some&#40;addr&#41; = std::env::args&#40;&#41;.nth&#40;1&#41; {)
-
-[//]: # (let remote: Multiaddr = addr.parse&#40;&#41;?;)
-
-[//]: # (swarm.dial&#40;remote&#41;?;)
-
-[//]: # (println!&#40;"Dialed {addr}"&#41;)
-
-[//]: # (})
-
-[//]: # (loop {)
-
-[//]: # (match swarm.select_next_some&#40;&#41;.await {)
-
-[//]: # (SwarmEvent::NewListenAddr { address, .. } => println!&#40;"Listening on {address:?}"&#41;,)
-
-[//]: # (SwarmEvent::Behaviour&#40;event&#41; => println!&#40;"{event:?}"&#41;,)
-
-[//]: # (_ => {})
-
-[//]: # (})
-
-[//]: # (})
-
-[//]: # (})
-
-[//]: # (/// Our network behaviour.)
-
-[//]: # (///)
-
-[//]: # (/// For illustrative purposes, this includes the [`KeepAlive`]&#40;behaviour::KeepAlive&#41; behaviour so a continuous sequence of)
-
-[//]: # (/// pings can be observed.)
-
-[//]: # (#[derive&#40;NetworkBehaviour, Default&#41;])
-
-[//]: # (struct Behaviour {)
-
-[//]: # (keep_alive: keep_alive::Behaviour,)
-
-[//]: # (ping: ping::Behaviour,)
-
-[//]: # (})
-
-[//]: # (```)
+            _ => {}
+        }
+    }
+}
+```
 
 [//]: # (## Running two nodes)
 
