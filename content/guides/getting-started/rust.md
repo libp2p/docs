@@ -61,7 +61,7 @@ As an initial step, you should install libp2p module.
 ```shell
 # Add the following lines to your Cargo.toml file, located in the root of the project directory.
 # [dependencies]
-libp2p = {version="0.51.1", features = ["noise","tcp", "yamux","mplex", "websocket", "async-std", "dns", "ping"]}
+libp2p = {version="0.51.1", features = ["noise","tcp", "yamux","mplex", "websocket", "async-std", "dns", "ping", "macros"]}
 tokio = { version="1.26.0", features=["full"] }
 
 
@@ -134,7 +134,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     // create TCP transport with [`noise`](crate::noise) for authenticated encryption.
     let transport = libp2p::development_transport(local_key).await?;
 
-Ok(())
+    Ok(())
 }
 ```
 
@@ -164,7 +164,8 @@ With the above in mind, let's extend our example, creating a [`ping::Behaviour`]
 use std::error::Error;
 use libp2p::{identity, PeerId, tcp};
 use libp2p::ping;
-use libp2p::swarm::keep_alive; // add ping::Behaviour import
+use libp2p::swarm::{keep_alive, NetworkBehaviour};
+
 
 #[derive(NetworkBehaviour, Default)]
 struct Behaviour {
@@ -246,115 +247,79 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
 ```
 
-[//]: # (## Multiaddr)
+## Multiaddr
 
-[//]: # (With the [`Swarm`] in place, we are all set to listen for incoming)
+With the [`Swarm`] in place, we are all set to listen for incoming connections. We only need to pass an address to the [`Swarm`], just like for [`std::net::TcpListener::bind`]. But instead of passing an IP address, we pass a [`Multiaddr`] which is yet another core concept of libp2p worth taking a look at.
 
-[//]: # (connections. We only need to pass an address to the [`Swarm`], just like for)
+A [`Multiaddr`] is a self-describing network address and protocol stack that is used to establish connections to peers.
 
-[//]: # ([`std::net::TcpListener::bind`]. But instead of passing an IP address, we)
+A good introduction to [`Multiaddr`] can be found at [docs.libp2p.io/concepts/addressing](https://docs.libp2p.io/concepts/addressing/) and its specification repository [github.com/multiformats/multiaddr](https://github.com/multiformats/multiaddr/).
 
-[//]: # (pass a [`Multiaddr`] which is yet another core concept of libp2p worth)
+Let's make our local node listen on a new socket.
 
-[//]: # (taking a look at.)
+This socket is listening on multiple network interfaces at the same time. For each network interface, a new listening address is created. These may change over time as interfaces become available or unavailable.
 
-[//]: # (A [`Multiaddr`] is a self-describing network address and protocol stack that)
+For example, in case of our TCP transport it may (among others) listen on the loopback interface (localhost) `/ip4/127.0.0.1/tcp/24915` as well as the local network `/ip4/192.168.178.25/tcp/24915`.
 
-[//]: # (is used to establish connections to peers. A good introduction to)
+In addition, if provided on the CLI, let's instruct our local node to dial a remote peer.
 
-[//]: # ([`Multiaddr`] can be found at)
+```rust
+use std::error::Error;
+use libp2p::{identity, PeerId, tcp};
+use libp2p::ping;
+use libp2p::swarm::keep_alive; // add ping::Behaviour import
 
-[//]: # ([docs.libp2p.io/concepts/addressing]&#40;https://docs.libp2p.io/concepts/addressing/&#41;)
+#[derive(NetworkBehaviour, Default)]
+struct Behaviour {
+    keep_alive: keep_alive::Behaviour,
+    ping: ping::Behaviour,
+}
 
-[//]: # (and its specification repository)
 
-[//]: # ([github.com/multiformats/multiaddr]&#40;https://github.com/multiformats/multiaddr/&#41;.)
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
 
-[//]: # (Let's make our local node listen on a new socket.)
+    // create a keypair for our peer to use.
+    let local_key = identity::Keypair::generate_ed25519();
 
-[//]: # (This socket is listening on multiple network interfaces at the same time. For)
+    // create a peerid from our keypair.
+    let local_peer_id = PeerId::from(local_key.public());
 
-[//]: # (each network interface, a new listening address is created. These may change)
+    // print the Peer ID cryptographic hash
+    println!("Local peer id: {:?}", local_peer_id);
 
-[//]: # (over time as interfaces become available or unavailable.)
+    // create TCP transport with [`noise`](crate::noise) for authenticated encryption.
+    let transport = libp2p::development_transport(local_key).await?;
 
-[//]: # (For example, in case of our TCP transport it may &#40;among others&#41; listen on the)
+    // create ping behaviour
+    let behaviour = Behaviour::default();
 
-[//]: # (loopback interface &#40;localhost&#41; `/ip4/127.0.0.1/tcp/24915` as well as the local)
+    // create swarm
+    let mut swarm = Swarm::with_async_std_executor(transport, behaviour, local_peer_id);
 
-[//]: # (network `/ip4/192.168.178.25/tcp/24915`.)
 
-[//]: # (In addition, if provided on the CLI, let's instruct our local node to dial a)
+    // Tell the swarm to listen on all interfaces and a random, OS-assigned port.
 
-[//]: # (remote peer.)
+    swarm.listen_on("/ip4/0.0.0.0/tcp/0".parse()?)?;
 
-[//]: # (```rust)
+    // Dial the peer identified by the multi-address given as the second command-line argument, if any.
 
-[//]: # (use libp2p::swarm::{keep_alive, NetworkBehaviour, Swarm};)
+    if let Some(addr) = std::env::args().nth(1) {
 
-[//]: # (use libp2p::{identity, ping, Multiaddr, PeerId};)
+        let remote: Multiaddr = addr.parse()?;
 
-[//]: # (use std::error::Error;)
+        swarm.dial(remote)?;
 
-[//]: # (#[async_std::main])
+        println!("Dialed {addr}")
+    }
 
-[//]: # (async fn main&#40;&#41; -> Result<&#40;&#41;, Box<dyn Error>> {)
+    Ok(())
 
-[//]: # (let local_key = identity::Keypair::generate_ed25519&#40;&#41;;)
+}
 
-[//]: # (let local_peer_id = PeerId::from&#40;local_key.public&#40;&#41;&#41;;)
 
-[//]: # (println!&#40;"Local peer id: {local_peer_id:?}"&#41;;)
 
-[//]: # (let transport = libp2p::development_transport&#40;local_key&#41;.await?;)
-
-[//]: # (let behaviour = Behaviour::default&#40;&#41;;)
-
-[//]: # (let mut swarm = Swarm::with_async_std_executor&#40;transport, behaviour, local_peer_id&#41;;)
-
-[//]: # (// Tell the swarm to listen on all interfaces and a random, OS-assigned)
-
-[//]: # (// port.)
-
-[//]: # (swarm.listen_on&#40;"/ip4/0.0.0.0/tcp/0".parse&#40;&#41;?&#41;?;)
-
-[//]: # (// Dial the peer identified by the multi-address given as the second)
-
-[//]: # (// command-line argument, if any.)
-
-[//]: # (if let Some&#40;addr&#41; = std::env::args&#40;&#41;.nth&#40;1&#41; {)
-
-[//]: # (let remote: Multiaddr = addr.parse&#40;&#41;?;)
-
-[//]: # (swarm.dial&#40;remote&#41;?;)
-
-[//]: # (println!&#40;"Dialed {addr}"&#41;)
-
-[//]: # (})
-
-[//]: # (Ok&#40;&#40;&#41;&#41;)
-
-[//]: # (})
-
-[//]: # (/// Our network behaviour.)
-
-[//]: # (///)
-
-[//]: # (/// For illustrative purposes, this includes the [`KeepAlive`]&#40;behaviour::KeepAlive&#41; behaviour so a continuous sequence of)
-
-[//]: # (/// pings can be observed.)
-
-[//]: # (#[derive&#40;NetworkBehaviour, Default&#41;])
-
-[//]: # (struct Behaviour {)
-
-[//]: # (keep_alive: keep_alive::Behaviour,)
-
-[//]: # (ping: ping::Behaviour,)
-
-[//]: # (})
-
-[//]: # (```)
+```
 
 [//]: # (## Continuously polling the Swarm)
 
