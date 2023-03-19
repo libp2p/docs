@@ -160,7 +160,8 @@ separate _how_ to send bytes from _what_ bytes to send.
 
 With the above in mind, let's extend our example, creating a [`ping::Behaviour`](crate::ping::Behaviour) at the end:
 
-
+For illustrative purposes, this includes the [`KeepAlive`](behaviour::KeepAlive) behaviour so a continuous sequence of
+pings can be observed.
 ```rust
 use std::error::Error;
 use libp2p::{identity, PeerId, tcp};
@@ -196,10 +197,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
 }
 ```
-/// Our network behaviour.
-///
-/// For illustrative purposes, this includes the [`KeepAlive`](behaviour::KeepAlive) behaviour so a continuous sequence of
-/// pings can be observed.
+
 
 ## WORK IN PROGRESS
 
