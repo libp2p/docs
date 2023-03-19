@@ -383,25 +383,17 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-[//]: # (## Running two nodes)
+## Running two nodes
 
-[//]: # (For convenience the example created above is also implemented in full in)
+For convenience the example created above is also implemented in full in `examples/ping.rs`. Thus, you can either run the commands below from your own project created during the tutorial, or from the root of the rust-libp2p repository. Note that in the former case you need to ignore the `--example ping` argument.
 
-[//]: # (`examples/ping.rs`. Thus, you can either run the commands below from your)
+You need two terminals. In the first terminal window run:
 
-[//]: # (own project created during the tutorial, or from the root of the rust-libp2p)
+```sh
 
-[//]: # (repository. Note that in the former case you need to ignore the `--example)
+cargo run --example ping
 
-[//]: # (ping` argument.)
-
-[//]: # (You need two terminals. In the first terminal window run:)
-
-[//]: # (```sh)
-
-[//]: # (cargo run --example ping)
-
-[//]: # (```)
+```
 
 [//]: # (It will print the PeerId and the new listening addresses, e.g.)
 
