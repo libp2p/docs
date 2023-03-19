@@ -100,223 +100,385 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
+[//]: # ()
+[//]: # (#### Transports)
 
-#### Transports
+[//]: # ()
+[//]: # (Libp2p uses Transports to establish connections between peers over the network. You can configure any number of Transports, but you only need 1 to start with.)
 
-Libp2p uses Transports to establish connections between peers over the network. You can configure any number of Transports, but you only need 1 to start with.
+[//]: # ()
+[//]: # (You should select Transports according to the runtime target of your application. You can see a list of some of the available Transports in the [rust-libp2p readme]&#40;https://github.com/libp2p/rust-libp2p/blob/master/README.md&#41;. For this guide let's use the `tcp` feature, which we have already added to our Cargo.toml file.)
 
-You should select Transports according to the runtime target of your application. You can see a list of some of the available Transports in the [rust-libp2p readme](https://github.com/libp2p/rust-libp2p/blob/master/README.md). For this guide let's use the `tcp` feature, which we have already added to our Cargo.toml file.
+[//]: # ()
+[//]: # (Let's configure libp2p to use the Transport. We'll use the `createLibp2pNode` method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `transports` array. Create a `src/index.js` file and have the following code in it:)
 
-Let's configure libp2p to use the Transport. We'll use the `createLibp2pNode` method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `transports` array. Create a `src/index.js` file and have the following code in it:
+[//]: # ()
+[//]: # (```rust)
 
-```rust
-use std::error::Error;
-use libp2p::{identity, PeerId, tcp};
+[//]: # (use std::error::Error;)
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
+[//]: # (use libp2p::{identity, PeerId, tcp};)
 
-    // create a random peerid.
-    let local_key = identity::Keypair::generate_ed25519();
-    let local_peer_id = PeerId::from(local_key.public());
-    println!("Local peer id: {:?}", local_peer_id);
+[//]: # ()
+[//]: # (#[tokio::main])
 
-    // create a transport.
-    let transport = libp2p::development_transport(local_key).await?;
+[//]: # (async fn main&#40;&#41; -> Result<&#40;&#41;, Box<dyn Error>> {)
 
-    Ok(())
-}
-```
+[//]: # ()
+[//]: # (    // create a random peerid.)
 
-You can add as many transports as you like to `transports` in order to establish connections with as many peers as possible.
+[//]: # (    let local_key = identity::Keypair::generate_ed25519&#40;&#41;;)
 
-#### Connection Encryption
+[//]: # (    let local_peer_id = PeerId::from&#40;local_key.public&#40;&#41;&#41;;)
 
-Every connection must be encrypted to help ensure security for everyone. As such, Connection Encryption (Crypto) is a required component of libp2p.
+[//]: # (    println!&#40;"Local peer id: {:?}", local_peer_id&#41;;)
 
-There are a growing number of Crypto modules being developed for libp2p. As those are released they will be tracked in the [Connection Encryption section of the configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption). For now, we are going to configure our node to use the `@chainsafe/libp2p-noise` module.
+[//]: # ()
+[//]: # (    // create a transport.)
 
-```sh
-npm install @chainsafe/libp2p-noise
-```
+[//]: # (    let transport = libp2p::development_transport&#40;local_key&#41;.await?;)
 
-```js
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { noise } from '@chainsafe/libp2p-noise'
+[//]: # ()
+[//]: # (    Ok&#40;&#40;&#41;&#41;)
 
-const node = await createLibp2p({
-  transports: [tcp()],
-  connectionEncryption: [noise()]
-})
+[//]: # (})
 
-```
+[//]: # (```)
 
-#### Multiplexing
+[//]: # ()
+[//]: # (You can add as many transports as you like to `transports` in order to establish connections with as many peers as possible.)
 
-While multiplexers are not strictly required, they are highly recommended as they improve the effectiveness and efficiency of connections for the various protocols libp2p runs.
+[//]: # ()
+[//]: # (#### Connection Encryption)
 
-Looking at the [available stream multiplexing](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing) modules, js-libp2p currently only supports `@libp2p/mplex`, so we will use that here. You can install `@libp2p/mplex` and add it to your libp2p node as follows in the next example.
+[//]: # ()
+[//]: # (Every connection must be encrypted to help ensure security for everyone. As such, Connection Encryption &#40;Crypto&#41; is a required component of libp2p.)
 
-```sh
-npm install @libp2p/mplex
-```
+[//]: # ()
+[//]: # (There are a growing number of Crypto modules being developed for libp2p. As those are released they will be tracked in the [Connection Encryption section of the configuration readme]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption&#41;. For now, we are going to configure our node to use the `@chainsafe/libp2p-noise` module.)
 
-```js
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
+[//]: # ()
+[//]: # (```sh)
 
-const node = await createLibp2p({
-  transports: [tcp()],
-  connectionEncryption: [noise()],
-  streamMuxers: [mplex()]
-})
+[//]: # (npm install @chainsafe/libp2p-noise)
 
-```
+[//]: # (```)
 
-#### Running libp2p
+[//]: # ()
+[//]: # (```js)
 
-Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexer** module, you can start your libp2p node. We can start and stop libp2p using the [`libp2p.start()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#start) and [`libp2p.stop()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#stop) methods.
+[//]: # (import { createLibp2p } from 'libp2p')
 
-```js
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
+[//]: # (import { tcp } from '@libp2p/tcp')
 
-const main = async () => {
-  const node = await createLibp2p({
-    addresses: {
-      // add a listen address (localhost) to accept TCP connections on a random port
-      listen: ['/ip4/192.0.2.0/tcp/0']
-    },
-    transports: [tcp()],
-    connectionEncryption: [noise()],
-    streamMuxers: [mplex()]
-  })
+[//]: # (import { noise } from '@chainsafe/libp2p-noise')
 
-  // start libp2p
-  await node.start()
-  console.log('libp2p has started')
+[//]: # ()
+[//]: # (const node = await createLibp2p&#40;{)
 
-  // print out listening addresses
-  console.log('listening on addresses:')
-  node.getMultiaddrs().forEach((addr) => {
-    console.log(addr.toString())
-  })
+[//]: # (  transports: [tcp&#40;&#41;],)
 
-  // stop libp2p
-  await node.stop()
-  console.log('libp2p has stopped')
-}
+[//]: # (  connectionEncryption: [noise&#40;&#41;])
 
-main().then().catch(console.error)
+[//]: # (}&#41;)
 
-```
+[//]: # ()
+[//]: # (```)
 
-Try running the code with `node src/index.js`. You should see something like:
+[//]: # ()
+[//]: # (#### Multiplexing)
 
-```shell
-libp2p has started
-listening on addresses:
-/ip4/192.0.2.0/tcp/50626/p2p/QmYoqzFj5rhzFy7thCPPGbDkDkLMbQzanxCNwefZd3qTkz
-libp2p has stopped
-```
+[//]: # ()
+[//]: # (While multiplexers are not strictly required, they are highly recommended as they improve the effectiveness and efficiency of connections for the various protocols libp2p runs.)
 
-### Lets play ping pong!
+[//]: # ()
+[//]: # (Looking at the [available stream multiplexing]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing&#41; modules, js-libp2p currently only supports `@libp2p/mplex`, so we will use that here. You can install `@libp2p/mplex` and add it to your libp2p node as follows in the next example.)
 
-Now that we have the basic building blocks of transport, multiplexing, and security in place, we can start communicating!
+[//]: # ()
+[//]: # (```sh)
 
-We can use [`libp2p.ping()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#ping) to dial and send ping messages to another peer. That peer will send back a "pong" message, so that we know that it is still alive. This also enables us to measure the latency between peers.
+[//]: # (npm install @libp2p/mplex)
 
-We can have our application accepting a peer multiaddress via command line argument and try to ping it. To do so, we'll need to add a couple things. First, require the `process` module so that we can get the command line arguments. Then we'll need to parse the multiaddress from the command line and try to ping it:
+[//]: # (```)
 
-```sh
-npm install multiaddr
-```
+[//]: # ()
+[//]: # (```js)
 
-```javascript
-import process from 'node:process'
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
-import { multiaddr } from 'multiaddr'
+[//]: # (import { createLibp2p } from 'libp2p')
 
-const node = await createLibp2p({
-  addresses: {
-    // add a listen address (localhost) to accept TCP connections on a random port
-    listen: ['/ip4/192.0.2.0/tcp/0']
-  },
-  transports: [tcp()],
-  connectionEncryption: [noise()],
-  streamMuxers: [mplex()]
-})
+[//]: # (import { tcp } from '@libp2p/tcp')
 
-// start libp2p
-await node.start()
-console.log('libp2p has started')
+[//]: # (import { noise } from '@chainsafe/libp2p-noise')
 
-// print out listening addresses
-console.log('listening on addresses:')
-node.getMultiaddrs().forEach((addr) => {
-  console.log(addr.toString())
-})
+[//]: # (import { mplex } from '@libp2p/mplex')
 
-// ping peer if received multiaddr
-if (process.argv.length >= 3) {
-  const ma = multiaddr(process.argv[2])
-  console.log(`pinging remote peer at ${process.argv[2]}`)
-  const latency = await node.ping(ma)
-  console.log(`pinged ${process.argv[2]} in ${latency}ms`)
-} else {
-  console.log('no remote peer address given, skipping ping')
-}
+[//]: # ()
+[//]: # (const node = await createLibp2p&#40;{)
 
-const stop = async () => {
-  // stop libp2p
-  await node.stop()
-  console.log('libp2p has stopped')
-  process.exit(0)
-}
+[//]: # (  transports: [tcp&#40;&#41;],)
 
-process.on('SIGTERM', stop)
-process.on('SIGINT', stop)
+[//]: # (  connectionEncryption: [noise&#40;&#41;],)
 
-```
+[//]: # (  streamMuxers: [mplex&#40;&#41;])
 
-Now we can start one instance with no arguments:
+[//]: # (}&#41;)
 
-```shell
-> node src/index.js
-libp2p has started
-listening on addresses:
-/ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
-no remote peer address given, skipping ping
-```
+[//]: # ()
+[//]: # (```)
 
-Grab the `/ip4/...` address printed above and use it as an argument to another instance.  In a new terminal:
+[//]: # ()
+[//]: # (#### Running libp2p)
 
-```shell
-> node src/index.js /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
-libp2p has started
-listening on addresses:
-/ip4/192.0.2.0/tcp/50777/p2p/QmYZirEPREz9vSRFznxhQbWNya2LXPz5VCahRCT7caTLGm
-pinging remote peer at /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
-pinged /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN in 3ms
-libp2p has stopped
-```
+[//]: # ()
+[//]: # (Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexer** module, you can start your libp2p node. We can start and stop libp2p using the [`libp2p.start&#40;&#41;`]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#start&#41; and [`libp2p.stop&#40;&#41;`]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#stop&#41; methods.)
 
-Success! Our two peers are now communicating over a multiplexed, secure channel.  Sure, they can only say "ping", but it's a start!
+[//]: # ()
+[//]: # (```js)
 
-### What's next?
+[//]: # (import { createLibp2p } from 'libp2p')
 
-After finishing this tutorial, you should have a look into the [js-libp2p getting started](https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md) document, which goes from a base configuration like this one, to more custom ones.
+[//]: # (import { tcp } from '@libp2p/tcp')
 
-You also have a panoply of examples on [js-libp2p repo](https://github.com/libp2p/js-libp2p/tree/master/examples) that you can leverage to learn how to use `js-libp2p` for several different use cases and runtimes.
+[//]: # (import { noise } from '@chainsafe/libp2p-noise')
 
-[definition_multiaddress]: /reference/glossary/#multiaddr
-[definition_multiplexer]: /reference/glossary/#multiplexer
-[definition_peerid]: /reference/glossary/#peerid
+[//]: # (import { mplex } from '@libp2p/mplex')
+
+[//]: # ()
+[//]: # (const main = async &#40;&#41; => {)
+
+[//]: # (  const node = await createLibp2p&#40;{)
+
+[//]: # (    addresses: {)
+
+[//]: # (      // add a listen address &#40;localhost&#41; to accept TCP connections on a random port)
+
+[//]: # (      listen: ['/ip4/192.0.2.0/tcp/0'])
+
+[//]: # (    },)
+
+[//]: # (    transports: [tcp&#40;&#41;],)
+
+[//]: # (    connectionEncryption: [noise&#40;&#41;],)
+
+[//]: # (    streamMuxers: [mplex&#40;&#41;])
+
+[//]: # (  }&#41;)
+
+[//]: # ()
+[//]: # (  // start libp2p)
+
+[//]: # (  await node.start&#40;&#41;)
+
+[//]: # (  console.log&#40;'libp2p has started'&#41;)
+
+[//]: # ()
+[//]: # (  // print out listening addresses)
+
+[//]: # (  console.log&#40;'listening on addresses:'&#41;)
+
+[//]: # (  node.getMultiaddrs&#40;&#41;.forEach&#40;&#40;addr&#41; => {)
+
+[//]: # (    console.log&#40;addr.toString&#40;&#41;&#41;)
+
+[//]: # (  }&#41;)
+
+[//]: # ()
+[//]: # (  // stop libp2p)
+
+[//]: # (  await node.stop&#40;&#41;)
+
+[//]: # (  console.log&#40;'libp2p has stopped'&#41;)
+
+[//]: # (})
+
+[//]: # ()
+[//]: # (main&#40;&#41;.then&#40;&#41;.catch&#40;console.error&#41;)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # ()
+[//]: # (Try running the code with `node src/index.js`. You should see something like:)
+
+[//]: # ()
+[//]: # (```shell)
+
+[//]: # (libp2p has started)
+
+[//]: # (listening on addresses:)
+
+[//]: # (/ip4/192.0.2.0/tcp/50626/p2p/QmYoqzFj5rhzFy7thCPPGbDkDkLMbQzanxCNwefZd3qTkz)
+
+[//]: # (libp2p has stopped)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (### Lets play ping pong!)
+
+[//]: # ()
+[//]: # (Now that we have the basic building blocks of transport, multiplexing, and security in place, we can start communicating!)
+
+[//]: # ()
+[//]: # (We can use [`libp2p.ping&#40;&#41;`]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#ping&#41; to dial and send ping messages to another peer. That peer will send back a "pong" message, so that we know that it is still alive. This also enables us to measure the latency between peers.)
+
+[//]: # ()
+[//]: # (We can have our application accepting a peer multiaddress via command line argument and try to ping it. To do so, we'll need to add a couple things. First, require the `process` module so that we can get the command line arguments. Then we'll need to parse the multiaddress from the command line and try to ping it:)
+
+[//]: # ()
+[//]: # (```sh)
+
+[//]: # (npm install multiaddr)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (```javascript)
+
+[//]: # (import process from 'node:process')
+
+[//]: # (import { createLibp2p } from 'libp2p')
+
+[//]: # (import { tcp } from '@libp2p/tcp')
+
+[//]: # (import { noise } from '@chainsafe/libp2p-noise')
+
+[//]: # (import { mplex } from '@libp2p/mplex')
+
+[//]: # (import { multiaddr } from 'multiaddr')
+
+[//]: # ()
+[//]: # (const node = await createLibp2p&#40;{)
+
+[//]: # (  addresses: {)
+
+[//]: # (    // add a listen address &#40;localhost&#41; to accept TCP connections on a random port)
+
+[//]: # (    listen: ['/ip4/192.0.2.0/tcp/0'])
+
+[//]: # (  },)
+
+[//]: # (  transports: [tcp&#40;&#41;],)
+
+[//]: # (  connectionEncryption: [noise&#40;&#41;],)
+
+[//]: # (  streamMuxers: [mplex&#40;&#41;])
+
+[//]: # (}&#41;)
+
+[//]: # ()
+[//]: # (// start libp2p)
+
+[//]: # (await node.start&#40;&#41;)
+
+[//]: # (console.log&#40;'libp2p has started'&#41;)
+
+[//]: # ()
+[//]: # (// print out listening addresses)
+
+[//]: # (console.log&#40;'listening on addresses:'&#41;)
+
+[//]: # (node.getMultiaddrs&#40;&#41;.forEach&#40;&#40;addr&#41; => {)
+
+[//]: # (  console.log&#40;addr.toString&#40;&#41;&#41;)
+
+[//]: # (}&#41;)
+
+[//]: # ()
+[//]: # (// ping peer if received multiaddr)
+
+[//]: # (if &#40;process.argv.length >= 3&#41; {)
+
+[//]: # (  const ma = multiaddr&#40;process.argv[2]&#41;)
+
+[//]: # (  console.log&#40;`pinging remote peer at ${process.argv[2]}`&#41;)
+
+[//]: # (  const latency = await node.ping&#40;ma&#41;)
+
+[//]: # (  console.log&#40;`pinged ${process.argv[2]} in ${latency}ms`&#41;)
+
+[//]: # (} else {)
+
+[//]: # (  console.log&#40;'no remote peer address given, skipping ping'&#41;)
+
+[//]: # (})
+
+[//]: # ()
+[//]: # (const stop = async &#40;&#41; => {)
+
+[//]: # (  // stop libp2p)
+
+[//]: # (  await node.stop&#40;&#41;)
+
+[//]: # (  console.log&#40;'libp2p has stopped'&#41;)
+
+[//]: # (  process.exit&#40;0&#41;)
+
+[//]: # (})
+
+[//]: # ()
+[//]: # (process.on&#40;'SIGTERM', stop&#41;)
+
+[//]: # (process.on&#40;'SIGINT', stop&#41;)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # ()
+[//]: # (Now we can start one instance with no arguments:)
+
+[//]: # ()
+[//]: # (```shell)
+
+[//]: # (> node src/index.js)
+
+[//]: # (libp2p has started)
+
+[//]: # (listening on addresses:)
+
+[//]: # (/ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN)
+
+[//]: # (no remote peer address given, skipping ping)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (Grab the `/ip4/...` address printed above and use it as an argument to another instance.  In a new terminal:)
+
+[//]: # ()
+[//]: # (```shell)
+
+[//]: # (> node src/index.js /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN)
+
+[//]: # (libp2p has started)
+
+[//]: # (listening on addresses:)
+
+[//]: # (/ip4/192.0.2.0/tcp/50777/p2p/QmYZirEPREz9vSRFznxhQbWNya2LXPz5VCahRCT7caTLGm)
+
+[//]: # (pinging remote peer at /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN)
+
+[//]: # (pinged /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN in 3ms)
+
+[//]: # (libp2p has stopped)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (Success! Our two peers are now communicating over a multiplexed, secure channel.  Sure, they can only say "ping", but it's a start!)
+
+[//]: # ()
+[//]: # (### What's next?)
+
+[//]: # ()
+[//]: # (After finishing this tutorial, you should have a look into the [js-libp2p getting started]&#40;https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md&#41; document, which goes from a base configuration like this one, to more custom ones.)
+
+[//]: # ()
+[//]: # (You also have a panoply of examples on [js-libp2p repo]&#40;https://github.com/libp2p/js-libp2p/tree/master/examples&#41; that you can leverage to learn how to use `js-libp2p` for several different use cases and runtimes.)
+
+[//]: # ()
+[//]: # ([definition_multiaddress]: /reference/glossary/#multiaddr)
+
+[//]: # ([definition_multiplexer]: /reference/glossary/#multiplexer)
+
+[//]: # ([definition_peerid]: /reference/glossary/#peerid)
