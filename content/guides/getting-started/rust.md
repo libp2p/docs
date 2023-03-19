@@ -1,6 +1,6 @@
 ---
 title: "Run a rust-libp2p node"
-weight: 4
+weight: 3
 description: "Learn how to run a rust-libp2p node and use the ping protocol"
 aliases:
     - "/tutorials/rust"
@@ -80,6 +80,7 @@ Each libp2p peer controls a private key, which it keeps secret from all other pe
 Together, the public and private key (or “key pair”) allow peers to establish secure communication channels with each other.
 
 Lets create a peer ID for our node so that we can then setup a Transport and Crypto.
+
 ```rust
 use std::error::Error;
 use libp2p::{identity, PeerId, tcp};
@@ -100,24 +101,41 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
+#### Transport
+You should select Transports according to the runtime target of your application. You can see a list of some of the available Transports in the [rust-libp2p readme](https://github.com/libp2p/rust-libp2p/blob/master/README.md). For this guide let's use the `tcp` feature, which we have already added to our Cargo.toml file.
 
+A transport in libp2p provides connection-oriented communication channels (e.g. TCP) as well as upgrades on top of those like authentication and encryption protocols.
+
+Technically, a libp2p transport is anything that implements the [`Transport`] trait.
+
+Instead of constructing a transport ourselves, for this tutorial, we use the convenience function [`development_transport`](crate::development_transport). This creates a TCP transport with [`noise`](crate::noise) for authenticated encryption.
+
+[`development_transport`] builds a multiplexed transport, in which multiple logical substreams can coexist on the same underlying (TCP) connection.
+
+For further details on substream multiplexing, take a look at [`crate::core::muxing`] and [`yamux`](crate::yamux).
+
+```rust
+use libp2p::{identity, PeerId};
+use std::error::Error;
+
+#[async_std::main]
+    // create a keypair for our peer to use.
+    let local_key = identity::Keypair::generate_ed25519();
+
+    // create a peerid from our keypair.
+    let local_peer_id = PeerId::from(local_key.public());
+
+    // print the Peer ID cryptographic hash
+    println!("Local peer id: {:?}", local_peer_id);
+
+    // create TCP transport with [`noise`](crate::noise) for authenticated encryption.
+    let transport = libp2p::development_transport(local_key).await?;
+
+Ok(())
+}
+```
 
 ## WORK IN PROGRESS
-[//]: # ()
-[//]: # (#### Transports)
-
-[//]: # ()
-[//]: # (Libp2p uses Transports to establish connections between peers over the network. You can configure any number of Transports, but you only need 1 to start with.)
-
-[//]: # ()
-[//]: # (You should select Transports according to the runtime target of your application. You can see a list of some of the available Transports in the [rust-libp2p readme]&#40;https://github.com/libp2p/rust-libp2p/blob/master/README.md&#41;. For this guide let's use the `tcp` feature, which we have already added to our Cargo.toml file.)
-
-[//]: # ()
-[//]: # (Let's configure libp2p to use the Transport. We'll use the `createLibp2pNode` method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `transports` array. Create a `src/index.js` file and have the following code in it:)
-
-[//]: # ()
-[//]: # (```rust)
-
 [//]: # (use std::error::Error;)
 
 [//]: # (use libp2p::{identity, PeerId, tcp};)
