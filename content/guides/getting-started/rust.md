@@ -385,7 +385,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
 ## Running two nodes
 
-For convenience the example created above is also implemented in full in `examples/ping.rs`. Thus, you can either run the commands below from your own project created during the tutorial, or from the root of the rust-libp2p repository. Note that in the former case you need to ignore the `--example ping` argument.
+For convenience the example created above is also implemented in full in `examples/ping-example/examples/ping.rs`. Thus, you can either run the commands below from your own project created during the tutorial, or from the root of the rust-libp2p repository. Note that in the former case you need to ignore the `cargo run --example ping` argument.
 
 You need two terminals. In the first terminal window run:
 
@@ -395,54 +395,34 @@ cargo run --example ping
 
 ```
 
-[//]: # (It will print the PeerId and the new listening addresses, e.g.)
+It will print the PeerId and the new listening addresses, e.g.
 
-[//]: # (```sh)
+```sh
 
-[//]: # (Local peer id: PeerId&#40;"12D3KooWT1As4mwh3KYBnNTw9bSrRbYQGJTm9SSte82JSumqgCQG"&#41;)
+Local peer id: PeerId("12D3KooWT1As4mwh3KYBnNTw9bSrRbYQGJTm9SSte82JSumqgCQG")
 
-[//]: # (Listening on "/ip4/127.0.0.1/tcp/24915")
+Listening on "/ip4/127.0.0.1/tcp/24915"
 
-[//]: # (Listening on "/ip4/192.168.178.25/tcp/24915")
+Listening on "/ip4/192.168.178.25/tcp/24915"
 
-[//]: # (Listening on "/ip4/172.17.0.1/tcp/24915")
+Listening on "/ip4/172.17.0.1/tcp/24915"
 
-[//]: # (Listening on "/ip6/::1/tcp/24915")
+Listening on "/ip6/::1/tcp/24915"
 
-[//]: # (```)
+```
 
-[//]: # (In the second terminal window, start a new instance of the example with:)
+In the second terminal window, start a new instance of the example with:
 
-[//]: # (```sh)
+```sh
 
-[//]: # (cargo run --example ping -- /ip4/127.0.0.1/tcp/24915)
+cargo run --example ping -- /ip4/127.0.0.1/tcp/24915
 
-[//]: # (```)
+```
 
-[//]: # (Note: The [`Multiaddr`] at the end being one of the [`Multiaddr`] printed)
+Note: The [`Multiaddr`] at the end being one of the [`Multiaddr`] printed earlier in terminal window one.
 
-[//]: # (earlier in terminal window one.)
+Both peers have to be in the same network with which the address is associated.
 
-[//]: # (Both peers have to be in the same network with which the address is associated.)
+In our case any printed addresses can be used, as both peers run on the same device.
 
-[//]: # (In our case any printed addresses can be used, as both peers run on the same)
-
-[//]: # (device.)
-
-[//]: # (The two nodes will establish a connection and send each other ping and pong)
-
-[//]: # (messages every 15 seconds.)
-
-[//]: # ([`Multiaddr`]: crate::core::Multiaddr)
-
-[//]: # ([`NetworkBehaviour`]: crate::swarm::NetworkBehaviour)
-
-[//]: # ([`Transport`]: crate::core::Transport)
-
-[//]: # ([`PeerId`]: crate::core::PeerId)
-
-[//]: # ([`Swarm`]: crate::swarm::Swarm)
-
-[//]: # ([`development_transport`]: crate::development_transport)
-
-## WORK IN PROGRESS
+The two nodes will establish a connection and send each other ping and pong messages every 15 seconds.
