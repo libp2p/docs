@@ -390,8 +390,11 @@ For convenience the example created above is also implemented in full in `exampl
 You need two terminals. In the first terminal window run:
 
 ```sh
-
+## from rust-libp2p repo
 cargo run --example ping
+
+## from our tutorial project
+cargo run
 
 ```
 
@@ -414,8 +417,11 @@ Listening on "/ip6/::1/tcp/24915"
 In the second terminal window, start a new instance of the example with:
 
 ```sh
+## from rust-libp2p repo
+cargo run --example ping -- "/ip4/127.0.0.1/tcp/34077"
 
-cargo run --example ping -- /ip4/127.0.0.1/tcp/24915
+## from our tutorial project
+cargo run -- "/ip4/127.0.0.1/tcp/34077"
 
 ```
 
