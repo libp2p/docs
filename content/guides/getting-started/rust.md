@@ -263,9 +263,9 @@ In addition, if provided on the CLI, let's instruct our local node to dial a rem
 
 ```rust
 use std::error::Error;
-use libp2p::{identity, PeerId, tcp};
+use libp2p::{identity, Multiaddr, PeerId, Swarm, tcp};
 use libp2p::ping;
-use libp2p::swarm::keep_alive; // add ping::Behaviour import
+use libp2p::swarm::{keep_alive, NetworkBehaviour};
 
 #[derive(NetworkBehaviour, Default)]
 struct Behaviour {
@@ -314,9 +314,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 
 }
-
-
-
 ```
 
 [//]: # (## Continuously polling the Swarm)
