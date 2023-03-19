@@ -1,12 +1,11 @@
-[//]: # (https://github.com/libp2p/rust-libp2p/blob/master/libp2p/src/tutorials/ping.rs)
 ---
 title: "Run a rust-libp2p node"
-weight: 3
+weight: 4
 description: "Learn how to run a rust-libp2p node and use the ping protocol"
 aliases:
-    - "/tutorials/rust"
-    - "/guides"
-    - "/guides/rust"
+- "/tutorials/rust"
+- "/guides"
+- "/guides/rust"
 ---
 
 Check out [tutorials of the Rust libp2p implementation](https://docs.rs/libp2p/newest/libp2p/tutorials/index.html).
@@ -16,6 +15,7 @@ This is the first in a series of tutorials on working with libp2p's Rust impleme
 We will walk you through setting up a fully functional libp2p node with some basic functionality,
 and finally we'll send ping messages back and forth between two peers.
 
+[//]: # (https://github.com/libp2p/rust-libp2p/blob/master/libp2p/src/tutorials/ping.rs)
 ### Install Rustup and Cargo
 
 Working with rust-libp2p requires [Rust](https://www.rust-lang.org/tools/install)
