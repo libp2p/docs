@@ -208,9 +208,9 @@ This job is carried out by a [`Swarm`]. Put simply, a [`Swarm`] drives both a [`
 
 ```rust
 use std::error::Error;
-use libp2p::{identity, PeerId, tcp};
+use libp2p::{identity, PeerId, Swarm, tcp};
 use libp2p::ping;
-use libp2p::swarm::keep_alive; // add ping::Behaviour import
+use libp2p::swarm::{keep_alive, NetworkBehaviour};
 
 #[derive(NetworkBehaviour, Default)]
 struct Behaviour {
@@ -243,8 +243,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 
 }
-
-
 ```
 
 ## Multiaddr
