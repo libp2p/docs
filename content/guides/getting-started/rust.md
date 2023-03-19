@@ -61,7 +61,7 @@ As an initial step, you should install libp2p module.
 ```shell
 # Add the following lines to your Cargo.toml file, located in the root of the project directory.
 # [dependencies]
-libp2p = {version="0.51.1", features = ["noise","tcp", "yamux","mplex", "websocket", "async-std", "dns"]}
+libp2p = {version="0.51.1", features = ["noise","tcp", "yamux","mplex", "websocket", "async-std", "dns", "ping"]}
 tokio = { version="1.26.0", features=["full"] }
 
 
@@ -116,10 +116,12 @@ Instead of constructing a transport ourselves, for this tutorial, we use the con
 For further details on substream multiplexing, take a look at [`crate::core::muxing`] and [`yamux`](crate::yamux).
 
 ```rust
-use libp2p::{identity, PeerId};
 use std::error::Error;
+use libp2p::{identity, PeerId, tcp};
 
-#[async_std::main]
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+
     // create a keypair for our peer to use.
     let local_key = identity::Keypair::generate_ed25519();
 
@@ -135,6 +137,67 @@ use std::error::Error;
 Ok(())
 }
 ```
+
+## Network behaviour
+
+Now it is time to look at another core trait of rust-libp2p: the
+[`NetworkBehaviour`]. While the previously introduced trait [`Transport`]
+defines _how_ to send bytes on the network, a [`NetworkBehaviour`] defines
+_what_ bytes to send on the network.
+
+To make this more concrete, let's take a look at a simple implementation of
+the [`NetworkBehaviour`] trait: the [`ping::Behaviour`](crate::ping::Behaviour).
+As you might have guessed, similar to the good old `ping` network tool,
+libp2p [`ping::Behaviour`](crate::ping::Behaviour) sends a ping to a peer and expects
+to receive a pong in turn. The [`ping::Behaviour`](crate::ping::Behaviour) does not care _how_
+the ping and pong messages are sent on the network, whether they are sent via
+TCP, whether they are encrypted via [noise](crate::noise) or just in
+[plaintext](crate::plaintext). It only cares about _what_ messages are sent
+on the network.
+
+The two traits [`Transport`] and [`NetworkBehaviour`] allow us to cleanly
+separate _how_ to send bytes from _what_ bytes to send.
+
+With the above in mind, let's extend our example, creating a [`ping::Behaviour`](crate::ping::Behaviour) at the end:
+
+
+```rust
+use std::error::Error;
+use libp2p::{identity, PeerId, tcp};
+use libp2p::ping::Behaviour; // add ping::Behaviour import
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+
+    // create a keypair for our peer to use.
+    let local_key = identity::Keypair::generate_ed25519();
+
+    // create a peerid from our keypair.
+    let local_peer_id = PeerId::from(local_key.public());
+
+    // print the Peer ID cryptographic hash
+    println!("Local peer id: {:?}", local_peer_id);
+
+    // create TCP transport with [`noise`](crate::noise) for authenticated encryption.
+    let transport = libp2p::development_transport(local_key).await?;
+
+    // create ping behaviour
+    let behaviour = Behaviour::default();
+
+    Ok(())
+}
+
+/// Our network behaviour.
+///
+/// For illustrative purposes, this includes the [`KeepAlive`](behaviour::KeepAlive) behaviour so a continuous sequence of
+/// pings can be observed.
+#[derive(NetworkBehaviour, Default)]
+struct Behaviour {
+keep_alive: keep_alive::Behaviour,
+ping: ping::Behaviour,
+}
+```
+
 
 ## WORK IN PROGRESS
 
