@@ -391,7 +391,8 @@ You need two terminals. In the first terminal window run:
 
 ```sh
 ## from rust-libp2p repo
-cargo run --example ping
+cd examples/ping-example/
+cargo run
 
 ## from our tutorial project
 cargo run
@@ -418,7 +419,8 @@ In the second terminal window, start a new instance of the example with:
 
 ```sh
 ## from rust-libp2p repo
-cargo run --example ping -- "/ip4/127.0.0.1/tcp/34077"
+cd examples/ping-example/
+cargo run -- "/ip4/127.0.0.1/tcp/34077"
 
 ## from our tutorial project
 cargo run -- "/ip4/127.0.0.1/tcp/34077"
