@@ -103,7 +103,7 @@ Authenticity is achieved by succeeding the
 
 ### WebRTC private-to-private
 
-Thanks to js-libp2p and rust-libp2p (complied to Wasm), libp2p can run in the browser environment.
+Thanks to js-libp2p and rust-libp2p (compiled to Wasm), libp2p can run in the browser environment.
 However, browsers impose certain restrictions on application code (such as libp2p browser nodes).
 Applications are sandboxed and face constraints on networking.
 For instance, browsers do not permit direct access to raw network sockets.
