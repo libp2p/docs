@@ -154,14 +154,13 @@ This works as follows:
 - _A_ initiates the `webrtc-signaling` protocol to _B_ via a stream over the relayed connection
   - This signaling stream is used to:
     - Exchange SDPs between nodes (an offer from _A_ and an answer from _B_)
-    - Exchange information about the network connection (in WebRTC parlance this is called [exchanging ICE candidates](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#ice_candidates))
+      - This include exchangning information about the network connection (in WebRTC parlance this is called [exchanging ICE candidates](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#ice_candidates))
 - The SDP messages are passed to the browsers WebRTC stack, which then tries to establish a direct connection.
   - A successful direct connection is established between _A_ and _B_
     - In this case, both browser nodes will close the signaling protocol stream
     - The relayed connection is closed
   - A failed direction connection
     - In this case, the signaling stream is reset
-    - It's important to note that libp2p does not specify transferring data over the relayed connection if the direct connection fails
 
 {{< alert icon="" context="info">}}
 As mentioned, a browser node is private and behind a NAT/firewall.
