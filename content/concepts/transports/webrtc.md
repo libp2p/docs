@@ -105,7 +105,7 @@ Authenticity is achieved by succeeding the
 
 Thanks to js-libp2p and rust-libp2p (complied to Wasm), libp2p can run in the browser environment.
 However, browsers impose certain restrictions on application code (such as libp2p browser nodes).
-Applications are sandboxed and face constraints on security and networking.
+Applications are sandboxed and face constraints on networking.
 For instance, browsers do not permit direct access to raw network sockets.
 Additionally, it's a sure bet that libp2p browser nodes will be behind a NAT/firewall.
 Due to these restrictions, browser nodes cannot listen for incoming connections (nor dial TCP and QUIC connections)
@@ -125,7 +125,7 @@ Thus, this WebRTC private node to private node connectivity enables the vast maj
 
 The libp2p WebRTC private-to-private transport is enabled by supporting the [W3C defined](https://w3c.github.io/webrtc-pc/#introduction) `RTCPeerConnection` API.
 This core API enables p2p connectivity and provides methods for establishing connections and transferring streams of data between peers.
-Running instances of libp2p that support this transport will have `/webrtc-private-to-private` in their multiaddr.
+Running instances of libp2p that support this transport will have `/webrtc` in their multiaddr.
 
 However, there's more to p2p connections than what `RTCPeerConnection` provides. Crucially, signaling isn't built into the WebRTC API.
 {{< alert icon="" context="info">}}
@@ -147,7 +147,7 @@ Suppose we have three network entities:
 In this connectivity scenario, _A_ wants to connect to _B_.
 This works as follows:
 
-- _B_ connects to _R_ and makes a relay reservation. It appends `webrtc-private-to-private` to its relayed multiaddress and advertises it to the network.
+- _B_ connects to _R_ and makes a relay reservation. It appends `/webrtc` to its relayed multiaddress and advertises it to the network.
 - _A_ discovers _B_'s relayed multiaddr, sees it supports private-to-private, and establishes a relayed connection to _B_ via _R_.
 - _A_ and _B_ create outbound and inbound [`RTCPeerConnection` objects](https://webrtc.org/getting-started/peer-connections) respectively
   - Per their namesake, these objects handle peer connections, define how they're set up, and contain other useful information about the network.
@@ -155,7 +155,7 @@ This works as follows:
   - This signaling stream is used to:
     - Exchange SDPs between nodes (an offer from _A_ and an answer from _B_)
     - Exchange information about the network connection (in WebRTC parlance this is called [exchanging ICE candidates](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#ice_candidates))
-- After this whole process is done, there can be one of two results:
+- The SDP messages are passed to the browsers WebRTC stack, which then tries to establish a direct connection.
   - A successful direct connection is established between _A_ and _B_
     - In this case, both browser nodes will close the signaling protocol stream
     - The relayed connection is closed
