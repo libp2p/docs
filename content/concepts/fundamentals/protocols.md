@@ -35,7 +35,7 @@ By convention, protocol ids have a path-like structure, with a version number as
 ```
 
 Breaking changes to your protocol's wire format or semantics should result in a new version
-number. See the [protocol negotiation section](#protocol-neotiation) for more information about
+number. See the [protocol negotiation section](#protocol-negotiation) for more information about
 how version selection works during the dialing and listening process.
 
 {{< alert icon="💡" context="info">}}
