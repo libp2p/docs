@@ -101,16 +101,79 @@ Authenticity is achieved by succeeding the
 
 <!-- TO ADD DIAGRAM -->
 
-### Coming soon: Browser-to-Browser
+### WebRTC private-to-private
 
-Eventually, libp2p will have support for communication between two
-browsers.
+Thanks to js-libp2p and rust-libp2p (compiled to Wasm), libp2p can run in the browser environment.
+However, browsers impose certain restrictions on application code (such as libp2p browser nodes).
+Applications are sandboxed and face constraints on networking.
+For instance, browsers do not permit direct access to raw network sockets.
+Additionally, it's a sure bet that libp2p browser nodes will be behind a NAT/firewall.
+Due to these restrictions, browser nodes cannot listen for incoming connections (nor dial TCP and QUIC connections)
+and as a result, they cannot communicate with other browser nodes.
 
-The technical specification and initial implementations of WebRTC
-Browser-to-Browser connectivity is planned for release in early 2023.
-Track the progress [here](https://github.com/libp2p/specs/issues/475).
+Thankfully, libp2p solves this problem and enables browser node to browser node connectivity by supporting a transport called WebRTC private-to-private.
+
+{{< alert icon="" context="info">}}
+This WebRTC solution enables connectivity between two privates nodes i.e. nodes behind a NAT / firewall.
+People usually run their browsers in home or corporate networks.
+These networks are almost always behind a NAT and thus private.
+As a result, libp2p browser nodes in such networks are private nodes (meaning they cannot be dialed from outside of their local network).
+Thus, this WebRTC private node to private node connectivity enables the vast majority of private browser nodes to connect with one another.
+{{< /alert >}}
+
+#### Transport Internals
+
+The libp2p WebRTC private-to-private transport is enabled by supporting the [W3C defined](https://w3c.github.io/webrtc-pc/#introduction) `RTCPeerConnection` API.
+This core API enables p2p connectivity and provides methods for establishing connections and transferring streams of data between peers.
+Running instances of libp2p that support this transport will have `/webrtc` in their multiaddr.
+
+However, there's more to p2p connections than what `RTCPeerConnection` provides. Crucially, signaling isn't built into the WebRTC API.
+{{< alert icon="" context="info">}}
+Signaling is the process of coordinating communication and exchanging metadata about the communication (i.e. initializing, closing, or reporting errors about connections).
+{{< /alert >}}
+
+For this transport, libp2p supports its own signaling protocol which has the protocol id: `webrtc-signaling`.
+
+#### How private-to-private connectivity works
 
 <!-- TO ADD DIAGRAM -->
+
+Suppose we have three network entities:
+
+- _Node A_ - a libp2p node running in the browser
+- _Node B_ - another browser libp2p node running on a different browser instance
+- _Relay R_ - a libp2p relay node
+
+In this connectivity scenario, _A_ wants to connect to _B_.
+This works as follows:
+
+- _B_ connects to _R_ and makes a relay reservation. It appends `/webrtc` to its relayed multiaddress and advertises it to the network.
+- _A_ discovers _B_'s relayed multiaddr, sees it supports private-to-private, and establishes a relayed connection to _B_ via _R_.
+- _A_ and _B_ create outbound and inbound [`RTCPeerConnection` objects](https://webrtc.org/getting-started/peer-connections) respectively
+  - Per their namesake, these objects handle peer connections, define how they're set up, and contain other useful information about the network.
+- _A_ initiates the `webrtc-signaling` protocol to _B_ via a stream over the relayed connection
+  - This signaling stream is used to:
+    - Exchange SDPs between nodes (an offer from _A_ and an answer from _B_)
+      - This include exchangning information about the network connection (in WebRTC parlance this is called [exchanging ICE candidates](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#ice_candidates))
+- The SDP messages are passed to the browsers WebRTC stack, which then tries to establish a direct connection.
+  - A successful direct connection is established between _A_ and _B_
+    - In this case, both browser nodes will close the signaling protocol stream
+    - The relayed connection is closed
+  - A failed direction connection
+    - In this case, the signaling stream is reset
+
+{{< alert icon="" context="info">}}
+As mentioned, a browser node is private and behind a NAT/firewall.
+It needs to discover it's public IP address and port to send to the remote peer.
+To do this, libp2p's `webrtc-private-to-private` solution depends on STUN servers.
+STUN servers are the only way to discover ones own public IP address and port in the browser.
+Public STUN servers can be used or you may choose to operate a dedicate STUN server(s) for your libp2p network.
+In the above connectivity example, the browser nodes need not use the same STUN server.
+{{< /alert >}}
+
+In summary, `webrtc-private-to-private` establishes a direct connection between two private nodes using the WebRTC API and a signaling protocol.
+To do this, this transport relies on relay nodes and STUN servers to create relay connections to discover a browser node's public IP address and port.
+In this use case, the signaling protocol is used to hole punch across NATs/firewalls and establish direct connectivity between two private browser nodes.
 
 {{< alert icon="💡" context="note" text="See the WebRTC <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/webrtc/README.md\">technical specification</a> for more details." />}}
 
