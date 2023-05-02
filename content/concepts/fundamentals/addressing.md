@@ -10,7 +10,7 @@ aliases:
 Flexible networks need flexible addressing systems. Since libp2p is designed to work across a wide variety of networks,
 we need a way to work with a lot of different addressing schemes in a consistent way.
 
-A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure. It [defines][spec_multiaddr] human-readable and machine-optimized encodings of common transport and overlay protocols and allows many layers of addressing to be combined and used together.
+A `multiaddress` (often abbreviated `multiaddr`), is a convention for encoding multiple layers of addressing information into a single "future-proof" path structure. It [defines](https://github.com/libp2p/specs/blob/master/addressing/README.md) human-readable and machine-optimized encodings of common transport and overlay protocols and allows many layers of addressing to be combined and used together.
 
 For example: `/ip4/192.0.2.0/udp/1234` encodes two protocols along with their essential addressing information. The `/ip4/192.0.2.0` informs us that we want the `192.0.2.0` loopback address of the IPv4 protocol, and `/udp/1234` tells us we want to send UDP packets to port `1234`.
 
