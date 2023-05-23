@@ -182,7 +182,7 @@ libp2p has stopped
 
 Now that we have the basic building blocks of transport, multiplexing, and security in place, we can start communicating!
 
-We can configure and use `pingService` to dial and send ping messages to another peer. That peer will send back a "pong" message, so that we know that it is still alive. This also enables us to measure the latency between peers.
+We can configure and use [`pingService`](https://libp2p.github.io/js-libp2p/modules/ping.html) to dial and send ping messages to another peer. That peer will send back a "pong" message, so that we know that it is still alive. This also enables us to measure the latency between peers.
 
 We can have our application accepting a peer multiaddress via command line argument and try to ping it. To do so, we'll need to add a couple things. First, require the `process` module so that we can get the command line arguments. Then we'll need to parse the multiaddress from the command line and try to ping it:
 
@@ -207,7 +207,7 @@ const node = await createLibp2p({
   transports: [tcp()],
   connectionEncryption: [noise()],
   streamMuxers: [mplex()]
-    services: {
+  services: {
     ping: pingService({
       protocolPrefix: 'ipfs', // default
     }),
