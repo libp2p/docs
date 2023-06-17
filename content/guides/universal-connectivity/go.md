@@ -1,8 +1,14 @@
+---
+title: "Run a go-libp2p node"
+weight: 21
+description: "Learn how to build and run a go-libp2p peer"
+---
+
 # Building a Go libp2p Peer
 
 In this guide you'll learn the process to create your very own distributed peer-to-peer application. This guide was built specifically with the [Go peer](https://github.com/libp2p/universal-connectivity/tree/main/go-peer) from [libp2p/universal-connectivity](https://github.com/libp2p/universal-connectivity) in mind. You can see the finished project at [TheDiscordian/go-libp2p-peer](https://github.com/TheDiscordian/go-libp2p-peer) which can be easily forked and built upon.
 
-For this guide we'll be assuming you're running a Linux or MacOS system. If you're on Windows, please consider following the [WSL Install Guide](https://learn.microsoft.com/en-us/windows/wsl/install) on Microsoft's website to follow along more easily. 
+For this guide we'll be assuming you're running a Linux or MacOS system. If you're on Windows, please consider following the [WSL Install Guide](https://learn.microsoft.com/en-us/windows/wsl/install) on Microsoft's website to follow along more easily.
 
 Having some terminal skills will greatly assist in following this guide. If you're on MacOS, installing [Homebrew](https://brew.sh/) is highly recommended. All commands assume you're in the project directory.
 
