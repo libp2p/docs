@@ -59,8 +59,6 @@ Inside `useEffect` we call the async `startLibp2p()` method, which itself is act
 
 ```JavaScript
 export async function startLibp2p() {
-  // localStorage.debug = 'libp2p*,-*:trace'
-  // application-specific data lives in the datastore
 
   const libp2p = await createLibp2p({
     // Options
@@ -70,11 +68,42 @@ export async function startLibp2p() {
 }
 ```
 
+Our application has many options specified in `createLibp2p`, let's describe them:
 
-
-The universal-connectivity application has many options specified in `createLibp2p`, let's describe them:
 ### Transport Options
 
-Central to the libp2p and to our sample app are the libp2p transports.
+Central to libp2p and to our sample app are libp2p transports.
 These transport protocols enable connectivity between nodes.
-In our case, what care most about is building an application that
+The transport options we've specified for our browser application (in no particular order) are WebTransport, WebSockets, WebRTC & WebRTC direct, and the Circuit Relay transport.
+Please checkout the linked documentation to learn more about each.
+
+```JavaScript
+    transports: [
+      webTransport(),
+      webSockets({
+        filter: filters.all,
+      }),
+      webRTC({
+        rtcConfiguration: {
+          iceServers:[{
+            urls: [
+              'stun:stun.l.google.com:19302',
+              'stun:global.stun.twilio.com:3478'
+            ]
+          }]
+        }
+      }),
+      webRTCDirect(),
+      circuitRelayTransport({
+        discoverRelays: 1,
+      })
+    ],
+```
+
+#### WebTransport
+The first transport option specified is WebTransport. This is primarily specified in order to get the browser node to establish a browser-to-server connection with the go peer.
+Learn more about the WebTransport transport here.
+
+### WebSockets
+The second transport option specified is WebSockets.
+We have configured this ot
