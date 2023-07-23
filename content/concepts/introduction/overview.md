@@ -36,7 +36,7 @@ libp2p, (short for "library peer-to-peer")
 is a peer-to-peer (P2P) networking framework that enables the development
 of P2P applications. It consists of a collection of protocols, specifications, and
 libraries that facilitate P2P communication between network participants, known as
-"[peers](/concepts/introduction/fundamentals/peers)."
+"[peers](/concepts/fundamentals/peers)."
 
 ### Peer-to-peer basics
 
