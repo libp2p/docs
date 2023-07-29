@@ -206,7 +206,7 @@ const node = await createLibp2p({
   },
   transports: [tcp()],
   connectionEncryption: [noise()],
-  streamMuxers: [mplex()]
+  streamMuxers: [mplex()],  //here a comma
   services: {
     ping: pingService({
       protocolPrefix: 'ipfs', // default
