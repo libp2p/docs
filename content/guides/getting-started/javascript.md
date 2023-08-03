@@ -206,7 +206,7 @@ const node = await createLibp2p({
   },
   transports: [tcp()],
   connectionEncryption: [noise()],
-  streamMuxers: [mplex()]
+  streamMuxers: [mplex()],
   services: {
     ping: pingService({
       protocolPrefix: 'ipfs', // default
@@ -265,7 +265,6 @@ listening on addresses:
 /ip4/192.0.2.0/tcp/50777/p2p/QmYZirEPREz9vSRFznxhQbWNya2LXPz5VCahRCT7caTLGm
 pinging remote peer at /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
 pinged /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN in 3ms
-libp2p has stopped
 ```
 
 Success! Our two peers are now communicating over a multiplexed, secure channel.  Sure, they can only say "ping", but it's a start!
