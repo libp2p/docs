@@ -106,7 +106,7 @@ There are several reasons to consider using libp2p as a networking layer to crea
 
 - **Resiliency**: P2P networks are often more resilient than traditional client-server networks,
   as there is no single point of failure. libp2p includes features such as
-  [peer discovery](/concepts/discovery/overview) and [content routing](/concepts/routing/overview) that help
+  [peer discovery and content routing](/concepts/discovery-routing/overview/) that help
   to ensure that the network remains available and accessible even if some peers are offline or unreachable.
 
 - **Efficiency**: P2P networks can be more efficient in resource utilization, as data is
