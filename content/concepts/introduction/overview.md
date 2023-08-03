@@ -122,7 +122,7 @@ There are several reasons to consider using libp2p as a networking layer to crea
 - **Message Distribution and Dissemination**: One such pattern libp2p uses is
   [publish/subscribe (pubsub)](/concepts/pubsub/overview), which allows a sender (publisher) to send a message
   to multiple recipients (subscribers) without the publisher having to know who the subscribers are.
-  libp2p implements pubsub through the use of protocols like [gossipsub](/concepts/pubsub/gossipsub), providing
+  libp2p implements pubsub through the use of protocols like [gossipsub](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/README.md), providing
   developers with a flexible and efficient means of exchanging data and messages within their P2P
   applications.
 
