@@ -28,8 +28,7 @@ which allows nodes to determine whether or not they are behind a NAT.
 
 AutoNAT allows a node to request other peers to dial its presumed public addresses.
 
-For private nodes located behind a NAT, it is strongly recommended:
-to:
+For private nodes located behind a NAT, it is strongly recommended to:
 
 - Not advertise private addresses
 - Get a reservation with a relay to improve connectivity to public networks
