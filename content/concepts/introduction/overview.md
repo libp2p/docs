@@ -141,7 +141,7 @@ There are several reasons to consider using libp2p as a networking layer to crea
 libp2p remains an integral component in IPFS and can be easily integrated with other projects in the
 IPFS "family". Check their sites for specific information and references:
 
-- [IPFS](https://libp2p.io) is the InterPlanetary File System, which uses libp2p as
+- [IPFS](https://ipfs.tech) is the InterPlanetary File System, which uses libp2p as
   its networking layer.
 - [Multiformats](https://multiformats.io) is a variety of *self-describing* data formats.
 - [IPLD](https://ipld.io) is a set of tools for describing links between content-addressed
