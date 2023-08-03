@@ -23,11 +23,11 @@ serve as a hub for nodes to discover.
   solutions like DHT and Gossipsub. DHT (Distributed Hash Table) and Gossipsub are
   decentralized alternatives to Rendezvous.
 
-  [DHT](kaddht.md) is a distributed network protocol used to store and
+  [DHT](/concepts/discovery-routing/kaddht.md) is a distributed network protocol used to store and
   retrieve data in a P2P network efficiently. It is like a hash table mapping keys
   to values, allowing for fast lookups and efficient data distribution across the network.
 
-  [Gossipsub](pubsub.md), on the other hand, is a pub-sub (publish-subscribe) protocol
+  [Gossipsub](/concepts/pubsub/overview.md), on the other hand, is a pub-sub (publish-subscribe) protocol
   that is used to distribute messages and data across a network. It uses a gossip-based
   mechanism to propagate messages throughout the network, allowing fast and efficient
   distribution without relying on a central control point.
