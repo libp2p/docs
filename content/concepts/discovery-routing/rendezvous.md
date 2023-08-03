@@ -73,7 +73,7 @@ The rendezvous protocol runs over libp2p streams using the protocol ID `/rendezv
 
 ### Rendezvous and publish-subscribe
 
-For effective discovery, rendezvous can be combined with [libp2p publish/subscribe](../messaging/pubsub/overview).
+For effective discovery, rendezvous can be combined with [libp2p publish/subscribe](/concepts/pubsub/overview).
 At a basic level, rendezvous can bootstrap pubsub by discovering peers subscribed to a topic. The rendezvous would
 be responsible for publishing packets, subscribing, or unsubscribing from packet shapes.
 

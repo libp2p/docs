@@ -42,7 +42,7 @@ The features employed in libp2p are:
   to a peer. This means libp2p can utilize data channels as a transport to send raw data to peers and
   enables applications to build anything they like.
 
-- [NAT traversal](../nat/overview): WebRTC includes mechanisms (like
+- [NAT traversal](/concepts/nat/overview): WebRTC includes mechanisms (like
   [ICE](https://datatracker.ietf.org/doc/rfc5245/)) to connect to nodes that run behind
   NATs and firewalls. In non-decentralized WebRTC, this can be facilitated by a
   [TURN server.](https://webrtc.org/getting-started/turn-server),
@@ -97,7 +97,7 @@ When establishing a WebRTC connection, the browser and server perform a standard
 handshake as part of the connection setup. Of the three primary focuses of information
 security, a successful DTLS handshake only provides two: confidentiality and integrity.
 Authenticity is achieved by succeeding the
-[Noise handshake](../secure-comm/noise) following the DTLS handshake.
+[Noise handshake](/concepts/secure-comm/noise) following the DTLS handshake.
 
 <!-- TO ADD DIAGRAM -->
 
