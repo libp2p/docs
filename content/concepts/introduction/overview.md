@@ -106,7 +106,7 @@ There are several reasons to consider using libp2p as a networking layer to crea
 
 - **Resiliency**: P2P networks are often more resilient than traditional client-server networks,
   as there is no single point of failure. libp2p includes features such as
-  [peer discovery](/concepts/discovery/overview) and [content routing](/concepts/routing/overview) that help
+  [peer discovery and content routing](/concepts/discovery-routing/overview/) that help
   to ensure that the network remains available and accessible even if some peers are offline or unreachable.
 
 - **Efficiency**: P2P networks can be more efficient in resource utilization, as data is
@@ -122,7 +122,7 @@ There are several reasons to consider using libp2p as a networking layer to crea
 - **Message Distribution and Dissemination**: One such pattern libp2p uses is
   [publish/subscribe (pubsub)](/concepts/pubsub/overview), which allows a sender (publisher) to send a message
   to multiple recipients (subscribers) without the publisher having to know who the subscribers are.
-  libp2p implements pubsub through the use of protocols like [gossipsub](/concepts/pubsub/gossipsub), providing
+  libp2p implements pubsub through the use of protocols like [gossipsub](/concepts/pubsub/overview/#gossip), providing
   developers with a flexible and efficient means of exchanging data and messages within their P2P
   applications.
 
@@ -141,7 +141,7 @@ There are several reasons to consider using libp2p as a networking layer to crea
 libp2p remains an integral component in IPFS and can be easily integrated with other projects in the
 IPFS "family". Check their sites for specific information and references:
 
-- [IPFS](https://libp2p.io) is the InterPlanetary File System, which uses libp2p as
+- [IPFS](https://ipfs.tech) is the InterPlanetary File System, which uses libp2p as
   its networking layer.
 - [Multiformats](https://multiformats.io) is a variety of *self-describing* data formats.
 - [IPLD](https://ipld.io) is a set of tools for describing links between content-addressed
