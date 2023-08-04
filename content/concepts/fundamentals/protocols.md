@@ -186,7 +186,7 @@ makes it more likely that other peers will discover the new address.
 
 `kad-dht` is a [Distributed Hash Table][wiki_dht] based on the [Kademlia][wiki_kad] routing algorithm, with some modifications.
 
-libp2p uses the DHT as the foundation of its [peer routing](/concepts/peer-routing/) and [content routing](/concepts/content-routing/) functionality. To learn more about DHT and the Kademlia algorithm,
+libp2p uses the DHT as the foundation of its [routing](/concepts/discovery-routing/overview.md) functionality. To learn more about DHT and the Kademlia algorithm,
 check out the [Distributed Hash Tables guide][dht] on the IPFS documentation site. In addition, check out the [libp2p implementations page](https://libp2p.io/implementations/) for updates on all the kad-libp2p implementations.
 
 <!-- Consider adding general kad matrix on implementations page, then link -->
