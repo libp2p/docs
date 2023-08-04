@@ -35,7 +35,7 @@ The DCUtR protocol uses the protocol ID `/libp2p/dcutr` and involves the
 exchange of `Connect` and `Sync` messages.
 
 The DCUtR protocol supports different types of connections, such as TCP and
-[QUIC](../transports/quic.md), the process of establishing a connection is
+[QUIC](/concepts/transports/quic.md), the process of establishing a connection is
 different for each type.
 
 @Dennis-tra has a [great talk](https://www.youtube.com/watch?v=fyhZWlDbcyM) on

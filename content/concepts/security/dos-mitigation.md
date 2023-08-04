@@ -115,7 +115,7 @@ Manager](https://github.com/libp2p/go-libp2p/tree/master/p2p/host/resource-manag
 limits on the [system
 scope](https://github.com/libp2p/go-libp2p/blob/v0.22.0/p2p/host/resource-manager/limit_defaults.go#L342).
 In rust-libp2p this is done by using
-[`ConnectionLimits`](https://docs.rs/libp2p/latest/libp2p/swarm/struct.ConnectionLimits.html)
+[`ConnectionLimits`](https://docs.rs/libp2p/latest/libp2p/connection_limits/struct.ConnectionLimits.html)
 and passing it to the
 [`SwarmBuilder`](https://docs.rs/libp2p/latest/libp2p/swarm/struct.SwarmBuilder.html#method.connection_limits).
 

@@ -18,6 +18,6 @@ established.
 
 ## Secure channels in libp2p
 
-libp2p specifies two security protocols, [TLS 1.3](tls) and [Noise](noise).
+libp2p specifies two security protocols, [TLS 1.3](/concepts/secure-comm/tls) and [Noise](/concepts/secure-comm/noise).
 After the handshake has finished, we need to negotiate a
 [stream multiplexer](/concepts/multiplex/overview) for the connection.
