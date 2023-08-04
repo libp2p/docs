@@ -177,7 +177,7 @@ see what other peers observe as their public address and compare it to their own
 A slight variation on `identify`, the `identify/push` protocol sends the same `Identify` message, but it does so proactively
 instead of in response to a request.
 
-This is useful if a peer starts listening on a new address, establishes a new [relay circuit](/concepts/circuit-relay/), or
+This is useful if a peer starts listening on a new address, establishes a new [relay circuit](/concepts/nat/circuit-relay.md), or
 learns of its public address from other peers using the standard `identify` protocol. Upon creating or learning of a new address,
 the peer can push the new address to all peers it's currently aware of. This keeps everyone's routing tables up to date and
 makes it more likely that other peers will discover the new address.
@@ -205,7 +205,7 @@ check out the [Distributed Hash Tables guide][dht] on the IPFS documentation sit
 [relay_js]: https://github.com/libp2p/js-libp2p-circuit
 [relay_go]: https://github.com/libp2p/go-libp2p-circuit
 
-As described in the [Circuit Relay article](/concepts/circuit-relay/), libp2p provides a protocol
+As described in the [Circuit Relay article](/concepts/nat/circuit-relay.md), libp2p provides a protocol
 for tunneling traffic through relay peers when two peers are unable to connect to each other
 directly. See the article for more information on working with relays, including notes on relay
 addresses and how to enable automatic relay connection when behind an intractable NAT.
