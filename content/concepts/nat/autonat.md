@@ -9,7 +9,7 @@ aliases:
 
 ## Background
 
-While the [identify protocol](/concepts/introduction/protocols/identify)
+While the [identify protocol](https://github.com/libp2p/specs/blob/master/identify/README.md)
 allows peers to inform each other about their observed network addresses,
 sometimes these addresses are inaccessible as the peer may be located in a
 private network (i.e., behind a NAT or a firewall).
