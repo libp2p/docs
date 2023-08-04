@@ -78,7 +78,7 @@ transport. If some other peer has taken over that IP address or port, it will be
 immediately obvious, since they will not have control over the key pair used to
 produce the Peer ID embedded in the address.
 
-**For more on addresses in libp2p, see [Addressing](/concepts/addressing/)**
+**For more on addresses in libp2p, see [Addressing](/concepts/fundamentals/addressing.md)**
 
 {{< alert icon="💡" context="note">}}
 The multiaddr protocol for libp2p addresses was originally written `/ipfs` and was later renamed to `/p2p`.

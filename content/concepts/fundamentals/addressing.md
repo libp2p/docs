@@ -17,7 +17,7 @@ For example: `/ip4/192.0.2.0/udp/1234` encodes two protocols along with their es
 Things get more interesting as we compose further. For example, the multiaddr `/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` uniquely identifies my local IPFS node, using libp2p's [registered protocol id](https://github.com/multiformats/multiaddr/blob/master/protocols.csv) `/p2p/` and the [multihash](/reference/glossary/#multihash) of my IPFS node's public key.
 
 {{< alert icon="💡" context="tip">}}
-For more on peer identity and its relation to public key cryptography, see [Peer Identity](/concepts/peers/#peer-id/).
+For more on peer identity and its relation to public key cryptography, see [Peer Identity](/concepts/fundamentals/peers.md#peer-id).
 {{< /alert >}}
 
 Let's say that I have the Peer ID `QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N` as above, and my public ip is `198.51.100.0`. I start my libp2p application and listen for connections on TCP port `4242`.

@@ -160,7 +160,7 @@ The basic identify protocol works by establishing a new stream to a peer using t
 shown in the table above.
 
 When the remote peer opens the new stream, they will fill out an [`Identify` protobuf message][identify_proto] containing
-information about themselves, such as their public key, which is used to derive their [`PeerId`](/concepts/peers/).
+information about themselves, such as their public key, which is used to derive their [`PeerId`](/concepts/fundamentals/peers.md).
 
 Importantly, the `Identify` message includes an `observedAddr` field that contains the [multiaddr][definition_multiaddr] that
 the peer observed the request coming in on. This helps peers determine their NAT status, since it allows them to
