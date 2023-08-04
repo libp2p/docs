@@ -13,7 +13,8 @@ jobs:
         uses: lycheeverse/lychee-action@ec3ed119d4f44ad2673a7232460dc7dff59d2421 # v1.8.0
         with:
           # Check all markdown in /content/
-          args: --verbose --no-progress './content/'
+          # Exclude twitter.com links because they always 503 unless logged in
+          args: --verbose --no-progress --exclude twitter.com './content/'
           fail: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
