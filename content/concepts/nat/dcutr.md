@@ -8,7 +8,7 @@ weight: 210
 
 Relays are used to traverse NATs by acting as proxies, but this can be expensive
 to scale and maintain, and may result in low-bandwidth, high-latency
-connections. [Hole punching](/concepts/nat/hole-punching) is another technique
+connections. [Hole punching](/concepts/nat/hole-punching.md) is another technique
 that enables NAT traversal by enabling two nodes behind NATs to communicate
 directly.  However, in addition to relay nodes, it requires another piece of
 infrastructure called signaling servers.

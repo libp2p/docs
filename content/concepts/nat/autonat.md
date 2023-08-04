@@ -65,7 +65,7 @@ whether or not it is behind a NAT.
 > If the response indicates success, the node is likely not behind a NAT and does
 > not need to use a relay server to improve its connectivity. If the response indicates
 > an error, the node is likely behind a NAT and may need to use a
-> [relay server](/concepts/autonat/dcutr) to communicate with other nodes in the network.
+> [relay server](/concepts/nat/dcutr.md) to communicate with other nodes in the network.
 
 {{< alert icon="" context="caution">}}
 To prevent

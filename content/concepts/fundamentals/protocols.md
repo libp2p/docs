@@ -11,7 +11,7 @@ There are protocols everywhere you look when you're writing network applications
 especially thick with them.
 
 The kind of protocols this article is concerned with are the ones built with libp2p itself,
-using the core libp2p abstractions like [transport](/concepts/transport), [peer identity](/concepts/peers#peer-id/), [addressing](/concepts/addressing/), and so on.
+using the core libp2p abstractions like [transport](/concepts/transports/overview.md), [peer identity](/concepts/fundamentals/peers.md#peer-id), [addressing](/concepts/fundamentals/addressing.md), and so on.
 
 Throughout this article, we'll call this kind of protocol that is built with libp2p
 a **libp2p protocol**, but you may also see them referred to as "wire protocols" or "application protocols".
@@ -65,8 +65,8 @@ properties:
 - Supports backpressure
   - Readers can't be flooded by eager writers <!-- TODO(yusef) elaborate: how is backpressure implemented? is it transport-depdendent? -->
 
-Behind the scenes, libp2p will also ensure that the stream is [secure](/concepts/secure-comms/) and efficiently
-[multiplexed](/concepts/stream-multiplexing/). This is transparent to the protocol handler, which reads and writes
+Behind the scenes, libp2p will also ensure that the stream is [secure](/concepts/secure-comm/overview.md) and efficiently
+[multiplexed](/concepts/multiplex/overview.md). This is transparent to the protocol handler, which reads and writes
 unencrypted binary data over the stream.
 
 The format of the binary data and the mechanics of what to send when and by whom are all up to the protocol to determine. For inspiration, some [common patterns](#common-patterns) that are used in libp2p's internal protocols are outlined below.
@@ -210,5 +210,5 @@ for tunneling traffic through relay peers when two peers are unable to connect t
 directly. See the article for more information on working with relays, including notes on relay
 addresses and how to enable automatic relay connection when behind an intractable NAT.
 
-[definition_switch]: /reference/glossary/#switch
-[definition_multiaddr]: /reference/glossary/#multiaddr
+[definition_switch]: /concepts/appendix/glossary.md#switch
+[definition_multiaddr]: /concepts/appendix/glossary.md#multiaddr

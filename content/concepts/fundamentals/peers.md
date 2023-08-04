@@ -25,7 +25,7 @@ peers. Every private key has a corresponding public key, which is shared with
 other peers.
 
 Together, the public and private key (or "key pair") allow peers to establish
-[secure communication](/concepts/secure-comm/overview) channels with each other.
+[secure communication](/concepts/secure-comm/overview.md) channels with each other.
 
 Conceptually, a Peer ID is a [cryptographic hash][wiki_hash_function] of a peer's
 public key. When peers establish a secure channel, the hash can be used to
@@ -66,7 +66,7 @@ libp2p multiaddress for me would be:
 
 As with other multiaddrs, a `/p2p` address can be encapsulated into
 another multiaddr to compose into a new multiaddr. For example, I can combine
-the above with a [transport](/concepts/transport/) address
+the above with a [transport](/concepts/transports/overview.md) address
 `/ip4/198.51.100.0/tcp/4242` to produce this very useful address:
 
 ```shell
@@ -119,8 +119,8 @@ un-{known, identified} peers on the peer routing guide.
 [wiki_hash_function]: https://en.wikipedia.org/wiki/Cryptographic_hash_function
 [wiki_base58]: https://en.wikipedia.org/wiki/Base58
 
-[definition_multiaddr]: /concepts/appendix/glossary/#multiaddr
-[definition_multihash]: /concepts/appendix/glossary/#multihash
+[definition_multiaddr]: /concepts/appendix/glossary.md#multiaddr
+[definition_multihash]: /concepts/appendix/glossary.md#multihash
 
 [spec_peerid]: https://github.com/libp2p/specs/blob/master/peer-ids/peer-ids.md
 [identity]: https://github.com/libp2p/specs/blob/master/identify/README.md#identifypush

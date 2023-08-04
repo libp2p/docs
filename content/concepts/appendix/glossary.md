@@ -233,7 +233,7 @@ In addition to managing transports, the switch also coordinates the
 the transport layer into one that supports
 [protocol negotiation](/concepts/protocols/#protocol-negotiation),
 [stream multiplexing](#multiplexing), and
-[secure communications](/concepts/secure-comms/overview).
+[secure communications](/concepts/secure-comm/overview.md).
 
 Sometimes called ["swarm"](#swarm) for historical reasons.
 
