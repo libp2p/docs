@@ -359,7 +359,7 @@ User=ipfs
 <!-- -->
 <!-- {{ <video library="1" src="fail2bango-libp2p.mp4"> }} -->
 <!-- TODO what happened to this file? -->
-<!-- [fail2ban+go-libp2p screen recording]({{< ref "/images/fail2bango-libp2p.mp4" >}}) -->
+<!-- [fail2ban+go-libp2p screen recording]({ {< ref "/images/fail2bango-libp2p.mp4" >} }) -->
 
 #### Setting Up fail2ban
 
