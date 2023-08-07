@@ -29,7 +29,7 @@ reasonably succeed.
 
 ## Identity and Trust
 
-Every libp2p peer is uniquely identified by their [Peer ID](/concepts/fundamentals/peers.md#peer-id), which
+Every libp2p peer is uniquely identified by their [Peer ID]({{< ref "/concepts/fundamentals/peers.md#peer-id" >}}), which
 is derived from a private cryptographic key. Peer ids and their corresponding
 keys allow us to _authenticate_ remote peers, so that we can be sure we're
 talking to the correct peer and not an imposter.
@@ -48,7 +48,7 @@ To design an authorization system on libp2p, you can rely on the authentication
 of peer ids and build an association between peer ids and permissions, with the
 Peer ID serving the same function as the "username" in traditional authorization
 frameworks, and the peer's private key serving as the "password".
-Your [protocol handler](/concepts/fundamentals/protocols.md/#handler-functions) could then
+Your [protocol handler]({{< ref "/concepts/fundamentals/protocols.md#handler-functions" >}}) could then
 reject requests from untrusted peers.
 
 Of course, it's also possible to build other kinds of authorization systems on
@@ -141,7 +141,7 @@ returning dishonest routing information.
 
 ### Publish / Subscribe
 
-libp2p's [publish/subscribe protocol](/concepts/pubsub/overview.md) allows a peer
+libp2p's [publish/subscribe protocol]({{< ref "/concepts/pubsub/overview.md" >}}) allows a peer
 to broadcast messages to other peers within a given "topic."
 
 By default, the `gossipsub` implementation will sign all messages with the

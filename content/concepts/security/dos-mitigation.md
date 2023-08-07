@@ -355,11 +355,11 @@ RestartSec=1min
 User=ipfs
 ```
 
-#### Example screen recording of fail2ban in action
+<!-- #### Example screen recording of fail2ban in action -->
 
 <!-- {{ <video library="1" src="fail2bango-libp2p.mp4"> }} -->
 <!-- TODO what happened to this file? -->
-[fail2ban+go-libp2p screen recording](/images/fail2bango-libp2p.mp4)
+<!-- [fail2ban+go-libp2p screen recording]({{< ref "/images/fail2bango-libp2p.mp4" >}}) -->
 
 #### Setting Up fail2ban
 

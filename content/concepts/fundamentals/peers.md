@@ -25,7 +25,7 @@ peers. Every private key has a corresponding public key, which is shared with
 other peers.
 
 Together, the public and private key (or "key pair") allow peers to establish
-[secure communication](/concepts/secure-comm/overview.md) channels with each other.
+[secure communication]({{< ref "/concepts/secure-comm/overview.md" >}}) channels with each other.
 
 Conceptually, a Peer ID is a [cryptographic hash][wiki_hash_function] of a peer's
 public key. When peers establish a secure channel, the hash can be used to
@@ -66,7 +66,7 @@ libp2p multiaddress for me would be:
 
 As with other multiaddrs, a `/p2p` address can be encapsulated into
 another multiaddr to compose into a new multiaddr. For example, I can combine
-the above with a [transport](/concepts/transports/overview.md) address
+the above with a [transport]({{< ref "/concepts/transports/overview.md" >}}) address
 `/ip4/198.51.100.0/tcp/4242` to produce this very useful address:
 
 ```shell
@@ -78,7 +78,7 @@ transport. If some other peer has taken over that IP address or port, it will be
 immediately obvious, since they will not have control over the key pair used to
 produce the Peer ID embedded in the address.
 
-**For more on addresses in libp2p, see [Addressing](/concepts/fundamentals/addressing.md)**
+**For more on addresses in libp2p, see [Addressing]({{< ref "/concepts/fundamentals/addressing.md" >}})**
 
 {{< alert icon="💡" context="note">}}
 The multiaddr protocol for libp2p addresses was originally written `/ipfs` and was later renamed to `/p2p`.

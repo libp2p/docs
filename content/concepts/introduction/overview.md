@@ -22,7 +22,7 @@ has something for you.
 
 {{< alert icon="" context="">}}
 If you have any questions or suggestions as you navigate the documentation,
-please don't hesitate to [reach out](/concepts/contribute/community.md), or help
+please don't hesitate to [reach out]({{< ref "/concepts/contribute/community.md" >}}), or help
 improve the documentation by
 [contributing to the site](https://github.com/libp2p/docs).
 {{< /alert >}}
@@ -36,7 +36,7 @@ libp2p, (short for "library peer-to-peer")
 is a peer-to-peer (P2P) networking framework that enables the development
 of P2P applications. It consists of a collection of protocols, specifications, and
 libraries that facilitate P2P communication between network participants, known as
-"[peers](/concepts/fundamentals/peers.md)."
+"[peers]({{< ref "/concepts/fundamentals/peers.md" >}})."
 
 ### Peer-to-peer basics
 
@@ -85,7 +85,7 @@ There are several reasons to consider using libp2p as a networking layer to crea
   to fit the specific requirements of any P2P application.
 
 - **Extensive transport configurability**: libp2p provides a set of specifications that can be adapted to
-  support various [transport protocols](/concepts/transports/overview.md), allowing libp2p applications to operate
+  support various [transport protocols]({{< ref "/concepts/transports/overview.md" >}}), allowing libp2p applications to operate
   in various runtime and networking environments as the wealth of transport protocol choices makes it possible
   to use libp2p in a variety of scenarios.
 
@@ -94,19 +94,19 @@ There are several reasons to consider using libp2p as a networking layer to crea
   [implemented in many programming languages](https://libp2p.io/implementations/), providing
   developers with great flexibility when building P2P applications.
 
-- **Security**: libp2p includes [several security features](/concepts/security/security-considerations.md),
+- **Security**: libp2p includes [several security features]({{< ref "/concepts/security/security-considerations.md" >}}),
   such as peer identity verification using public key cryptography and
-  [encrypted communication](/concepts/secure-comm/overview.md) between peers using modern cryptographic algorithms.
+  [encrypted communication]({{< ref "/concepts/secure-comm/overview.md" >}}) between peers using modern cryptographic algorithms.
 
 - **Robustness**: libp2p is a robust and reliable networking protocol that is designed to withstand stress,
   disturbance, and change. Its features and design choices ensure that it is able to function effectively
   and efficiently in a wide range of environments, and it is able to recover quickly from disruptions or
   failures. It also offers protection against network attacks through the use of
-  [mitigation techniques](/concepts/security/dos-mitigation.md).
+  [mitigation techniques]({{< ref "/concepts/security/dos-mitigation.md" >}}).
 
 - **Resiliency**: P2P networks are often more resilient than traditional client-server networks,
   as there is no single point of failure. libp2p includes features such as
-  [peer discovery and content routing](/concepts/discovery-routing/overview.md) that help
+  [peer discovery and content routing]({{< ref "/concepts/discovery-routing/overview.md" >}}) that help
   to ensure that the network remains available and accessible even if some peers are offline or unreachable.
 
 - **Efficiency**: P2P networks can be more efficient in resource utilization, as data is
@@ -114,15 +114,15 @@ There are several reasons to consider using libp2p as a networking layer to crea
   and retrieval patterns that allow developers to distribute data efficiently across the network, making it
   possible to store and retrieve data in a cost-effective and scalable way.
 
-- **Piercing NAT Barriers**: libp2p is equipped with capabilities for [NAT traversal](/concepts/nat/overview.md),
+- **Piercing NAT Barriers**: libp2p is equipped with capabilities for [NAT traversal]({{< ref "/concepts/nat/overview.md" >}}),
   which allows P2P communication between peers even when they are behind NAT devices or firewalls. This
   helps to maintain the connectivity of the network and ensure that it remains accessible despite the
   presence of these obstacles.
 
 - **Message Distribution and Dissemination**: One such pattern libp2p uses is
-  [publish/subscribe (pubsub)](/concepts/pubsub/overview.md), which allows a sender (publisher) to send a message
+  [publish/subscribe (pubsub)]({{< ref "/concepts/pubsub/overview.md" >}}), which allows a sender (publisher) to send a message
   to multiple recipients (subscribers) without the publisher having to know who the subscribers are.
-  libp2p implements pubsub through the use of protocols like [gossipsub](/concepts/pubsub/overview.md#gossip), providing
+  libp2p implements pubsub through the use of protocols like [gossipsub]({{< ref "/concepts/pubsub/overview.md#gossip" >}}), providing
   developers with a flexible and efficient means of exchanging data and messages within their P2P
   applications.
 
