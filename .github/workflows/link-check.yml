@@ -17,7 +17,7 @@ jobs:
         with:
           # Check all markdown in /content/
           # Ignore twitter.com links because they all 503 unless logged in
-          args: --no-progress --base ./content --exclude twitter.com ./content
+          args: --no-progress --exclude twitter.com ./content
           fail: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
