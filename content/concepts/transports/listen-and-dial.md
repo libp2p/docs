@@ -89,4 +89,4 @@ and other pieces of the "connection stack" that are used under the hood.
 
 {{< alert icon="💡" context="note" text="The term \"swarm\" was previously used to refer to what is now called the \"switch\", and some places in the codebase still use the \"swarm\" terminology." />}}
 
-[definition_switch]: /concepts/appendix/glossary.md#switch
+[definition_switch]: /concepts/appendix/glossary#switch

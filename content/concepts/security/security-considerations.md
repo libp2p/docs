@@ -159,6 +159,6 @@ attacks. We expect this to lead to a more robust and attack-resistant pubsub
 protocol, but it is unlikely to prevent all classes of possible attack by
 determined bad actors.
 
-[glossary-dht]: /concepts/appendix/glossary.md#dht
+[glossary-dht]: /concepts/appendix/glossary#dht
 [wikipedia-sybil]: https://en.wikipedia.org/wiki/Sybil_attack
 [paper-s-kademlia]: https://telematics.tm.kit.edu/publications/Files/267/SKademlia_2007.pdf

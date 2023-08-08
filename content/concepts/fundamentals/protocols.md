@@ -210,5 +210,5 @@ for tunneling traffic through relay peers when two peers are unable to connect t
 directly. See the article for more information on working with relays, including notes on relay
 addresses and how to enable automatic relay connection when behind an intractable NAT.
 
-[definition_switch]: /concepts/appendix/glossary.md#switch
-[definition_multiaddr]: /concepts/appendix/glossary.md#multiaddr
+[definition_switch]: /concepts/appendix/glossary#switch
+[definition_multiaddr]: /concepts/appendix/glossary#multiaddr

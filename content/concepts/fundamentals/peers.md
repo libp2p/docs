@@ -119,8 +119,8 @@ un-{known, identified} peers on the peer routing guide.
 [wiki_hash_function]: https://en.wikipedia.org/wiki/Cryptographic_hash_function
 [wiki_base58]: https://en.wikipedia.org/wiki/Base58
 
-[definition_multiaddr]: /concepts/appendix/glossary.md#multiaddr
-[definition_multihash]: /concepts/appendix/glossary.md#multihash
+[definition_multiaddr]: /concepts/appendix/glossary#multiaddr
+[definition_multihash]: /concepts/appendix/glossary#multihash
 
 [spec_peerid]: https://github.com/libp2p/specs/blob/master/peer-ids/peer-ids.md
 [identity]: https://github.com/libp2p/specs/blob/master/identify/README.md#identifypush

@@ -66,4 +66,4 @@ The below sequence diagram depicts a sample relay process:
 4. Relay `R` forwards the connection request to node `A` and eventually relays all data send by `A` and `B`.
 
 [spec_relay]: https://github.com/libp2p/specs/tree/master/relay
-[definition_multiaddress]: /concepts/appendix/glossary.md#multiaddr
+[definition_multiaddress]: /concepts/appendix/glossary#multiaddr
