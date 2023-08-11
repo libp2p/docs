@@ -11,7 +11,7 @@ There are protocols everywhere you look when you're writing network applications
 especially thick with them.
 
 The kind of protocols this article is concerned with are the ones built with libp2p itself,
-using the core libp2p abstractions like [transport]({{< ref "/concepts/transports/overview.md" >}}), [peer identity]({{< ref "/concepts/fundamentals/peers.md#peer-id" >}}), [addressing]({{< ref "/concepts/fundamentals/addressing.md" >}}), and so on.
+using the core libp2p abstractions like [transport]({{< relref "/concepts/transports/overview.md" >}}), [peer identity]({{< relref "/concepts/fundamentals/peers.md#peer-id" >}}), [addressing]({{< relref "/concepts/fundamentals/addressing.md" >}}), and so on.
 
 Throughout this article, we'll call this kind of protocol that is built with libp2p
 a **libp2p protocol**, but you may also see them referred to as "wire protocols" or "application protocols".
@@ -65,8 +65,8 @@ properties:
 - Supports backpressure
   - Readers can't be flooded by eager writers <!-- TODO(yusef) elaborate: how is backpressure implemented? is it transport-depdendent? -->
 
-Behind the scenes, libp2p will also ensure that the stream is [secure]({{< ref "/concepts/secure-comm/overview.md" >}}) and efficiently
-[multiplexed]({{< ref "/concepts/multiplex/overview.md" >}}). This is transparent to the protocol handler, which reads and writes
+Behind the scenes, libp2p will also ensure that the stream is [secure]({{< relref "/concepts/secure-comm/overview.md" >}}) and efficiently
+[multiplexed]({{< relref "/concepts/multiplex/overview.md" >}}). This is transparent to the protocol handler, which reads and writes
 unencrypted binary data over the stream.
 
 The format of the binary data and the mechanics of what to send when and by whom are all up to the protocol to determine. For inspiration, some [common patterns](#common-patterns) that are used in libp2p's internal protocols are outlined below.
@@ -160,7 +160,7 @@ The basic identify protocol works by establishing a new stream to a peer using t
 shown in the table above.
 
 When the remote peer opens the new stream, they will fill out an [`Identify` protobuf message][identify_proto] containing
-information about themselves, such as their public key, which is used to derive their [`PeerId`]({{< ref "/concepts/fundamentals/peers.md" >}}).
+information about themselves, such as their public key, which is used to derive their [`PeerId`]({{< relref "/concepts/fundamentals/peers.md" >}}).
 
 Importantly, the `Identify` message includes an `observedAddr` field that contains the [multiaddr][definition_multiaddr] that
 the peer observed the request coming in on. This helps peers determine their NAT status, since it allows them to
@@ -177,7 +177,7 @@ see what other peers observe as their public address and compare it to their own
 A slight variation on `identify`, the `identify/push` protocol sends the same `Identify` message, but it does so proactively
 instead of in response to a request.
 
-This is useful if a peer starts listening on a new address, establishes a new [relay circuit]({{< ref "/concepts/nat/circuit-relay.md" >}}), or
+This is useful if a peer starts listening on a new address, establishes a new [relay circuit]({{< relref "/concepts/nat/circuit-relay.md" >}}), or
 learns of its public address from other peers using the standard `identify` protocol. Upon creating or learning of a new address,
 the peer can push the new address to all peers it's currently aware of. This keeps everyone's routing tables up to date and
 makes it more likely that other peers will discover the new address.
@@ -186,7 +186,7 @@ makes it more likely that other peers will discover the new address.
 
 `kad-dht` is a [Distributed Hash Table][wiki_dht] based on the [Kademlia][wiki_kad] routing algorithm, with some modifications.
 
-libp2p uses the DHT as the foundation of its [routing]({{< ref "/concepts/discovery-routing/overview.md" >}}) functionality. To learn more about DHT and the Kademlia algorithm,
+libp2p uses the DHT as the foundation of its [routing]({{< relref "/concepts/discovery-routing/overview.md" >}}) functionality. To learn more about DHT and the Kademlia algorithm,
 check out the [Distributed Hash Tables guide][dht] on the IPFS documentation site. In addition, check out the [libp2p implementations page](https://libp2p.io/implementations/) for updates on all the kad-libp2p implementations.
 
 <!-- Consider adding general kad matrix on implementations page, then link -->
@@ -205,7 +205,7 @@ check out the [Distributed Hash Tables guide][dht] on the IPFS documentation sit
 [relay_js]: https://github.com/libp2p/js-libp2p-circuit
 [relay_go]: https://github.com/libp2p/go-libp2p-circuit
 
-As described in the [Circuit Relay article]({{< ref "/concepts/nat/circuit-relay.md" >}}), libp2p provides a protocol
+As described in the [Circuit Relay article]({{< relref "/concepts/nat/circuit-relay.md" >}}), libp2p provides a protocol
 for tunneling traffic through relay peers when two peers are unable to connect to each other
 directly. See the article for more information on working with relays, including notes on relay
 addresses and how to enable automatic relay connection when behind an intractable NAT.

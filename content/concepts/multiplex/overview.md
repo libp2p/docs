@@ -51,10 +51,10 @@ and allowing for the seamless transmission of multiple streams of data over a si
 connection.
 {{< /alert >}}
 
-Currently, libp2p supports two stream muxers, [mplex]({{< ref "/concepts/multiplex/mplex.md" >}})
-and [yamux]({{< ref "/concepts/multiplex/yamux.md" >}}). However, many of the
-[transport protocols]({{< ref "/concepts/transports/overview.md" >}}) available in the libp2p stack
-come with native streams, such as [QUIC]({{< ref "/concepts/transports/quic.md" >}}),
-[WebTransport]({{< ref "/concepts/transports/webtransport.md" >}}), and
-[WebRTC]({{< ref "/concepts/transports/webrtc.md" >}}), and in these cases, libp2p
+Currently, libp2p supports two stream muxers, [mplex]({{< relref "/concepts/multiplex/mplex.md" >}})
+and [yamux]({{< relref "/concepts/multiplex/yamux.md" >}}). However, many of the
+[transport protocols]({{< relref "/concepts/transports/overview.md" >}}) available in the libp2p stack
+come with native streams, such as [QUIC]({{< relref "/concepts/transports/quic.md" >}}),
+[WebTransport]({{< relref "/concepts/transports/webtransport.md" >}}), and
+[WebRTC]({{< relref "/concepts/transports/webrtc.md" >}}), and in these cases, libp2p
 **does not need to perform stream multiplexing** as the protocol already provides it.
