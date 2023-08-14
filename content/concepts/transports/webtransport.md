@@ -34,7 +34,7 @@ achieve this).
 Therefore, WebTransport exhibits all the advantages of QUIC over TCP, that being
 faster handshakes, no HoL blocking, and being future-proof.
 
-{{< alert icon="💡" context="note" text="WebTransport in go-libp2p is <a href=\"https://github.com/libp2p/go-libp2p/issues/1827">fully implemented, functional, and listed as a default transport</a>. This transport is also <a href=\"https://github.com/ipfs/kubo/issues/9292>enabled by default</a> in applications like Kubo (previously known as go-ipfs). js-libp2p <a href=\"https://github.com/libp2p/js-libp2p/tree/master/packages/transport-webtransport">also supports WebTransport</a>. Additionally, <a href=\"https://github.com/libp2p/rust-libp2p/pull/4015">WebTransport support in Wasm environments also exists</a> in rust-libp2p." />}}
+{{< alert icon="💡" context="note" text="WebTransport in go-libp2p is <a href=\"https://github.com/libp2p/go-libp2p/issues/1827\">fully implemented, functional, and listed as a default transport</a>. This transport is also <a href=\"https://github.com/ipfs/kubo/issues/9292\">enabled by default</a> in applications like Kubo (previously known as go-ipfs). js-libp2p <a href=\"https://github.com/libp2p/js-libp2p/tree/master/packages/transport-webtransport\">also supports WebTransport</a>. Additionally, <a href=\"https://github.com/libp2p/rust-libp2p/pull/4015\">WebTransport support in Wasm environments also exists</a> in rust-libp2p." />}}
 
 For network stacks like libp2p, WebTransport is a pluggable
 protocol that fits well with a modular network design.
