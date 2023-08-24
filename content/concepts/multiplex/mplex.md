@@ -18,13 +18,15 @@ data streams, including stream-oriented data and other types of messages.
 
 ### Drawbacks
 
+mplex is currently in the process of being deprecated (to track progress please see [this issue](https://github.com/libp2p/specs/issues/553).)
 mplex does not have any flow control.
 > Backpressure is a mechanism to prevent one peer from overwhelming a slow time consuming the data.
 
 mplex also doesn't limit how many streams a peer can open.
 
 {{< alert icon="" context="">}}
-**Yamux should be used over mplex in libp2p**. As it natively supports flow control, it is better suited for applications that require the transfer of large amounts of data.
+**If you need a dedicated muxer, yamux should be used (overall, QUIC should be preferred over TCP).**. yamux natively supports flow control, it is better suited for applications that require the transfer of large amounts of data.
+
 
 Until recently, the reason mplex was still supported was compatibility with js-libp2p,
 which didn't have yamux support.
