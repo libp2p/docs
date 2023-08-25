@@ -27,7 +27,6 @@ mplex also doesn't limit how many streams a peer can open.
 {{< alert icon="" context="">}}
 **If you need a dedicated muxer, Yamux should be used (overall, QUIC should be preferred over TCP).**. Yamux natively supports flow control, it is better suited for applications that require the transfer of large amounts of data.
 
-
 Until recently, the reason mplex was still supported was compatibility with js-libp2p,
 which didn't have yamux support.
 Now that
