@@ -426,8 +426,21 @@ $ ./libp2p-node
 libp2p node address: /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
 ```
 
-In another terminal window, let's run a second node but pass the address of the first node, and we
-should see some ping responses logged:
+Write and compile a second node and take care to update the address in the `libp2p.New() function` by inserting a new valid one,
+to make sure that the two nodes have different addresses:
+
+```go
+func main() {
+  ...
+  node, err := libp2p.New(
+        libp2p.ListenAddrStrings("/ip4/192.0.2.0/tcp/61846"),
+        libp2p.Ping(false),
+  )
+  ...
+}
+```
+In another terminal window, let's run the second node but pass the address of the first node.
+And we should see some ping responses logged:
 
 ```bash
 $ ./libp2p-node /ip4/192.0.2.0/tcp/61790/ipfs/QmZKjsGJ6ukXVRXVEcExx9GhiyWoJC97onYpzBwCHPWqpL
