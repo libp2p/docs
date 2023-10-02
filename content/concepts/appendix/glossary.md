@@ -41,6 +41,10 @@ A libp2p connection is a communication channel that allows peers to read and wri
 
 Connections between peers are established via [transports](#transport), which can be thought of as "connection factories". For example, the TCP transport allows you to create connections that use TCP/IP as their underlying substrate.
 
+### DCUtR 
+
+Direct Connection Upgrade through Relay (DCUtR) is a protocol for establishing direct connections between nodes via hole punching, without a [signaling server](#signaling-server). DCUtR synchronizes and opens connections to each peer's predicted external addresses.
+
 ### Dial
 
 The process of opening a libp2p connection to another peer is known as "dialing", and accepting connections is known as ["listening"](#listen). Together, an implementation of dialing and listening forms a [transport](#transport).
@@ -206,6 +210,10 @@ The implementation of the libp2p handshake is called
 [multistream-select](https://github.com/multiformats/multistream-select).
 
 For details, see the [protocol negotiation article]({{< relref "/concepts/fundamentals/protocols.md#protocol-negotiation" >}}).
+
+### Signaling server
+
+A server or service that facilitates communication between nodes in a peer-to-peer network, specifically in context of setting up, maintaining and terminating a direct communication channel between two peers which are behind NATs. The server discovers the external IP address and port of the peers, and also relays messages between the peers to assist NAT traversal.
 
 ### Stream
 
