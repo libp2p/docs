@@ -188,16 +188,17 @@ We can have our application accepting a peer multiaddress via command line argum
 
 ```sh
 npm install multiaddr
+npm install @libp2p/ping
 ```
 
 ```javascript
-import process from 'node:process'
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
 import { noise } from '@chainsafe/libp2p-noise'
 import { mplex } from '@libp2p/mplex'
+import { ping } from '@libp2p/ping'
+import { tcp } from '@libp2p/tcp'
+import { createLibp2p } from 'libp2p'
 import { multiaddr } from 'multiaddr'
-import { pingService } from 'libp2p/ping'
+import process from 'node:process'
 
 const node = await createLibp2p({
   addresses: {
@@ -208,7 +209,7 @@ const node = await createLibp2p({
   connectionEncryption: [noise()],
   streamMuxers: [mplex()],
   services: {
-    ping: pingService({
+    ping: ping({
       protocolPrefix: 'ipfs', // default
     }),
   },
