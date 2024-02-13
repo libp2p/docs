@@ -41,7 +41,7 @@ A libp2p connection is a communication channel that allows peers to read and wri
 
 Connections between peers are established via [transports](#transport), which can be thought of as "connection factories". For example, the TCP transport allows you to create connections that use TCP/IP as their underlying substrate.
 
-### DCUtR 
+### DCUtR
 
 Direct Connection Upgrade through Relay (DCUtR) is a protocol for establishing direct connections between nodes via hole punching, without a [signaling server](#signaling-server). DCUtR synchronizes and opens connections to each peer's predicted external addresses.
 
