@@ -127,7 +127,7 @@ There are several reasons to consider using libp2p as a networking layer to crea
   applications.
 
 - **Interoperability**: libp2p implementations in different programming languages and libp2p releases across
-  versions are designed to be interoperable with one another. This enables applications /from different
+  versions are designed to be interoperable with one another. This enables applications from different
   language ecosystems to communicate seamlessly. This helps to promote a healthy, interconnected ecosystem
   of P2P applications.
 
