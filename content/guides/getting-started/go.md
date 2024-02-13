@@ -22,13 +22,13 @@ a new Go module, starting libp2p nodes, and sending ping messages between them.
 
 ### Install Go
 
-- Ensure your Go version is at least 1.19.
+- Ensure your Go version is at least 1.20.
 - You can install a recent version of Go by following the [official installation instructions](https://golang.org/doc/install).
-- Once installed, you should be able to run `go version` and see a version >= 1.19, for example:
+- Once installed, you should be able to run `go version` and see a version >= 1.20, for example:
 
 ```bash
 $ go version
-go version go1.19 darwin/arm64
+go version go1.20 darwin/arm64
 ```
 
 ### Create a Go module
@@ -54,7 +54,7 @@ initialized and the version of Go you're using, for example:
 $ cat go.mod
 module github.com/user/go-libp2p-tutorial
 
-go 1.19
+go 1.20
 ```
 
 ### Start a libp2p node
