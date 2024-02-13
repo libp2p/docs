@@ -32,7 +32,7 @@ Today there are two versions of the circuit relay protocol, [v1](https://github.
 
 A relay circuit is identified using a [multiaddr][definition_multiaddress] that includes the [Peer ID]({{< relref "/concepts/fundamentals/peers.md#peer-id" >}}) of the peer whose traffic is being relayed (the listening peer or "relay target").
 
-Let's say that I have a peer with the Peer ID `QmAlice`. I want to give out my address to my friend `QmBob`, but I'm behind a NAT that won't let anyone dial me directly.
+Let's say that I possess a peer with the Peer ID `QmAlice`. I want to give out my address to my friend `QmBob`, but I'm behind a NAT that won't let anyone dial me directly.
 
 The most basic `p2p-circuit` address I can construct looks like this:
 
