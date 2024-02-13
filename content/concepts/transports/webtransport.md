@@ -16,7 +16,7 @@ It allows browsers to establish a stream-multiplexed and bidirectional connectio
 to servers, and use streams to send and receive application data.
 
 While WebSocket provides a single bidirectional, full-duplex communication between a
-browser and a server over a TCP connection, WebTransport exposes allows the endpoints to use multiple
+browser and a server over a TCP connection, WebTransport allows the endpoints to use multiple
 streams in parallel.
 
 When connecting to a WebSocket server, browsers require the server to present a
