@@ -115,8 +115,8 @@ a hole punching phase.
    - Based on the reports, `B` can gauge whether it is publicly dialable and
      determine if hole punching is needed.
 
-<!-- to add routing reference when available -->
-<!-- to add autorelay reference when available -->
+   <!-- to add routing reference when available -->
+   <!-- to add autorelay reference when available -->
 
 2. AutoRelay: Dynamically discover and bind to relay nodes on the network.
    > IPFS discovers the k-closest public relay nodes using a lookup method
