@@ -56,7 +56,7 @@ information. The server temporarily stores the node's
 information and relays each node's information to the other. Clients can
 use this information to establish direct connections with each other.
 
-Take two nodes, `A` and `B`, that would like the dial each other:
+Take two nodes, `A` and `B`, that would like to dial each other:
 
 1. The first packet of both nodes (e.g., in the case of TCP, an SYN)
    passes through their respective routers.
