@@ -118,7 +118,7 @@ a hole punching phase.
 <!-- to add routing reference when available -->
 <!-- to add autorelay reference when available -->
 
-1. AutoRelay: Dynamically discover and bind to relay nodes on the network.
+2. AutoRelay: Dynamically discover and bind to relay nodes on the network.
    > IPFS discovers the k-closest public relay nodes using a lookup method
    > via Kademlia DHT): `/<RELAY_ADDR>/p2p-circuit/<PEER_ID_B>`
 
@@ -131,7 +131,7 @@ a hole punching phase.
       for the closest peers to its Peer ID or choose a subset of the public nodes
       it is already connected to.
 
-2. [Circuit Relay]({{< relref "/concepts/nat/circuit-relay.md" >}}): Connect to and request
+3. [Circuit Relay]({{< relref "/concepts/nat/circuit-relay.md" >}}): Connect to and request
    reservations with the discovered relay nodes. A node can advertise itself as
    being reachable through a remote relay node.
 
