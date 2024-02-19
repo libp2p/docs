@@ -56,7 +56,7 @@ information. The server temporarily stores the node's
 information and relays each node's information to the other. Clients can
 use this information to establish direct connections with each other.
 
-Take two nodes, `A` and `B`, that would like the dial each other:
+Take two nodes, `A` and `B`, that would like to dial each other:
 
 1. The first packet of both nodes (e.g., in the case of TCP, an SYN)
    passes through their respective routers.
@@ -115,10 +115,10 @@ a hole punching phase.
    - Based on the reports, `B` can gauge whether it is publicly dialable and
      determine if hole punching is needed.
 
-<!-- to add routing reference when available -->
-<!-- to add autorelay reference when available -->
+   <!-- to add routing reference when available -->
+   <!-- to add autorelay reference when available -->
 
-1. AutoRelay: Dynamically discover and bind to relay nodes on the network.
+2. AutoRelay: Dynamically discover and bind to relay nodes on the network.
    > IPFS discovers the k-closest public relay nodes using a lookup method
    > via Kademlia DHT): `/<RELAY_ADDR>/p2p-circuit/<PEER_ID_B>`
 
@@ -131,7 +131,7 @@ a hole punching phase.
       for the closest peers to its Peer ID or choose a subset of the public nodes
       it is already connected to.
 
-2. [Circuit Relay]({{< relref "/concepts/nat/circuit-relay.md" >}}): Connect to and request
+3. [Circuit Relay]({{< relref "/concepts/nat/circuit-relay.md" >}}): Connect to and request
    reservations with the discovered relay nodes. A node can advertise itself as
    being reachable through a remote relay node.
 
