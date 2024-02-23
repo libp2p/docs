@@ -4,4 +4,4 @@ description: Flexible networks need flexible addressing systems. Since libp2p is
 weight: 40
 ---
 
-Check out the following Launchpad guide on the [DHT](https://curriculum.pl-launchpad.io/curriculum/libp2p/dht/).
+Check out the following Launchpad guide on the [DHT](https://pl-launchpad.io/curriculum/libp2p/dht/).
