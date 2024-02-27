@@ -23,7 +23,6 @@ for the creation of multiple "virtual" connections within a single connection. T
 enables nodes to send multiple streams of messages over separate virtual connections,
 providing a scalable solution that eliminates the bottleneck created by a
 single stream.
-Two libp2p peers may have a single TCP connection and use different port numbers to distinguish streams.
 Then different applications/processes like Kademlia or GossipSub used by an application like IPFS would get their own stream of data and make transmission more efficient.
 Stream multiplexing makes it so that applications or protocols running on top of libp2p think that they’re the only ones running on that connection.
 Another example is when HTTP/2 introduced streams into HTTP,
