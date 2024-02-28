@@ -1,6 +1,6 @@
 ---
 title: "Run a nim-libp2p node"
-weight: 5
+weight: 13
 description: "Learn how to run use nim-libp2p"
 aliases:
     - "/tutorials/nim"
