@@ -141,6 +141,10 @@ After the initial protocol negotiation, the dialing peer sends 32 bytes of rando
 peer echoes the data back, and the dialing peer will verify the response and measure
 the latency between request and response.
 
+Note that the libp2p ping protocol is different from the ping command line utility
+([ICMP ping](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol)), as it requires an already
+established libp2p connection.
+
 ### Identify
 
 | **Protocol id**  | spec                           |                   |                   | implementations       |
