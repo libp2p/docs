@@ -7,4 +7,4 @@ aliases:
     - "/guides/nim"
 ---
 
-Check out [tutorials of the Nim libp2p implementation](https://status-im.github.io/nim-libp2p/docs/).
+Check out [tutorials of the Nim libp2p implementation](https://vacp2p.github.io/nim-libp2p/docs/).
