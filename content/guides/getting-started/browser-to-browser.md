@@ -9,7 +9,7 @@ aliases:
 
 ## Introduction
 
-In this guide, you will learn how to establish direct p2p connections between browsers using [js-libp2p](https://github.com/libp2p/js-libp2p) and WebRTC.
+In this guide, you will learn how to establish direct peer-to-peer (p2p) connections between browsers using [js-libp2p](https://github.com/libp2p/js-libp2p) and WebRTC.
 
 By the end of the guide, you should be familiar with some of the libp2p protocols and WebRTC concepts and how to use them in conjunction to establish libp2p connections between browsers.
 
@@ -23,15 +23,34 @@ WebRTC and libp2p can be used independently of each other. This begs the questio
 
 WebRTC's goal is to enable applications to establish direct connections between their users in the browser, i.e. *peer-to-peer "browser-to-browser" connectivity*. 
 
-Libp2p gives you the tools to build interoperable cross-platform peer-to-peer applications that work on the web.
+Libp2p gives you the tools to build interoperable cross-platform peer-to-peer applications that work both on the web and as stand-alone binaries.
 
 ![](https://www.apizee.com/scripts/files/6523f1722d11f6.39197111/websockets-vs-webrtc-768x403.webp)
 
-Direct connections are especially useful for video and audio calling, because in theory the traffic, i.e. the packets can flow directly from one peer to another without an additional network hop of a server that may be geographically far (network latency is still bound to distances and the speed of light).
+Direct connections are especially useful for video and audio calling, because they allow traffic, i.e. the packets, to flow directly from one peer to another without an additional network hop to a server that may be geographically far (network latency is still bound to distances and the speed of light).
 
-However, the reality of public internet networking given routers, NAT layers, VPNs, and firewalls is such p2p connectivity is riddled with challenges. These challenges are commonly overcome by running additional infrastructure such as Signalling, [STUN, and TURN](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols) servers that are standardised as part of the WebRTC standards.
+However, the reality of public internet networking given routers, NAT layers, VPNs, and firewalls is such p2p connectivity is riddled with challenges. These challenges are commonly overcome by running additional infrastructure such as signalling, [STUN, and TURN](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols) servers, some of which are standardised as part of the WebRTC.
 
-WebRTC solves peer-to-peer connectivity in the context of browsers. Libp2p expands on that with building blocks for building peer-to-peer apps that support WebRTC in addition to [other protocols, such as QUIC, WebTransport](https://connectivity.libp2p.io/). It can be thought of as a super-category of WebRTC. As an example, every peer in libp2p is identified by a keypair [identity](TODO:link-to-identity page) known as its peer ID. It can have multiple network addresses, each of which supports multiple transports.
+WebRTC solves peer-to-peer connectivity in the context of browsers. Libp2p expands on that with building blocks for building peer-to-peer apps that support WebRTC in addition to [other protocols, such as QUIC, WebTransport](https://connectivity.libp2p.io/). It can be thought of as a super-category of WebRTC.
+
+As an example, every peer in libp2p is identified by a keypair known as a [Peer ID](https://docs.libp2p.io/concepts/fundamentals/peers/). Each Peer can have multiple addresses depending on the transport protocols it can be dialed with, e.g. WebRTC in the browser.
+
+
+## It takes more than two to tango
+
+The first thing to note about WebRTC and the connection flow is that you need additional server(s) to establish a direct connection between two browsers. Specifically, a signaling server, a STUN server, and a TURN server (optional). The role of these servers is to assist the two browsers in setting up a direct connection.
+
+- **signaling** server: helps the browsers exchange their [SDPs (Session Description Protocol)](https://developer.mozilla.org/en-US/docs/Glossary/SDP): the metadata necessary to establish a connection. Most importantly, signaling is not part of the WebRTC specification. This means that applications are free to implement signaling as they see fit. In this guide, you will use Libp2p's [protocol for signaling](https://github.com/libp2p/specs/blob/master/webrtc/webrtc.md#signaling-protocol) over relayed connections.
+- **STUN** server: helps the browser discover its observed public address and is necessary in almost all cases, due to NAT.
+- **TURN** (Relay) server: relays traffic if the browsers fail to establish a direct connection and defined as part of the WebRTC specification. Unlike signaling and STUN servers can be costly to run because they route all traffic between peers.
+- **Circuit Relay V2**: A libp2p specific peer that can serve as a relay between two nodes that cannot (or have yet to) establish a direct connection between each other.
+
+
+
+
+
+
+
 
 ## Pre-requisites
 
