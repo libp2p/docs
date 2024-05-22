@@ -9,24 +9,15 @@ aliases:
 
 ## Introduction
 
-In this guide, you will learn how to establish direct peer-to-peer (p2p) connections between browsers using [js-libp2p](https://github.com/libp2p/js-libp2p) and WebRTC. 
+In this guide, you will learn how to establish direct peer-to-peer (p2p) connections between browsers using [js-libp2p](https://github.com/libp2p/js-libp2p) and WebRTC.
 
 Browser-to-browser connectivity is the foundation for distributed apps with a mesh topology. When combined with GossipSub, like in the [universal connectivity](https://github.com/libp2p/universal-connectivity) chat app, gives you the building blocks for peer-to-peer event-based apps with mesh topologies.
 
-By the end of the guide, you should be familiar with some of the libp2p protocols and WebRTC concepts and how to use them in conjunction to establish libp2p connections between browsers.
+By the end of the guide, you should be familiar with the requisite libp2p and WebRTC protocols and concepts and how to use them to establish libp2p connections between browsers.
 
 WebRTC is a set of open standards and Web APIs that enable Web apps to establish direct connectivity for audio/video conferencing and exchanging arbitrary data. Today, it is [broadly adopted by most browsers](https://caniuse.com/?search=webrtc), and powers a lot of popular web conferencing apps.
 
 Both js-libp2p and WebRTC are quite complicated technologies due to the complex nature of peer-to-peer networking, browser standards, and security. In favor of brevity, this guide will skim over some details while linking out to relevant resources.
-
-## Prerequisites
-
-This guide assumes basic understanding of libp2p concepts such as:
-- Peer IDs
-- Multiaddresses
-- Libp2p transports
-
-Besides that, you will primarily need to know JavaScript and some basic Golang (though Go knowledge isn't strictly necessary, it's useful).
 
 ## Why WebRTC & libp2p
 
@@ -46,10 +37,10 @@ WebRTC solves peer-to-peer connectivity in the context of browsers. Libp2p expan
 
 As an example, every peer in libp2p is identified by a keypair known as a [Peer ID](https://docs.libp2p.io/concepts/fundamentals/peers/). Each Peer can have multiple addresses depending on the transport protocols it can be dialed with, e.g. WebRTC in the browser.
 
-## Tango with a third-party: when two aren't enough to tango
+## Peer-to-peer connections: when two aren't enough to tango
 
 Perhaps the most important thing to note about WebRTC and the connection flow is that you need additional server(s) to establish a direct connection between two browsers.
-The role of these servers is to assist the two browsers in setting up a direct connection.
+The role of these servers is to assist the two browsers in discovering their public IP address so that they can set up a direct connection.
 
 Specifically, these include:
 
@@ -59,7 +50,7 @@ Specifically, these include:
 - **Libp2p relay/bootstrapper**: The libp2p peer will serve two roles:
   - **Circuit Relay V2**: A publicly reachable libp2p peer that can serve as a relay between browser nodes that have yet to establish a direct connection between each other. Unlike TURN servers, which are WebRTC-specific and can be costly to run, Circuit Relay V2 is a libp2p protocol that is resource-constrained by design. It's also decentralized and trustless, in the sense that any publicly reachable libp2p peer supporting the protocol can help browsers libp2p nodes as a (time and bandwidth-constrained) relay.
   - **GossipSub Peer Discovery**: For browser peers to discover each other, they will need some mechanism to announce their multiaddresses to other browsers. GossipSub will help by relaying those peer discovery messages between browsers which kick off the direct connection establishment.
-  
+
 In summary, as part of this guide, you will need to run a publicly reachable long-running libp2p peer that will serve as both a circuit relay and a GossipSub message relay. This guide will refer to the libp2p peer as the **bootstrapper** or **relay** peer depending on the context.
 
 ## Connection flow diagram
@@ -68,289 +59,133 @@ The following diagram visualizes the connection flow between two browsers using 
 
 ![WebRTC connection flow diagram](/webrtc-diagram.svg)
 
-The connection flow is pretty complex, but thankfully, a lot of that is abstracted by libp2p and whatever isn't will be explained by this guide.
+The connection flow can seem complex, but thankfully, libp2p abstracts some of that complexity, and whatever isn't will be explained by this guide.
 
 Either way, there are several noteworthy things about the connection flow:
 
 1. There's no prescribed mechanism in libp2p for how the two browsers discover each other's multiaddress. This guide will use a [dedicated GossipSub channel for the application where you publish your own multiaddrs (periodically) similar to mdns](https://github.com/libp2p/js-libp2p-pubsub-peer-discovery/), other approaches include the [Rendezvous Protocol](https://github.com/libp2p/specs/blob/master/rendezvous/README.md) and the [in-progress ambient peer discovery spec](https://github.com/libp2p/specs/pull/590).
 1. Since this guide uses a GossipSub channel for peer discovery, the bootstrapper/relay node will listen to the discovery topic too, so that it can relay messages between browsers who've yet to establish a direct connection.
 
-## Connectivity between browsers and the bootstrapper
-
-Connectivity between the Browser and Bootstarpper is constrained by supported transports of the specific libp2p implementation. 
-
-At the time of writing, js-libp2p connectivity between node.js and the browser is constrained to:
-   1. WebSockets
-   2. WebRTC: this one is rather confusing because [unlike](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct) [WebRTC direct](https://github.com/libp2p/specs/blob/master/webrtc/webrtc-direct.md), it requires a third party for the handshake which complicates matters too much.
-
-
-
-
-
 ## Pre-requisites
 
-<!-- ### Install node.js
+- [Go](https://go.dev/doc/install) compiler to compile and run the bootstrapper. Ensure your Go version is at least 1.20.
+- [Node.js](https://nodejs.org/en) installed to build the frontend
 
-Working with js-libp2p requires [node.js](https://nodejs.org) >= v16 for development. If you haven't already, install
-node using whatever package manager you prefer or [using the official installer](https://nodejs.org/en/download/).
-We recommend using the latest stable version of node, but anything fairly recent should work fine. If you want to see how low you can go, the current version requirements can always be found at the [js-libp2p project page](https://github.com/libp2p/js-libp2p).
+This guide assumes a basic understanding of libp2p concepts such as:
 
-### Create an empty project
+- Peer IDs
+- Multiaddresses
+- Libp2p transports
 
-We need a place to put our work, so open a terminal to make a new directory for your project somewhere and set it up as an npm project:
+Besides that, you will primarily need to know JavaScript and basic Golang (though Go knowledge isn't strictly necessary, it's useful).
 
-```shell
-# create a directory for the project and `cd` into it
-> mkdir hello-libp2p
-> mkdir hello-libp2p/src
-> cd hello-libp2p
+## Step 1: Clone the repository and install dependencies
 
-# make it a git repository
-> git init .
+Clone the repository:
 
-# make it an npm project. fill in the prompts with info for your project
-# when asked for your project's entry point, enter "src/index.js"
-> npm init es6
+```bash
+git clone https://github.com/libp2p/libp2p-browser-guide
 ```
 
-Side note: throughout this tutorial, we use the `>` character to indicate your terminal's shell prompt. When following along, don't type the `>` character, or you'll get some weird errors.
+Once the repository is cloned, enter the `libp2p-browser-guide` folder, and install the npm dependencies
 
-### Configure libp2p
-
-libp2p is a very modular framework, which allows javascript devs to target different runtime environments and opt-in to various features by including a custom selection of modules.
-
-Because every application is different, we recommend configuring your libp2p node with just the modules you need. You can even make more than one configuration, if you want to target multiple javascript runtimes with different features.
-
-> In a production application, it may make sense to create a separate npm module for your libp2p node, which will give you one place to manage the libp2p dependencies for all your javascript projects. In that case, you should not depend on `libp2p` directly in your application. Instead you'd depend on your libp2p configuration module, which would in turn depend on `libp2p` and whatever modules (transports, etc) you might need.
-
-If you're new to libp2p, we recommend configuring your node in stages, as this can make troubleshooting configuration issues much easier. In this tutorial, we'll do just that. If you're more experienced with libp2p, you may wish to jump to the [Configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md).
-
-As an initial step, you should install libp2p module.
-
-```shell
-npm install libp2p
+```
+cd libp2p-browser-guide
+npm install
 ```
 
-#### Basic setup
+Once installed, go into the `bootstrapper` directory and install dependencies
 
-Now that we have libp2p installed, let's configure the minimum needed to get your node running. The only modules libp2p requires are a **Transport** and **Crypto** module. However, we recommend that a basic setup should also have a **Stream Multiplexer** configured, which we will explain shortly. Let's start by setting up a Transport.
-
-#### Transports
-
-Libp2p uses Transports to establish connections between peers over the network. You can configure any number of Transports, but you only need 1 to start with.
-
-You should select Transports according to the runtime of your application; Node.js or the browser. You can see a list of some of the available Transports in the [configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#transport). For this guide let's install `@libp2p/tcp`.
-
-```sh
-npm install @libp2p/tcp
+```
+cd bootstrapper
+go get .
 ```
 
-Now that we have the module installed, let's configure libp2p to use the Transport. We'll use the `createLibp2p` method, which takes a single configuration object as its only parameter. We can add the Transport by passing it into the `transports` array. Create a `src/index.js` file and have the following code in it:
+## Step 2: Start the bootstrapper
+
+From the `bootstrapper` folder, run the following command to compile and run the bootstrapper:
+
+```bash
+go run .
+```
+
+This will compile and run the bootstrapper. It will also output the PeerID and the multiaddrs it's listening on and should look similar to:
+
+```
+2024/05/21 17:43:43 PeerID: 12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+2024/05/21 17:43:43 Listening on: /ip4/127.0.0.1/udp/9095/quic-v1/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+2024/05/21 17:43:43 Listening on: /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/uEiAbhhQxJeJ6nAWdpB6NdSV4UPaTwEcy9eA76p22SoKyvg/certhash/uEiBTPUrn6BebjshxC80Uarqi4ZsMhrPPQNu2RDu1N4n_Ww/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+2024/05/21 17:43:43 Listening on: /ip4/192.168.3.174/udp/9095/quic-v1/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+2024/05/21 17:43:43 Listening on: /ip4/192.168.3.174/udp/9095/quic-v1/webtransport/certhash/uEiAbhhQxJeJ6nAWdpB6NdSV4UPaTwEcy9eA76p22SoKyvg/certhash/uEiBTPUrn6BebjshxC80Uarqi4ZsMhrPPQNu2RDu1N4n_Ww/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+```
+
+Note that it's listening on two interfaces (the loopback and the private network) and two transports: QUIC and WebTransport (which is on top of QUIC). QUIC can be used for connections to other go-libp2p bootstrappers, while WebTransport for connections from browsers. That means that QUIC isn't strictly necessary, but it's useful, if you deploy another bootstrapper for resilience or leverage the DHT for peer discovery (covered later).
+
+Another thing worth noting is that the WebTransport multiaddr contains two certificate hashes. These are needed by the browser to verify a self-signed certificate of the go-libp2p bootstrapper peer. So why two certificate hashes? The reason is that self-signed certificates are valid for at most 14 days. So by convention, go-libp2p generates two consecutively valid certificates to ensure a smooth transition when the new certificate is rolled out.
+
+## Step 2: Starting the js-libp2p peer in the browser
+
+In this step, you will start the js-libp2p peer in the browser and learn about how the js-libp2p configuration options.
+
+Start by opening the `src/index.js` file in your code editor and find the call to `createLibp2p`:
 
 ```js
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-
-const node = await createLibp2p({
-  transports: [tcp()]
-})
-
-```
-
-You can add as many transports as you like to `transports` in order to establish connections with as many peers as possible.
-
-#### Connection Encryption
-
-Every connection must be encrypted to help ensure security for everyone. As such, Connection Encryption (Crypto) is a required component of libp2p.
-
-There are a growing number of Crypto modules being developed for libp2p. As those are released they will be tracked in the [Connection Encryption section of the configuration readme](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption). For now, we are going to configure our node to use the `@chainsafe/libp2p-noise` module.
-
-```sh
-npm install @chainsafe/libp2p-noise
-```
-
-```js
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { noise } from '@chainsafe/libp2p-noise'
-
-const node = await createLibp2p({
-  transports: [tcp()],
-  connectionEncryption: [noise()]
-})
-
-```
-
-#### Multiplexing
-
-While multiplexers are not strictly required, they are highly recommended as they improve the effectiveness and efficiency of connections for the various protocols libp2p runs.
-
-Looking at the [available stream multiplexing](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing) modules, js-libp2p currently only supports `@libp2p/mplex`, so we will use that here. You can install `@libp2p/mplex` and add it to your libp2p node as follows in the next example.
-
-```sh
-npm install @libp2p/mplex
-```
-
-```js
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
-
-const node = await createLibp2p({
-  transports: [tcp()],
-  connectionEncryption: [noise()],
-  streamMuxers: [mplex()]
-})
-
-```
-
-#### Running libp2p
-
-Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexer** module, you can start your libp2p node. We can start and stop libp2p using the [`libp2p.start()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#start) and [`libp2p.stop()`](https://github.com/libp2p/js-libp2p/blob/master/doc/API.md#stop) methods.
-
-```js
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
-
-const main = async () => {
-  const node = await createLibp2p({
-    addresses: {
-      // add a listen address (localhost) to accept TCP connections on a random port
-      listen: ['/ip4/127.0.0.1/tcp/0']
-    },
-    transports: [tcp()],
-    connectionEncryption: [noise()],
-    streamMuxers: [mplex()]
-  })
-
-  // start libp2p
-  await node.start()
-  console.log('libp2p has started')
-
-  // print out listening addresses
-  console.log('listening on addresses:')
-  node.getMultiaddrs().forEach((addr) => {
-    console.log(addr.toString())
-  })
-
-  // stop libp2p
-  await node.stop()
-  console.log('libp2p has stopped')
-}
-
-main().then().catch(console.error)
-
-```
-
-Try running the code with `node src/index.js`. You should see something like:
-
-```shell
-libp2p has started
-listening on addresses:
-/ip4/192.0.2.0/tcp/50626/p2p/QmYoqzFj5rhzFy7thCPPGbDkDkLMbQzanxCNwefZd3qTkz
-libp2p has stopped
-```
-
-### Lets play ping pong!
-
-Now that we have the basic building blocks of transport, multiplexing, and security in place, we can start communicating!
-
-We can configure and use [`pingService`](https://libp2p.github.io/js-libp2p/modules/ping.html) to dial and send ping messages to another peer. That peer will send back a "pong" message, so that we know that it is still alive. This also enables us to measure the latency between peers.
-
-We can have our application accepting a peer multiaddress via command line argument and try to ping it. To do so, we'll need to add a couple things. First, require the `process` module so that we can get the command line arguments. Then we'll need to parse the multiaddress from the command line and try to ping it:
-
-```sh
-npm install multiaddr @libp2p/ping
-```
-
-```javascript
-import process from 'node:process'
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
-import { multiaddr } from 'multiaddr'
-import { ping } from '@libp2p/ping'
-
-const node = await createLibp2p({
-  addresses: {
-    // add a listen address (localhost) to accept TCP connections on a random port
-    listen: ['/ip4/127.0.0.1/tcp/0']
-  },
-  transports: [tcp()],
-  connectionEncryption: [noise()],
-  streamMuxers: [mplex()],
-  services: {
-    ping: ping({
-      protocolPrefix: 'ipfs', // default
+const libp2p = await createLibp2p({
+  transports: [
+    webTransport(),
+    webRTC({
+      rtcConfiguration: {
+        iceServers: [
+          {
+            // STUN servers help the browser discover its own public IPs
+            urls: ['stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'],
+          },
+        ],
+      },
     }),
+  ],
+  connectionEncryption: [noise()],
+  connectionGater: {
+    // Allow private addresses for local testing
+    denyDialMultiaddr: async () => false,
+  },
+  services: {
+    identify: identify(),
   },
 })
-
-// start libp2p
-await node.start()
-console.log('libp2p has started')
-
-// print out listening addresses
-console.log('listening on addresses:')
-node.getMultiaddrs().forEach((addr) => {
-  console.log(addr.toString())
-})
-
-// ping peer if received multiaddr
-if (process.argv.length >= 3) {
-  const ma = multiaddr(process.argv[2])
-  console.log(`pinging remote peer at ${process.argv[2]}`)
-  const latency = await node.services.ping.ping(ma)
-  console.log(`pinged ${process.argv[2]} in ${latency}ms`)
-} else {
-  console.log('no remote peer address given, skipping ping')
-}
-
-const stop = async () => {
-  // stop libp2p
-  await node.stop()
-  console.log('libp2p has stopped')
-  process.exit(0)
-}
-
-process.on('SIGTERM', stop)
-process.on('SIGINT', stop)
-
 ```
 
-Now we can start one instance with no arguments:
+The `createLibp2p` invokcation creates a libp2p peer which has its own associated key pair and PeerID with support for the WebTransport and WebRTC transports, as well as the [identify](TODO) protocol. It also uses noise for to ensure that all connections are encrypted.
 
-```shell
-> node src/index.js
-libp2p has started
-listening on addresses:
-/ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
-no remote peer address given, skipping ping
+This is the the minimal configuration needed in order to establish a connection to the local bootstrapper. In the next step, you will use the frontend to connect to the bootstrapper.
+
+## Step 3: Connecting to a bootstrapper from a browser
+
+In this step, you will connect the browser js-libp2p peer to the go-libp2p bootstrapper peer.
+
+In a new terminal window, open the repository cloned in the previous step:
+```
+cd libp2p-browser-guide
 ```
 
-Grab the `/ip4/...` address printed above and use it as an argument to another instance.  In a new terminal:
+Run the following command to start the development server:
 
-```shell
-> node src/index.js /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
-libp2p has started
-listening on addresses:
-/ip4/192.0.2.0/tcp/50777/p2p/QmYZirEPREz9vSRFznxhQbWNya2LXPz5VCahRCT7caTLGm
-pinging remote peer at /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN
-pinged /ip4/192.0.2.0/tcp/50775/p2p/QmcafwJSsCsnjMo2fyf1doMjin8nrMawfwZiPftBDpahzN in 3ms
+```
+npm run start
 ```
 
-Success! Our two peers are now communicating over a multiplexed, secure channel.  Sure, they can only say "ping", but it's a start!
+You should see the address of the local development server:
 
-### What's next?
+```
+ > Local:   http://127.0.0.1:8000/
+```
 
-After finishing this tutorial, you should have a look into the [js-libp2p getting started](https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md) document, which goes from a base configuration like this one, to more custom ones.
+## connectivity notes (could be redacted)
 
-You also have a panoply of examples on [js-libp2p repo](https://github.com/libp2p/js-libp2p-examples) that you can leverage to learn how to use `js-libp2p` for several different use cases and runtimes.
+Connectivity between the Browser and Bootstrapper is constrained by supported transports of the browser and the specific libp2p implementation.
 
-[definition_multiaddress]: /reference/glossary/#multiaddr
-[definition_multiplexer]: /reference/glossary/#multiplexer
-[definition_peerid]: /reference/glossary/#peerid -->
+At the time of writing, js-libp2p connectivity between node.js and the browser is constrained to:
+
+1.  WebSockets: this works well and is broadly adopted by browsers and libp2p implementations, but requires the bootstrapper to have CA signed TLS certificate and a domain name to work in [Secure Contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts).
+2.  WebTransport: Supported by [Chrome, Firefox and Opera](https://caniuse.com/webtransport), but not Safari. Currently, only
+3.  WebRTC: this one is rather confusing because [unlike](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct) [WebRTC direct](https://github.com/libp2p/specs/blob/master/webrtc/webrtc-direct.md), it requires a third party for the handshake which complicates matters too much.
