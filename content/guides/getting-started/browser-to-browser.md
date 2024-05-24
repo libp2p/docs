@@ -1,5 +1,5 @@
 ---
-title: "browser-to-browser p2p with js-libp2p"
+title: "Browser WebRTC with js-libp2p"
 weight: 3
 description: "Learn how to use js-libp2p to establish a connection between browsers"
 aliases:
@@ -57,9 +57,9 @@ In summary, as part of this guide, you will need to run a publicly reachable lon
 
 The following diagram visualizes the connection flow between two browsers using js-libp2p and WebRTC:
 
-![WebRTC connection flow diagram](/webrtc-diagram.svg)
+![WebRTC connection flow diagram](/webrtc-guide/webrtc-diagram.svg)
 
-The connection flow can seem complex, but thankfully, libp2p abstracts some of that complexity, and whatever isn't will be explained by this guide.
+The connection flow can seem complex, but thankfully, libp2p abstracts some of that complexity, and whatever isn't will be explained in this guide.
 
 Either way, there are several noteworthy things about the connection flow:
 
@@ -119,13 +119,19 @@ This will compile and run the bootstrapper. It will also output the PeerID and t
 2024/05/21 17:43:43 Listening on: /ip4/192.168.3.174/udp/9095/quic-v1/webtransport/certhash/uEiAbhhQxJeJ6nAWdpB6NdSV4UPaTwEcy9eA76p22SoKyvg/certhash/uEiBTPUrn6BebjshxC80Uarqi4ZsMhrPPQNu2RDu1N4n_Ww/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
 ```
 
-Note that it's listening on two interfaces (the loopback and the private network) and two transports: QUIC and WebTransport (which is on top of QUIC). QUIC can be used for connections to other go-libp2p bootstrappers, while WebTransport for connections from browsers. That means that QUIC isn't strictly necessary, but it's useful, if you deploy another bootstrapper for resilience or leverage the DHT for peer discovery (covered later).
 
-Another thing worth noting is that the WebTransport multiaddr contains two certificate hashes. These are needed by the browser to verify a self-signed certificate of the go-libp2p bootstrapper peer. So why two certificate hashes? The reason is that self-signed certificates are valid for at most 14 days. So by convention, go-libp2p generates two consecutively valid certificates to ensure a smooth transition when the new certificate is rolled out.
+Note that it's listening on two interfaces (the loopback and the private network) and two transports: QUIC and WebTransport (which is on top of QUIC). QUIC can be used for connections to other go-libp2p bootstrappers, while WebTransport for connections from browsers. That means that QUIC isn't strictly necessary, but it's useful if you deploy another bootstrapper for resilience or leverage the DHT for peer discovery (covered later).
 
-## Step 2: Starting the js-libp2p peer in the browser
+{{< alert icon="💡" context="note">}}
+Another thing worth noting is that the WebTransport multiaddr contains two certificate hashes. These are needed by the browser to verify a self-signed certificate of the go-libp2p bootstrapper peer. Unlike CA-signed certificates, self-signed certificates can be created on the fly without interaction with a certificate authority. 
+<br />
+So why two certificate hashes? Self-signed certificates are valid for at most 14 days. So by convention, go-libp2p generates two consecutively valid certificates to ensure a smooth transition when a new certificate is rolled out.
+{{< /alert >}}
 
-In this step, you will start the js-libp2p peer in the browser and learn about how the js-libp2p configuration options.
+
+## Step 3: Start the js-libp2p peer in the browser
+
+In this step, you will start the js-libp2p peer in the browser and learn about how to configure js-libp2p to establish a connection to the bootstrapper.
 
 Start by opening the `src/index.js` file in your code editor and find the call to `createLibp2p`:
 
@@ -155,11 +161,11 @@ const libp2p = await createLibp2p({
 })
 ```
 
-The `createLibp2p` invokcation creates a libp2p peer which has its own associated key pair and PeerID with support for the WebTransport and WebRTC transports, as well as the [identify](TODO) protocol. It also uses noise for to ensure that all connections are encrypted.
+The `createLibp2p` invocation creates a libp2p peer which has its own associated key pair and [Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}}) with support for the WebTransport and WebRTC transports, as well as the [identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}}). It also uses noise for to ensure that all connections are encrypted.
 
 This is the the minimal configuration needed in order to establish a connection to the local bootstrapper. In the next step, you will use the frontend to connect to the bootstrapper.
 
-## Step 3: Connecting to a bootstrapper from a browser
+## Step 4: Connect to the bootstrapper from the browser
 
 In this step, you will connect the browser js-libp2p peer to the go-libp2p bootstrapper peer.
 
@@ -180,6 +186,71 @@ You should see the address of the local development server:
  > Local:   http://127.0.0.1:8000/
 ```
 
+Now open the URL in your browser and enter the loopback webtransport multiaddr of the bootstrapper, i.e. `/ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/....`
+
+![Screenshot showing the multiaddr in the UI](/webrtc-guide/connect-to-bootstrapper.png)
+
+Now click Connect and you should see the peer appearing in the peer List:
+
+![Screenshot showing the connected peer in the UI](/webrtc-guide/connected-to-bootstrapper.png)
+
+Congratulations, you have now established a WebTransport connection to the bootstrapper. 
+
+## Step 5: Make the browser dialable with Circuit Relay
+
+In is next step, you will enable the circuit relay transport to make the browser dialable via the bootstrapper (that already has circuit relay enabled and will serve as the relay).
+
+In the `src/index.js` file, update the call to `createLibp2p` as follows:
+
+```diff
+const libp2p = await createLibp2p({
+  transports: [
+    webTransport(),
+    webRTC({
+      rtcConfiguration: {
+        iceServers: [
+          {
+            // STUN servers help the browser discover its own public IPs
+            urls: ['stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'],
+          },
+        ],
+      },
+    }),
++    circuitRelayTransport({
++      discoverRelays: 1,
++    }),
+  ],
+  connectionEncryption: [noise()],
+  connectionGater: {
+    // Allow private addresses for local testing
+    denyDialMultiaddr: async () => false,
+  },
+  services: {
+    identify: identify(),
+  },
+})
+```
+
+If you reload the page and connect to the bootstrapper multiaddr, notice that the browser peer now shows an address for itself after connecting to the bootstrapper that looks similar to (with different cert hashes and peer IDs):
+
+```
+/ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/cert-hash-redacted/certhash/cert-hash-redacted/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ/p2p-circuit/p2p/12D3KooWBmDUVRJMvHBkGU7e46GV6PDREAGz2UkcdUMCCZ2ij96f
+```
+
+Observe that the beginning of the multiaddr is the same as the bootstrapper, followed by `/p2p-circuit/p2p/BROWSER_PEER_ID`. This multiaddr can be used by other browser peers (capable of WebTransport) to connect to the first browser window using the bootstrapper as a relay:
+
+![diagram showing circuit relay](/webrtc-guide/circuit-relay-diagram.png)
+
+By adding `circuitRelayTransport` with the `discoverRelays` option, js-libp2p was able to create circuit relay reservation (time and bandwidth-constrained) on the bootstrapper.
+
+You can test connecting to the browser by copying the relay address, opening a second browser tab and connecting to the relay address. The second browser will essentially connect to two peers.
+
+## Step 6: Listen on WebRTC
+
+
+
+
+
 ## connectivity notes (could be redacted)
 
 Connectivity between the Browser and Bootstrapper is constrained by supported transports of the browser and the specific libp2p implementation.
@@ -189,3 +260,18 @@ At the time of writing, js-libp2p connectivity between node.js and the browser i
 1.  WebSockets: this works well and is broadly adopted by browsers and libp2p implementations, but requires the bootstrapper to have CA signed TLS certificate and a domain name to work in [Secure Contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts).
 2.  WebTransport: Supported by [Chrome, Firefox and Opera](https://caniuse.com/webtransport), but not Safari. Currently, only
 3.  WebRTC: this one is rather confusing because [unlike](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct) [WebRTC direct](https://github.com/libp2p/specs/blob/master/webrtc/webrtc-direct.md), it requires a third party for the handshake which complicates matters too much.
+
+
+<details>
+  <summary>summary</summary>
+
+  [Gossipsub]({{< relref "/concepts/pubsub/overview.md" >}}), on the other hand, is a pub-sub (publish-subscribe) protocol
+  that is used to distribute messages and data across a network. It uses a gossip-based
+  mechanism to propagate messages throughout the network, allowing fast and efficient
+  distribution without relying on a central control point.
+
+</details>
+
+
+[identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}})
+[Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}})
