@@ -79,7 +79,7 @@ This guide assumes a basic understanding of libp2p concepts such as:
 - [Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}})
 - [Multiaddresses (often abbreviated multiaddr)]({{< relref "/concepts/fundamentals/addressing" >}})
 - [Libp2p transports]({{< relref "/concepts/transports/overview" >}})
-- [Libp2p transports]({{< relref "/concepts/pubsub/overview" >}})
+- [GossipSub]({{< relref "/concepts/pubsub/overview" >}})
 
 Besides that, most of this guide will focus on js-libp2p, i.e. JavaScript. Go knowledge isn't strictly necessary, though it's useful for understanding the bootstrapper code.
 
@@ -146,7 +146,10 @@ const libp2p = await createLibp2p({
         iceServers: [
           {
             // STUN servers help the browser discover its own public IPs
-            urls: ['stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'],
+            urls: [
+              "stun:stun.l.google.com:19302",
+              "stun:global.stun.twilio.com:3478",
+            ],
           },
         ],
       },
@@ -161,7 +164,7 @@ const libp2p = await createLibp2p({
   services: {
     identify: identify(),
   },
-})
+});
 ```
 
 The `createLibp2p` invocation creates a libp2p peer which has its own associated key pair and [Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}}) with support for the WebTransport and WebRTC transports, as well as the [identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}}). It also uses noise for to ensure that all connections are encrypted, and yamux
@@ -178,7 +181,7 @@ In a new terminal window, open the repository cloned in the previous step:
 cd libp2p-browser-guide
 ```
 
-Run the following command to start the development server:
+Run the following command to start the frontend development server:
 
 ```
 npm run start
@@ -207,6 +210,8 @@ In is next step, you will enable the circuit relay transport to make the browser
 In the `src/index.js` file, update the call to `createLibp2p` as follows:
 
 ```diff
++import { circuitRelayTransport } from '@libp2p/circuit-relay-v2'
+
 const libp2p = await createLibp2p({
   transports: [
     webTransport(),
@@ -250,10 +255,55 @@ By adding `circuitRelayTransport` with the `discoverRelays` option, js-libp2p wa
 
 You can test connecting to the browser by copying the relay address, opening a second browser tab and connecting to the ciccuit relay address (with `p2p-circuit`). The second browser will connect to two peers, i.e. the bootstrapper and the browser.
 
-## Step 6: Listen on WebRTC and establish a direct connection
+## Step 6: Set the bootstrapper in js-libp2p
+
+In this step, you will configure js-libp2p to automatically connect to the bootstrap peer.
+
+Update the `src/index.js` file as follows, making sure to replace the multiaddr in with the one from your bootstrapper:
+
+```diff
++import { bootstrap } from '@libp2p/bootstrap'
+
+const libp2p = await createLibp2p({
+  transports: [
+    webTransport(),
+    webRTC({
+      rtcConfiguration: {
+        iceServers: [
+          {
+            // STUN servers help the browser discover its own public IPs
+            urls: ['stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'],
+          },
+        ],
+      },
+    }),
+    circuitRelayTransport({
+      discoverRelays: 1,
+    }),
+  ],
+  connectionEncryption: [noise()],
+  streamMuxers: [yamux()],
+  connectionGater: {
+    // Allow private addresses for local testing
+    denyDialMultiaddr: async () => false,
+  },
++  peerDiscovery: [
++      bootstrap({
++        // replace with your bootstrapper multiaddr
++        list: ['/ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/....'],
++      }),
++  ]
+  services: {
+    identify: identify(),
+  },
+})
+```
+
+Reload the page, and you will see the peer connecting to the bootstrapper automatically.
+
+## Step 7: Listen on WebRTC and establish a direct connection
 
 In this step, you will update the js-libp2p configuration to listen for WebRTC connections.
-
 
 In the `src/index.js` file, update the call to `createLibp2p` as follows:
 
@@ -287,58 +337,158 @@ const libp2p = await createLibp2p({
     // Allow private addresses for local testing
     denyDialMultiaddr: async () => false,
   },
+  peerDiscovery: [
+      bootstrap({
+        // replace with your bootstrapper multiaddr
+        list: ['/ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/....'],
+      }),
+  ]
   services: {
     identify: identify(),
   },
 })
 ```
 
-Next, reload the frontend, and once again connect to the bootstrapper by copying its WebTranport multiaddr from the terminal.
+With the change above, libp2p will leverage circuit relays as the signalling channel for WebRTC connections.
 
-After connecting to the bootstrapper, the frontend will render two multiaddrs:
+Reload the frontend, and once again connect to the bootstrapper by copying its WebTranport multiaddr from the terminal.
+
+After connecting to the bootstrapper, the frontend will render two multiaddrs (one of which is new):
 
 ```
 /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/cert-hash-redacted/certhash/cert-hash-redacted/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ/p2p-circuit/webrtc/p2p/12D3KooWSLQmyYMmWRLS8FaoQGZ6vhXJKaKSrX4BCivJyHFUkLdJ
 /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/cert-hash-redacted/certhash/cert-hash-redacted/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ/p2p-circuit/p2p/12D3KooWSLQmyYMmWRLS8FaoQGZ6vhXJKaKSrX4BCivJyHFUkLdJ
 ```
 
-The first multiaddr contains `/webrtc/` which you can use in order to establish a direct WebRTC connection between the browsers, while second is a circuit relay multiaddr (like the one in the previous step).
+The first (and new) multiaddr contains `/webrtc/` which you can use in order to establish a direct WebRTC connection between the browsers, while second is a circuit relay multiaddr (like the one in the previous step).
 
 Copy the multiaddr that contains `/webrtc/`, open another browser window, and paste the multiaddr into the input, and click connect.
 
-The WebRTC connection count for both should be **1** and you should see the both browsers connected to the bootstrapper as well as the other browser Peer ID:
+Once the connection succeeds, the WebRTC connection count in both browsers should be **1** and you should see the both browsers connected to the bootstrapper as well as the other browser Peer ID:
 
 ![browsers connected](/webrtc-guide/browsers-connected.png)
 
 Congratulations! You have successfully established a direct connection between the two browsers.
 
-## Step 7: PubSub peer discovery
+Exchanging multiaddrs manually is cumbersome and not feasible for real-world applications. To avoid this, you will introduce PubSub-based peer discovery in the next step.
+
+## Step 8: PubSub peer discovery
 
 In the previous steps, you worked through the process of establishing a WebRTC connection by manually copying the multiaddrs.
 
-In this step, you will introduce PubSub peer discovery, so that browsers can exchange their multiaddrs and discovery each other automatically (with the help of the bootstrapper).
+In this step, you will introduce PubSub peer discovery, so that browsers can exchange their multiaddrs and discover each other automatically (with the help of the bootstrapper).
 
+In libp2p, PubSub is implemented with the [GossipSub protocol]({{< relref "/concepts/pubsub/overview" >}}), which provides an efficient way for mesh networks to exchange messages.
 
+For PubSub peer discovery to work, both frontend and the bootstrapper will use the same topic. As soon as the frontend discovers its own multiaddrs, it will publish it in a message to the discovery topic. The bootstrapper, which is also listening to the discovery topic, will relay the message to other browser peers connected to it, which in turn, can establish direct WebRTC conections. From a high level, it looks as follows:
 
-## connectivity notes (could be redacted)
+![PubSub Peer discovery](/webrtc-guide/pubsub-discovery.png)
 
-Connectivity between the Browser and Bootstrapper is constrained by supported transports of the browser and the specific libp2p implementation.
+In the `src/index.js` file, update the call to `createLibp2p` as follows:
 
-At the time of writing, js-libp2p connectivity between node.js and the browser is constrained to:
+```diff
 
-1. WebSockets: this works well and is broadly adopted by browsers and libp2p implementations, but requires the bootstrapper to have CA signed TLS certificate and a domain name to work in [Secure Contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts).
-2. WebTransport: Supported by [Chrome, Firefox and Opera](https://caniuse.com/webtransport), but not Safari. Currently, only
-3. WebRTC: this one is rather confusing because [unlike](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct) [WebRTC direct](https://github.com/libp2p/specs/blob/master/webrtc/webrtc-direct.md), it requires a third party for the handshake which complicates matters too much.
++import { gossipsub } from '@chainsafe/libp2p-gossipsub'
++import { pubsubPeerDiscovery } from '@libp2p/pubsub-peer-discovery'
++import { PUBSUB_PEER_DISCOVERY } from './constants'
 
-<details>
-  <summary>summary</summary>
+const libp2p = await createLibp2p({
+  addresses: {
+    listen: [
+      // 👇 Listen for webRTC connections
+      '/webrtc',
+    ],
+  },
+  transports: [
+    webTransport(),
+    webRTC({
+      rtcConfiguration: {
+        iceServers: [
+          {
+            // STUN servers help the browser discover its own public IPs
+            urls: ['stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'],
+          },
+        ],
+      },
+    }),
+    circuitRelayTransport({
+      discoverRelays: 1,
+    }),
+  ],
+  connectionEncryption: [noise()],
+  streamMuxers: [yamux()],
+  connectionGater: {
+    // Allow private addresses for local testing
+    denyDialMultiaddr: async () => false,
+  },
+  peerDiscovery: [
+      bootstrap({
+        list: ['/ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/...'],
+      }),
++      pubsubPeerDiscovery({
++        // Every 10 seconds publish our multiaddrs
++        interval: 10_000,
++        // The topic that the bootstrapper is also subscribed to
++        topics: [PUBSUB_PEER_DISCOVERY],
++      }),
+  ],
+  services: {
++    pubsub: gossipsub({
++      allowPublishToZeroTopicPeers: true,
++      ignoreDuplicatePublishError: true,
++    }),
+    identify: identify(),
+  },
+})
+```
 
-  [Gossipsub]({{< relref "/concepts/pubsub/overview.md" >}}), on the other hand, is a pub-sub (publish-subscribe) protocol
-  that is used to distribute messages and data across a network. It uses a gossip-based
-  mechanism to propagate messages throughout the network, allowing fast and efficient
-  distribution without relying on a central control point.
+A couple of note-worthy things about these changes:
 
-</details>
+- The `pubsub` service adds GossipSub protocol capabilities to the node.
+- `pubsubPeerDiscovery` depends on the `pubsub` service, and introduces the peer discovery mechanism.
+- When js-libp2p discovers a new peer (and its multiaddrs), it adds it to the peer store. The connection manager then will attempt to dial the newly discovered peer, if the current number of open connections is below the [configured minimum](https://github.com/libp2p/js-libp2p/blob/main/packages/libp2p/src/connection-manager/index.ts#L20-L31). Learn more about the connection manager in [the docs](https://github.com/libp2p/js-libp2p/blob/main/doc/LIMITS.md).
 
-[identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}})
-[Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}})
+Next, open two browser tabs of the frontend, and you should see them connecting connected to each other within a couple of seconds 🎉.
+
+## Summary
+
+If you have reached this far in the guide, well done! You learned about how to establish browser-to-browser connectivity with Libp2p and WebRTC and how Libp2p abstracts aspects of WebRTC like signaling and SDP exchange. You also learned about js-libp2p's configuration options and concepts such as Peer IDs, Multiaddrs, and GossipSub.
+
+## Final notes
+
+### NAT hole punching
+
+Peer to peer connectivity is inherently hard, which is why in this guide, all connections were on a local machine which significantly increases connection success rates.
+
+On public networks where both browser peers are behind NAT, NAT hole punching success rates range around 80% depending on the network conditions and the [types of NAT the peers are behind](https://tailscale.com/blog/how-nat-traversal-works#the-nature-of-nats). The implications of this depend on the nature of your app. PubSub with GossipSub was designed to ensure delivery of messages without requiring a connection to the whole mesh. In other words, the GossipSub protocol was designed with sparsely-connected networks, where you are not connected to all other peers. So long as the browser peer can publish a message to at least one other peer, the message should propagate to all subscribers.
+
+Another approach is to introduce a TURN server, however, TURN servers can be complex to run, bandwidth-heavy, and prone to abuse, since they relay all traffic.
+
+If you want to experiment with this example over public networks, the bootstrapper peer needs to have a public IP so that it's publicly reachable by all browser peers.
+
+### Ephemeral WebTransport multiaddr
+
+Another challenge you may face is that the WebTransport multiaddr that is hardcoded into the js-libp2p configuration is ephemeral and valid for around 28 days (2 certificate hashes valid for 14 days each). One way to address this is using the DHT to resolve the Peer ID (which is stable and would be hard coded in the frontend) to its latest multiaddrs as done by the [universal connectivity app](https://github.com/libp2p/universal-connectivity).
+
+### Node.js bootstrapper?
+
+Connectivity between the browser and bootstrapper is constrained by supported transports of the browser and the specific libp2p implementation.
+
+At the time of writing, **js-libp2p in browsers** supports:
+
+- WebSockets: this works well and is broadly adopted by libp2p implementations, but requires the bootstrapper to have CA-signed TLS certificate and a domain name to work in [Secure Contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts). Another disadvantage of Secure WebSockets is that it results in double encryption (TLS and Noise) with libp2p.
+- WebTransport: Supported by [Chrome, Firefox and Opera](https://caniuse.com/webtransport), but not Safari.
+- WebRTC: Supported by most browser
+- [WebRTC-direct](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct): Supported by all browsers that support WebRTC.
+
+While **js-libp2p in node.js** supports:
+
+1. WebRTC: this one is rather confusing because [unlike](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct) [WebRTC direct](https://github.com/libp2p/specs/blob/master/webrtc/webrtc-direct.md), it requires an additional circuit relay peer to forward SDP messages between the browser and the node.js bootstrapper, making it infeasible for the node.js peer to be the bootstrapper. WebRTC-direct solves this problem, however, at the time of writing it isn't supported by js-libp2p.
+2. WebSockets: as mentioned above, requires a CA-signed TLS certificate and a domain.
+3. TCP: not available in browsers.
+
+Therefore, until WebRTC-Direct or WebTransport support are added to js-libp2p in node.js, it's much easier to use go-libp2p.
+
+## Next steps
+
+As a next step, the [universal connectivity app](https://github.com/libp2p/universal-connectivity) can be a great learning resource, as it expands on many of the concepts and patterns implemented by this guide, in addition to having two bootstrapper implementations in Rust and Go.
