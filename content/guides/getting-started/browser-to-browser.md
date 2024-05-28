@@ -27,7 +27,7 @@ WebRTC's goal is to enable applications to establish direct connections between 
 
 Libp2p gives you the tools to build interoperable cross-platform peer-to-peer applications with mesh topologies that work both on the web and as stand-alone binaries.
 
-![](https://www.apizee.com/scripts/files/6523f1722d11f6.39197111/websockets-vs-webrtc-768x403.webp)
+![WebRTC vs server](https://www.apizee.com/scripts/files/6523f1722d11f6.39197111/websockets-vs-webrtc-768x403.webp)
 
 Direct connections are especially useful for video and audio calling, because they allow traffic, i.e. the packets, to flow directly from one peer to another without an additional network hop to a server that may be geographically far (network latency is still bound to distances and the speed of light).
 
@@ -93,14 +93,14 @@ git clone https://github.com/libp2p/libp2p-browser-guide
 
 Once the repository is cloned, enter the `libp2p-browser-guide` folder, and install the npm dependencies
 
-```
+```bash
 cd libp2p-browser-guide
 npm install
 ```
 
 Once installed, go into the `bootstrapper` directory and install dependencies
 
-```
+```bash
 cd bootstrapper
 go get .
 ```
@@ -115,7 +115,7 @@ go run .
 
 This will compile and run the bootstrapper. It will also output the PeerID and the multiaddrs it's listening on and should look similar to:
 
-```
+```bash
 2024/05/21 17:43:43 PeerID: 12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
 2024/05/21 17:43:43 Listening on: /ip4/127.0.0.1/udp/9095/quic-v1/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
 2024/05/21 17:43:43 Listening on: /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/uEiAbhhQxJeJ6nAWdpB6NdSV4UPaTwEcy9eA76p22SoKyvg/certhash/uEiBTPUrn6BebjshxC80Uarqi4ZsMhrPPQNu2RDu1N4n_Ww/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
@@ -177,19 +177,19 @@ In this step, you will connect the browser js-libp2p peer to the go-libp2p boots
 
 In a new terminal window, open the repository cloned in the previous step:
 
-```
+```bash
 cd libp2p-browser-guide
 ```
 
 Run the following command to start the frontend development server:
 
-```
+```bash
 npm run start
 ```
 
 You should see the address of the local development server:
 
-```
+```bash
  > Local:   http://127.0.0.1:8000/
 ```
 
@@ -243,7 +243,7 @@ const libp2p = await createLibp2p({
 
 If you reload the page and connect to the bootstrapper multiaddr, notice that the browser peer now shows an address for itself after connecting to the bootstrapper that looks similar to (with different cert hashes and peer IDs):
 
-```
+```bash
 /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/cert-hash-redacted/certhash/cert-hash-redacted/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ/p2p-circuit/p2p/12D3KooWBmDUVRJMvHBkGU7e46GV6PDREAGz2UkcdUMCCZ2ij96f
 ```
 
@@ -355,7 +355,7 @@ Reload the frontend, and once again connect to the bootstrapper by copying its W
 
 After connecting to the bootstrapper, the frontend will render two multiaddrs (one of which is new):
 
-```
+```console
 /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/cert-hash-redacted/certhash/cert-hash-redacted/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ/p2p-circuit/webrtc/p2p/12D3KooWSLQmyYMmWRLS8FaoQGZ6vhXJKaKSrX4BCivJyHFUkLdJ
 /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/cert-hash-redacted/certhash/cert-hash-redacted/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ/p2p-circuit/p2p/12D3KooWSLQmyYMmWRLS8FaoQGZ6vhXJKaKSrX4BCivJyHFUkLdJ
 ```
