@@ -15,7 +15,7 @@ Browser-to-browser connectivity is the foundation for distributed apps with a me
 
 By the end of the guide, you should be familiar with the requisite libp2p and WebRTC protocols and concepts and how to use them to establish libp2p connections between browsers.
 
-WebRTC is a set of open standards and Web APIs that enable Web apps to establish direct connectivity for audio/video conferencing and exchanging arbitrary data. Today, WebRTC is [adopted by most browsers](https://caniuse.com/?search=webrtc), and powers a lot of popular web conferencing apps.
+WebRTC is a set of open standards and Web APIs that enable Web apps to establish direct connectivity for audio/video conferencing and exchanging arbitrary data. Today, WebRTC is [adopted by most browsers](https://caniuse.com/?search=webrtc) and powers a lot of popular web conferencing apps.
 
 Both js-libp2p and WebRTC are quite complicated technologies due to the complex nature of peer-to-peer networking, browser standards, and security. In favor of brevity, this guide will skim over some details while linking out to relevant resources.
 
@@ -167,9 +167,23 @@ const libp2p = await createLibp2p({
 });
 ```
 
-The `createLibp2p` invocation creates a libp2p peer which has its own associated key pair and [Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}}) with support for the WebTransport and WebRTC transports, as well as the [identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}}). It also uses noise for to ensure that all connections are encrypted, and yamux
+The `createLibp2p` invocation creates a libp2p peer which has its own associated key pair and [Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}}) with support for the WebTransport and WebRTC transports, as well as the [identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}}). It also uses noise for to ensure that all connections are encrypted, and yamux as the stream multiplexer for the relayed connection.
 
 This is the minimal configuration needed to establish a connection to the local bootstrapper. In the next step, you will use the frontend to connect to the bootstrapper.
+
+
+{{< alert icon="💡" context="note">}}
+**Why is yamux needed?**
+
+You may notice that the above js-libp2p configuration adds yamux as the stream multiplexer, even though both WebRTC and WebTransport come with native [stream multiplexing]({{< relref "/concepts/multiplex/overview" >}}).
+
+![diagram showing circuit relay](/webrtc-guide/circuit-relay-diagram.png)
+
+When a browser initiates the connection to another browser over a circuit relay, the underlying WebTransport stream to the bootstrapper is multiplexed and encrypted by WebTransport. However, the relayed connection needs to be encrypted by noise, otherwise, the relay could eavesdrop on all the traffic. Once the relayed connection between the browsers is encrypted, it also needs yamux to create a stream for the signalling protocol.
+
+{{< /alert >}}
+
+
 
 ## Step 4: Connect to the bootstrapper from the browser
 
@@ -487,7 +501,7 @@ While **js-libp2p in node.js** supports:
 2. WebSockets: as mentioned above, requires a CA-signed TLS certificate and a domain.
 3. TCP: not available in browsers.
 
-Therefore, until WebRTC-Direct or WebTransport support are added to js-libp2p in node.js, it's much easier to use go-libp2p.
+Therefore, until WebRTC-Direct or WebTransport support is added to js-libp2p in node.js, it's much easier to use go-libp2p.
 
 ## Next steps
 
