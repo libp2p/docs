@@ -27,8 +27,6 @@ WebRTC's goal is to enable applications to establish direct connections between 
 
 Libp2p gives you the tools to build interoperable cross-platform peer-to-peer applications with mesh topologies that work both on the web and as stand-alone binaries.
 
-![WebRTC vs server](https://www.apizee.com/scripts/files/6523f1722d11f6.39197111/websockets-vs-webrtc-768x403.webp)
-
 Direct connections are especially useful for video and audio calling, because they allow traffic, i.e. the packets, to flow directly from one peer to another without an additional network hop to a server that may be geographically far (network latency is still bound to distances and the speed of light).
 
 However, the reality of public internet networking given routers, NAT layers, VPNs, and firewalls is such p2p connectivity is riddled with challenges. These challenges are commonly overcome by running additional infrastructure such as signaling, [STUN](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols), and [TURN](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols) servers, some of which are standardized as part of WebRTC.
