@@ -169,7 +169,6 @@ The `createLibp2p` invocation creates a libp2p peer which has its own associated
 
 This is the minimal configuration needed to establish a connection to the local bootstrapper. In the next step, you will use the frontend to connect to the bootstrapper.
 
-
 {{< alert icon="💡" context="note">}}
 **Why is yamux needed?**
 
@@ -180,8 +179,6 @@ You may notice that the above js-libp2p configuration adds yamux as the stream m
 When a browser initiates the connection to another browser over a circuit relay, the underlying WebTransport stream to the bootstrapper is multiplexed and encrypted by WebTransport. However, the relayed connection needs to be encrypted by noise, otherwise, the relay could eavesdrop on all the traffic. Once the relayed connection between the browsers is encrypted, it also needs yamux to create a stream for the signalling protocol.
 
 {{< /alert >}}
-
-
 
 ## Step 4: Connect to the bootstrapper from the browser
 
