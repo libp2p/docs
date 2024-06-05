@@ -1,5 +1,5 @@
 ---
-title: "Browser WebRTC with js-libp2p"
+title: "WebRTC with js-libp2p"
 weight: 3
 description: "Learn how to use js-libp2p to establish a connection between browsers"
 aliases:
@@ -13,7 +13,7 @@ In this guide, you will learn how to establish direct peer-to-peer (p2p) connect
 
 Browser-to-browser connectivity is the foundation for distributed apps with a mesh topology. When combined with GossipSub, like in the [universal connectivity](https://github.com/libp2p/universal-connectivity) chat app, gives you the building blocks for peer-to-peer event-based apps with mesh topologies.
 
-By the end of the guide, you should be familiar with the requisite libp2p and WebRTC protocols and concepts and how to use them to establish libp2p connections between browsers.
+By the end of the guide, you should be familiar with the requisite libp2p and WebRTC protocols and concepts, and how to use them to establish libp2p connections between browsers.
 
 WebRTC is a set of open standards and Web APIs that enable Web apps to establish direct connectivity for audio/video conferencing and exchanging arbitrary data. Today, WebRTC is [adopted by most browsers](https://caniuse.com/?search=webrtc) and powers a lot of popular web conferencing apps.
 
@@ -46,7 +46,7 @@ Specifically, these include:
 
 - **STUN** server: helps the browser discover its observed public address and is necessary in almost all cases, due to NAT making it hard for a browser to know its observed public IP. There are many [free public STUN servers](https://gist.github.com/mondain/b0ec1cf5f60ae726202e) that you can use.
 - **TURN** (Relay) server: relays traffic if the browsers fail to establish a direct connection and is defined as part of the WebRTC specification. Unlike signaling and STUN servers can be costly to run because they route all traffic between peers. This guide will not use TURN servers. Instead, it will lean on GossipSub to ensure delivery of messages when direct connections cannot be established.
-- **signaling**: helps the browsers exchange their [SDPs (Session Description Protocol)](https://developer.mozilla.org/en-US/docs/Glossary/SDP): the metadata necessary to establish a connection. Most importantly, signaling is not part of the WebRTC specification. This means that applications are free to implement signaling as they see fit. In this guide, you will use Libp2p's [protocol for signaling](https://github.com/libp2p/specs/blob/master/webrtc/webrtc.md#signaling-protocol) over Circuit Relay v2 connections.
+- **signaling**: helps the browsers exchange [SDP (Session Description Protocol)](https://developer.mozilla.org/en-US/docs/Glossary/SDP) messages: the metadata necessary to establish a connection. Most importantly, signaling is not part of the WebRTC specification. This means that applications are free to implement signaling as they see fit. In this guide, you will use Libp2p's [protocol for signaling](https://github.com/libp2p/specs/blob/master/webrtc/webrtc.md#signaling-protocol) over Circuit Relay v2 connections.
 - **Libp2p relay/bootstrapper**: The libp2p peer will serve two roles:
   - **Circuit Relay V2**: A publicly reachable libp2p peer that can serve as a relay between browser nodes that have yet to establish a direct connection between each other. Unlike TURN servers, which are WebRTC-specific and can be costly to run, Circuit Relay V2 is a libp2p protocol that is resource-constrained by design. It's also decentralized and trustless, in the sense that any publicly reachable libp2p peer supporting the protocol can help browsers libp2p nodes as a (time and bandwidth-constrained) relay.
   - **GossipSub Peer Discovery**: For browser peers to discover each other, they will need some mechanism to announce their multiaddresses to other browsers. GossipSub will help by relaying those peer discovery messages between browsers which kick off the direct connection establishment.
@@ -214,7 +214,7 @@ Congratulations, you have now established a WebTransport connection to the boots
 
 ## Step 5: Make the browser dialable with Circuit Relay
 
-In is next step, you will enable the circuit relay transport to make the browser dialable via the bootstrapper (that already has circuit relay enabled and will serve as the relay).
+In this step, you will enable the circuit relay transport to make the browser dialable via the bootstrapper (that already has circuit relay enabled and will serve as the relay).
 
 In the `src/index.js` file, update the call to `createLibp2p` as follows:
 
@@ -360,7 +360,7 @@ const libp2p = await createLibp2p({
 
 With the change above, libp2p will leverage circuit relays as the signalling channel for WebRTC connections.
 
-Reload the frontend, and once again connect to the bootstrapper by copying its WebTranport multiaddr from the terminal.
+Reload the frontend, and once again connect to the bootstrapper by copying its WebTransport multiaddr from the terminal.
 
 After connecting to the bootstrapper, the frontend will render two multiaddrs (one of which is new):
 
@@ -389,7 +389,7 @@ In this step, you will introduce PubSub peer discovery, so that browsers can exc
 
 In libp2p, PubSub is implemented with the [GossipSub protocol]({{< relref "/concepts/pubsub/overview" >}}), which provides an efficient way for mesh networks to exchange messages.
 
-For PubSub peer discovery to work, both frontend and the bootstrapper will use the same topic. As soon as the frontend discovers its own multiaddrs, it will publish it in a message to the discovery topic. The bootstrapper, which is also listening to the discovery topic, will relay the message to other browser peers connected to it, which in turn, can establish direct WebRTC conections. From a high level, it looks as follows:
+For PubSub peer discovery to work, both frontend and the bootstrapper will use the same topic. As soon as the frontend discovers its own multiaddrs, it will publish it in a message to the discovery topic. The bootstrapper, which is also listening to the discovery topic, will gossip the message to other browser peers connected to it, which in turn, can establish direct WebRTC connections. From a high level, it looks as follows:
 
 ![PubSub Peer discovery](/webrtc-guide/pubsub-discovery.png)
 
@@ -399,7 +399,7 @@ In the `src/index.js` file, update the call to `createLibp2p` as follows:
 
 +import { gossipsub } from '@chainsafe/libp2p-gossipsub'
 +import { pubsubPeerDiscovery } from '@libp2p/pubsub-peer-discovery'
-+import { PUBSUB_PEER_DISCOVERY } from './constants'
++import { PUBSUB_PEER_DISCOVERY } from './constants.js'
 
 const libp2p = await createLibp2p({
   addresses: {
@@ -455,13 +455,13 @@ A couple of note-worthy things about these changes:
 
 - The `pubsub` service adds GossipSub protocol capabilities to the node.
 - `pubsubPeerDiscovery` depends on the `pubsub` service, and introduces the peer discovery mechanism.
-- When js-libp2p discovers a new peer (and its multiaddrs), it adds it to the peer store. The connection manager then will attempt to dial the newly discovered peer, if the current number of open connections is below the [configured minimum](https://github.com/libp2p/js-libp2p/blob/main/packages/libp2p/src/connection-manager/index.ts#L20-L31). Learn more about the connection manager in [the docs](https://github.com/libp2p/js-libp2p/blob/main/doc/LIMITS.md).
+- When js-libp2p discovers a new peer (and its multiaddrs), it adds it to the peer store. The connection manager may attempt to dial the newly discovered peer, if the current number of open connections is below the [configured minimum](https://github.com/libp2p/js-libp2p/blob/main/packages/libp2p/src/connection-manager/index.ts#L20-L31). Learn more about the connection manager in [the docs](https://github.com/libp2p/js-libp2p/blob/main/doc/LIMITS.md).
 
 Next, open two browser tabs of the frontend, and you should see them connecting connected to each other within a couple of seconds 🎉.
 
 ## Summary
 
-If you have reached this far in the guide, well done! You learned about how to establish browser-to-browser connectivity with Libp2p and WebRTC and how Libp2p abstracts aspects of WebRTC like signaling and SDP exchange. You also learned about js-libp2p's configuration options and concepts such as Peer IDs, Multiaddrs, and GossipSub.
+If you have reached this far in the guide, well done! You learned about how to establish browser-to-browser connectivity with libp2p and WebRTC and how libp2p abstracts aspects of WebRTC like signaling and SDP exchange. You also learned about js-libp2p's configuration options and concepts such as Peer IDs, Multiaddrs, and GossipSub.
 
 ## Final notes
 
@@ -487,7 +487,7 @@ At the time of writing, **js-libp2p in browsers** supports:
 
 - WebSockets: this works well and is broadly adopted by libp2p implementations, but requires the bootstrapper to have CA-signed TLS certificate and a domain name to work in [Secure Contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts). Another disadvantage of Secure WebSockets is that it results in double encryption (TLS and Noise) with libp2p.
 - WebTransport: Supported by [Chrome, Firefox and Opera](https://caniuse.com/webtransport), but not Safari.
-- WebRTC: Supported by most browser
+- WebRTC: Supported by most browsers
 - [WebRTC-direct](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct): Supported by all browsers that support WebRTC.
 
 While **js-libp2p in node.js** supports:
