@@ -55,7 +55,7 @@ Specifically, these include:
   - **Circuit Relay V2**: A publicly reachable libp2p peer that can serve as a relay between browser nodes that have yet to establish a direct connection between each other. Unlike TURN servers, which are WebRTC-specific and can be costly to run, Circuit Relay V2 is a libp2p protocol that is resource-constrained by design. It's also decentralized and trustless, in the sense that any publicly reachable libp2p peer supporting the protocol can help browsers libp2p nodes as a (time and bandwidth-constrained) relay.
   - **PubSub Peer Discovery**: For browser peers to discover each other, they will need some mechanism to announce their multiaddresses to other browsers. GossipSub is a PubSub implementation that will help by relaying those peer discovery messages between browsers which kick off the direct connection establishment. Note that this approach to peer discovery is not very scalable and probably not fit for production use cases.
 
-In summary, as part of this guide, you will need to run a publicly reachable long-running libp2p peer that will serve as both a circuit relay and a GossipSub message relay. This guide will refer to the libp2p peer as the **bootstrapper** or **relay** peer depending on the context.
+In summary, as part of this guide, you will need to run a publicly reachable long-running libp2p peer that will serve as both a circuit relay and a GossipSub message relay. This guide will refer to the libp2p peer as the **relay** or bootstrapper peer depending on the context.
 
 ## Connection flow diagram
 
@@ -72,7 +72,7 @@ The connection flow can seem complex, but thankfully, libp2p abstracts some of t
 Either way, there are several noteworthy things about the connection flow:
 
 1. There's no prescribed mechanism in libp2p for how the two browsers discover each other's multiaddress. This guide will use a [dedicated GossipSub channel for the application where you publish your own multiaddrs (periodically) similar to mdns](https://github.com/libp2p/js-libp2p-pubsub-peer-discovery/), other approaches include the [Rendezvous Protocol](https://github.com/libp2p/specs/blob/master/rendezvous/README.md) and the [in-progress ambient peer discovery spec](https://github.com/libp2p/specs/pull/590).
-2. Since this guide uses a GossipSub channel for peer discovery, the bootstrapper/relay node will listen to the discovery topic too, so that it can relay messages between browsers who've yet to establish a direct connection.
+2. Since this guide uses a GossipSub channel for peer discovery, the relay node will listen to the discovery topic too, so that it can relay messages between browsers who've yet to establish a direct connection.
 
 ## Pre-requisites
 
@@ -103,48 +103,40 @@ cd libp2p-browser-guide
 npm install
 ```
 
-Once installed, go into the `bootstrapper` directory and install dependencies
+## Step 2: Start the js-libp2p node.js relay
+
+In this step, you will start node.js relay.
+
+Run the following command:
 
 ```bash
-cd bootstrapper
-go get .
+npm run start:relay
 ```
 
-## Step 2: Start the bootstrapper
+It will also output the PeerID and the multiaddrs it's listening on and should look similar to:
 
-From the `bootstrapper` folder, run the following command to compile and run the bootstrapper:
-
-```bash
-go run .
+```
+PeerID:  12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ
+Multiaddrs:  [
+  Multiaddr(/ip4/127.0.0.1/tcp/9001/ws/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ),
+  Multiaddr(/ip4/192.168.3.174/tcp/9001/ws/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ),
+  Multiaddr(/ip4/127.0.0.1/tcp/9002/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ),
+  Multiaddr(/ip4/192.168.3.174/tcp/9002/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ)
+]
 ```
 
-This will compile and run the bootstrapper. It will also output the PeerID and the multiaddrs it's listening on and should look similar to:
-
-```bash
-2024/05/21 17:43:43 PeerID: 12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
-2024/05/21 17:43:43 Listening on: /ip4/127.0.0.1/udp/9095/quic-v1/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
-2024/05/21 17:43:43 Listening on: /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/uEiAbhhQxJeJ6nAWdpB6NdSV4UPaTwEcy9eA76p22SoKyvg/certhash/uEiBTPUrn6BebjshxC80Uarqi4ZsMhrPPQNu2RDu1N4n_Ww/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
-2024/05/21 17:43:43 Listening on: /ip4/192.168.3.174/udp/9095/quic-v1/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
-2024/05/21 17:43:43 Listening on: /ip4/192.168.3.174/udp/9095/quic-v1/webtransport/certhash/uEiAbhhQxJeJ6nAWdpB6NdSV4UPaTwEcy9eA76p22SoKyvg/certhash/uEiBTPUrn6BebjshxC80Uarqi4ZsMhrPPQNu2RDu1N4n_Ww/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
-```
-
-Note that it's listening on two interfaces (the loopback and the private network) and two transports: QUIC and WebTransport (which is on top of QUIC). QUIC can be used for connections to other go-libp2p bootstrappers, while WebTransport for connections from browsers. That means that QUIC isn't strictly necessary, but it's useful if you deploy another bootstrapper for resilience or leverage the DHT for peer discovery (covered later).
-
-{{< alert icon="💡" context="note">}}
-Another thing worth noting is that the WebTransport multiaddr contains two certificate hashes. These are needed by the browser to verify a self-signed certificate of the go-libp2p bootstrapper peer. Unlike CA-signed certificates, self-signed certificates can be created on the fly without interaction with a certificate authority.
-<br />
-So why two certificate hashes? Self-signed certificates are valid for at most 14 days. So by convention, go-libp2p generates two consecutively valid certificates to ensure a smooth transition when a new certificate is rolled out.
-{{< /alert >}}
 
 ## Step 3: Start the js-libp2p peer in the browser
 
-In this step, you will start the js-libp2p peer in the browser and learn about how to configure js-libp2p to establish a connection to the bootstrapper.
+In this step, you will start the js-libp2p peer in the browser and learn about how to configure js-libp2p to establish a connection to the relay.
 
 Start by opening the `src/index.js` file in your code editor and find the call to `createLibp2p`:
 
 ```js
 const libp2p = await createLibp2p({
   transports: [
+    // Allow all WebSocket connections inclusing without TLS
+    webSockets({ filter: filters.all }),
     webTransport(),
     webRTC({
       rtcConfiguration: {
@@ -172,24 +164,24 @@ const libp2p = await createLibp2p({
 });
 ```
 
-The `createLibp2p` invocation creates a libp2p peer which has its own associated key pair and [Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}}) with support for the WebTransport and WebRTC transports, as well as the [identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}}). It also uses noise for to ensure that all connections are encrypted, and yamux as the stream multiplexer for the relayed connection.
+The `createLibp2p` invocation creates a libp2p peer which has its own associated key pair and [Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}}) with support for the WebSocket , WebTransport and WebRTC transports, as well as the [identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}}). It also uses noise for to ensure that all connections are encrypted, and yamux as the stream multiplexer for the relayed connection.
 
-This is the minimal configuration needed to establish a connection to the local bootstrapper. In the next step, you will use the frontend to connect to the bootstrapper.
+This is the minimal configuration needed to establish a connection to the local relay. In the next step, you will use the frontend to connect to the relay.
 
 {{< alert icon="💡" context="note">}}
 **Why is yamux needed?**
 
-You may notice that the above js-libp2p configuration adds yamux as the stream multiplexer, even though both WebRTC and WebTransport come with native [stream multiplexing]({{< relref "/concepts/multiplex/overview" >}}).
+You may notice that the above js-libp2p configuration adds yamux as the stream multiplexer. While both WebRTC and WebTransport come with native [stream multiplexing]({{< relref "/concepts/multiplex/overview" >}}), yamux is still needed for WebSockets and to multiplex the circuit relay connection.
 
 ![diagram showing circuit relay](/webrtc-guide/circuit-relay-diagram.png)
 
-When a browser initiates the connection to another browser over a circuit relay, the underlying WebTransport stream to the bootstrapper is multiplexed and encrypted by WebTransport. However, the relayed connection needs to be encrypted by noise, otherwise, the relay could eavesdrop on all the traffic. Once the relayed connection between the browsers is encrypted, it also needs yamux to create a stream for the signalling protocol.
+When a browser initiates the connection to another browser over a circuit relay, the underlying WebSocket stream to the relay is multiplexed by yamux and encrypted by Noise. In the case of WebTransport it is multiplexed and encrypted natively. Either way, the relayed connection between the two browsers needs to be encrypted by noise, otherwise, the relay could eavesdrop on all the traffic. Once the relayed connection between the browsers is encrypted, it also needs yamux to create a stream for the signaling protocol.
 
 {{< /alert >}}
 
-## Step 4: Connect to the bootstrapper from the browser
+## Step 4: Connect to the relay from the browser
 
-In this step, you will connect the browser js-libp2p peer to the go-libp2p bootstrapper peer.
+In this step, you will connect the browser js-libp2p peer to the node.js relay peer.
 
 In a new terminal window, open the repository cloned in the previous step:
 
@@ -209,19 +201,19 @@ You should see the address of the local development server:
  > Local:   http://127.0.0.1:8000/
 ```
 
-Now open the URL in your browser and enter the loopback webtransport multiaddr of the bootstrapper, i.e. `/ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/....`
+Now open the URL in your browser and enter the loopback webtransport multiaddr of the relay, i.e. `/ip4/127.0.0.1/tcp/9001/ws/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ`
 
-![Screenshot showing the multiaddr in the UI](/webrtc-guide/connect-to-bootstrapper.png)
+![Screenshot showing the multiaddr in the UI](/webrtc-guide/connect-to-relay.png)
 
 Now click Connect and you should see the peer appearing in the peer List:
 
-![Screenshot showing the connected peer in the UI](/webrtc-guide/connected-to-bootstrapper.png)
+![Screenshot showing the connected peer in the UI](/webrtc-guide/connected-to-relay.png)
 
-Congratulations, you have now established a WebTransport connection to the bootstrapper.
+Congratulations, you have now established a WebTransport connection to the relay.
 
 ## Step 5: Make the browser dialable with Circuit Relay
 
-In this step, you will enable the circuit relay transport to make the browser dialable via the bootstrapper (that already has circuit relay enabled and will serve as the relay).
+In this step, you will enable the circuit relay transport to make the browser dialable via the relay (that already has circuit relay enabled and will serve as the relay).
 
 In the `src/index.js` file, update the call to `createLibp2p` as follows:
 
@@ -230,6 +222,8 @@ In the `src/index.js` file, update the call to `createLibp2p` as follows:
 
 const libp2p = await createLibp2p({
   transports: [
+    // Allow all WebSocket connections inclusing without TLS
+    webSockets({ filter: filters.all }),
     webTransport(),
     webRTC({
       rtcConfiguration: {
@@ -257,31 +251,33 @@ const libp2p = await createLibp2p({
 })
 ```
 
-If you reload the page and connect to the bootstrapper multiaddr, notice that the browser peer now shows an address for itself after connecting to the bootstrapper that looks similar to (with different cert hashes and peer IDs):
+If you reload the page and connect to the relay multiaddr, notice that the browser peer now shows an address for itself after connecting to the relay that looks similar to (with different cert hashes and peer IDs):
 
 ```bash
-/ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/cert-hash-redacted/certhash/cert-hash-redacted/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ/p2p-circuit/p2p/12D3KooWBmDUVRJMvHBkGU7e46GV6PDREAGz2UkcdUMCCZ2ij96f
+/ip4/127.0.0.1/tcp/9001/ws/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ
 ```
 
-Observe that the beginning of the multiaddr is the same as the bootstrapper, followed by `/p2p-circuit/p2p/BROWSER_PEER_ID`. This multiaddr can be used by other browser peers (capable of WebTransport) to connect to the first browser window using the bootstrapper as a relay:
+Observe that the beginning of the multiaddr is the same as the relay, followed by `/p2p-circuit/p2p/BROWSER_PEER_ID`. This multiaddr can be used by other browser peers (capable of WebTransport) to connect to the first browser window using the relay:
 
 ![diagram showing circuit relay](/webrtc-guide/circuit-relay-diagram.png)
 
-By adding `circuitRelayTransport` with the `discoverRelays` option, js-libp2p was able to create circuit relay reservation (time and bandwidth-constrained) on the bootstrapper.
+By adding `circuitRelayTransport` with the `discoverRelays` option, js-libp2p was able to create circuit relay reservation (time and bandwidth-constrained) on the relay.
 
-You can test connecting to the browser by copying the relay address, opening a second browser tab and connecting to the ciccuit relay address (with `p2p-circuit`). The second browser will connect to two peers, i.e. the bootstrapper and the browser.
+You can test connecting to the browser by copying the relay address, opening a second browser tab and connecting to the circuit relay address (with `p2p-circuit`). The second browser will connect to two peers, i.e. the relay and the browser.
 
-## Step 6: Set the bootstrapper in js-libp2p
+## Step 6: Set the relay in js-libp2p
 
-In this step, you will configure js-libp2p to automatically connect to the bootstrap peer.
+In this step, you will configure js-libp2p to automatically connect to the relay peer.
 
-Update the `src/index.js` file as follows, making sure to replace the multiaddr in with the one from your bootstrapper:
+Update the `src/index.js` file as follows, making sure to replace the multiaddr in with the one from your relay:
 
 ```diff
 +import { bootstrap } from '@libp2p/bootstrap'
 
 const libp2p = await createLibp2p({
   transports: [
+    // Allow all WebSocket connections inclusing without TLS
+    webSockets({ filter: filters.all }),
     webTransport(),
     webRTC({
       rtcConfiguration: {
@@ -305,8 +301,8 @@ const libp2p = await createLibp2p({
   },
 +  peerDiscovery: [
 +      bootstrap({
-+        // replace with your bootstrapper multiaddr
-+        list: ['/ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/....'],
++        // replace with your relay multiaddr
++        list: ['/ip4/127.0.0.1/tcp/9001/ws/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ'],
 +      }),
 +  ]
   services: {
@@ -315,7 +311,7 @@ const libp2p = await createLibp2p({
 })
 ```
 
-Reload the page, and you will see the peer connecting to the bootstrapper automatically.
+Reload the page, and you will see the peer connecting to the relay automatically.
 
 ## Step 7: Listen on WebRTC and establish a direct connection
 
@@ -332,6 +328,8 @@ const libp2p = await createLibp2p({
 +    ],
 +  },
   transports: [
+    // Allow all WebSocket connections inclusing without TLS
+    webSockets({ filter: filters.all }),
     webTransport(),
     webRTC({
       rtcConfiguration: {
@@ -356,7 +354,7 @@ const libp2p = await createLibp2p({
   peerDiscovery: [
       bootstrap({
         // replace with your bootstrapper multiaddr
-        list: ['/ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/....'],
+        list: ['/ip4/127.0.0.1/tcp/9001/ws/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ'],
       }),
   ]
   services: {
@@ -367,9 +365,9 @@ const libp2p = await createLibp2p({
 
 With the change above, libp2p will leverage circuit relays as the signalling channel for WebRTC connections.
 
-Reload the frontend, and once again connect to the bootstrapper by copying its WebTransport multiaddr from the terminal.
+Reload the frontend, and once again connect to the relay by copying its ws multiaddr from the terminal.
 
-After connecting to the bootstrapper, the frontend will render two multiaddrs (one of which is new):
+After connecting to the relay, the frontend will render two multiaddrs (one of which is new):
 
 ```console
 /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/cert-hash-redacted/certhash/cert-hash-redacted/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ/p2p-circuit/webrtc/p2p/12D3KooWSLQmyYMmWRLS8FaoQGZ6vhXJKaKSrX4BCivJyHFUkLdJ
@@ -508,3 +506,39 @@ Therefore, until WebRTC-Direct or WebTransport support is added to js-libp2p in 
 ## Next steps
 
 As a next step, the [universal connectivity app](https://github.com/libp2p/universal-connectivity) can be a great learning resource, as it expands on many of the concepts and patterns implemented by this guide, in addition to having two bootstrapper implementations in Rust and Go.
+
+
+### Optional: try the go relay
+
+
+Go into the `go-relay` directory and install dependencies
+
+```bash
+cd bootstrapper
+go get .
+```
+
+
+From the `go-relay` folder, run the following command to compile and run the bootstrapper:
+
+```bash
+go run .
+```
+
+This will compile and run the relay. It will also output the PeerID and the multiaddrs it's listening on and should look similar to:
+
+```bash
+2024/05/21 17:43:43 PeerID: 12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+2024/05/21 17:43:43 Listening on: /ip4/127.0.0.1/udp/9095/quic-v1/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+2024/05/21 17:43:43 Listening on: /ip4/127.0.0.1/udp/9095/quic-v1/webtransport/certhash/uEiAbhhQxJeJ6nAWdpB6NdSV4UPaTwEcy9eA76p22SoKyvg/certhash/uEiBTPUrn6BebjshxC80Uarqi4ZsMhrPPQNu2RDu1N4n_Ww/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+2024/05/21 17:43:43 Listening on: /ip4/192.168.3.174/udp/9095/quic-v1/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+2024/05/21 17:43:43 Listening on: /ip4/192.168.3.174/udp/9095/quic-v1/webtransport/certhash/uEiAbhhQxJeJ6nAWdpB6NdSV4UPaTwEcy9eA76p22SoKyvg/certhash/uEiBTPUrn6BebjshxC80Uarqi4ZsMhrPPQNu2RDu1N4n_Ww/p2p/12D3KooWMEZEwzATAoXFbPmb1kgD7p4Ue3jzHGQ8ti2UrsFg11YJ
+```
+
+Note that it's listening on two interfaces (the loopback and the private network) and two transports: QUIC and WebTransport (which is on top of QUIC). QUIC can be used for connections to other go-libp2p relays, while WebTransport for connections from browsers. That means that QUIC isn't strictly necessary, but it's useful if you deploy another relay for resilience or leverage the DHT for peer discovery.
+
+{{< alert icon="💡" context="note">}}
+Another thing worth noting is that the WebTransport multiaddr contains two certificate hashes. These are needed by the browser to verify a self-signed certificate of the go-relay peer. Unlike CA-signed certificates, self-signed certificates can be created on the fly without interaction with a certificate authority.
+<br />
+So why two certificate hashes? Self-signed certificates are valid for at most 14 days. So by convention, go-libp2p generates two consecutively valid certificates to ensure a smooth transition when a new certificate is rolled out.
+{{< /alert >}}
