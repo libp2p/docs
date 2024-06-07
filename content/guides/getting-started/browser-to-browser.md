@@ -11,9 +11,11 @@ aliases:
 
 In this guide, you will learn how to establish direct peer-to-peer (p2p) connections between browsers using [js-libp2p](https://github.com/libp2p/js-libp2p) and WebRTC.
 
-Browser-to-browser connectivity is the foundation for distributed apps with a mesh topology. When combined with GossipSub, like in the [universal connectivity](https://github.com/libp2p/universal-connectivity) chat app, gives you the building blocks for peer-to-peer event-based apps with mesh topologies.
+Browser-to-browser connectivity is the foundation for distributed apps. When combined with GossipSub, like in the [universal connectivity](https://github.com/libp2p/universal-connectivity) chat app, gives you the building blocks for peer-to-peer event-based apps with mesh topologies.
 
 By the end of the guide, you should be familiar with the requisite libp2p and WebRTC protocols and concepts, and how to use them to establish libp2p connections between browsers.
+
+Since js-libp2p runs both in the browser,
 
 WebRTC is a set of open standards and Web APIs that enable Web apps to establish direct connectivity for audio/video conferencing and exchanging arbitrary data. Today, WebRTC is [adopted by most browsers](https://caniuse.com/?search=webrtc) and powers a lot of popular web conferencing apps.
 
@@ -31,7 +33,7 @@ Direct connections are especially useful for video and audio calling, because th
 
 However, the reality of public internet networking given routers, NAT layers, VPNs, and firewalls is such p2p connectivity is riddled with challenges. These challenges are commonly overcome by running additional infrastructure such as signaling, [STUN](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols), and [TURN](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Protocols) servers, some of which are standardized as part of WebRTC.
 
-While WebRTC is a solution to peer-to-peer connectivity in the context of browsers. Libp2p encompasses a wider scope with building blocks for building peer-to-peer apps that support WebRTC in addition to [other protocols, such as QUIC, WebTransport](https://connectivity.libp2p.io/), and essentially form a mesh topology:
+While WebRTC is a solution to peer-to-peer connectivity in the context of browsers. Libp2p encompasses a wider scope with building blocks for building peer-to-peer apps that support WebRTC in addition to [other transports, such as QUIC, TCP, WebSockets, WebTransport](https://connectivity.libp2p.io/), and essentially form a mesh topology:
 
 ![mesh topology](/webrtc-guide/mesh.png)
 
