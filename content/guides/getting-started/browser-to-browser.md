@@ -15,7 +15,7 @@ Browser-to-browser connectivity is the foundation for distributed apps. When com
 
 By the end of the guide, you should be familiar with the requisite libp2p and WebRTC protocols and concepts, and how to use them to establish libp2p connections between browsers.
 
-Since js-libp2p runs both in the browser,
+Since js-libp2p runs both in the browser and Node.js with WebRTC being supported in both, what's covered in this guide applies to using the WebRTC transport to dial browsers from Node.js.
 
 WebRTC is a set of open standards and Web APIs that enable Web apps to establish direct connectivity for audio/video conferencing and exchanging arbitrary data. Today, WebRTC is [adopted by most browsers](https://caniuse.com/?search=webrtc) and powers a lot of popular web conferencing apps.
 
@@ -37,7 +37,9 @@ While WebRTC is a solution to peer-to-peer connectivity in the context of browse
 
 ![mesh topology](/webrtc-guide/mesh.png)
 
-The diagram above illustrates a mesh topolgy with libp2p, where by each peer is identified by a keypair known as a [Peer ID](https://docs.libp2p.io/concepts/fundamentals/peers/). Each Peer can have multiple addresses depending on the transport protocols it can be dialed with, e.g. WebRTC in the browser.
+Another benefit of WebRTC and libp2p is that it allows you to dial a js-libp2p peer in the browser from a js-libp2p in Node.js.
+
+The diagram above illustrates a mesh topology with libp2p, whereby each peer is identified by a [Peer ID](https://docs.libp2p.io/concepts/fundamentals/peers/) that is derived from a public key. When you create a new peer libp2p will first create a new public-private key pair, unless you provide one.  Each Peer can have multiple addresses depending on the transport protocols it can be dialed with, e.g. WebRTC in the browser, which can also change.
 
 ## Peer-to-peer connections: when two aren't enough to tango
 
@@ -49,7 +51,7 @@ Specifically, these include:
 - **STUN** server: helps the browser discover its observed public address and is necessary in almost all cases, due to NAT making it hard for a browser to know its observed public IP. There are many [free public STUN servers](https://gist.github.com/mondain/b0ec1cf5f60ae726202e) that you can use.
 - **TURN** (Relay) server: relays traffic if the browsers fail to establish a direct connection and is defined as part of the WebRTC specification. Unlike signaling and STUN servers can be costly to run because they route all traffic between peers. This guide will not use TURN servers. Instead, it will lean on GossipSub to ensure delivery of messages when direct connections cannot be established.
 - **signaling**: helps the browsers exchange [SDP (Session Description Protocol)](https://developer.mozilla.org/en-US/docs/Glossary/SDP) messages: the metadata necessary to establish a connection. Most importantly, signaling is not part of the WebRTC specification. This means that applications are free to implement signaling as they see fit. In this guide, you will use Libp2p's [protocol for signaling](https://github.com/libp2p/specs/blob/master/webrtc/webrtc.md#signaling-protocol) over Circuit Relay v2 connections.
-- **Libp2p relay/bootstrapper**: The libp2p peer will serve two roles:
+- **Libp2p relay**: The libp2p peer will serve two roles:
   - **Circuit Relay V2**: A publicly reachable libp2p peer that can serve as a relay between browser nodes that have yet to establish a direct connection between each other. Unlike TURN servers, which are WebRTC-specific and can be costly to run, Circuit Relay V2 is a libp2p protocol that is resource-constrained by design. It's also decentralized and trustless, in the sense that any publicly reachable libp2p peer supporting the protocol can help browsers libp2p nodes as a (time and bandwidth-constrained) relay.
   - **GossipSub Peer Discovery**: For browser peers to discover each other, they will need some mechanism to announce their multiaddresses to other browsers. GossipSub will help by relaying those peer discovery messages between browsers which kick off the direct connection establishment.
 
@@ -469,7 +471,7 @@ If you have reached this far in the guide, well done! You learned about how to e
 
 ### NAT hole punching
 
-Peer to peer connectivity is inherently hard, which is why in this guide, all connections were on a local machine which significantly increases connection success rates.
+Peer-to-peer connectivity is inherently hard, which is why in this guide, all connections were on a local machine which significantly increases connection success rates.
 
 On public networks where both browser peers are behind NAT, NAT hole punching success rates range around 80% depending on the network conditions and the [types of NAT the peers are behind](https://tailscale.com/blog/how-nat-traversal-works#the-nature-of-nats). The implications of this depend on the nature of your app. PubSub with GossipSub was designed to ensure delivery of messages without requiring a connection to the whole mesh. In other words, the GossipSub protocol was designed with sparsely-connected networks, where you are not connected to all other peers. So long as the browser peer can publish a message to at least one other peer, the message should propagate to all subscribers.
 
@@ -488,17 +490,17 @@ Connectivity between the browser and bootstrapper is constrained by supported tr
 At the time of writing, **js-libp2p in browsers** supports:
 
 - WebSockets: this works well and is broadly adopted by libp2p implementations, but requires the bootstrapper to have CA-signed TLS certificate and a domain name to work in [Secure Contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts). Another disadvantage of Secure WebSockets is that it results in double encryption (TLS and Noise) with libp2p.
-- WebTransport: Supported by [Chrome, Firefox and Opera](https://caniuse.com/webtransport), but not Safari.
+- WebTransport: Supported by [Chrome, Firefox, Opera, and Edge](https://caniuse.com/webtransport), but not Safari.
 - WebRTC: Supported by most browsers
 - [WebRTC-direct](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct): Supported by all browsers that support WebRTC.
 
-While **js-libp2p in node.js** supports:
+While **js-libp2p in Node.js** supports:
 
-1. WebRTC: this one is rather confusing because [unlike](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct) [WebRTC direct](https://github.com/libp2p/specs/blob/master/webrtc/webrtc-direct.md), it requires an additional circuit relay peer to forward SDP messages between the browser and the node.js bootstrapper, making it infeasible for the node.js peer to be the bootstrapper. WebRTC-direct solves this problem, however, at the time of writing it isn't supported by js-libp2p.
+1. WebRTC: this one is rather confusing because [unlike](https://github.com/libp2p/js-libp2p/tree/main/packages/transport-webrtc#webrtc-vs-webrtc-direct) [WebRTC direct](https://github.com/libp2p/specs/blob/master/webrtc/webrtc-direct.md), it requires an additional circuit relay peer to forward SDP messages between the browser and the Node.js bootstrapper, making it infeasible for the Node.js peer to be the bootstrapper. WebRTC-direct solves this problem, however, at the time of writing it isn't supported by js-libp2p (See [tracking issue](https://github.com/libp2p/js-libp2p/issues/2581)).
 2. WebSockets: as mentioned above, requires a CA-signed TLS certificate and a domain.
 3. TCP: not available in browsers.
 
-Therefore, until WebRTC-Direct or WebTransport support is added to js-libp2p in node.js, it's much easier to use go-libp2p.
+Therefore, until WebRTC-Direct or WebTransport support is added to js-libp2p in Node.js, it's much easier to use go-libp2p.
 
 ## Next steps
 
