@@ -13,7 +13,7 @@ In this guide, you will learn how to establish direct peer-to-peer (p2p) connect
 
 Browser-to-browser connectivity is the foundation for distributed apps. When combined with GossipSub, like in the [universal connectivity](https://github.com/libp2p/universal-connectivity) chat app, gives you the building blocks for peer-to-peer event-based apps with mesh topologies.
 
-By the end of the guide, you should be familiar with the requisite libp2p and WebRTC protocols and concepts, and how to use them to establish libp2p connections between browsers.
+By the end of the guide, you should be familiar with the requisite libp2p and WebRTC protocols and concepts, and how to use them to establish libp2p connections between browsers. You can find [the associated code for this guide on GitHub](https://github.com/libp2p/libp2p-webrtc-guide)
 
 Since js-libp2p runs both in the browser and Node.js with WebRTC being supported in both, what's covered in this guide also applies to using the WebRTC transport to dial browsers _from_ Node.js.
 
