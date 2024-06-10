@@ -1,7 +1,7 @@
 ---
 title: "WebRTC with js-libp2p"
 weight: 3
-description: "Learn how to use js-libp2p to establish a connection between browsers"
+description: "Learn how to use js-libp2p to establish a connection between browsers and node.js and learn about libp2p transports and concepts in practice."
 aliases:
   - "/tutorials/browser-to-browser"
   - "/guides/js-browser-to-browser"
