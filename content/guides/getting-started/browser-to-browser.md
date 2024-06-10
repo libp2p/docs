@@ -73,7 +73,7 @@ The connection flow can seem complex, but thankfully, libp2p abstracts some of t
 
 Either way, there are several noteworthy things about the connection flow:
 
-1. There's no prescribed mechanism in libp2p for how the two peers discover each other's multiaddress, also known as **peer discovery**. This guide will use a [dedicated GossipSub channel for the application where you publish your own multiaddrs (periodically) similar to mdns](https://github.com/libp2p/js-libp2p-pubsub-peer-discovery/). PubSub peer discovery works well for demos and guides, but its current design is not battle-tested for production use cases.
+1. There's no prescribed mechanism in libp2p for how the two peers discover each other's multiaddress, also known as **peer discovery**. This guide will use a [dedicated GossipSub channel for the application where you publish your multiaddrs (periodically) similar to mdns](https://github.com/libp2p/js-libp2p-pubsub-peer-discovery/). PubSub peer discovery works well for demos and guides, but its current design is not battle-tested for production use cases.
 2. Other approaches to Peer routing and discovery include [DHT FIND_NODE query](https://github.com/libp2p/specs/blob/master/kad-dht/README.md#dht-operations), [HTTP Delegated Routing](https://specs.ipfs.tech/routing/http-routing-v1/), and [GossipSub Peer Exchange](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/gossipsub-v1.1.md), though browser peers don't tend to be long-lived enough to appear in the results of the first two.
 3. Since this guide uses a GossipSub channel for peer discovery, the relay node will listen to the discovery topic too, so that it can relay messages between browsers who've yet to establish a direct connection.
 
@@ -118,7 +118,7 @@ npm run start:relay
 
 It will also output the PeerID and the multiaddrs it's listening on and should look similar to:
 
-```
+```bash
 PeerID:  12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ
 Multiaddrs:  [
   Multiaddr(/ip4/127.0.0.1/tcp/9001/ws/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ),
@@ -184,7 +184,7 @@ const libp2p = await createLibp2p({
 });
 ```
 
-The `createLibp2p` invocation creates a libp2p peer which has its own associated key pair and [Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}}) with support for the WebSocket , WebTransport and WebRTC transports, as well as the [identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}}). It also uses noise for to ensure that all connections are encrypted, and yamux as the stream multiplexer for the relayed connection.
+The `createLibp2p` invocation creates a libp2p peer which has its associated key pair and [Peer ID]({{< relref "/concepts/fundamentals/peers#peer-id" >}}) with support for the WebSocket , WebTransport and WebRTC transports, as well as the [identify protocol]({{< relref "/concepts/fundamentals/protocols#identify" >}}). It also uses noise for to ensure that all connections are encrypted, and yamux as the stream multiplexer for the relayed connection.
 
 {{< alert icon="💡" context="note">}}
 **Why is yamux needed?**
