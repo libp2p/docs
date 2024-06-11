@@ -395,7 +395,6 @@ After connecting to the relay, the frontend will render four new multiaddrs:
 /ip4/192.168.3.174/tcp/9001/ws/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ/p2p-circuit/webrtc/p2p/12D3KooWQny42bDJfqPoBfpd9qNw2HrqtUTStUmCgBktnDXhisW7
 /ip4/127.0.0.1/tcp/9002/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ/p2p-circuit/webrtc/p2p/12D3KooWQny42bDJfqPoBfpd9qNw2HrqtUTStUmCgBktnDXhisW7
 /ip4/192.168.3.174/tcp/9002/p2p/12D3KooWQtCgYCZ7JZQoe7Ao6KP5CDMnmEiURqMoarfBgJwbnCPQ/p2p-circuit/webrtc/p2p/12D3KooWQny42bDJfqPoBfpd9qNw2HrqtUTStUmCgBktnDXhisW7
-
 ```
 
 These new multiaddrs all contain `/webrtc/` which means they are intended for establishing a direct WebRTC connection between two browser. The first two are relevant for the browser, since they are WebSocket multiaddrs.
