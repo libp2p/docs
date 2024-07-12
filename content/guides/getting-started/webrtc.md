@@ -158,19 +158,7 @@ const libp2p = await createLibp2p({
     // Allow all WebSocket connections inclusing without TLS
     webSockets({ filter: filters.all }),
     webTransport(),
-    webRTC({
-      rtcConfiguration: {
-        iceServers: [
-          {
-            // STUN servers help the browser discover its own public IPs
-            urls: [
-              "stun:stun.l.google.com:19302",
-              "stun:global.stun.twilio.com:3478",
-            ],
-          },
-        ],
-      },
-    }),
+    webRTC(),
   ],
   connectionEncryption: [noise()],
   streamMuxers: [yamux()],
@@ -234,16 +222,7 @@ const libp2p = await createLibp2p({
     // Allow all WebSocket connections inclusing without TLS
     webSockets({ filter: filters.all }),
     webTransport(),
-    webRTC({
-      rtcConfiguration: {
-        iceServers: [
-          {
-            // STUN servers help the browser discover its own public IPs
-            urls: ['stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'],
-          },
-        ],
-      },
-    }),
+    webRTC(),
 +    circuitRelayTransport({
 +      discoverRelays: 1,
 +    }),
@@ -300,16 +279,7 @@ const libp2p = await createLibp2p({
     // Allow all WebSocket connections inclusing without TLS
     webSockets({ filter: filters.all }),
     webTransport(),
-    webRTC({
-      rtcConfiguration: {
-        iceServers: [
-          {
-            // STUN servers help the browser discover its own public IPs
-            urls: ['stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'],
-          },
-        ],
-      },
-    }),
+    webRTC(),
     circuitRelayTransport({
       discoverRelays: 1,
     }),
@@ -352,16 +322,7 @@ const libp2p = await createLibp2p({
     // Allow all WebSocket connections inclusing without TLS
     webSockets({ filter: filters.all }),
     webTransport(),
-    webRTC({
-      rtcConfiguration: {
-        iceServers: [
-          {
-            // STUN servers help the browser discover its own public IPs
-            urls: ['stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'],
-          },
-        ],
-      },
-    }),
+    webRTC(),
     circuitRelayTransport({
       discoverRelays: 1,
     }),
@@ -440,16 +401,7 @@ const libp2p = await createLibp2p({
     // Allow all WebSocket connections inclusing without TLS
     webSockets({ filter: filters.all }),
     webTransport(),
-    webRTC({
-      rtcConfiguration: {
-        iceServers: [
-          {
-            // STUN servers help the browser discover its own public IPs
-            urls: ['stun:stun.l.google.com:19302', 'stun:global.stun.twilio.com:3478'],
-          },
-        ],
-      },
-    }),
+    webRTC(),
     circuitRelayTransport({
       discoverRelays: 1,
     }),
