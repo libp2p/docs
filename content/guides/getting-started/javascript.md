@@ -1,6 +1,6 @@
 ---
 title: "Run a js-libp2p node"
-weight: 3
+weight: 11
 description: "Learn how to run a js-libp2p node and use the ping protocol"
 aliases:
     - "/tutorials/javascript"

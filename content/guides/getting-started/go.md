@@ -1,6 +1,6 @@
 ---
 title: "Run a go-libp2p node"
-weight: 2
+weight: 10
 description: "Learn how to run a go-libp2p node and use the ping protocol"
 aliases:
     - "/tutorials/go"
