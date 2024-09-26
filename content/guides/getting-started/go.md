@@ -13,7 +13,7 @@ with libp2p basics, and implementing a simple node that can send and receive "pi
 in go-libp2p.
 
 The [Protocol Labs Launchpad curriculum](https://curriculum.pl-launchpad.io/) also includes
-a tutorial on spinning up a libp2p node using a go-libp2p bolierplate. Check it out
+a tutorial on spinning up a libp2p node using a go-libp2p boilerplate. Check it out
 [here](https://curriculum.pl-launchpad.io/tutorials/libp2p/creating-simple-node/).
 
 This is the first in a series of tutorials on working with libp2p’s Go implementation,
