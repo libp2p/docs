@@ -109,22 +109,22 @@ const node = await createLibp2p({
 
 While multiplexers are not strictly required, they are highly recommended as they improve the effectiveness and efficiency of connections for the various protocols libp2p runs.
 
-Looking at the [available stream multiplexing](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing) modules, js-libp2p currently only supports `@libp2p/mplex`, so we will use that here. You can install `@libp2p/mplex` and add it to your libp2p node as follows in the next example.
+Looking at the [available stream multiplexing](https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing) modules, js-libp2p supports `@chainsafe/libp2p-yamux` and `@libp2p/mplex`, but [mplex](https://docs.libp2p.io/concepts/multiplex/mplex/) is [deprecated](https://github.com/libp2p/specs/issues/553) so we will use [Yamux]([https://github.com/hashicorp/yamux/blob/master/spec.md](https://docs.libp2p.io/concepts/multiplex/yamux/)) here. You can install `@chainsafe/libp2p-yamux` and add it to your libp2p node as follows in the next example.
 
 ```sh
-npm install @libp2p/mplex
+npm install @chainsafe/libp2p-yamux
 ```
 
 ```js
 import { createLibp2p } from 'libp2p'
 import { tcp } from '@libp2p/tcp'
 import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
+import { yamux } from '@chainsafe/libp2p-yamux'
 
 const node = await createLibp2p({
   transports: [tcp()],
   connectionEncryption: [noise()],
-  streamMuxers: [mplex()]
+  streamMuxers: [yamux()]
 })
 
 ```
@@ -137,7 +137,7 @@ Now that you have configured a **Transport**, **Crypto** and **Stream Multiplexe
 import { createLibp2p } from 'libp2p'
 import { tcp } from '@libp2p/tcp'
 import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
+import { yamux } from '@chainsafe/libp2p-yamux'
 
 const main = async () => {
   const node = await createLibp2p({
@@ -147,7 +147,7 @@ const main = async () => {
     },
     transports: [tcp()],
     connectionEncryption: [noise()],
-    streamMuxers: [mplex()]
+    streamMuxers: [yamux()]
   })
 
   // start libp2p
@@ -195,7 +195,7 @@ import process from 'node:process'
 import { createLibp2p } from 'libp2p'
 import { tcp } from '@libp2p/tcp'
 import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
+import { yamux } from '@chainsafe/libp2p-yamux'
 import { multiaddr } from 'multiaddr'
 import { ping } from '@libp2p/ping'
 
@@ -206,7 +206,7 @@ const node = await createLibp2p({
   },
   transports: [tcp()],
   connectionEncryption: [noise()],
-  streamMuxers: [mplex()],
+  streamMuxers: [yamux()],
   services: {
     ping: ping({
       protocolPrefix: 'ipfs', // default
@@ -273,7 +273,7 @@ Success! Our two peers are now communicating over a multiplexed, secure channel.
 
 After finishing this tutorial, you should have a look into the [js-libp2p getting started](https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md) document, which goes from a base configuration like this one, to more custom ones.
 
-You also have a panoply of examples on [js-libp2p repo](https://github.com/libp2p/js-libp2p-examples) that you can leverage to learn how to use `js-libp2p` for several different use cases and runtimes.
+A range of examples are available in the [js-libp2p-examples repo](https://github.com/libp2p/js-libp2p-examples) for you to learn how to use `js-libp2p` for several different use cases and runtimes.
 
 [definition_multiaddress]: /reference/glossary/#multiaddr
 [definition_multiplexer]: /reference/glossary/#multiplexer
