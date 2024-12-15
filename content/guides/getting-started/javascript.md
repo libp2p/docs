@@ -124,7 +124,7 @@ import { yamux } from '@chainsafe/libp2p-yamux'
 const node = await createLibp2p({
   transports: [tcp()],
   connectionEncrypters: [noise()],
-  streamMuxers: [mplex()]
+  streamMuxers: [yamux()]
 })
 
 ```
@@ -147,7 +147,7 @@ const main = async () => {
     },
     transports: [tcp()],
     connectionEncrypters: [noise()],
-    streamMuxers: [mplex()]
+    streamMuxers: [yamux()]
   })
 
   // start libp2p
@@ -206,7 +206,7 @@ const node = await createLibp2p({
   },
   transports: [tcp()],
   connectionEncrypters: [noise()],
-  streamMuxers: [mplex()],
+  streamMuxers: [yamux()],
   services: {
     ping: ping({
       protocolPrefix: 'ipfs', // default
