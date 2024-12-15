@@ -100,7 +100,7 @@ import { noise } from '@chainsafe/libp2p-noise'
 
 const node = await createLibp2p({
   transports: [tcp()],
-  connectionEncryption: [noise()]
+  connectionEncrypters: [noise()]
 })
 
 ```
@@ -123,7 +123,7 @@ import { yamux } from '@chainsafe/libp2p-yamux'
 
 const node = await createLibp2p({
   transports: [tcp()],
-  connectionEncryption: [noise()],
+  connectionEncrypters: [noise()],
   streamMuxers: [yamux()]
 })
 
@@ -146,7 +146,7 @@ const main = async () => {
       listen: ['/ip4/127.0.0.1/tcp/0']
     },
     transports: [tcp()],
-    connectionEncryption: [noise()],
+    connectionEncrypters: [noise()],
     streamMuxers: [yamux()]
   })
 
@@ -205,7 +205,7 @@ const node = await createLibp2p({
     listen: ['/ip4/127.0.0.1/tcp/0']
   },
   transports: [tcp()],
-  connectionEncryption: [noise()],
+  connectionEncrypters: [noise()],
   streamMuxers: [yamux()],
   services: {
     ping: ping({
