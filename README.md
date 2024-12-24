@@ -50,9 +50,9 @@ The documentation site contains several different kinds of content. We’d love 
 
 3. **Guides**: Most examples currently live in other repositories, like [js-libp2p examples](https://github.com/libp2p/js-libp2p/tree/master/examples). If you have thoughts on integrating them better, please file an issue. If you have feedback on individual examples or want to add a new one, please file an issue or pull request on the relevant repository. If you have ideas for guides or tutorials, they belong here! Please propose them in an issue here before creating a pull request.
 
-3. **Reference material**: The navbar includes all the reference material available for libp2p. Please see the issues in this repository for current activity around reference/API documentation.
+4. **Reference material**: The navbar includes all the reference material available for libp2p. Please see the issues in this repository for current activity around reference/API documentation.
 
-4. **Community**: If there are missing community links, feel free to file an issue or pull request,
+5. **Community**: If there are missing community links, feel free to file an issue or pull request,
 
 This repository is also a website; we could use your help with design and technical features (interactive examples, better syntax highlighting, scripts to pull in content from other repositories, etc.) in addition to writing. To get a sense of what we could use help on, check the [issues](https://github.com/libp2p/docs/issues). If you decide to work on one, please post to the issue to let us know!
 
@@ -82,27 +82,27 @@ Follow these steps to run a copy of this site on your local machine.
     git clone https://github.com/libp2p/docs
     ```
 
-1. Navigate into the new folder and download the dependencies by running:
+2. Navigate into the new folder and download the dependencies by running:
 
     ```shell
     cd docs
     npm install
     ```
 
-2. Build the project and serve the static files to Hugo with:
+3. Build the project and serve the static files to Hugo with:
 
     ```shell
     npm run build
     ```
 
-3. Start the local Hugo's development server with:
+4. Start the local Hugo's development server with:
 
     ```shell
     npm start
     ```
 
-4. Visit [localhost:1313](http://localhost:1313) to view the site.
-5. Press `CTRL` + `c` in the terminal to stop the local server.
+5. Visit [localhost:1313](http://localhost:1313) to view the site.
+6. Press `CTRL` + `c` in the terminal to stop the local server.
 
 ## Configuration guide
 
