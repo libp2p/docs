@@ -29,6 +29,16 @@ A few notable users of libp2p include:
 | **Espresso Systems** | The implementation of libp2p has facilitated Espresso's goal of enabling cross-chain interactions that operate as if on one chain. |
 | **Magi (by a16z)** | Magi is an OP Stack rollup client developed by Andreessen Horowitz (a16z) that implements libp2p as part of its networking stack. |
 | **Berty** | Berty is a secure, privacy-focused messaging app leveraging a custom version of OrbitDB on top of libp2p to organize and store messages in a decentralized manner. |
+| **Flow** | Flow has established itself as a leading blockchain for NFTs and decentralized applications, partly due to its efficient networking layer built on libp2p. |
+| **Oasis** | Oasis Network utilizes libp2p for peer-to-peer communication in its consensus layer, which is responsible for maintaining the network's state and validating transactions. |
+| **Mina** | By leveraging libp2p, Mina has achieved a lightweight blockchain of only 22KB, enabling efficient scalability and decentralized communication. This has significantly enhanced the network's performance and accessibility. |
+| **EdgeVPN** | EdgeVPN uses a lightweight blockchain built on top of libp2p to store and propagate network metadata, such as service UUIDs, IP addresses, and DNS records. This blockchain serves as a coordination mechanism between nodes.|
+| **Status-go / status.im** | Status has developed nim-libp2p, a Nim implementation of libp2p, which is used in projects like Codex, Waku, and Nimbus. |
+| **Fluence Network, nox, aquavm** | Fluence's use of libp2p has contributed to its ability to provide verifiable computation, a crucial feature for ensuring trust in decentralized systems. |
+| **Ceramic** | Ceramic's use of libp2p has contributed to its ability to handle high-volume application data with web-scale volume and latency; libp2p has also enabled IDX, Ceramic's decentralized identity solution. |
+| **Nethermind, juno, dotnet-libp2p** | By leveraging libp2p, Nethermind has positioned its projects (Juno and dotnet-libp2p) to contribute significantly to the decentralization and scalability of blockchain networks, particularly in the Ethereum and Starknet ecosystems. |
+| **Drand / Randamu** | Libp2p enables direct peer-to-peer communication between Drand nodes, allowing for decentralized randomness generation and distribution. |
+| **Anoma** | By leveraging libp2p and introducing sovereign domains, Anoma has created a scalable infrastructure that can accommodate diverse node capabilities and network conditions. |
 | **Avail** | By utilizing libp2p, Avail has created a robust, scalable, and efficient light client network that enhances its data availability guarantees and improves user experience in interacting with the blockchain. |
 | **Prysm (Prysmatic Labs)** | The adoption of libp2p has allowed Prysm to be interoperable with other Ethereum consensus clients, contributing to client diversity in the ecosystem. |
 | **Lighthouse (Sigma Prime)** | The adoption of libp2p aligns with Lighthouse's security-first mindset, allowing for extensive reviews and monitoring of the networking stack. |
