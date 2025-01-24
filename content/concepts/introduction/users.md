@@ -1,7 +1,7 @@
 ---
 title: "Who uses libp2p"
 description: libp2p is used by many blockchain networks, p2p applications, and edge computing projects.
-weight: 20
+weight: 19
 aliases:
   - "/introduction/libp2p-users"
 ---
@@ -18,6 +18,7 @@ A few notable users of libp2p include:
 | **Ethereum** | The integration of libp2p into Ethereum 2.0 has been instrumental in achieving scalability and decentralization. It also played a key role in the network's transition to proof-of-stake, which reduced energy consumption by 99.95%. |
 | **Optimism** | Optimism uses libp2p as a core component of its networking infrastructure, particularly in its op-node implementation. |
 | **Celestia** | Celestia uses libp2p for its data availability sampling (DAS) network, which enables light nodes to perform DAS by querying random data shares and verifying their availability. |
+| **Polkadot** | Polkadot leverages libp2p as part of its Substrate-based architecture. Libp2p enables Polkadot's scalability by facilitating seamless communication across its heterogeneous blockchain ecosystem, including parachains and parathreads. |
 | **Radicle** | Radicle is a p2p code collaboration platform for distributed version control without intermediaries. It uses libp2p for peer discovery and connections, its p2p gossip protocol, and transport encryption. |
 | **MetaMask** | MetaMask leverages libp2p's capabilities for cryptographic key management directly in the browser, enhancing security and user control. In addition, MetaMask has created js-libp2p-multicast-conditional, a tool for conditional multicast using libp2p, further expanding the ecosystem's capabilities. |
 | **Uniswap** | Ethereum's transition to proof-of-stake, facilitated in part by libp2p, has created a more sustainable and efficient environment for decentralized applications like Uniswap to operate. |
@@ -47,4 +48,4 @@ A few notable users of libp2p include:
 | **MultiversX** | MultiversX's adoption of libp2p has contributed to improved connectivity with support for multiple transport protocols. |
 | **Taiko Labs** | Taiko Labs has leveraged libp2p to build a robust, scalable, and efficient ZK-Rollup infrastructure. |
 
-Additions to this list of notable users are welcome and can be added to this list via [PR on Github](https://github.com/libp2p/docs/tree/master/content/concepts/introduction).
+This list of notable users is incomplete and constantly growing. Additions are welcome and can be added via [PR on Github](https://github.com/libp2p/docs/tree/master/content/concepts/introduction).
