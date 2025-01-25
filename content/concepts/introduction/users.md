@@ -53,7 +53,7 @@ A few notable users of libp2p include:
 | **Spritely** | Spritely uses libp2p as a networking layer for its Goblins distributed object programming environment. |
 | **Iotex Project** | Since launching in 2019, IoTeX has handled more than 35 million transactions with a 99.9% reliability rate, partly due to its robust networking infrastructure powered by libp2p. |
 | **Algorand** | Algorand is implementing libp2p to transition away from relying on centralized relay nodes, moving towards a more decentralized network structure. |
-| **PeerGos** | Peergos uses libp2p to build a peer-to-peer encrypted global filesystem with fine-grained access control, enhancing user privacy and data security. |
+| **Peergos** | Peergos uses libp2p to build a peer-to-peer encrypted global filesystem with fine-grained access control, enhancing user privacy and data security. |
 | **Moonbeam** | libp2p enables seamless communication between different blockchain networks, which aligns with Moonbeam's goal of providing an easy path to multi-chain implementation. |
 | **MultiversX** | MultiversX's adoption of libp2p has contributed to improved connectivity with support for multiple transport protocols. |
 | **Taiko Labs** | Taiko Labs has leveraged libp2p to build a robust, scalable, and efficient ZK-Rollup infrastructure. |
