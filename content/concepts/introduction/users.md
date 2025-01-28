@@ -19,10 +19,8 @@ A few notable users of libp2p include:
 | **Optimism** | Optimism uses libp2p as a core component of its networking infrastructure, particularly in its op-node implementation. |
 | **Celestia** | Celestia uses libp2p for its data availability sampling (DAS) network, which enables light nodes to perform DAS by querying random data shares and verifying their availability. |
 | **Polkadot** | Polkadot leverages libp2p as part of its Substrate-based architecture. Libp2p enables Polkadot's scalability by facilitating seamless communication across its heterogeneous blockchain ecosystem, including parachains and parathreads. |
-| **MetaMask** | MetaMask created js-libp2p-multicast-conditional, an experimental tool for conditional multicast using libp2p. |
 | **Uniswap** | Ethereum's transition to proof-of-stake, facilitated in part by libp2p, has created a more sustainable and efficient environment for decentralized applications like Uniswap to operate. |
 | **Base Network (Coinbase)** | By leveraging libp2p, Base has created a robust peer-to-peer infrastructure that can handle efficient communication between nodes, crucial for its role in scaling Ethereum transactions. |
-| **Polygon** | The Polygon Edge framework and Polygon Supernets leverage libp2p for modular, extensible, and fast networking, enabling features like block syncing and consensus. By leveraging libp2p, Polygon has created a scalable infrastructure that can handle millions of transactions per day smoothly. |
 | **Starknet, Pathfinder / Madara** | Starknet's p2p network is divided into three networks (Sync, Mempool, Consensus), all of which use libp2p for different purposes. libp2p enables Starknet to implement custom security policies, auth requirements, and capability filtering for each network separately. |
 | **Huddle01** | Huddle01 aims to reduce costs by 95% compared to traditional centralized communication platforms like Zoom, Skype, and Google Meet, partly due to its efficient p2p infrastructure powered by libp2p. |
 | **Espresso Systems** | The implementation of libp2p has facilitated Espresso's goal of enabling cross-chain interactions that operate as if on one chain. |
@@ -47,14 +45,13 @@ A few notable users of libp2p include:
 | **Nillion** | Compute nodes in the Nillion network are configured as relay servers using libp2p's Circuit Relay protocol. |
 | **Aave** | Leveraging libp2p's flexibility, Aave has successfully expanded to multiple blockchain networks, including Ethereum, Polygon, and Avalanche - increasing Aave's ecosystem expansion, with over 100 integrated projects and applications. |
 | **Bittorrent FS** | By leveraging libp2p for peer-to-peer networking and stream management, BTFS has improved its scalability, supporting a growing ecosystem of users and developers. |
-| **Internet Computer (IC)** | Internet Computer's networking layer built on libp2p has successfully implemented Byzantine Fault Tolerant (BFT) protocols, enhancing the security and reliability of the IC. |
 | **Spritely** | Spritely uses libp2p as a networking layer for its Goblins distributed object programming environment. |
 | **Iotex Project** | IoTeX uses libp2p for its robust networking infrastructure and peer to peer connectivity. |
-| **Algorand** | Algorand is implementing libp2p to transition away from relying on centralized relay nodes, moving towards a more decentralized network structure. |
+| **Algorand** | Algorand is integrating libp2p to transition away from relying on centralized relay nodes, moving towards a more decentralized network structure. |
 | **Peergos** | Peergos uses libp2p to build a peer-to-peer encrypted global filesystem with fine-grained access control, enhancing user privacy and data security. |
 | **Moonbeam** | libp2p enables seamless communication between different blockchain networks, which aligns with Moonbeam's goal of providing an easy path to multi-chain implementation. |
 | **MultiversX** | MultiversX's adoption of libp2p has contributed to improved connectivity with support for multiple transport protocols. |
 | **Taiko Labs** | Taiko Labs has leveraged libp2p to build a robust, scalable, and efficient ZK-Rollup infrastructure. |
 | **webAI** | webAI uses libp2p to provide a distributed AI model training and inference platform for businesses. |
 
-This list of notable users is incomplete and constantly growing. Additions are welcome and can be added via [PR on Github](https://github.com/libp2p/docs/tree/master/content/concepts/introduction).
+This list of notable users is incomplete and constantly growing. Additions are welcome and can be added via [PR on Github](https://github.com/libp2p/docs/pulls).
