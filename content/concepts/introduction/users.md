@@ -19,7 +19,7 @@ A few notable users of libp2p include:
 | **Optimism** | Optimism uses libp2p as a core component of its networking infrastructure, particularly in its op-node implementation. |
 | **Celestia** | Celestia uses libp2p for its data availability sampling (DAS) network, which enables light nodes to perform DAS by querying random data shares and verifying their availability. |
 | **Polkadot** | Polkadot leverages libp2p as part of its Substrate-based architecture. Libp2p enables Polkadot's scalability by facilitating seamless communication across its heterogeneous blockchain ecosystem, including parachains and parathreads. |
-| **MetaMask** | MetaMask leverages libp2p's capabilities for cryptographic key management directly in the browser, enhancing security and user control. In addition, MetaMask has created js-libp2p-multicast-conditional, a tool for conditional multicast using libp2p, further expanding the ecosystem's capabilities. |
+| **MetaMask** | MetaMask created js-libp2p-multicast-conditional, an experimental tool for conditional multicast using libp2p. |
 | **Uniswap** | Ethereum's transition to proof-of-stake, facilitated in part by libp2p, has created a more sustainable and efficient environment for decentralized applications like Uniswap to operate. |
 | **Base Network (Coinbase)** | By leveraging libp2p, Base has created a robust peer-to-peer infrastructure that can handle efficient communication between nodes, crucial for its role in scaling Ethereum transactions. |
 | **Polygon** | The Polygon Edge framework and Polygon Supernets leverage libp2p for modular, extensible, and fast networking, enabling features like block syncing and consensus. By leveraging libp2p, Polygon has created a scalable infrastructure that can handle millions of transactions per day smoothly. |
@@ -46,10 +46,10 @@ A few notable users of libp2p include:
 | **Mantle** | Mantle's use of libp2p contributes to its efficient peer-to-peer communication and block propagation, which are crucial for its L2 solution. |
 | **Nillion** | Compute nodes in the Nillion network are configured as relay servers using libp2p's Circuit Relay protocol. |
 | **Aave** | Leveraging libp2p's flexibility, Aave has successfully expanded to multiple blockchain networks, including Ethereum, Polygon, and Avalanche - increasing Aave's ecosystem expansion, with over 100 integrated projects and applications. |
-| **Bittorrent** | By leveraging libp2p for peer-to-peer networking and steam management, BTFS has improved its scalability, supporting a growing ecosystem of users and developers. |
+| **Bittorrent FS** | By leveraging libp2p for peer-to-peer networking and stream management, BTFS has improved its scalability, supporting a growing ecosystem of users and developers. |
 | **Internet Computer (IC)** | Internet Computer's networking layer built on libp2p has successfully implemented Byzantine Fault Tolerant (BFT) protocols, enhancing the security and reliability of the IC. |
 | **Spritely** | Spritely uses libp2p as a networking layer for its Goblins distributed object programming environment. |
-| **Iotex Project** | Since launching in 2019, IoTeX has handled more than 35 million transactions with a 99.9% reliability rate, partly due to its robust networking infrastructure powered by libp2p. |
+| **Iotex Project** | IoTeX uses libp2p for its robust networking infrastructure and peer to peer connectivity. |
 | **Algorand** | Algorand is implementing libp2p to transition away from relying on centralized relay nodes, moving towards a more decentralized network structure. |
 | **Peergos** | Peergos uses libp2p to build a peer-to-peer encrypted global filesystem with fine-grained access control, enhancing user privacy and data security. |
 | **Moonbeam** | libp2p enables seamless communication between different blockchain networks, which aligns with Moonbeam's goal of providing an easy path to multi-chain implementation. |
