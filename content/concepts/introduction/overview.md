@@ -136,9 +136,11 @@ There are several reasons to consider using libp2p as a networking layer to crea
   communication between peers, making it possible to build P2P applications resistant to censorship and more
   resilient in the face of network disruptions.
 
-## Related projects
+## Users & related projects
 
-libp2p remains an integral component in IPFS and can be easily integrated with other projects in the
+For a list of libp2p users across the ecosystem, please see [this list]({{< relref "/concepts/introduction/users.md" >}}).
+
+In addition, libp2p remains an integral component in IPFS and can be easily integrated with other projects in the
 IPFS "family". Check their sites for specific information and references:
 
 - [IPFS](https://ipfs.tech) is the InterPlanetary File System, which uses libp2p as
