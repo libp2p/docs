@@ -37,7 +37,6 @@ A few notable users of libp2p include:
 | **Ceramic** | Ceramic's use of libp2p has contributed to its ability to handle high-volume application data with web-scale volume and latency; libp2p has also enabled IDX, Ceramic's decentralized identity solution. |
 | **Nethermind, juno, dotnet-libp2p** | By leveraging libp2p, Nethermind has positioned its projects (Juno and dotnet-libp2p) to contribute significantly to the decentralization and scalability of blockchain networks, particularly in the Ethereum and Starknet ecosystems. |
 | **Drand / Randamu** | Libp2p enables direct peer-to-peer communication between Drand nodes, allowing for decentralized randomness generation and distribution. |
-| **Anoma** | By leveraging libp2p and introducing sovereign domains, Anoma has created a scalable infrastructure that can accommodate diverse node capabilities and network conditions. |
 | **Avail** | By utilizing libp2p, Avail has created a robust, scalable, and efficient light client network that enhances its data availability guarantees and improves user experience in interacting with the blockchain. |
 | **Prysm (Prysmatic Labs)** | The adoption of libp2p has allowed Prysm to be interoperable with other Ethereum consensus clients, contributing to client diversity in the ecosystem. |
 | **Lighthouse (Sigma Prime)** | The adoption of libp2p aligns with Lighthouse's security-first mindset, allowing for extensive reviews and monitoring of the networking stack. |
