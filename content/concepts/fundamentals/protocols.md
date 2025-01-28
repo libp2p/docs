@@ -164,7 +164,6 @@ PING /ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/ping (QmYwAPJzv5CZsnA6
 
 {{< alert icon="💡" context="note" text="See the ping <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/ping/ping.md\">technical specification</a> for more details." />}}
 
-
 ### Identify
 
 | **Protocol id**  | spec                           |                   |                   | implementations       |
