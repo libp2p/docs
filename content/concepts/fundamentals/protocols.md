@@ -135,11 +135,35 @@ length is encoded as a [protobuf varint](https://developers.google.com/protocol-
 [ping_js]: https://github.com/libp2p/js-libp2p-ping
 [ping_rust]: https://github.com/libp2p/rust-libp2p/blob/master/protocols/ping/src/lib.rs
 
-The ping protocol is a simple liveness check that peers can use to quickly see if another peer is online.
+The libp2p ping protocol is a simple liveness check that peers can use to test
+the connectivity and performance between two peers. The libp2p ping protocol
+is different from the ping command line utility
+([ICMP ping](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol)),
+as it requires an already established libp2p connection.
 
-After the initial protocol negotiation, the dialing peer sends 32 bytes of random binary data. The listening
-peer echoes the data back, and the dialing peer will verify the response and measure
-the latency between request and response.
+> ICMP Ping is a network utility that uses ICMP packets to
+> check the connectivity and latency between two networked devices.
+> It is typically used to check the reachability of a host on an IP network and
+> to measure the round-trip time for messages sent from the originating host to a
+> destination host.
+
+A peer opens a new stream on an existing libp2p connection and sends a ping request with a random 32 byte payload. The receiver echoes these 32 bytes back on the same stream. By measuring the time between the
+request and response, the initiator can calculate the round-trip time of the underlying libp2p connection.
+The stream can be reused for future pings from the initiator.
+
+#### Example
+
+[Kubo](https://github.com/ipfs/kubo) exposes a command line interface to ping other peers, which uses the libp2p ping protocol.
+
+```shell
+ipfs ping /ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/ping
+
+PING /ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/ping (QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG)
+32 bytes from QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG: time=11.34ms
+```
+
+{{< alert icon="💡" context="note" text="See the ping <a class=\"text-muted\" href=\"https://github.com/libp2p/specs/blob/master/ping/ping.md\">technical specification</a> for more details." />}}
+
 
 ### Identify
 
