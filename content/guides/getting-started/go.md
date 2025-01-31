@@ -255,7 +255,7 @@ import (
     ...
 
     "github.com/libp2p/go-libp2p"
-    peerstore "github.com/libp2p/go-libp2p/core/peer"
+    "github.com/libp2p/go-libp2p/core/peer"
     "github.com/libp2p/go-libp2p/p2p/protocol/ping"
 )
 
@@ -263,11 +263,11 @@ func main() {
     ...
 
     // print the node's PeerInfo in multiaddr format
-    peerInfo := peerstore.AddrInfo{
+    peerInfo := peer.AddrInfo{
         ID:    node.ID(),
         Addrs: node.Addrs(),
     }
-    addrs, err := peerstore.AddrInfoToP2pAddrs(&peerInfo)
+    addrs, err := peer.AddrInfoToP2pAddrs(&peerInfo)
     fmt.Println("libp2p node address:", addrs[0])
 
     ...
