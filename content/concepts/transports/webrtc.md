@@ -154,7 +154,7 @@ This works as follows:
 - _A_ initiates the `webrtc-signaling` protocol to _B_ via a stream over the relayed connection
   - This signaling stream is used to:
     - Exchange SDPs between nodes (an offer from _A_ and an answer from _B_)
-      - This include exchangning information about the network connection (in WebRTC parlance this is called [exchanging ICE candidates](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#ice_candidates))
+      - This include exchanging information about the network connection (in WebRTC parlance this is called [exchanging ICE candidates](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#ice_candidates))
 - The SDP messages are passed to the browsers WebRTC stack, which then tries to establish a direct connection.
   - A successful direct connection is established between _A_ and _B_
     - In this case, both browser nodes will close the signaling protocol stream
