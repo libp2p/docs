@@ -54,7 +54,7 @@ Modularity provides libp2p with a few advantages:
     *To learn more about browser connectivity, visit: [connectivity.libp2p.io](https://connectivity.libp2p.io/)*
 
 A great similarity that both devp2p and libp2p share is language interoperability.
-For example, go-libp2p and rust-libp2p are written in different programming languages, but are still compatible and interoperabile with each other. The same holds true for devp2p.
+For example, go-libp2p and rust-libp2p are written in different programming languages, but are still compatible and interoperable with each other. The same holds true for devp2p.
 
 [Ethereum Node Records]: https://github.com/ethereum/devp2p/blob/master/enr.md
 [Node Discovery Protocol v4]: https://github.com/ethereum/devp2p/blob/master/discv4.md
