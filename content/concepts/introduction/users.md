@@ -37,7 +37,6 @@ A few notable users of libp2p include (3 most notable users listed first with th
 | **[Moonbeam](https://moonbeam.network/)** | libp2p enables seamless communication between different blockchain networks, which aligns with Moonbeam's goal of providing an easy path to multi-chain implementation and interoperability. |
 | **[MultiversX](https://multiversx.com/)** | MultiversX's adoption of libp2p has contributed to improved connectivity with support for multiple transport protocols. |
 | **[Nethermind](https://www.nethermind.io/), juno, dotnet-libp2p** | By leveraging libp2p, Nethermind has positioned its projects (Juno and dotnet-libp2p) to contribute significantly to the decentralization and robustness of the Ethereum ecosystem. |
-| **[Nillion](https://nillion.com/)** | Compute nodes in the Nillion network are configured as relay servers using libp2p's Circuit Relay protocol. |
 | **[Nym](https://nym.com/)** | Nym's mixnet technology is integrated with libp2p to provide network-level privacy protection. The Nym libp2p module can be used by Ethereum validators to shield their network traffic from surveillance. |
 | **[Oasis Protocol](https://oasisprotocol.org/)** | Oasis utilizes libp2p for peer-to-peer communication in its consensus layer, which is responsible for maintaining the network's state and validating transactions. |
 | **[Optimism](https://optimism.io/)** | Optimism mainnet uses libp2p as a core component of its networking infrastructure, particularly in its op-node implementation. |
