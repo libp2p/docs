@@ -155,12 +155,11 @@ Next, open the `src/index.js` file in your code editor and find the call to `cre
 ```js
 const libp2p = await createLibp2p({
   transports: [
-    // Allow all WebSocket connections inclusing without TLS
-    webSockets({ filter: filters.all }),
+    webSockets(),
     webTransport(),
     webRTC(),
   ],
-  connectionEncryption: [noise()],
+  connectionEncrypters: [noise()],
   streamMuxers: [yamux()],
   connectionGater: {
     // Allow private addresses for local testing
@@ -218,16 +217,19 @@ In the `src/index.js` file, update the call to `createLibp2p` as follows:
 +import { circuitRelayTransport } from '@libp2p/circuit-relay-v2'
 
 const libp2p = await createLibp2p({
++  addresses: {
++    listen: [
++      // 👇 Required to create circuit relay reservations in order to respond to incoming WebRTC connections
++      '/p2p-circuit',
++    ],
++  },
   transports: [
-    // Allow all WebSocket connections inclusing without TLS
-    webSockets({ filter: filters.all }),
+    webSockets(),
     webTransport(),
     webRTC(),
-+    circuitRelayTransport({
-+      discoverRelays: 1,
-+    }),
++    circuitRelayTransport(),
   ],
-  connectionEncryption: [noise()],
+  connectionEncrypters: [noise()],
   streamMuxers: [yamux()],
   connectionGater: {
     // Allow private addresses for local testing
@@ -254,7 +256,7 @@ Observe that the beginning of the multiaddr is the same as the relay, followed b
 
 ![diagram showing circuit relay](/webrtc-guide/circuit-relay-diagram.png)
 
-By adding `circuitRelayTransport` with the `discoverRelays` option, js-libp2p was able to create circuit relay reservation (time and bandwidth-constrained) on the relay.
+By adding a `circuitRelayTransport` and configuring a `/p2p-circuit` listen address, js-libp2p was able to create circuit relay reservation (time and bandwidth-constrained) on the relay.
 
 ### Testing circuit relay
 
@@ -275,16 +277,18 @@ Update the `src/index.js` file as follows, making sure to replace the multiaddr 
 +import { bootstrap } from '@libp2p/bootstrap'
 
 const libp2p = await createLibp2p({
+  addresses: {
+    listen: [
+      '/p2p-circuit',
+    ],
+  },
   transports: [
-    // Allow all WebSocket connections inclusing without TLS
-    webSockets({ filter: filters.all }),
+    webSockets(),
     webTransport(),
     webRTC(),
-    circuitRelayTransport({
-      discoverRelays: 1,
-    }),
+    circuitRelayTransport(),
   ],
-  connectionEncryption: [noise()],
+  connectionEncrypters: [noise()],
   streamMuxers: [yamux()],
   connectionGater: {
     // Allow private addresses for local testing
@@ -312,22 +316,20 @@ In the `src/index.js` file, update the call to `createLibp2p` as follows:
 
 ```diff
 const libp2p = await createLibp2p({
-+  addresses: {
-+    listen: [
+  addresses: {
+    listen: [
+      '/p2p-circuit',
 +      // 👇 Listen for webRTC connections
 +      '/webrtc',
-+    ],
-+  },
+    ],
+  },
   transports: [
-    // Allow all WebSocket connections inclusing without TLS
-    webSockets({ filter: filters.all }),
+    webSockets(),
     webTransport(),
     webRTC(),
-    circuitRelayTransport({
-      discoverRelays: 1,
-    }),
+    circuitRelayTransport(),
   ],
-  connectionEncryption: [noise()],
+  connectionEncrypters: [noise()],
   streamMuxers: [yamux()],
   connectionGater: {
     // Allow private addresses for local testing
@@ -393,20 +395,17 @@ In the `src/index.js` file, update the call to `createLibp2p` as follows:
 const libp2p = await createLibp2p({
   addresses: {
     listen: [
-      // 👇 Listen for webRTC connections
+      '/p2p-circuit',
       '/webrtc',
     ],
   },
   transports: [
-    // Allow all WebSocket connections inclusing without TLS
-    webSockets({ filter: filters.all }),
+    webSockets(),
     webTransport(),
     webRTC(),
-    circuitRelayTransport({
-      discoverRelays: 1,
-    }),
+    circuitRelayTransport(),
   ],
-  connectionEncryption: [noise()],
+  connectionEncrypters: [noise()],
   streamMuxers: [yamux()],
   connectionGater: {
     // Allow private addresses for local testing
