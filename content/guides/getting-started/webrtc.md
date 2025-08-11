@@ -428,13 +428,28 @@ const libp2p = await createLibp2p({
     identify: identify(),
   },
 })
+
++libp2p.addEventListener('peer:discovery', async (evt) => {
++  // Encapsulate the peer ID to ensure dialing succeeds
++  // Should be removed once https://github.com/libp2p/js-libp2p/issues/3239 is resolved.
++  const maddrs = evt.detail.multiaddrs.map((ma) => ma.encapsulate(`/p2p/${evt.detail.id.toString()}`))
++  console.log(
++    `Discovered new peer (${evt.detail.id.toString()}). Dialling:`, maddrs.map((ma) => ma.toString()),
++  )
++  try {
++    await libp2p.dial(maddrs)
++  } catch (err) {
++    console.error(`Failed to dial peer (${evt.detail.id.toString()}):`, err)
++  }
++})
 ```
 
 A couple of note-worthy things about these changes:
 
 - The `pubsub` service adds GossipSub protocol capabilities to the node.
 - `pubsubPeerDiscovery` depends on the `pubsub` service and introduces the peer discovery mechanism. [GossipSub is a large dependency](https://packagephobia.com/result?p=%40chainsafe%2Flibp2p-gossipsub) making it suboptimal for browser bundles.
-- When js-libp2p discovers a new peer (and its multiaddrs), it adds it to the peer store. The connection manager may attempt to dial the newly discovered peer, if the current number of open connections is below the [configured minimum](https://github.com/libp2p/js-libp2p/blob/main/packages/libp2p/src/connection-manager/index.ts#L20-L31). Learn more about the connection manager in [the docs](https://github.com/libp2p/js-libp2p/blob/main/doc/LIMITS.md).
+- When js-libp2p discovers a new peer (and its multiaddrs) it emits a `peer:discovery` event.
+- To dial the newly discovered peers, add an event listener for the `peer:discovery` event and dial the peer with the `dial` method.
 - PubSub peer discovery works well for demos and guides, but its current design is not battle-tested for production use cases.
 
 Next, open two browser tabs of the frontend, and you should see them connected to each other within a couple of seconds 🎉.
