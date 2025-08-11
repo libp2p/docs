@@ -47,13 +47,13 @@ developer-friendly and enables [easier matching by version](#match-using-semver)
 #### Handler functions
 
 To accept connections, a libp2p application will register handler functions for protocols using their protocol id with the
-[switch][definition_switch] (aka "swarm"), or a higher level interface such as [go's Host interface](https://github.com/libp2p/go-libp2p/blob/master/core/host/host.go).
+[switch][definition_switch] (aka "swarm"), or a higher level interface such as [the Host interface in the Go implementation](https://github.com/libp2p/go-libp2p/blob/master/core/host/host.go).
 
 The handler function will be invoked when an incoming stream is tagged with the registered protocol id.
 If you register your handler with a [match function](#using-a-match-function), you can choose whether
 to accept non-exact string matches for protocol ids, for example, to match on [semantic major versions](#match-using-semver).
 
-#### Binary streams
+### Binary streams
 
 The "medium" over which a libp2p protocol transpires is a bi-directional binary stream with the following
 properties:
