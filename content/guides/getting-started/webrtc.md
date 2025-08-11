@@ -449,7 +449,7 @@ A couple of note-worthy things about these changes:
 - The `pubsub` service adds GossipSub protocol capabilities to the node.
 - `pubsubPeerDiscovery` depends on the `pubsub` service and introduces the peer discovery mechanism. [GossipSub is a large dependency](https://packagephobia.com/result?p=%40chainsafe%2Flibp2p-gossipsub) making it suboptimal for browser bundles.
 - When js-libp2p discovers a new peer (and its multiaddrs) it emits a `peer:discovery` event.
-- To dial the newly discovered peers, add an event listener for the `peer:discovery` event and dial the peer with the `dial` method.
+- To dial a newly discovered peer, add an event listener for the `peer:discovery` event and dial the peer with the `dial` method.
 - PubSub peer discovery works well for demos and guides, but its current design is not battle-tested for production use cases.
 
 Next, open two browser tabs of the frontend, and you should see them connected to each other within a couple of seconds 🎉.
