@@ -51,5 +51,6 @@ A few notable users of libp2p include (3 most notable users listed first with th
 | **[Taiko Labs](https://taiko.xyz/)** | Taiko Labs has leveraged libp2p to build a robust, scalable, and efficient ZK-Rollup infrastructure. |
 | **[Uniswap](https://uniswap.org/)** | Ethereum's transition to proof-of-stake, facilitated in part by libp2p, has created a more sustainable and efficient environment for decentralized applications like Uniswap to operate. |
 | **[webAI](https://www.webai.com/)** | webAI uses libp2p to provide a distributed AI model training and inference platform for businesses. |
+| **[Plebbit](https://www.plebbit.com/)** | Plebbit uses libp2p to to establish connections between community and peer nodes in both browser and desktop nodes. |
 
 This list of notable users is incomplete and constantly growing. Additions are welcome and can be added via [PR on Github](https://github.com/libp2p/docs/pulls).
